@@ -189,7 +189,7 @@ public abstract class GenericDBDao<T extends IModel<Long>> implements IDBDao<T>{
 		final Object[] objects = values.toArray(new Object[values.size()]);
 		int update = getJdbcTemplate().update(sb.toString(),objects);
 		logger.debug("SQL --> {}", sb.toString());
-		logger.debug("params --> {}", StringUtils.arrayToCommaDelimitedString(objects));
+		logger.debug("params --> {}", StringUtils.join(objects, ","));
 		logger.debug("row affected --> {}", update);
 		return update;
 	}
@@ -216,18 +216,18 @@ public abstract class GenericDBDao<T extends IModel<Long>> implements IDBDao<T>{
 			throws DaoException {
 		List<T> rs = getJdbcTemplate().query(sql, args, new BeanPropertyRowMapper<T>(clazz));
 		logger.debug("SQL --> {}", sql);
-		logger.debug("params --> {}", StringUtils.arrayToCommaDelimitedString(args));
+		logger.debug("params --> {}", StringUtils.join(args, ","));
 		logger.debug("result set --> {}", rs);
 		return rs;
 	}
 	
 	@Override
-	public T queryForObject(String sql, Class<? extends T> clazz, Object... args)
+	public T queryForObject(String sql, Class<T> clazz, Object... args)
 			throws DaoException {
 		try {
 			T singleResult = getJdbcTemplate().queryForObject(sql, BeanPropertyRowMapper.newInstance(clazz), args);
 			logger.debug("SQL --> {}", sql);
-			logger.debug("params --> {}", StringUtils.arrayToCommaDelimitedString(args));
+			logger.debug("params --> {}", StringUtils.join(args, ","));
 			logger.debug("result set --> {}", singleResult);
 			return singleResult;
 		} catch (EmptyResultDataAccessException e) {
