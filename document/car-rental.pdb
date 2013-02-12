@@ -2702,9 +2702,9 @@ TableComment 0 新宋体,8,N</a:FontList>
 <a:Code>cust_store</a:Code>
 <a:CreationDate>1359645485</a:CreationDate>
 <a:Creator>wuyuxuan</a:Creator>
-<a:ModificationDate>1360659174</a:ModificationDate>
+<a:ModificationDate>1360661271</a:ModificationDate>
 <a:Modifier>xiejc</a:Modifier>
-<a:Comment>门店</a:Comment>
+<a:Comment>门店 </a:Comment>
 <c:Columns>
 <o:Column Id="o75">
 <a:ObjectID>A808E6D3-61FD-4563-B31A-2EE3D1591365</a:ObjectID>
