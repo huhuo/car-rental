@@ -1,4 +1,4 @@
-package com.huhuo.flowerservice.core.db;
+package com.huhuo.car.service.core.db;
 
 import java.util.List;
 
@@ -6,7 +6,9 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.huhuo.flowerservice.core.BaseTest;
+import com.huhuo.car.service.core.BaseTest;
+import com.huhuo.car.service.core.db.City;
+import com.huhuo.car.service.core.db.CityDao;
 
 public class CityDaoTest extends BaseTest {
 	

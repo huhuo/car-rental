@@ -1,4 +1,4 @@
-package com.huhuo.flowerservice.core.db;
+package com.huhuo.car.service.core.db;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

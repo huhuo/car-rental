@@ -1,4 +1,4 @@
-package com.huhuo.flowerservice.core;
+package com.huhuo.car.service.core;
 
 import java.util.ArrayList;
 import java.util.List;

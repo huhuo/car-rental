@@ -1,4 +1,4 @@
-package com.huhuo.flowerservice.core.constant;
+package com.huhuo.car.service.core.constant;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
 
