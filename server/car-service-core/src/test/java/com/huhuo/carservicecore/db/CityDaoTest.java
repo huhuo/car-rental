@@ -1,4 +1,4 @@
-package com.huhuo.car.service.core.db;
+package com.huhuo.carservicecore.db;
 
 import java.util.List;
 
@@ -6,9 +6,9 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.huhuo.car.service.core.BaseTest;
-import com.huhuo.car.service.core.db.City;
-import com.huhuo.car.service.core.db.CityDao;
+import com.huhuo.carservicecore.BaseTest;
+import com.huhuo.carservicecore.db.City;
+import com.huhuo.carservicecore.db.CityDao;
 
 public class CityDaoTest extends BaseTest {
 	
@@ -64,7 +64,7 @@ public class CityDaoTest extends BaseTest {
 		String sql = "select * from sys_city";
 		CityDao dao = new CityDao();
 		List<City> list = dao.queryForList(sql, City.class);
-		System.out.println(list);
+		print(list);
 		
 	}
 	

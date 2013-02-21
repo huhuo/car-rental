@@ -36,5 +36,5 @@
 	 -->
 	
 	<!-- 基于注解的扫描 -->
-	<context:component-scan base-package="com.huhuo.flowerservice.core"></context:component-scan>
+	<context:component-scan base-package="com.huhuo"></context:component-scan>
 </beans>

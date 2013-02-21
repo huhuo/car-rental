@@ -10,15 +10,15 @@
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
 	">
 
-	<util:properties id="dataSourceProps" location="conf/mobile-service-core/jdbc.properties" />
+	<util:properties id="dataSourceProps" location="conf/car-service-core/jdbc.properties" />
 
 	<!-- c3p0数据源 -->
 	<!-- for chinaweather 数据平台 -->
 	<bean id="c3p0DsWeather" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass" value="#{dataSourceProps['weather.jdbc.driverclass']}" />
-		<property name="jdbcUrl" value="#{dataSourceProps['weather.jdbc.url']}" />
-		<property name="user" value="#{dataSourceProps['weather.jdbc.username']}" />
-		<property name="password" value="#{dataSourceProps['weather.jdbc.password']}" />
+		<property name="driverClass" value="#{dataSourceProps['car.jdbc.driverclass']}" />
+		<property name="jdbcUrl" value="#{dataSourceProps['car.jdbc.url']}" />
+		<property name="user" value="#{dataSourceProps['car.jdbc.username']}" />
+		<property name="password" value="#{dataSourceProps['car.jdbc.password']}" />
 
 		<property name="maxPoolSize" value="#{dataSourceProps['c3p0.pool.size.max']}" />
 		<property name="minPoolSize" value="#{dataSourceProps['c3p0.pool.size.min']}" />

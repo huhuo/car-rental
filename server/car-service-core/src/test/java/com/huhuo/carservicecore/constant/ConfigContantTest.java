@@ -1,4 +1,4 @@
-package com.huhuo.car.service.core.constant;
+package com.huhuo.carservicecore.constant;
 
 import org.junit.Test;
 

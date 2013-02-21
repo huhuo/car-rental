@@ -1,4 +1,4 @@
-package com.huhuo.car.service.core.constant;
+package com.huhuo.carservicecore.constant;
 
 /**
  * memcached的分区及区内键名
@@ -14,7 +14,7 @@ public class MemcachedRegion {
     	APP_LIST;
     	
     	/**
-    	 * 获取分区�?
+    	 * 获取分区�?
     	 *  
     	 * @return
     	 */
@@ -23,7 +23,7 @@ public class MemcachedRegion {
     	}
 
     }
-    // 系统监控�?
+    // 系统监控�?
     public enum MonitorRegion{
     	/**key for test connection*/
     	TEST;

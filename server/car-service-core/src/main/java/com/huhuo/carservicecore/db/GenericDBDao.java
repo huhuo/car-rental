@@ -1,4 +1,4 @@
-package com.huhuo.car.service.core.db;
+package com.huhuo.carservicecore.db;
 
 
 import java.util.ArrayList;

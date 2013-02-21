@@ -1,11 +1,11 @@
-package com.huhuo.car.service.core.db;
+package com.huhuo.carservicecore.db;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 
-@Service("flowerserviceCoreAppContextFactory")
+@Service("carServiceCoreAppContextFactory")
 public class AppContextFactory implements ApplicationContextAware {
 
 	private static ApplicationContext context;
