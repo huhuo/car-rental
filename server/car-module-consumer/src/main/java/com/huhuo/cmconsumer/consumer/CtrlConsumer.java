@@ -24,7 +24,7 @@ import com.huhuo.integration.web.Message.Status;
 public class CtrlConsumer extends BaseCtrl {
 	
 	@Resource(name = "cmconsumerServConsumer")
-	private ServConsumer servConsumer;
+	private IServConsumer iservConsumer;
 	
 	@RequestMapping(value="/get.do")
 	public void get(Condition<ModelConsumer> condition, OutputStream out){
@@ -32,7 +32,7 @@ public class CtrlConsumer extends BaseCtrl {
 			logger.debug("server receive: condition={}", condition);
 //			condition.setPage(new Page(0, 30));
 //			List<ModelConsumer> list = servConsumer.findByCondition(condition);
-			List<ModelConsumer> list = servConsumer.findModels(new Page(0, 10));
+			List<ModelConsumer> list = iservConsumer.findModels(new Page(0, 10));
 			write(ExtUtils.getJsonStore(list, list.size()), out);
 		} catch (HuhuoException e) {
 			logger.warn(e.getMessage());

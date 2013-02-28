@@ -20,6 +20,7 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	private String mobileNumber;
 	/** 邮箱 **/
 	private String email;
+	
 	public String getIdentityCardId() {
 		return identityCardId;
 	}

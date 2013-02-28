@@ -12,7 +12,7 @@ import com.huhuo.integration.base.IBaseExtenseDao;
 @Service("cmconsumerServConsumer")
 public class ServConsumer extends GenericBaseExtenseServ<ModelConsumer> implements IServConsumer {
 
-	@Resource(name = "cmconsumerDaoConsumer")
+	@Resource(name = "carservicecoreDaoConsumer")
 	private IDaoConsumer idaoConsumer;
 
 	@Override

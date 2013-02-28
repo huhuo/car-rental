@@ -8,7 +8,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @ContextConfiguration(locations={"classpath:META-INF/resources/conf/car-module-car/app-context.xml",
-		"C:/Users/wuyuxuan/git/car-rental/server/car-service-core/src/main/resources/META-INF/resources/conf/car-service-core/app-context.xml"})
+		"classpath:conf/car-service-core/app-context.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class BaseTest {
 	
