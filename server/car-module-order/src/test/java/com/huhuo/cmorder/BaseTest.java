@@ -1,4 +1,4 @@
-package com.huhuo.cmcar;
+package com.huhuo.cmorder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,8 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@ContextConfiguration(locations={"classpath:META-INF/resources/conf/car-module-car/app-context.xml",
-		"classpath:conf/car-service-core/app-context.xml"})
+@ContextConfiguration(locations={"classpath:META-INF/resources/conf/car-module-order/app-context.xml",
+	"classpath:conf/car-service-core/app-context.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class BaseTest {
 	

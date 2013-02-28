@@ -10,19 +10,20 @@ public class ModelCar extends BaseModel {
 	/** 车辆型号（1个车型对应多个车辆） **/
 	private Long carTypeId;
 	/** 车牌号 **/
-	private Long licencePlate;
+	private String licencePlate;
 	/** 所属门店 **/
 	private Long storeId;
+	
 	public Long getCarTypeId() {
 		return carTypeId;
 	}
 	public void setCarTypeId(Long carTypeId) {
 		this.carTypeId = carTypeId;
 	}
-	public Long getLicencePlate() {
+	public String getLicencePlate() {
 		return licencePlate;
 	}
-	public void setLicencePlate(Long licencePlate) {
+	public void setLicencePlate(String licencePlate) {
 		this.licencePlate = licencePlate;
 	}
 	public Long getStoreId() {
