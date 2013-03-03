@@ -1,4 +1,4 @@
-package com.huhuo.carservicecore.consumer;
+package com.huhuo.carservicecore.csm.consumer;
 
 import com.huhuo.integration.base.IBaseExtenseDao;
 

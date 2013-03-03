@@ -1,4 +1,4 @@
-package com.huhuo.carservicecore.order;
+package com.huhuo.carservicecore.csm.order;
 
 import com.huhuo.integration.base.IBaseExtenseDao;
 

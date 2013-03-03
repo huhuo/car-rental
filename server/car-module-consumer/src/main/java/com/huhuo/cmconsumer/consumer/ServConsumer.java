@@ -4,8 +4,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.huhuo.carservicecore.consumer.IDaoConsumer;
-import com.huhuo.carservicecore.consumer.ModelConsumer;
+import com.huhuo.carservicecore.csm.consumer.IDaoConsumer;
+import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
 import com.huhuo.carservicecore.db.GenericBaseExtenseServ;
 import com.huhuo.integration.base.IBaseExtenseDao;
 

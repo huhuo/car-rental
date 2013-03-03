@@ -1,6 +1,6 @@
 package com.huhuo.cmorder.order;
 
-import com.huhuo.carservicecore.order.ModelOrder;
+import com.huhuo.carservicecore.csm.order.ModelOrder;
 import com.huhuo.integration.base.IBaseExtenseServ;
 
 

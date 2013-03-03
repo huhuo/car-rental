@@ -1,6 +1,6 @@
 package com.huhuo.cmcar.cartype;
 
-import com.huhuo.carservicecore.car.ModelCarType;
+import com.huhuo.carservicecore.cust.car.ModelCarType;
 import com.huhuo.integration.base.IBaseExtenseServ;
 
 

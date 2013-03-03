@@ -1,4 +1,4 @@
-package com.huhuo.carservicecore.order;
+package com.huhuo.carservicecore.csm.order;
 
 import org.springframework.stereotype.Repository;
 
@@ -8,8 +8,12 @@ public class DaoOrder extends GenericBaseExtenseDao<ModelOrder> implements IDaoO
 
 	@Override
 	public String getTableName() {
-		// TODO Auto-generated method stub
 		return "csm_order";
+	}
+
+	@Override
+	public Class<ModelOrder> getModelClazz() {
+		return ModelOrder.class;
 	}
 
 

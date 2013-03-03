@@ -6,8 +6,8 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 
-import com.huhuo.carservicecore.consumer.IDaoConsumer;
-import com.huhuo.carservicecore.consumer.ModelConsumer;
+import com.huhuo.carservicecore.csm.consumer.IDaoConsumer;
+import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
 import com.huhuo.cmconsumer.BaseTest;
 import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.db.mysql.Page;
@@ -34,7 +34,7 @@ public class DaoConsumerTest extends BaseTest {
 	
 	@Test
 	public void findByCondition() {
-		Condition<ModelConsumer> condition = new Condition<ModelConsumer>(null, new Page(0, 10));
+		Condition<ModelConsumer> condition = new Condition<ModelConsumer>(null, null, null, new Page(0, 10));
 		List<ModelConsumer> list = idaoConsumer.findByCondition(condition);
 		print(list);
 	}

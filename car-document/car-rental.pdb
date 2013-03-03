@@ -12,13 +12,8 @@
 <a:Code>car-rental</a:Code>
 <a:CreationDate>1359282567</a:CreationDate>
 <a:Creator>wuyuxuan</a:Creator>
-<<<<<<< HEAD
-<a:ModificationDate>1361460040</a:ModificationDate>
-<a:Modifier>wuyuxuan</a:Modifier>
-=======
 <a:ModificationDate>1361587393</a:ModificationDate>
 <a:Modifier>Eboy</a:Modifier>
->>>>>>> branch 'master' of https://github.com/huhuo/car-rental.git
 <a:PackageOptionsText>[FolderOptions]
 
 [FolderOptions\Physical Objects]

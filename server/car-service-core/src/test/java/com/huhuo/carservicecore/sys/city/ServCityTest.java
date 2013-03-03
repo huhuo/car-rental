@@ -13,7 +13,7 @@ import com.huhuo.carservicecore.BaseTest;
 
 public class ServCityTest extends BaseTest {
 	
-	@Resource(name = "cscoreServSysCity")
+	@Resource(name = "carservicecoreServSysCity")
 	private IServSysCity iServSysCity;
 	
 	@Test

@@ -13,7 +13,7 @@ import com.huhuo.carservicecore.BaseTest;
 
 public class DaoCityTest extends BaseTest {
 	
-	@Resource(name = "cscoreDaoCity")
+	@Resource(name = "carservicecoreDaoCity")
 	private DaoCity daoCity;
 	
 	@Test

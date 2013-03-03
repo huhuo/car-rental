@@ -4,9 +4,9 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.huhuo.carservicecore.csm.order.IDaoOrder;
+import com.huhuo.carservicecore.csm.order.ModelOrder;
 import com.huhuo.carservicecore.db.GenericBaseExtenseServ;
-import com.huhuo.carservicecore.order.IDaoOrder;
-import com.huhuo.carservicecore.order.ModelOrder;
 import com.huhuo.integration.base.IBaseExtenseDao;
 
 @Service("cmorderServOrder")

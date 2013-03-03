@@ -1,4 +1,4 @@
-package com.huhuo.carservicecore.car;
+package com.huhuo.carservicecore.cust.car;
 
 import org.springframework.stereotype.Repository;
 
@@ -9,8 +9,12 @@ public class DaoCar extends GenericBaseExtenseDao<ModelCar> implements IDaoCar {
 
 	@Override
 	public String getTableName() {
-		// TODO Auto-generated method stub
 		return "cust_car";
+	}
+
+	@Override
+	public Class<ModelCar> getModelClazz() {
+		return ModelCar.class;
 	}
 
 }

@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 
-import com.huhuo.carservicecore.order.ModelOrder;
+import com.huhuo.carservicecore.csm.order.ModelOrder;
 import com.huhuo.cmorder.BaseTest;
 import com.huhuo.cmorder.order.IServOrder;
 import com.huhuo.integration.db.mysql.Page;

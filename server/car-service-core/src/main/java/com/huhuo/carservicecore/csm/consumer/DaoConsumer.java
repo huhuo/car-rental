@@ -1,4 +1,4 @@
-package com.huhuo.carservicecore.consumer;
+package com.huhuo.carservicecore.csm.consumer;
 
 import org.springframework.stereotype.Repository;
 
@@ -9,8 +9,12 @@ public class DaoConsumer extends GenericBaseExtenseDao<ModelConsumer> implements
 
 	@Override
 	public String getTableName() {
-		// TODO Auto-generated method stub
 		return "csm_consumer";
+	}
+
+	@Override
+	public Class<ModelConsumer> getModelClazz() {
+		return ModelConsumer.class;
 	}
 
 }

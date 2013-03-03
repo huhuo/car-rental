@@ -4,8 +4,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.huhuo.carservicecore.car.IDaoCar;
-import com.huhuo.carservicecore.car.ModelCar;
+import com.huhuo.carservicecore.cust.car.IDaoCar;
+import com.huhuo.carservicecore.cust.car.ModelCar;
 import com.huhuo.carservicecore.db.GenericBaseExtenseServ;
 import com.huhuo.integration.base.IBaseExtenseDao;
 

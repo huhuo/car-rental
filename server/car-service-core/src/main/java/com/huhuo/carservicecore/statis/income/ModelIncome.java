@@ -1,4 +1,4 @@
-package com.huhuo.carservicecore.statis;
+package com.huhuo.carservicecore.statis.income;
 
 import java.io.Serializable;
 

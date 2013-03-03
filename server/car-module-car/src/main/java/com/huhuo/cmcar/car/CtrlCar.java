@@ -9,8 +9,8 @@ import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.huhuo.carservicecore.car.ModelCar;
-import com.huhuo.carservicecore.car.ModelCarType;
+import com.huhuo.carservicecore.cust.car.ModelCar;
+import com.huhuo.carservicecore.cust.car.ModelCarType;
 import com.huhuo.integration.base.BaseCtrl;
 import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.db.mysql.Page;

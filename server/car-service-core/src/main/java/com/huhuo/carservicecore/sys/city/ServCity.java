@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 import com.huhuo.carservicecore.db.GenericBaseExtenseServ;
 import com.huhuo.integration.base.IBaseExtenseDao;
 
-@Service("cscoreServSysCity")
+@Service("carservicecoreServSysCity")
 public class ServCity extends GenericBaseExtenseServ<ModelCity> implements IServSysCity {
 	
-	@Resource(name = "cscoreDaoCity")
+	@Resource(name = "carservicecoreDaoCity")
 	private IDaoCity<ModelCity> iDaoCity;
 
 	@Override

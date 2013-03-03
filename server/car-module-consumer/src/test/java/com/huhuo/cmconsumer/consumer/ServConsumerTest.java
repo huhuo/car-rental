@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 
-import com.huhuo.carservicecore.consumer.ModelConsumer;
+import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
 import com.huhuo.cmconsumer.BaseTest;
 import com.huhuo.integration.db.mysql.Page;
 

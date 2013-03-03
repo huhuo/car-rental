@@ -1,6 +1,7 @@
 package com.huhuo.carservicecore.db;
 
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +23,11 @@ import com.huhuo.integration.base.IBaseExtenseDao;
 import com.huhuo.integration.base.IBaseModel;
 import com.huhuo.integration.config.GlobalConstant.DateFormat;
 import com.huhuo.integration.db.mysql.BeanHelper;
+import com.huhuo.integration.db.mysql.BeanHelper.GetterSetter;
 import com.huhuo.integration.db.mysql.Condition;
+import com.huhuo.integration.db.mysql.Group;
+import com.huhuo.integration.db.mysql.Order;
+import com.huhuo.integration.db.mysql.Page;
 import com.huhuo.integration.exception.DaoException;
 import com.huhuo.integration.util.StringUtils;
 
@@ -42,6 +47,11 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 	 * @return
 	 */
 	public abstract String getTableName();
+	/**
+	 * get class for generic T
+	 * @return
+	 */
+	public abstract Class<T> getModelClazz();
 	/**
 	 * Return the JDBC DataSource used by this DAO.
 	 * subclass should specify a JdbcTemplate instance for all DB persist operation
@@ -115,7 +125,6 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 	
 	@Override
 	public int[] addBatch(List<T> list) {
-		// TODO Auto-generated method stub
 		logger.debug("addBatch begin with list --> {}", JSONArray.toJSONStringWithDateFormat(list, DateFormat.LONG_FORMAT));
 		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(getDataSource());
 		jdbcInsert.withTableName(getTableName()).usingGeneratedKeyColumns("id");
@@ -249,6 +258,12 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 	}
 	
 	@Override
+	public List<T> queryForList(String sql, Object... args)
+			throws DaoException {
+		return queryForList(sql, getModelClazz(), args);
+	}
+	
+	@Override
 	public T queryForObject(String sql, Class<T> clazz, Object... args)
 			throws DaoException {
 		try {
@@ -264,10 +279,20 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 	}
 	
 	@Override
+	public T queryForObject(String sql, Object... args) throws DaoException {
+		return queryForObject(sql, getModelClazz(), args);
+	}
+	
+	@Override
 	public <PK> T find(Class<T> clazz, PK id)
 			throws DaoException {
 		String sql = String.format("SELECT * FROM %s WHERE id=?", getTableName());
 		return queryForObject(sql, clazz, id);
+	}
+	
+	@Override
+	public <PK> T find(PK id) throws DaoException {
+		return find(getModelClazz(), id);
 	}
 
 	@Override
@@ -283,15 +308,113 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 	}
 	
 	@Override
+	public List<T> findModels(Integer start, Integer limit) throws DaoException {
+		return findModels(getModelClazz(), start, limit);
+	}
+	
+	@Override
 	public List<T> findByCondition(Condition<T> condition) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			StringBuilder sb = new StringBuilder();
+			sb.append("SELECT * FROM ").append(getTableName());
+			List<Object> values = constructCondition(condition, sb);
+			List<T> list = queryForList(sb.toString(), values.toArray());
+			return list;
+		} catch (Exception e) {
+			throw new DaoException(e);
+		}
+	}
+	/**
+	 * construct condition by condition
+	 * @param condition
+	 * @param sb
+	 * @return
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 */
+	private List<Object> constructCondition(Condition<T> condition, StringBuilder sb)
+			throws IllegalAccessException, InvocationTargetException {
+		// append where clause
+		List<Object> values = new ArrayList<Object>();
+		T t = condition.getT();
+		if (t != null) {
+			boolean first = true;
+			GetterSetter[] getterSetterArray = BeanHelper.getGetterSetter(t.getClass());
+			for(final GetterSetter gs : getterSetterArray){
+				Object fieldValue = gs.getter.invoke(t);
+				if(fieldValue instanceof String
+						|| fieldValue instanceof Integer
+						|| fieldValue instanceof Float
+						|| fieldValue instanceof Double) {
+					if(first && fieldValue!=null) {
+						sb.append(" WHERE ").append(gs.propertyName);
+						if(fieldValue instanceof String) {
+							sb.append(" LIKE ? ");
+							values.add("%" + fieldValue + "%");
+						} else {
+							sb.append("=? ");
+							values.add(fieldValue);
+						}
+						first = false;
+					} else if(fieldValue!=null) {
+						sb.append("AND ").append(gs.propertyName);
+						if(fieldValue instanceof String) {
+							sb.append(" LIKE ? ");
+							values.add("%" + fieldValue + "%");
+						} else {
+							sb.append("=? ");
+							values.add(fieldValue);
+						}
+					}
+				}
+			}
+		}
+		// group by clause
+		List<Group> groupList = condition.getGroupList();
+		if(groupList!=null && groupList.size()>0) {
+			boolean first = true;
+			for(Group group : groupList) {
+				if(first) {
+					sb.append("GROUP BY ");
+					first = false;
+				}
+				sb.append(group.getField()).append(" ").append(group.getDir()).append(", ");
+			}
+			sb.deleteCharAt(sb.lastIndexOf(","));
+		}
+		// order clause
+		List<Order> orderList = condition.getOrderList();
+		if(orderList!=null && orderList.size()>0) {
+			boolean first = true;
+			for(Order order : orderList) {
+				if(first) {
+					sb.append("ORDER BY ");
+					first = false;
+				}
+				sb.append(order.getField()).append(" ").append(order.getDir()).append(", ");
+			}
+			sb.deleteCharAt(sb.lastIndexOf(","));
+		}
+		// limit clause
+		Page page = condition.getPage();
+		if(page!=null && page.getStart()!=null && page.getLimit()!=null) {
+			sb.append("LIMIT ").append(page.getStart()).append(", ").append(page.getLimit());
+		}
+		sb = new StringBuilder(StringUtils.trim(sb.toString()));	// trim string
+		return values;
 	}
 	
 	@Override
 	public Long countByCondition(Condition<T> condition) {
-		// TODO Auto-generated method stub
-		return null;
+		try {
+			StringBuilder sb = new StringBuilder();
+			sb.append("SELECT COUNT(*) FROM ").append(getTableName());
+			List<Object> values = constructCondition(condition, sb);
+			long ret = getJdbcTemplate().queryForLong(sb.toString(), values.toArray());
+			return ret;
+		} catch (Exception e) {
+			throw new DaoException(e);
+		}
 	}
 	
 }
