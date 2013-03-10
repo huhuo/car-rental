@@ -19,4 +19,10 @@ public class DaoChargeStandardTest extends BaseTest {
 		print(list);
 	}
 	
+	@Test
+	public void findModels() {
+		List<ModelChargeStandard> list = iDaoChargeStandard.findModels(0, 20);
+		print(list);
+	}
+	
 }
