@@ -10,30 +10,45 @@
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
 	">
 
-	<util:properties id="dataSourceProps" location="classpath:conf/car-service-core/jdbc.properties" />
+	<util:properties id="dataSourceProps" location="conf/car-service-core/jdbc.properties" />
 
 	<!-- c3p0数据源 -->
-	<!-- for chinaweather 数据平台 -->
-	<bean id="carRentalDatasource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass" value="#{dataSourceProps['flower.jdbc.driverclass']}" />
-		<property name="jdbcUrl" value="#{dataSourceProps['flower.jdbc.url']}" />
-		<property name="user" value="#{dataSourceProps['flower.jdbc.username']}" />
-		<property name="password" value="#{dataSourceProps['flower.jdbc.password']}" />
+	<!-- for car-rental -->
+	<bean id="parentDatasource" class="com.mchange.v2.c3p0.ComboPooledDataSource" abstract="true">
+		<property name="driverClass" value="#{dataSourceProps['car.jdbc.driverclass']}" />
 
 		<property name="maxPoolSize" value="#{dataSourceProps['c3p0.pool.size.max']}" />
 		<property name="minPoolSize" value="#{dataSourceProps['c3p0.pool.size.min']}" />
 		<property name="initialPoolSize" value="#{dataSourceProps['c3p0.pool.size.ini']}" />
 		<property name="acquireIncrement" value="#{dataSourceProps['c3p0.pool.size.increment']}" />
 	</bean>
-	
-	<bean id="sqlSessionFactoryWeather" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="carRentalDatasource"></property>
-		<!-- <property name="mapperLocations" value="classpath:com/eray/mobileService/*CwMapper.xml"></property> -->
+	<!-- children data source -->
+	<bean id="datasourceCenter" parent="parentDatasource">
+		<property name="jdbcUrl" value="#{dataSourceProps['center.jdbc.url']}" />
+		<property name="user" value="#{dataSourceProps['center.jdbc.username']}" />
+		<property name="password" value="#{dataSourceProps['center.jdbc.password']}" />
 	</bean>
-	
-	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-		<property name="dataSource" ref="carRentalDatasource"></property>
+	<bean id="datasourceCustomerChitong" parent="parentDatasource">
+		<property name="jdbcUrl" value="#{dataSourceProps['customer.chitong.jdbc.url']}" />
+		<property name="user" value="#{dataSourceProps['customer.chitong.jdbc.username']}" />
+		<property name="password" value="#{dataSourceProps['customer.chitong.jdbc.password']}" />
+	</bean>
+	<bean id="datasourceCustomer2" parent="parentDatasource">
+		<property name="jdbcUrl" value="#{dataSourceProps['customer.2.jdbc.url']}" />
+		<property name="user" value="#{dataSourceProps['customer.2.jdbc.username']}" />
+		<property name="password" value="#{dataSourceProps['customer.2.jdbc.password']}" />
 	</bean>
 
+	<!-- data source routing proxy -->
+	<bean id="routingDataSource" class="com.huhuo.carservicecore.db.RoutingDataSource">
+		<property name="targetDataSources">
+			<map key-type="com.huhuo.carservicecore.db.DataSourceType">
+				<entry key="CENTER" value-ref="datasourceCenter" />
+				<entry key="CUSTOMER_CHITONG" value-ref="datasourceCustomerChitong" />
+				<entry key="CUSTOMER_2" value-ref="datasourceCustomer2" />
+			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="datasourceCustomerChitong" />
+	</bean>  
 
 </beans>

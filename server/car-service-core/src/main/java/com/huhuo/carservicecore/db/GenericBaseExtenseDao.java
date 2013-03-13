@@ -64,11 +64,15 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 		}
 		return dataSource;
 	}
+	
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
+	}
 	/**
 	 * @see #getDataSource(String)
 	 */
 	public DataSource getDataSource() {
-		return getDataSource("carRentalDatasource");
+		return getDataSource("routingDataSource");
 	}
 	/**
 	 * Return the JdbcTemplate for this DAO,
