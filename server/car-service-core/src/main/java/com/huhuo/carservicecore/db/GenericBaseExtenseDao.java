@@ -99,54 +99,6 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 	
 	@Override
 	public Integer add(T t) throws DaoException {
-		// validate the parameter passed in
-		if(t == null) {
-			return null;
-		}
-		SimpleJdbcInsert insert = new SimpleJdbcInsert(getJdbcTemplate());
-		insert.withTableName(getTableName()).usingGeneratedKeyColumns("id");
-		BeanHelper.GetterSetter[] getterSetterArray = BeanHelper.getGetterSetter(t.getClass());
-		Map<String, Object> args = new HashMap<String, Object>();
-		List<String> cols = new ArrayList<String>();
-		for(final BeanHelper.GetterSetter gs : getterSetterArray){
-			// use auto increase strategy for primary key
-			cols.add(gs.propertyName);
-			Object value = null;
-			try{
-				value = gs.getter.invoke(t);
-			}catch(Exception e){
-				logger.warn(null,e);
-			}
-			value = value == null ? gs.getter.getDefaultValue() : value;
-			args.put(gs.propertyName, value);
-		}
-		insert.usingColumns(cols.toArray(new String[getterSetterArray.length]));
-		Number id = insert.executeAndReturnKey(args);
-		if(id instanceof Long)
-			t.setId((Long) id);
-		return 1;
-	}
-	
-	@Override
-	public int[] addBatch(List<T> list) {
-		logger.debug("addBatch begin with list --> {}", JSONArray.toJSONStringWithDateFormat(list, DateFormat.LONG_FORMAT));
-		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(getDataSource());
-		jdbcInsert.withTableName(getTableName()).usingGeneratedKeyColumns("id");
-		BeanPropertySqlParameterSource[] batch = new BeanPropertySqlParameterSource[list.size()];
-		for(int i=0; i<list.size(); i++) {
-			batch[i] = new BeanPropertySqlParameterSource(list.get(i));
-		}
-		int[] executeBatch = jdbcInsert.executeBatch(batch);
-		logger.debug("addBatch end with affected row --> {}", executeBatch);
-		return executeBatch;
-	}
-	
-	/**
-	 * add a record using primitive SQL
-	 * @param t
-	 * @return
-	 */
-	protected int insert(T t) {
 		BeanHelper.GetterSetter[] getterSetterArray = BeanHelper.getGetterSetter(t.getClass());
 		final StringBuffer sb = new StringBuffer();
 		List<Object> values = new ArrayList<Object>();
@@ -183,6 +135,58 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 		logger.debug("params --> {}", JSONArray.toJSONString(objects));
 		logger.debug("row affected --> {}", update);
 		return update;
+		
+	}
+	
+	@Override
+	public int[] addBatch(List<T> list) {
+		logger.debug("addBatch begin with list --> {}", JSONArray.toJSONStringWithDateFormat(list, DateFormat.LONG_FORMAT));
+		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(getDataSource());
+		jdbcInsert.withTableName(getTableName()).usingGeneratedKeyColumns("id");
+		BeanPropertySqlParameterSource[] batch = new BeanPropertySqlParameterSource[list.size()];
+		for(int i=0; i<list.size(); i++) {
+			batch[i] = new BeanPropertySqlParameterSource(list.get(i));
+		}
+		int[] executeBatch = jdbcInsert.executeBatch(batch);
+		logger.debug("addBatch end with affected row --> {}", executeBatch);
+		return executeBatch;
+	}
+	
+	/**
+	 * add a record using primitive SQL
+	 * @param t
+	 * @return
+	 */
+	protected Integer insert(T t) {
+		// validate the parameter passed in
+		if(t == null) {
+			return null;
+		}
+		SimpleJdbcInsert insert = new SimpleJdbcInsert(getJdbcTemplate());
+		insert.withTableName(getTableName()).usingGeneratedKeyColumns("id");
+		BeanHelper.GetterSetter[] getterSetterArray = BeanHelper.getGetterSetter(getModelClazz());
+		Map<String, Object> args = new HashMap<String, Object>();
+		List<String> cols = new ArrayList<String>();
+		for(final BeanHelper.GetterSetter gs : getterSetterArray){
+			// use auto increase strategy for primary key
+			if("id".equals(gs.propertyName)) {
+				continue;
+			}
+			cols.add(gs.propertyName);
+			Object value = null;
+			try{
+				value = gs.getter.invoke(t);
+			}catch(Exception e){
+				logger.warn(null,e);
+			}
+			value = value == null ? gs.getter.getDefaultValue() : value;
+			args.put(gs.propertyName, value);
+		}
+		insert.usingColumns(cols.toArray(new String[cols.size()]));
+		Number id = insert.executeAndReturnKey(args);
+		if(id instanceof Long)
+			t.setId((Long) id);
+		return 1;
 	}
 
 	@Override
