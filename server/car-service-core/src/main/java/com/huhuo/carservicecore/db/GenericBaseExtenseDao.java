@@ -130,21 +130,6 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 		return 1;
 		
 	}
-	
-	@Override
-	public int[] addBatch(List<T> list) {
-		logger.debug("addBatch begin with list --> {}", JSONArray.toJSONStringWithDateFormat(list, DateFormat.LONG_FORMAT));
-		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(getDataSource());
-		jdbcInsert.withTableName(getTableName()).usingGeneratedKeyColumns("id");
-		BeanPropertySqlParameterSource[] batch = new BeanPropertySqlParameterSource[list.size()];
-		for(int i=0; i<list.size(); i++) {
-			batch[i] = new BeanPropertySqlParameterSource(list.get(i));
-		}
-		int[] executeBatch = jdbcInsert.executeBatch(batch);
-		logger.debug("addBatch end with affected row --> {}", executeBatch);
-		return executeBatch;
-	}
-	
 	/**
 	 * add a record using primitive SQL
 	 * @param t
@@ -187,6 +172,21 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 		logger.debug("params --> {}", JSONArray.toJSONString(objects));
 		logger.debug("row affected --> {}", update);
 		return update;
+		
+	}
+	
+	@Override
+	public int[] addBatch(List<T> list) {
+		logger.debug("addBatch begin with list --> {}", JSONArray.toJSONStringWithDateFormat(list, DateFormat.LONG_FORMAT));
+		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(getDataSource());
+		jdbcInsert.withTableName(getTableName()).usingGeneratedKeyColumns("id");
+		BeanPropertySqlParameterSource[] batch = new BeanPropertySqlParameterSource[list.size()];
+		for(int i=0; i<list.size(); i++) {
+			batch[i] = new BeanPropertySqlParameterSource(list.get(i));
+		}
+		int[] executeBatch = jdbcInsert.executeBatch(batch);
+		logger.debug("addBatch end with affected row --> {}", executeBatch);
+		return executeBatch;
 	}
 
 	@Override
