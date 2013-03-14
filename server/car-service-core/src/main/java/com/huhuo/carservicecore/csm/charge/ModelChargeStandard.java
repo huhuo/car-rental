@@ -7,9 +7,9 @@ public class ModelChargeStandard extends BaseModel {
 	private static final long serialVersionUID = 9148390804617805084L;
 
 	/** 押金（元） **/
-	private Double deposit;
+	private Float deposit;
 	/** 租金（xxx元/天） **/
-	private Double rent;
+	private Float rent;
 	/** 里程限制（xxx公里/日） **/
 	private Long mileageLimits;
 	/** 超里程费用（xxx元/公里） **/
@@ -21,16 +21,16 @@ public class ModelChargeStandard extends BaseModel {
 	/** 异店结算（还车）附加费（元） **/
 	private Float diffShopReturnFare;
 	
-	public Double getDeposit() {
+	public Float getDeposit() {
 		return deposit;
 	}
-	public void setDeposit(Double deposit) {
+	public void setDeposit(Float deposit) {
 		this.deposit = deposit;
 	}
-	public Double getRent() {
+	public Float getRent() {
 		return rent;
 	}
-	public void setRent(Double rent) {
+	public void setRent(Float rent) {
 		this.rent = rent;
 	}
 	public Long getMileageLimits() {

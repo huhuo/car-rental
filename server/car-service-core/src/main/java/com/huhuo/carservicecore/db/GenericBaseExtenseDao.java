@@ -105,11 +105,14 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 		}
 		SimpleJdbcInsert insert = new SimpleJdbcInsert(getJdbcTemplate());
 		insert.withTableName(getTableName()).usingGeneratedKeyColumns("id");
-		BeanHelper.GetterSetter[] getterSetterArray = BeanHelper.getGetterSetter(t.getClass());
+		BeanHelper.GetterSetter[] getterSetterArray = BeanHelper.getGetterSetter(getModelClazz());
 		Map<String, Object> args = new HashMap<String, Object>();
 		List<String> cols = new ArrayList<String>();
 		for(final BeanHelper.GetterSetter gs : getterSetterArray){
 			// use auto increase strategy for primary key
+			if("id".equals(gs.propertyName)) {
+				continue;
+			}
 			cols.add(gs.propertyName);
 			Object value = null;
 			try{
@@ -120,11 +123,12 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 			value = value == null ? gs.getter.getDefaultValue() : value;
 			args.put(gs.propertyName, value);
 		}
-		insert.usingColumns(cols.toArray(new String[getterSetterArray.length]));
+		insert.usingColumns(cols.toArray(new String[cols.size()]));
 		Number id = insert.executeAndReturnKey(args);
 		if(id instanceof Long)
 			t.setId((Long) id);
 		return 1;
+		
 	}
 	
 	@Override
@@ -146,7 +150,7 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 	 * @param t
 	 * @return
 	 */
-	protected int insert(T t) {
+	protected Integer insert(T t) {
 		BeanHelper.GetterSetter[] getterSetterArray = BeanHelper.getGetterSetter(t.getClass());
 		final StringBuffer sb = new StringBuffer();
 		List<Object> values = new ArrayList<Object>();
