@@ -10,6 +10,8 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import com.huhuo.carservicecore.BaseTest;
+import com.huhuo.carservicecore.sys.district.IServSysCity;
+import com.huhuo.carservicecore.sys.district.ModelCity;
 
 public class ServCityTest extends BaseTest {
 	

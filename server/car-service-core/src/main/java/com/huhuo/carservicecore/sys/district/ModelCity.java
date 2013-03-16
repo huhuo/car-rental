@@ -1,4 +1,4 @@
-package com.huhuo.carservicecore.sys.city;
+package com.huhuo.carservicecore.sys.district;
 
 import com.huhuo.integration.base.BaseModel;
 

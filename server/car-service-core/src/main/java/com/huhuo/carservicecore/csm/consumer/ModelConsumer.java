@@ -49,7 +49,7 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	 * 外联对象
 	 * @return
 	 */
-	private ModelDictionary genderDic;
+	private transient ModelDictionary genderDic;
 	
 	public String getIdentityCardId() {
 		return identityCardId;
