@@ -7,10 +7,10 @@ import javax.annotation.Resource;
 import org.junit.Test;
 
 import com.huhuo.carservicecore.sys.district.ModelCity;
-import com.huhuo.cmsystem.BaseTest;
+import com.huhuo.cmsystem.CarModuleSystemTest;
 import com.huhuo.integration.db.mysql.Page;
 
-public class ServCityTest extends BaseTest {
+public class ServCityTest extends CarModuleSystemTest {
 
 	@Resource(name="cmcarServCity")
 	private IServCity iServCity;

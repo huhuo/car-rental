@@ -9,16 +9,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.huhuo.integration.base.BaseCtrl;
 
 @Controller("cmsystemCtrlHome")
-@RequestMapping("/system/security/home")
+@RequestMapping("/cmsystem/security/home")
 public class CtrlHome extends BaseCtrl {
 	
 	protected String basePath = "system-manage/";
 	
-	@RequestMapping(value="/home.do")
-	public String home(Model model, HttpSession session){
+	@RequestMapping(value="/frontpage.do")
+	public String frontpage(Model model, HttpSession session){
 		logger.debug("access page-home");
 		
-		return basePath + "home";
+		return basePath + "frontpage";
 	}
 
 }

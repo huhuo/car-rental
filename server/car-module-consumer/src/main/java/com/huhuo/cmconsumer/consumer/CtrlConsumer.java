@@ -20,7 +20,7 @@ import com.huhuo.integration.web.Message.Status;
 
 
 @Controller("cmconsumerCtrlConsumer")
-@RequestMapping(value="/consumer/consumer")
+@RequestMapping(value="/cmconsumer/consumer")
 public class CtrlConsumer extends BaseCtrl {
 	
 	@Resource(name = "cmconsumerServConsumer")

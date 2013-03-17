@@ -9,11 +9,11 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
-import com.huhuo.carservicecore.BaseTest;
+import com.huhuo.carservicecore.CarServiceCoreTest;
 import com.huhuo.carservicecore.sys.district.DaoCity;
 import com.huhuo.carservicecore.sys.district.ModelCity;
 
-public class DaoCityTest extends BaseTest {
+public class DaoCityTest extends CarServiceCoreTest {
 	
 	@Resource(name = "carservicecoreDaoCity")
 	private DaoCity daoCity;

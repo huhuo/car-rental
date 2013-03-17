@@ -23,7 +23,7 @@ import com.huhuo.integration.web.Message;
 import com.huhuo.integration.web.Message.Status;
 
 @Controller("cmsystemCtrlLogin")
-@RequestMapping(value = "/system/security/login")
+@RequestMapping(value = "/cmsystem/security/login")
 public class CtrlLogin extends BaseCtrl {
 
 	protected String basePath = "system-manage/";
@@ -32,8 +32,8 @@ public class CtrlLogin extends BaseCtrl {
 	private Producer captchaProducer;
 
 	@RequestMapping(value = "/")
-	public String index() {
-		return basePath + "login";
+	public String loginpage() {
+		return basePath + "loginpage";
 	}
 
 	@RequestMapping(value = "/login.do")
@@ -54,7 +54,7 @@ public class CtrlLogin extends BaseCtrl {
 	public String logout(HttpSession session) {
 		session.removeAttribute(Constant.SESSION_USER);
 		session.removeAttribute(Constant.SESSION_MODULE);
-		return index();
+		return loginpage();
 	}
 
 	@RequestMapping(value = "/captcha.do")

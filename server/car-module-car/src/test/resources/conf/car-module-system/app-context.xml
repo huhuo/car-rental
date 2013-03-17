@@ -6,9 +6,12 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<description>Example configuration to get you started.</description>
-	
-	<import resource="app-context-datasource.xml"/>
 
 	<!-- 基于注解的扫描 -->
 	<context:component-scan base-package="com.huhuo"></context:component-scan>
+	
+	<!-- import file -->
+	<import resource="app-context-other.xml"/>
+	<import resource="app-context-servlet.xml"/>
+	
 </beans>

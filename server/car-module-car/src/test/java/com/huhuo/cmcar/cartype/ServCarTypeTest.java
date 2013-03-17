@@ -7,10 +7,10 @@ import javax.annotation.Resource;
 import org.junit.Test;
 
 import com.huhuo.carservicecore.cust.car.ModelCarType;
-import com.huhuo.cmcar.BaseTest;
+import com.huhuo.cmcar.CarModuleCarTest;
 import com.huhuo.integration.db.mysql.Page;
 
-public class ServCarTypeTest extends BaseTest {
+public class ServCarTypeTest extends CarModuleCarTest {
 
 	@Resource(name="cmcarServCarType")
 	private IServCarType iServCarType;

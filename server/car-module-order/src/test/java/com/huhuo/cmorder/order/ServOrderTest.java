@@ -7,11 +7,11 @@ import javax.annotation.Resource;
 import org.junit.Test;
 
 import com.huhuo.carservicecore.csm.order.ModelOrder;
-import com.huhuo.cmorder.BaseTest;
+import com.huhuo.cmorder.CarModuleOrderTest;
 import com.huhuo.cmorder.order.IServOrder;
 import com.huhuo.integration.db.mysql.Page;
 
-public class ServOrderTest extends BaseTest {
+public class ServOrderTest extends CarModuleOrderTest {
 
 	@Resource(name="cmorderServOrder")
 	private IServOrder iServOrder;

@@ -21,7 +21,7 @@ import com.huhuo.integration.web.Message.Status;
 
 
 @Controller("cmcarCtrlCar")
-@RequestMapping(value="/car/car")
+@RequestMapping(value="/cmcar/car")
 public class CtrlCar extends BaseCtrl {
 	
 	@Resource(name = "cmcarServCar")

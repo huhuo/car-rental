@@ -8,11 +8,11 @@ import javax.annotation.Resource;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.huhuo.carservicecore.BaseTest;
+import com.huhuo.carservicecore.CarServiceCoreTest;
 import com.huhuo.carservicecore.db.DataSourceContextHolder;
 import com.huhuo.carservicecore.db.DataSourceType;
 
-public class DaoChargeStandardTest extends BaseTest {
+public class DaoChargeStandardTest extends CarServiceCoreTest {
 
 	@Resource(name = "carservicecoreDaoChargeStandard")
 	private IDaoChargeStandard iDaoChargeStandard;

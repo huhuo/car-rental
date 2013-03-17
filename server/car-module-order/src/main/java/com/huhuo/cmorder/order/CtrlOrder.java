@@ -21,7 +21,7 @@ import com.huhuo.integration.web.Message.Status;
 
 
 @Controller("cmorderCtrlOrder")
-@RequestMapping(value="/order/order")
+@RequestMapping(value="/cmorder/order")
 public class CtrlOrder extends BaseCtrl {
 	
 	@Resource(name = "cmorderServOrder")

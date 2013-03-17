@@ -7,6 +7,7 @@
 
 	<description>Example configuration to get you started.</description>
 
+	<import resource="app-context-datasource.xml"/>
 	<!-- 
 	<bean id="propertyPlaceholderConfigurer"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -17,11 +18,15 @@
 		</property> 
 	</bean>
 	-->
-	<import resource="app-context-datasource.xml"/>
-	 
-	 <!-- 
-	 <bean id="mobileServiceCoreWCityCwMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+	<!-- C3P0TestTable -->
+	<!-- city -->
+	<!-- 
+	<bean id="mobileServiceCoreWCityCwMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface" value="com.eray.mobileservice.core.persist.WCityCwMapper"/>
+		<property name="sqlSessionFactory" ref="sqlSessionFactoryWeather"/>
+	</bean>
+	<bean id="mobileServiceCoreC3P0TestTableCwMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+		<property name="mapperInterface" value="com.eray.mobileservice.core.persist.C3P0TestTableCwMapper"/>
 		<property name="sqlSessionFactory" ref="sqlSessionFactoryWeather"/>
 	</bean>
 	<bean id="mobileServiceCoreBizSystemInfoCwMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
@@ -29,7 +34,6 @@
 		<property name="sqlSessionFactory" ref="sqlSessionFactoryWeather"/>
 	</bean>
 	 -->
-	
 	
 	<!-- 基于注解的扫描 -->
 	<context:component-scan base-package="com.huhuo"></context:component-scan>

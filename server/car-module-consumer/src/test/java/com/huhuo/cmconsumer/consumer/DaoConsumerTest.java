@@ -8,11 +8,11 @@ import org.junit.Test;
 
 import com.huhuo.carservicecore.csm.consumer.IDaoConsumer;
 import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
-import com.huhuo.cmconsumer.BaseTest;
+import com.huhuo.cmconsumer.CarModuleConsumerTest;
 import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.db.mysql.Page;
 
-public class DaoConsumerTest extends BaseTest {
+public class DaoConsumerTest extends CarModuleConsumerTest {
 
 	@Resource(name="cmconsumerDaoConsumer")
 	private IDaoConsumer idaoConsumer;

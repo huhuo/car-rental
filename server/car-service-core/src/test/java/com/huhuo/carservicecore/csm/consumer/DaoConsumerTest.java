@@ -6,9 +6,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.huhuo.carservicecore.BaseTest;
+import com.huhuo.carservicecore.CarServiceCoreTest;
 
-public class DaoConsumerTest extends BaseTest {
+public class DaoConsumerTest extends CarServiceCoreTest {
 
 	@Autowired
 	private IDaoConsumer iDaoConsumer;

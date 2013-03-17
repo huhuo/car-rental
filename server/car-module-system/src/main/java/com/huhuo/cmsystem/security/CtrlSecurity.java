@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.huhuo.integration.base.BaseCtrl;
 
 @Controller("smCtrlSecurity")
-@RequestMapping("/system/security/security")
+@RequestMapping("/cmsystem/security/security")
 public class CtrlSecurity extends BaseCtrl {
 	private String basePath = "system-manage/security/";
 	

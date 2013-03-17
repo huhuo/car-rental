@@ -6,7 +6,7 @@ import java.util.List;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.huhuo.carservicecore.BaseTest;
+import com.huhuo.carservicecore.CarServiceCoreTest;
 import com.huhuo.carservicecore.constant.Dictionary.Dict;
 import com.huhuo.carservicecore.constant.Dictionary.DictGroup;
 import com.huhuo.integration.db.mysql.Condition;
@@ -15,7 +15,7 @@ import com.huhuo.integration.db.mysql.Group;
 import com.huhuo.integration.db.mysql.Order;
 import com.huhuo.integration.db.mysql.Page;
 
-public class DaoDictionaryTest extends BaseTest {
+public class DaoDictionaryTest extends CarServiceCoreTest {
 
 	@Autowired
 	private IDaoDictionary<ModelDictionary> iDaoDictionary;

@@ -417,6 +417,8 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 		try {
 			StringBuilder sb = new StringBuilder();
 			sb.append("SELECT COUNT(*) FROM ").append(getTableName());
+			condition.setGroupList(new ArrayList<Group>());
+			condition.setOrderList(new ArrayList<Order>());
 			List<Object> values = constructCondition(condition, sb);
 			long ret = getJdbcTemplate().queryForLong(sb.toString(), values.toArray());
 			return ret;
