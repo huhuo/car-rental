@@ -23,8 +23,20 @@ import com.huhuo.integration.web.Message.Status;
 @RequestMapping(value="/cmconsumer/consumer")
 public class CtrlConsumer extends BaseCtrl {
 	
+	protected String basePath = "/car-module-consumer";
+	
 	@Resource(name = "cmconsumerServConsumer")
 	private IServConsumer iservConsumer;
+	
+	/*************************************************************
+	 * consumer management
+	 *************************************************************/
+	
+	@RequestMapping(value="/index.do")
+	public String consumerIndex() {
+		logger.debug("access consumer management page");
+		return basePath + "/consumer/index";
+	}
 	
 	@RequestMapping(value="/get.do")
 	public void get(Condition<ModelConsumer> condition, OutputStream out){
@@ -42,4 +54,15 @@ public class CtrlConsumer extends BaseCtrl {
 			write(new Message<String>(Status.ERROR, e.getMessage()), out);
 		}
 	}
+	
+	/*************************************************************
+	 * loyalty point management
+	 *************************************************************/
+	
+	@RequestMapping(value="/points.do")
+	public String pointsIndex() {
+		logger.debug("access consumer points management page");
+		return basePath + "/points/index";
+	}
+	
 }

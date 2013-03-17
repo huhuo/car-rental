@@ -24,13 +24,25 @@ import com.huhuo.integration.web.Message.Status;
 @RequestMapping(value="/cmcar/car")
 public class CtrlCar extends BaseCtrl {
 	
+	protected String basePath = "/car-module-car";
+	
 	@Resource(name = "cmcarServCar")
 	private IServCar iservCar;
+	
+	/*************************************************************
+	 * car management
+	 *************************************************************/
+	
+	@RequestMapping(value="/index.do")
+	public String index() {
+		logger.debug("---> access car management page");
+		return basePath + "/car/index";
+	}
 	
 	@RequestMapping(value="/get.do")
 	public void get(Condition<ModelCarType> condition, OutputStream out){
 		try {
-			logger.debug("server receive: condition={}", condition);
+			logger.debug("---> server receive: condition={}", condition);
 //			condition.setPage(new Page(0, 30));
 //			List<ModelConsumer> list = servConsumer.findByCondition(condition);
 			List<ModelCar> list = iservCar.findModels(new Page(0, 10));
@@ -42,5 +54,15 @@ public class CtrlCar extends BaseCtrl {
 			logger.error(ExceptionUtils.getFullStackTrace(e));
 			write(new Message<String>(Status.ERROR, e.getMessage()), out);
 		}
+	}
+	
+	/*************************************************************
+	 * car trace business
+	 *************************************************************/
+	
+	@RequestMapping(value="/trace.do")
+	public String trace() {	// car trace management page
+		logger.debug("---> access car trace page");
+		return basePath + "/index";
 	}
 }

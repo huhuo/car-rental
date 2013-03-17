@@ -20,5 +20,5 @@ public class CtrlHome extends BaseCtrl {
 		
 		return basePath + "/frontpage";
 	}
-
+	
 }

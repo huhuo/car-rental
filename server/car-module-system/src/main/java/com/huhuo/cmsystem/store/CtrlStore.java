@@ -1,41 +1,33 @@
-package com.huhuo.cmorder.order;
+package com.huhuo.cmsystem.store;
 
 import java.io.OutputStream;
-import java.util.List;
-
-import javax.annotation.Resource;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
-import com.huhuo.carservicecore.csm.order.ModelOrder;
 import com.huhuo.integration.base.BaseCtrl;
 import com.huhuo.integration.db.mysql.Condition;
-import com.huhuo.integration.db.mysql.Page;
 import com.huhuo.integration.exception.HuhuoException;
 import com.huhuo.integration.util.ExtUtils;
 import com.huhuo.integration.web.Message;
 import com.huhuo.integration.web.Message.Status;
 
 
-@Controller("cmorderCtrlOrder")
-@RequestMapping(value="/cmorder/order")
-public class CtrlOrder extends BaseCtrl {
+@Controller("cmsystemCtrlStore")
+@RequestMapping(value="/cmsystem/store")
+public class CtrlStore extends BaseCtrl {
 	
-	protected String basePath = "/car-module-order";
-	
-	@Resource(name = "cmorderServOrder")
-	private IServOrder iservOrder;
+	protected String basePath = "/car-module-system";
 	
 	
 	/*************************************************************
-	 * order info management
+	 * store info management
 	 *************************************************************/
 	
 	@RequestMapping(value="/index.do")
-	public String index() {	// order manage page
+	public String index() {
 		logger.debug("access order management page");
 		return basePath + "/index";
 	}
@@ -44,10 +36,7 @@ public class CtrlOrder extends BaseCtrl {
 	public void get(Condition<ModelConsumer> condition, OutputStream out) {
 		try {
 			logger.debug("server receive: condition={}", condition);
-//			condition.setPage(new Page(0, 30));
-//			List<ModelConsumer> list = servConsumer.findByCondition(condition);
-			List<ModelOrder> list = iservOrder.findModels(new Page(0, 10));
-			write(ExtUtils.getJsonStore(list, list.size()), out);
+			write(ExtUtils.getJsonStore(null, 10), out);
 		} catch (HuhuoException e) {
 			logger.warn(e.getMessage());
 			write(new Message<String>(Status.FAILURE, e.getMessage()), out);
@@ -56,17 +45,5 @@ public class CtrlOrder extends BaseCtrl {
 			write(new Message<String>(Status.ERROR, e.getMessage()), out);
 		}
 	}
-	
-	
-	/*************************************************************
-	 * order history management
-	 *************************************************************/
-	
-	@RequestMapping(value="/history.do")
-	public String history() {	// order manage page
-		logger.debug("access order history page");
-		return basePath + "/history";
-	}
-	
 	
 }
