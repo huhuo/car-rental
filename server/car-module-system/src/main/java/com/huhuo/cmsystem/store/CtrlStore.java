@@ -28,20 +28,20 @@ public class CtrlStore extends BaseCtrl {
 	
 	@RequestMapping(value="/index.do")
 	public String index() {
-		logger.debug("access order management page");
-		return basePath + "/index";
+		logger.debug("---> access order management page");
+		return basePath + "/store/index";
 	}
 	
 	@RequestMapping(value="/get.do")
 	public void get(Condition<ModelConsumer> condition, OutputStream out) {
 		try {
-			logger.debug("server receive: condition={}", condition);
+			logger.debug("---> server receive: condition={}", condition);
 			write(ExtUtils.getJsonStore(null, 10), out);
 		} catch (HuhuoException e) {
-			logger.warn(e.getMessage());
+			logger.warn("---> "+e.getMessage());
 			write(new Message<String>(Status.FAILURE, e.getMessage()), out);
 		} catch (Exception e) {
-			logger.error(ExceptionUtils.getFullStackTrace(e));
+			logger.error("---> "+ExceptionUtils.getFullStackTrace(e));
 			write(new Message<String>(Status.ERROR, e.getMessage()), out);
 		}
 	}

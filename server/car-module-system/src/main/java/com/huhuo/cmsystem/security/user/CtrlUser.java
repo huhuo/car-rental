@@ -19,7 +19,7 @@ import com.huhuo.integration.web.Message.Status;
 @RequestMapping(value="/cmsystem/user")
 public class CtrlUser extends BaseCtrl {
 	
-	protected String basePath = "/car-module-system";
+	protected String basePath = "/car-module-system/security";
 	
 	
 	/*************************************************************
@@ -28,20 +28,20 @@ public class CtrlUser extends BaseCtrl {
 	
 	@RequestMapping(value="/index.do")
 	public String index() {
-		logger.debug("access order management page");
-		return basePath + "/index";
+		logger.debug("---> access user management page");
+		return basePath + "/user/index";
 	}
 	
 	@RequestMapping(value="/get.do")
 	public void get(Condition<ModelConsumer> condition, OutputStream out) {
 		try {
-			logger.debug("server receive: condition={}", condition);
+			logger.debug("---> server receive: condition={}", condition);
 			write(ExtUtils.getJsonStore(null, 10), out);
 		} catch (HuhuoException e) {
-			logger.warn(e.getMessage());
+			logger.warn("--->"+ e.getMessage());
 			write(new Message<String>(Status.FAILURE, e.getMessage()), out);
 		} catch (Exception e) {
-			logger.error(ExceptionUtils.getFullStackTrace(e));
+			logger.error("--->" +ExceptionUtils.getFullStackTrace(e));
 			write(new Message<String>(Status.ERROR, e.getMessage()), out);
 		}
 	}
@@ -53,7 +53,7 @@ public class CtrlUser extends BaseCtrl {
 	
 	@RequestMapping(value="/person.do")
 	public String person() {
-		logger.debug("access person management page");
-		return basePath + "/index";
+		logger.debug("---> access person management page");
+		return basePath + "/user/index";
 	}
 }

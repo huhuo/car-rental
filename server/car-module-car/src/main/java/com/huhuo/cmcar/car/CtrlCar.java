@@ -60,9 +60,9 @@ public class CtrlCar extends BaseCtrl {
 	 * car trace business
 	 *************************************************************/
 	
-	@RequestMapping(value="/trace.do")
+	@RequestMapping(value="/trace/index.do")
 	public String trace() {	// car trace management page
 		logger.debug("---> access car trace page");
-		return basePath + "/index";
+		return basePath + "/car/index";
 	}
 }
