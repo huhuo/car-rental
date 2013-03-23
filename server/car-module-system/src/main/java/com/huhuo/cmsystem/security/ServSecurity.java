@@ -12,7 +12,7 @@ import com.huhuo.integration.base.BaseServ;
 public class ServSecurity extends BaseServ implements IServSecurity {
 
 	@Resource(name = "carservicecoreDaoUser")
-	private IDaoUser<ModelUser> iDaoUser;
+	private IDaoUser iDaoUser;
 
 	@Override
 	public Boolean validate(String username) {
