@@ -1,5 +1,6 @@
 package com.huhuo.carservicecore.cust.car;
 
+import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
 import com.huhuo.integration.base.BaseModel;
 
 
@@ -11,30 +12,84 @@ public class ModelCarType extends BaseModel {
 	private String name;
 	/** 图片地址（静态资源） **/
 	private String icon;
-	/** 品牌id **/
-	private Long brandId;
+	/** 车辆类别（字典表字段，组名：cust_car_type_category，1、轿车；2、越野汽车；3、客车；4、货车；5、自卸汽车；6、牵引汽车；7、专用汽车） **/
+	private Integer category;
+	/** 座位数 **/
+	private Integer seating;
+	/** 油箱容量（单位：升） **/
+	private Integer tankCapacity;
+	/** 可行驶里程数 **/
+	private Double drivingRange;
+	/** 车型使用的收费标准id（与csm_charge_standard表一对一） **/
+	private Long chargeStandardId;
 	
-	/** .............. **/
-	
+	/***************************************
+	 * 外联对象
+	 ***************************************/
+	private transient ModelDictionary categoryDict;
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getIcon() {
 		return icon;
 	}
+
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
-	public Long getBrandId() {
-		return brandId;
+
+	public Integer getCategory() {
+		return category;
 	}
-	public void setBrandId(Long brandId) {
-		this.brandId = brandId;
+
+	public void setCategory(Integer category) {
+		this.category = category;
 	}
-	
-	
+
+	public Integer getSeating() {
+		return seating;
+	}
+
+	public void setSeating(Integer seating) {
+		this.seating = seating;
+	}
+
+	public Integer getTankCapacity() {
+		return tankCapacity;
+	}
+
+	public void setTankCapacity(Integer tankCapacity) {
+		this.tankCapacity = tankCapacity;
+	}
+
+	public Double getDrivingRange() {
+		return drivingRange;
+	}
+
+	public void setDrivingRange(Double drivingRange) {
+		this.drivingRange = drivingRange;
+	}
+
+	public Long getChargeStandardId() {
+		return chargeStandardId;
+	}
+
+	public void setChargeStandardId(Long chargeStandardId) {
+		this.chargeStandardId = chargeStandardId;
+	}
+
+	public ModelDictionary getCategoryDict() {
+		return categoryDict;
+	}
+
+	public void setCategoryDict(ModelDictionary categoryDict) {
+		this.categoryDict = categoryDict;
+	}
 	
 }

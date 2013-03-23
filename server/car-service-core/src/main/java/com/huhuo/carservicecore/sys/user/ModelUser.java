@@ -27,7 +27,7 @@ public class ModelUser extends BaseModel {
 	/** 住址 **/
 	private String address;
 	/** 管理员所属分店id，与cust_store表关联 **/
-	private String storeId;
+	private Long storeId;
 	
 	public String getUsername() {
 		return username;
@@ -83,10 +83,10 @@ public class ModelUser extends BaseModel {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getStoreId() {
+	public Long getStoreId() {
 		return storeId;
 	}
-	public void setStoreId(String storeId) {
+	public void setStoreId(Long storeId) {
 		this.storeId = storeId;
 	}
 	

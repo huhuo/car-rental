@@ -5,10 +5,12 @@ import java.util.Date;
 
 import com.huhuo.integration.base.BaseModel;
 
-public class ModelOrder extends BaseModel implements Serializable {
+public class ModelOrderSnapshot extends BaseModel implements Serializable {
 
 	private static final long serialVersionUID = -4415196899388568753L;
 	
+	/** 订单id（跟Order表一一对应） **/
+	private Long orderId;
 	/** 租车人id（与csm_consumer关联） **/
 	private Long consumerId;
 	/** 车辆id **/
@@ -31,6 +33,13 @@ public class ModelOrder extends BaseModel implements Serializable {
 	private Double totalFee;
 	/** 状态，字典表字段，组名：csm_order_status，0：删除；1：待结帐；2：已结帐 **/
 	private Integer status;
+	
+	public Long getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
+	}
 	public Long getConsumerId() {
 		return consumerId;
 	}

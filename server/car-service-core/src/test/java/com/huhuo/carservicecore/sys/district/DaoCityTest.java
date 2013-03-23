@@ -1,4 +1,4 @@
-package com.huhuo.carservicecore.sys.city;
+package com.huhuo.carservicecore.sys.district;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +55,7 @@ public class DaoCityTest extends CarServiceCoreTest {
 	}
 	@Test
 	public void queryForObject() throws Exception{
-		ModelCity t = daoCity.queryForObject("SELECT * FROM sys_city WHERE id=?", ModelCity.class, 101010105);
+		ModelCity t = daoCity.queryForObject("SELECT * FROM sys_city WHERE id=?", ModelCity.class, 1010407002);
 		print(t);
 	}
 	

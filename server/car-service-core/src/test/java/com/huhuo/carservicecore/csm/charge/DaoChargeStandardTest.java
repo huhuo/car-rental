@@ -1,5 +1,6 @@
 package com.huhuo.carservicecore.csm.charge;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -21,14 +22,14 @@ public class DaoChargeStandardTest extends CarServiceCoreTest {
 	public void crud() {	// create, retrieve, update, delete
 		// create
 		ModelChargeStandard t = new ModelChargeStandard();
-		t.setCarSendFare(314.343F);
+		t.setCarSendFare(314.343D);
 		t.setCreateTime(new Date());
-		t.setDeposit(2000.34F);
-		t.setDiffShopReturnFare(345.32F);
+		t.setDeposit(2000.34D);
+		t.setDiffShopReturnFare(345.32D);
 		t.setMileageLimits(32424L);
-		t.setOverMileageFare(2343.93F);
-		t.setOverTimeFare(230.53F);
-		t.setRent(350.35F);
+		t.setOverMileageFare(2343.93D);
+		t.setOverTimeFare(230.53D);
+		t.setRent(350.35D);
 		t.setStatus(1);
 		t.setUpdateTime(new Date());
 		iDaoChargeStandard.add(t);
@@ -36,7 +37,7 @@ public class DaoChargeStandardTest extends CarServiceCoreTest {
 		ModelChargeStandard actual = iDaoChargeStandard.find(t.getId());
 		Assert.assertEquals("failed to add operation", t, actual);
 		// update
-		t.setRent(542.33F);
+		t.setRent(542.33D);
 		iDaoChargeStandard.update(t);
 		actual = iDaoChargeStandard.find(t.getId());
 		Assert.assertEquals("failed to update operation", t, actual);
@@ -44,6 +45,27 @@ public class DaoChargeStandardTest extends CarServiceCoreTest {
 		iDaoChargeStandard.delete(t);
 		actual = iDaoChargeStandard.find(t.getId());
 		Assert.assertNull("failed to delete operation", actual);
+	}
+	
+	@Test
+	public void addBatchTest() {
+		List<ModelChargeStandard> list = new ArrayList<ModelChargeStandard>();
+		for(int i=0; i<100; i++) {
+			// create
+			ModelChargeStandard t = new ModelChargeStandard();
+			t.setCarSendFare(314.343D);
+			t.setCreateTime(new Date());
+			t.setDeposit(2000.34D);
+			t.setDiffShopReturnFare(345.32D);
+			t.setMileageLimits(32424L);
+			t.setOverMileageFare(2343.93D);
+			t.setOverTimeFare(230.53D);
+			t.setRent(350.35D);
+			t.setStatus(1);
+			t.setUpdateTime(new Date());
+			list.add(t);
+		}
+		iDaoChargeStandard.addBatch(list);
 	}
 	
 	@Test

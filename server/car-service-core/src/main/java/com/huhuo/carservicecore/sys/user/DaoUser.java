@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 import com.huhuo.carservicecore.db.GenericBaseExtenseDao;
 
 @Repository("carservicecoreDaoUser")
-public class DaoUser extends GenericBaseExtenseDao<ModelUser> implements IDaoUser<ModelUser> {
+public class DaoUser extends GenericBaseExtenseDao<ModelUser> implements IDaoUser {
 
 	@Override
 	public String getTableName() {

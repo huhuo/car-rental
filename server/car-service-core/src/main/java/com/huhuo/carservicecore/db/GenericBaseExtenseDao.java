@@ -9,7 +9,6 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.lang.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -125,6 +124,9 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 		}
 		insert.usingColumns(cols.toArray(new String[cols.size()]));
 		Number id = insert.executeAndReturnKey(args);
+		logger.debug("---> SQL --> {}", insert.getInsertString());
+		logger.debug("---> params --> {}", JSONArray.toJSONString(args));
+		logger.debug("---> primary key return --> {}", id);
 		if(id instanceof Long)
 			t.setId((Long) id);
 		return 1;
@@ -261,7 +263,13 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 		List<T> rs = getJdbcTemplate().query(sql, args, new BeanPropertyRowMapper<T>(clazz));
 		logger.debug("---> SQL --> {}", sql);
 		logger.debug("---> params --> {}", StringUtils.join(args, ","));
-		logger.debug("---> result set --> {}", rs);
+		if(rs == null) {
+			logger.debug("---> result set\t--> {}", rs);
+		} else {
+			for(int index=1; index<=rs.size(); index++) {
+				logger.debug("---> result set {}\t--> {}", index, rs.get(index - 1));
+			}
+		}
 		return rs;
 	}
 	
@@ -278,10 +286,11 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 			T singleResult = getJdbcTemplate().queryForObject(sql, BeanPropertyRowMapper.newInstance(clazz), args);
 			logger.debug("---> SQL --> {}", sql);
 			logger.debug("---> params --> {}", StringUtils.join(args, ","));
-			logger.debug("---> result set --> {}", singleResult);
+			logger.debug("---> result set -->{}", singleResult);
 			return singleResult;
 		} catch (EmptyResultDataAccessException e) {
-			logger.info("---> no available result --> ", ExceptionUtils.getStackTrace(e));
+			System.out.println(e.getMessage());
+			logger.warn("---> error cause by --> {}", e.getMessage());
 			return null;
 		}
 	}
