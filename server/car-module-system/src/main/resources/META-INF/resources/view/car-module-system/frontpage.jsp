@@ -1,72 +1,29 @@
-<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set value="${pageContext.request.contextPath }" var="path" scope="application"></c:set>
+<c:set value="${pageContext.request.contextPath }" var="path"
+	scope="application"></c:set>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>Bootstrap 101 Template</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
-<link href="${path }/res/js/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+<link href="${path }/res/js/bootstrap/css/bootstrap.css"
+	rel="stylesheet" media="screen">
+<link href="${path }/res/js/huhuo/huhuo.css" rel="stylesheet" type="text/css">
 <script src="${path }/res/js/jquery/jquery.js"></script>
 <script src="${path }/res/js/bootstrap/js/bootstrap.js"></script>
 <script src="${path }/res/js/jquery/jquery.blockUI.js"></script>
-
+<script src="${path }/res/js/huhuo/huhuo.js"></script>
 
 
 <script type="text/javascript">
 	$(document).ready(function() {
 
-		// menu click event
-		
-		
-		// item click event
-		$('a.huhuoItem').click(function() {
-
-			//屏蔽要加载页面的div
-			$('div.loaddiv').block({
-				message : "<img src='${path }/res/images/busy.gif' style='margin:20%' />",
-				css : {
-					top : '38%',
-					border : 'none',
-					backgroundColor : '#fff',
-					height : '100%',
-					width : '100%',
-					opacity : .5,
-				}
-
-			});
-			//加载对应页面
-			$('div.loaddiv').load($(this).attr("href"), function() {
-				$('this').unblock();
-			});
-			return false;
-		});
-
 	});
 </script>
-<style type="text/css">
-.table-hover tbody tr:hover>td,.table-hover tbody tr:hover>th {
-	background-color: #5D89F8;
-	color: #FFF;
-}
-.nav-tabs>li>a:hover,.nav-tabs>li>a:focus {
-	background-color: #9DCFE8;
-}
 
-.nav-tabs>li>a {
-	background-color: #F3F4F9;
-}
-
-.nav-tabs.nav-stacked > li > a.huhuoItem  {
-	padding-left: 30px;
-	border: 0px solid #DDDDDD;
-}
-.nav-tabs.nav-stacked > li > a.huhuoItem:hover  {
-	background-color: #5D89F8;
-	color: #FFF;
-}
-</style>
 </head>
 <body>
 	<div class="container-fluid">
@@ -77,63 +34,61 @@
 				<h6 align="right">吴雨轩，您好</h6>
 			</div>
 			<div class="span12">
-				<h4>订单管理 &gt 添加客户（路径显示，待做）</h4>
+				<ul class="breadcrumb">
+					<li><a href="#">订单管理</a> <span class="divider">/</span></li>
+					<li><a href="#">添加客户</a> <span class="divider">/</span></li>
+					<li class="active">数据</li>
+				</ul>
 			</div>
-			<div class="row-fluid"> 
+			<div class="row-fluid">
 				<div class="span12">
 					<div class="span2 " style="min-height: 500px">
 						<ul class="nav nav-tabs nav-stacked">
-							<li data-toggle="collapse" data-target="#rentalInfoMgr">
-								<a class="menu" href="javascript:void(0)">租赁信息管理</a>
+							<li data-toggle="collapse" data-target="#rentalInfoMgr"><a
+								class="menu" href="javascript:void(0)">租赁信息管理</a></li>
+							<li id="rentalInfoMgr" class="collapse leftdivchange"><a
+								class="huhuoItem first" href="${path }/cmorder/order/index.do">订单管理</a>
+								<a class="huhuoItem end" href="${path }/cmorder/order/history.do">历史订单</a>
 							</li>
-							<li id="rentalInfoMgr" class="collapse leftdivchange">
-								<a class="huhuoItem" style="padding-left: 30px" href="${path }/cmorder/order/index.do">订单管理</a>
-								<a class="huhuoItem" href="${path }/cmorder/order/history.do">历史订单</a>
-							</li>
-							
-							<li data-toggle="collapse" data-target="#carInfoMgr">
-								<a class="menu" href="javascript:void(0)">车辆管理</a>
-							</li>
-							<li id="carInfoMgr" class="collapse leftdivchange">
-								<a class="huhuoItem" href="${path }/cmcar/cartype/index.do">车型管理</a>
+
+							<li data-toggle="collapse" data-target="#carInfoMgr"><a
+								class="menu" href="javascript:void(0)">车辆管理</a></li>
+							<li id="carInfoMgr" class="collapse leftdivchange"><a
+								class="huhuoItem  first" href="${path }/cmcar/cartype/index.do">车型管理</a>
 								<a class="huhuoItem" href="${path }/cmcar/car/index.do">车辆管理</a>
-								<a class="huhuoItem" href="${path }/cmcar/car/trace/index.do">车辆跟踪</a>
+								<a class="huhuoItem end" href="${path }/cmcar/car/trace/index.do">车辆跟踪</a>
 							</li>
-							
-							<li data-toggle="collapse" data-target="#consumerInfoMgr">
-								<a class="menu" href="javascript:void(0)">客户管理</a>
-							</li>
-							<li id="consumerInfoMgr" class="collapse leftdivchange">
-								<a class="huhuoItem" href="${path }/cmconsumer/consumer/index.do">会员管理</a>
-								<a class="huhuoItem" href="${path }/cmconsumer/consumer/points.do">会员积分管理</a>
-							</li>
-							
-							<li data-toggle="collapse" data-target="#businessMgr">
-								<a class="menu" href="javascript:void(0)">业务运营（该模块未添加）</a>
-							</li>
-							<li id="businessMgr" class="collapse leftdivchange">
-								<a class="huhuoItem" href="${path }/cmorder/order/index.do">车辆运营服务</a>
+
+							<li data-toggle="collapse" data-target="#consumerInfoMgr"><a
+								class="menu" href="javascript:void(0)">客户管理</a></li>
+							<li id="consumerInfoMgr" class="collapse leftdivchange"><a
+								class="huhuoItem first" href="${path }/cmconsumer/consumer/index.do">会员管理</a>
+								<a class="huhuoItem end"
+								href="${path }/cmconsumer/consumer/points.do">会员积分管理</a></li>
+
+							<li data-toggle="collapse" data-target="#businessMgr"><a
+								class="menu" href="javascript:void(0)">业务运营（该模块未添加）</a></li>
+							<li id="businessMgr" class="collapse leftdivchange"><a
+								class="huhuoItem first" href="${path }/cmorder/order/index.do">车辆运营服务</a>
 								<a class="huhuoItem" href="${path }/cmorder/order/index.do">短信发布服务</a>
-								<a class="huhuoItem" href="${path }/cmorder/order/index.do">移动终端服务</a>
+								<a class="huhuoItem end" href="${path }/cmorder/order/index.do">移动终端服务</a>
 							</li>
-							
-							<li data-toggle="collapse" data-target="#analyMgr">
-								<a class="menu" href="javascript:void(0)">运营分析统计（该模块未添加）</a>
+
+							<li data-toggle="collapse" data-target="#analyMgr"><a
+								class="menu" href="javascript:void(0)">运营分析统计（该模块未添加）</a></li>
+							<li id="analyMgr" class="collapse leftdivchange"><a
+								class="huhuoItem first" href="${path }/cmorder/order/index.do">营业额统计</a>
+								<a class="huhuoItem end" href="${path }/cmorder/order/index.do">客户量统计</a>
 							</li>
-							<li id="analyMgr" class="collapse leftdivchange">
-								<a class="huhuoItem" href="${path }/cmorder/order/index.do">营业额统计</a>
-								<a class="huhuoItem" href="${path }/cmorder/order/index.do">客户量统计</a>
-							</li>
-							
-							<li data-toggle="collapse" data-target="#systemMgr">
-								<a class="menu" href="javascript:void(0)">系统管理</a>
-							</li>
-							<li id="systemMgr" class="collapse leftdivchange">
-								<a class="huhuoItem" href="${path }/cmsystem/user/index.do">系统用户管理</a>
+
+							<li data-toggle="collapse" data-target="#systemMgr"><a
+								class="menu" href="javascript:void(0)">系统管理</a></li>
+							<li id="systemMgr" class="collapse leftdivchange"><a
+								class="huhuoItem frist" href="${path }/cmsystem/user/index.do">系统用户管理</a>
 								<a class="huhuoItem" href="${path }/cmsystem/store/index.do">门店管理</a>
-								<a class="huhuoItem" href="${path }/cmsystem/user/person.do">个人信息管理</a>
+								<a class="huhuoItem end" href="${path }/cmsystem/user/person.do">个人信息管理</a>
 							</li>
-							
+
 						</ul>
 
 
