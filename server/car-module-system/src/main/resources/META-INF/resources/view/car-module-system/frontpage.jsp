@@ -12,12 +12,7 @@
 <script src="${path }/res/js/bootstrap/js/bootstrap.js"></script>
 <script src="${path }/res/js/jquery/jquery.blockUI.js"></script>
 
-<style type="text/css">
-.table-hover tbody tr:hover>td,.table-hover tbody tr:hover>th {
-	background-color: #5D89F8;
-	color: #FFF;
-}
-</style>
+
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -50,6 +45,28 @@
 
 	});
 </script>
+<style type="text/css">
+.table-hover tbody tr:hover>td,.table-hover tbody tr:hover>th {
+	background-color: #5D89F8;
+	color: #FFF;
+}
+.nav-tabs>li>a:hover,.nav-tabs>li>a:focus {
+	background-color: #9DCFE8;
+}
+
+.nav-tabs>li>a {
+	background-color: #F3F4F9;
+}
+
+.nav-tabs.nav-stacked > li > a.huhuoItem  {
+	padding-left: 30px;
+	border: 0px solid #DDDDDD;
+}
+.nav-tabs.nav-stacked > li > a.huhuoItem:hover  {
+	background-color: #5D89F8;
+	color: #FFF;
+}
+</style>
 </head>
 <body>
 	<div class="container-fluid">
@@ -62,20 +79,20 @@
 			<div class="span12">
 				<h4>订单管理 &gt 添加客户（路径显示，待做）</h4>
 			</div>
-			<div class="row-fluid">
+			<div class="row-fluid"> 
 				<div class="span12">
-					<div class="span2 well" style="min-height: 500px">
+					<div class="span2 " style="min-height: 500px">
 						<ul class="nav nav-tabs nav-stacked">
 							<li data-toggle="collapse" data-target="#rentalInfoMgr">
-								<a class="menu" href="#">租赁信息管理</a>
+								<a class="menu" href="javascript:void(0)">租赁信息管理</a>
 							</li>
 							<li id="rentalInfoMgr" class="collapse leftdivchange">
-								<a class="huhuoItem" href="${path }/cmorder/order/index.do">订单管理</a>
+								<a class="huhuoItem" style="padding-left: 30px" href="${path }/cmorder/order/index.do">订单管理</a>
 								<a class="huhuoItem" href="${path }/cmorder/order/history.do">历史订单</a>
 							</li>
 							
 							<li data-toggle="collapse" data-target="#carInfoMgr">
-								<a class="menu" href="#">车辆管理</a>
+								<a class="menu" href="javascript:void(0)">车辆管理</a>
 							</li>
 							<li id="carInfoMgr" class="collapse leftdivchange">
 								<a class="huhuoItem" href="${path }/cmcar/cartype/index.do">车型管理</a>
@@ -84,7 +101,7 @@
 							</li>
 							
 							<li data-toggle="collapse" data-target="#consumerInfoMgr">
-								<a class="menu" href="#">客户管理</a>
+								<a class="menu" href="javascript:void(0)">客户管理</a>
 							</li>
 							<li id="consumerInfoMgr" class="collapse leftdivchange">
 								<a class="huhuoItem" href="${path }/cmconsumer/consumer/index.do">会员管理</a>
@@ -92,7 +109,7 @@
 							</li>
 							
 							<li data-toggle="collapse" data-target="#businessMgr">
-								<a class="menu" href="#">业务运营（该模块未添加）</a>
+								<a class="menu" href="javascript:void(0)">业务运营（该模块未添加）</a>
 							</li>
 							<li id="businessMgr" class="collapse leftdivchange">
 								<a class="huhuoItem" href="${path }/cmorder/order/index.do">车辆运营服务</a>
@@ -101,7 +118,7 @@
 							</li>
 							
 							<li data-toggle="collapse" data-target="#analyMgr">
-								<a class="menu" href="#">运营分析统计（该模块未添加）</a>
+								<a class="menu" href="javascript:void(0)">运营分析统计（该模块未添加）</a>
 							</li>
 							<li id="analyMgr" class="collapse leftdivchange">
 								<a class="huhuoItem" href="${path }/cmorder/order/index.do">营业额统计</a>
@@ -109,7 +126,7 @@
 							</li>
 							
 							<li data-toggle="collapse" data-target="#systemMgr">
-								<a class="menu" href="#">系统管理</a>
+								<a class="menu" href="javascript:void(0)">系统管理</a>
 							</li>
 							<li id="systemMgr" class="collapse leftdivchange">
 								<a class="huhuoItem" href="${path }/cmsystem/user/index.do">系统用户管理</a>

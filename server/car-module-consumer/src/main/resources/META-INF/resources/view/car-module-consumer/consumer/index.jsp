@@ -6,6 +6,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>会员管理</h1>
+	<h1>会员管理22</h1>
+	<div style="background-color: gray;">
+		<button id="customer_name">客户姓名</button>
+		<input id="customer_input"></input>
+		
+		<button id="customer_telephone">电话</button>
+		<input></input>
+		
+		<button id="customer_idcard_number">身份证号</button>
+		<input></input>
+		
+	</div>
+	
 </body>
 </html>
