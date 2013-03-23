@@ -23,6 +23,7 @@ DROP TABLE IF EXISTS `csm_charge_standard`;
 CREATE TABLE `csm_charge_standard` (
   `id` bigint(20) NOT NULL auto_increment COMMENT '主键',
   `deposit` float default NULL COMMENT '押金',
+  `premium` float default NULL COMMENT '保险费，xxx元/次',
   `rent` float default NULL COMMENT '租金（xxx元/天）',
   `mileageLimits` bigint(20) default NULL COMMENT '里程限制（xxx公里/日）',
   `overMileageFare` float default NULL COMMENT '超里程费用（xxx元/公里）',
@@ -37,7 +38,7 @@ CREATE TABLE `csm_charge_standard` (
 
 /*Data for the table `csm_charge_standard` */
 
-insert  into `csm_charge_standard`(`id`,`deposit`,`rent`,`mileageLimits`,`overMileageFare`,`overTimeFare`,`carSendFare`,`diffShopReturnFare`,`status`,`createTime`,`updateTime`) values (1,1,1,1,1,1,1,1,2,'2013-03-14 12:12:34','2013-03-14 12:12:34'),(8,2000.34,350.35,32424,2343.93,230.53,314.343,345.32,1,'2013-03-15 00:55:12','2013-03-15 00:55:12');
+insert  into `csm_charge_standard`(`id`,`deposit`,`premium`,`rent`,`mileageLimits`,`overMileageFare`,`overTimeFare`,`carSendFare`,`diffShopReturnFare`,`status`,`createTime`,`updateTime`) values (1,1,NULL,1,1,1,1,1,1,2,'2013-03-14 12:12:34','2013-03-14 12:12:34'),(8,2000.34,NULL,350.35,32424,2343.93,230.53,314.343,345.32,1,'2013-03-15 00:55:12','2013-03-15 00:55:12');
 
 /*Table structure for table `csm_consumer` */
 
@@ -172,10 +173,8 @@ CREATE TABLE `cust_car_type` (
   `category` int(11) default NULL COMMENT '车辆类型（字典表存储，1、货车；2、越野汽车；3、自卸汽车；4、牵引汽车；5、专用汽车；6、客车；7、轿车）',
   `seating` int(11) default NULL COMMENT '座位数',
   `tankCapacity` int(11) default NULL COMMENT '油箱容量（单位：升）',
-  `rent` float default NULL COMMENT '租金，xxx元/天（单位：元，人民币）',
-  `pledge` datetime default NULL COMMENT '押金，xxx元/次',
-  `premium` varchar(100) default NULL COMMENT '保险费，xxx元/次',
   `drivingRange` float default NULL COMMENT '可行驶里程数',
+  `chargeStandardId` bigint(20) default NULL COMMENT '车型使用的收费标准id（与csm_charge_standard表一对一）',
   `status` int(11) default NULL COMMENT '状态，字典表字段，组名：cust_car_type_status，0：删除；',
   `createTime` datetime default NULL COMMENT '创建时间',
   `updateTime` datetime default NULL COMMENT '更新时间',
@@ -239,7 +238,7 @@ CREATE TABLE `statis_car_income` (
 DROP TABLE IF EXISTS `sys_city`;
 
 CREATE TABLE `sys_city` (
-  `id` int(11) NOT NULL COMMENT '存储原数据平台的城市ID（格式：101010100）',
+  `id` bigint(11) NOT NULL COMMENT '主键id',
   `name` varchar(20) default NULL,
   `spelling` varchar(20) default NULL COMMENT '城市名称的全拼',
   `orderNo` int(20) default NULL COMMENT '存储用于排序的数字，值越大越往后排',
@@ -278,7 +277,7 @@ CREATE TABLE `sys_dictionary` (
 DROP TABLE IF EXISTS `sys_province`;
 
 CREATE TABLE `sys_province` (
-  `id` bigint(20) NOT NULL COMMENT '存储原数据平台的城市ID（格式：101010100）',
+  `id` bigint(20) NOT NULL COMMENT '主键',
   `name` varchar(50) default NULL COMMENT '省份名称',
   `spelling` varchar(50) default NULL COMMENT '省份名称的全拼',
   `orderNo` int(11) default NULL COMMENT '存储用于排序的数字，值越大越往后排',
