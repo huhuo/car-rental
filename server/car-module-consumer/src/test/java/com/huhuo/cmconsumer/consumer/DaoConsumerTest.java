@@ -1,5 +1,7 @@
 package com.huhuo.cmconsumer.consumer;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -14,7 +16,7 @@ import com.huhuo.integration.db.mysql.Page;
 
 public class DaoConsumerTest extends CarModuleConsumerTest {
 
-	@Resource(name="cmconsumerDaoConsumer")
+	@Resource(name="carservicecoreDaoConsumer")
 	private IDaoConsumer idaoConsumer;
 	
 	@Test
@@ -24,6 +26,34 @@ public class DaoConsumerTest extends CarModuleConsumerTest {
 		t.setEmail("wuyuxuan2014@gmail.com");
 		Integer row = idaoConsumer.add(t);
 		print(row);
+	}
+	
+	
+	@Test
+	public void insertTestData() {
+		List<ModelConsumer> list = new ArrayList<ModelConsumer>();
+		for (int i = 0 ; i < 100; i ++) {
+			ModelConsumer c = new ModelConsumer();
+			c.setIdentityCardId(i+"");
+			c.setUsername("三皮 " + i);
+			c.setPassword("abcde" + i);
+			c.setTelephone("10086" + i);
+			c.setTelephone("1383838383" + i);
+			c.setEmail("user" + i + "@ihuhuo.com");
+			c.setAddress("北京市海淀区农大南路万树园" + i + "楼" + i + "单元");
+			c.setZipcode("1001" + i);
+			c.setQq("2323425"+ i);
+			c.setEmergencyContact("三皮" + i);
+			c.setGender(i % 2 == 0 ? 2 : 1);
+			c.setNation("汉族");
+			c.setBrithday(new Date());
+			c.setLicenseNum("11110000" + i);
+			c.setIntegral(1000 + i );
+			c.setCreateTime(new Date());
+			c.setUpdateTime(new Date());
+			list.add(c);
+		}
+		idaoConsumer.addBatch(list);
 	}
 	
 	@Test
