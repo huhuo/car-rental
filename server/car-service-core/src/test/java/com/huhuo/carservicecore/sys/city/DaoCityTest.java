@@ -67,8 +67,8 @@ public class DaoCityTest extends CarServiceCoreTest {
 	
 	@Test
 	public void queryForList() throws Exception{
-		String sql = "select * from sys_city";
-		List<ModelCity> list = daoCity.queryForList(sql, ModelCity.class);
+		String sql = "select * from sys_city LIMIT ?, ?";
+		List<ModelCity> list = daoCity.queryForList(sql, ModelCity.class, 0, 20);
 		print(list);
 	}
 	

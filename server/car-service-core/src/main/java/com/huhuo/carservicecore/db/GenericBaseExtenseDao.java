@@ -81,7 +81,7 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 	public final JdbcTemplate getJdbcTemplate() {
 		DataSource dataSource = getDataSource();
 		if(dataSource == null) {
-			throw new DaoException("'dataSource' is required");
+			throw new DaoException("---> spring bean 'dataSource' is required");
 		}
 		return new JdbcTemplate(dataSource);
 	}
@@ -89,7 +89,7 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 	@Override
 	public boolean save(T t) throws DaoException {
 		if(t == null)
-			throw new DaoException("model t can't be null");
+			throw new DaoException("---> model t can't be null");
 		if(update(t) < 1) {
 			add(t);
 			return true;
@@ -118,7 +118,7 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 			try{
 				value = gs.getter.invoke(t);
 			}catch(Exception e){
-				logger.warn(null,e);
+				logger.warn(null, e);
 			}
 			value = value == null ? gs.getter.getDefaultValue() : value;
 			args.put(gs.propertyName, value);
@@ -155,9 +155,9 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 			try{
 				value = gs.getter.invoke(t);
 			}catch(Exception e){
-				logger.warn(null,e);
+				logger.warn(null, e);
 			}
-			values.add(value==null?gs.getter.getDefaultValue():value);
+			values.add(value == null ? gs.getter.getDefaultValue() : value);
 		}
 		sb.append(") values(");
 		for(int i=0;i<values.size();i++){
@@ -168,9 +168,9 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 		sb.append(")");
 		final Object[] objects = values.toArray(new Object[values.size()]);
 		int update = getJdbcTemplate().update(sb.toString(), objects);
-		logger.debug("SQL --> {}", sb.toString());
-		logger.debug("params --> {}", JSONArray.toJSONString(objects));
-		logger.debug("row affected --> {}", update);
+		logger.debug("---> SQL --> {}", sb.toString());
+		logger.debug("---> params --> {}", JSONArray.toJSONString(objects));
+		logger.debug("---> row affected --> {}", update);
 		return update;
 		
 	}
@@ -185,7 +185,7 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 			batch[i] = new BeanPropertySqlParameterSource(list.get(i));
 		}
 		int[] executeBatch = jdbcInsert.executeBatch(batch);
-		logger.debug("addBatch end with affected row --> {}", executeBatch);
+		logger.debug("---> addBatch end with affected row --> {}", executeBatch);
 		return executeBatch;
 	}
 
@@ -222,9 +222,9 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 		values.add(t.getId());
 		final Object[] objects = values.toArray(new Object[values.size()]);
 		int update = getJdbcTemplate().update(sb.toString(),objects);
-		logger.debug("SQL --> {}", sb.toString());
-		logger.debug("params --> {}", StringUtils.join(objects, ","));
-		logger.debug("row affected --> {}", update);
+		logger.debug("---> SQL --> {}", sb.toString());
+		logger.debug("---> params --> {}", StringUtils.join(objects, ","));
+		logger.debug("---> row affected --> {}", update);
 		return update;
 	}
 
@@ -240,9 +240,9 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 	public <PK> Integer deleteById(PK id) throws DaoException {
 		String sql = String.format("DELETE FROM %s WHERE id=?", getTableName());
 		Integer update = getJdbcTemplate().update(sql, id);
-		logger.debug("SQL --> {}", sql);
-		logger.debug("params --> {}", id);
-		logger.debug("row affected --> {}", update);
+		logger.debug("---> SQL --> {}", sql);
+		logger.debug("---> params --> {}", id);
+		logger.debug("---> row affected --> {}", update);
 		return update;
 	}
 	
@@ -250,8 +250,8 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 	public Long count() {
 		String sql = String.format("SELECT COUNT(*) FROM %s", getTableName());
 		long count = getJdbcTemplate().queryForLong(sql);
-		logger.debug("SQL --> {}", sql);
-		logger.debug("result count --> {}", count);
+		logger.debug("---> SQL --> {}", sql);
+		logger.debug("---> result count --> {}", count);
 		return count;
 	}
 	
@@ -259,9 +259,9 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 	public List<T> queryForList(String sql, Class<T> clazz, Object... args)
 			throws DaoException {
 		List<T> rs = getJdbcTemplate().query(sql, args, new BeanPropertyRowMapper<T>(clazz));
-		logger.debug("SQL --> {}", sql);
-		logger.debug("params --> {}", StringUtils.join(args, ","));
-		logger.debug("result set --> {}", rs);
+		logger.debug("---> SQL --> {}", sql);
+		logger.debug("---> params --> {}", StringUtils.join(args, ","));
+		logger.debug("---> result set --> {}", rs);
 		return rs;
 	}
 	
@@ -276,12 +276,12 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 			throws DaoException {
 		try {
 			T singleResult = getJdbcTemplate().queryForObject(sql, BeanPropertyRowMapper.newInstance(clazz), args);
-			logger.debug("SQL --> {}", sql);
-			logger.debug("params --> {}", StringUtils.join(args, ","));
-			logger.debug("result set --> {}", singleResult);
+			logger.debug("---> SQL --> {}", sql);
+			logger.debug("---> params --> {}", StringUtils.join(args, ","));
+			logger.debug("---> result set --> {}", singleResult);
 			return singleResult;
 		} catch (EmptyResultDataAccessException e) {
-			logger.info("no available result --> ", ExceptionUtils.getStackTrace(e));
+			logger.info("---> no available result --> ", ExceptionUtils.getStackTrace(e));
 			return null;
 		}
 	}
