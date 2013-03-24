@@ -54,6 +54,6 @@ public class CtrlUser extends BaseCtrl {
 	@RequestMapping(value="/person.do")
 	public String person() {
 		logger.debug("---> access person management page");
-		return basePath + "/user/index";
+		return basePath + "/user/person";
 	}
 }
