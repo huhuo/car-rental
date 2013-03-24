@@ -54,4 +54,18 @@ public class CtrlCarType extends BaseCtrl {
 			write(new Message<String>(Status.ERROR, e.getMessage()), out);
 		}
 	}
+	@RequestMapping(value="/huhuo/form.do")
+	public void huhuoForm(String first, String second, OutputStream out){
+		try {
+			logger.debug("---> server receive: first={}, second={}", first, second);
+			List<ModelCarType> list = iservCarType.findModels(new Page(0, 10));
+			write(ExtUtils.getJsonStore(list, list.size()), out);
+		} catch (HuhuoException e) {
+			logger.warn(e.getMessage());
+			write(new Message<String>(Status.FAILURE, e.getMessage()), out);
+		} catch (Exception e) {
+			logger.error(ExceptionUtils.getFullStackTrace(e));
+			write(new Message<String>(Status.ERROR, e.getMessage()), out);
+		}
+	}
 }

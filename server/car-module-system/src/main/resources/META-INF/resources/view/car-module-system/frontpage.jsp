@@ -16,7 +16,11 @@
 <script src="${path }/res/js/bootstrap/js/bootstrap.js"></script>
 <script src="${path }/res/js/jquery/jquery.blockUI.js"></script>
 <script src="${path }/res/js/huhuo/huhuo.js"></script>
+<style type="text/css">
 
+
+
+</style>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -29,18 +33,23 @@
 	<div class="container-fluid">
 
 		<div class="row-fluid show-grid">
-			<div class="span12">
-				<h1 align="center">虎货汽车租赁管理系统 3.0 beta</h1>
-				<h6 align="right">吴雨轩，您好</h6>
-			</div>
-			<div class="span12">
-				<ul class="breadcrumb">
+			<div class="top" style="padding-top:10px">
+				<h3 align="center" style="margin-top:5px;">虎货汽车租赁系统 3.0 beta</h3>
+				
+				<!--  
+				<ul class="breadcrumb" style="opacity:30">
 					<li><a href="#">订单管理</a> <span class="divider">/</span></li>
 					<li><a href="#">添加客户</a> <span class="divider">/</span></li>
 					<li class="active">数据</li>
 				</ul>
+				-->
+				<div style="color: white;">
+					<a href="#">订单管理</a> / <a href="#">添加客户</a> / 数据
+					<div align="right">吴雨轩，您好</div>
+				</div>
 			</div>
-			<div class="row-fluid">
+			
+			<div class="row-fluid" style="margin-top: 20px;">
 				<div class="span12">
 					<div class="span2 " style="min-height: 500px">
 						<ul class="nav nav-tabs nav-stacked">
@@ -84,7 +93,7 @@
 							<li data-toggle="collapse" data-target="#systemMgr"><a
 								class="menu" href="javascript:void(0)">系统管理</a></li>
 							<li id="systemMgr" class="collapse leftdivchange"><a
-								class="huhuoItem first" href="${path }/cmsystem/user/index.do">系统用户管理</a>
+								class="huhuoItem frist" href="${path }/cmsystem/user/index.do">系统用户管理</a>
 								<a class="huhuoItem" href="${path }/cmsystem/store/index.do">门店管理</a>
 								<a class="huhuoItem end" href="${path }/cmsystem/user/person.do">个人信息管理</a>
 							</li>
@@ -203,13 +212,13 @@
 						<!-- style="position:fixed;top:150px;left:1100px" -->
 						<div class="pagination pagination-centered">
 							<ul>
-								<li><a href="#">«</a></li>
+								<li><a href="#">?</a></li>
 								<li><a href="#">1</a></li>
 								<li><a href="#">2</a></li>
 								<li><a href="#">3</a></li>
 								<li><a href="#">4</a></li>
 								<li><a href="#">5</a></li>
-								<li><a href="#">»</a></li>
+								<li><a href="#">?</a></li>
 							</ul>
 						</div>
 					</div>
