@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
 import com.huhuo.integration.base.BaseCtrl;
 import com.huhuo.integration.db.mysql.Condition;
+import com.huhuo.integration.db.mysql.Group;
 import com.huhuo.integration.db.mysql.Page;
 import com.huhuo.integration.exception.HuhuoException;
 import com.huhuo.integration.util.ExtUtils;
@@ -53,6 +54,19 @@ public class CtrlConsumer extends BaseCtrl {
 			logger.error(ExceptionUtils.getFullStackTrace(e));
 			write(new Message<String>(Status.ERROR, e.getMessage()), out);
 		}
+	}
+	/**
+	 * register customer
+	 * @param condition
+	 * @param out
+	 */
+	@RequestMapping(value="/register.do")
+	public void registerCustomer(String username) {
+		setEncoding("UTF-8");
+		logger.debug("--->");
+		logger.debug("username:" + username);
+		logger.debug("<---");
+		
 	}
 	
 	/*************************************************************

@@ -30,7 +30,7 @@
 
 		<div class="row-fluid show-grid">
 			<div class="span12">
-				<h1 align="center">虎货汽车租赁系统 3.0 beta</h1>
+				<h1 align="center">虎货汽车租赁管理系统 3.0 beta</h1>
 				<h6 align="right">吴雨轩，您好</h6>
 			</div>
 			<div class="span12">
@@ -84,7 +84,7 @@
 							<li data-toggle="collapse" data-target="#systemMgr"><a
 								class="menu" href="javascript:void(0)">系统管理</a></li>
 							<li id="systemMgr" class="collapse leftdivchange"><a
-								class="huhuoItem frist" href="${path }/cmsystem/user/index.do">系统用户管理</a>
+								class="huhuoItem first" href="${path }/cmsystem/user/index.do">系统用户管理</a>
 								<a class="huhuoItem" href="${path }/cmsystem/store/index.do">门店管理</a>
 								<a class="huhuoItem end" href="${path }/cmsystem/user/person.do">个人信息管理</a>
 							</li>
