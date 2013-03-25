@@ -54,29 +54,30 @@
 					<div class="span2 " style="min-height: 500px">
 						<ul class="nav nav-tabs nav-stacked">
 							<li data-toggle="collapse" data-target="#rentalInfoMgr"><a
-								class="menu" href="javascript:void(0)">租赁信息管理</a></li>
+								class="menu" href="javascript:void(0)"><i class="icon-shopping-cart"></i>&nbsp;租赁信息管理</a></li>
 							<li id="rentalInfoMgr" class="collapse leftdivchange"><a
 								class="huhuoItem first" href="${path }/cmorder/order/index.do">订单管理</a>
 								<a class="huhuoItem end" href="${path }/cmorder/order/history.do">历史订单</a>
 							</li>
 
-							<li data-toggle="collapse" data-target="#carInfoMgr"><a
-								class="menu" href="javascript:void(0)">车辆管理</a></li>
-							<li id="carInfoMgr" class="collapse leftdivchange"><a
-								class="huhuoItem  first" href="${path }/cmcar/cartype/index.do">车型管理</a>
+							<li data-toggle="collapse" data-target="#carInfoMgr">
+								<a class="menu" href="javascript:void(0)"><i class="icon-bullhorn"></i>&nbsp;车辆管理</a>
+							</li>
+							<li id="carInfoMgr" class="collapse leftdivchange">
+								<a class="huhuoItem  first" href="${path }/cmcar/cartype/index.do">车型管理</a>
 								<a class="huhuoItem" href="${path }/cmcar/car/index.do">车辆管理</a>
 								<a class="huhuoItem end" href="${path }/cmcar/car/trace/index.do">车辆跟踪</a>
 							</li>
-
-							<li data-toggle="collapse" data-target="#consumerInfoMgr"><a
-								class="menu" href="javascript:void(0)">客户管理</a></li>
+							<li data-toggle="collapse" data-target="#consumerInfoMgr">
+								<a class="menu" href="javascript:void(0)"><i class="icon-user"></i>&nbsp;客户管理</a>
+							</li>
 							<li id="consumerInfoMgr" class="collapse leftdivchange"><a
 								class="huhuoItem first" href="${path }/cmconsumer/consumer/index.do">会员管理</a>
 								<a class="huhuoItem end"
 								href="${path }/cmconsumer/consumer/points.do">会员积分管理</a></li>
 
 							<li data-toggle="collapse" data-target="#businessMgr"><a
-								class="menu" href="javascript:void(0)">业务运营（该模块未添加）</a></li>
+								class="menu" href="javascript:void(0)"><i class="icon-fire"></i>&nbsp;业务运营（*）</a></li>
 							<li id="businessMgr" class="collapse leftdivchange"><a
 								class="huhuoItem first" href="${path }/cmorder/order/index.do">车辆运营服务</a>
 								<a class="huhuoItem" href="${path }/cmorder/order/index.do">短信发布服务</a>
@@ -84,14 +85,14 @@
 							</li>
 
 							<li data-toggle="collapse" data-target="#analyMgr"><a
-								class="menu" href="javascript:void(0)">运营分析统计（该模块未添加）</a></li>
+								class="menu" href="javascript:void(0)"><i class="icon-align-right"></i>&nbsp;运营分析统计（*）</a></li>
 							<li id="analyMgr" class="collapse leftdivchange"><a
 								class="huhuoItem first" href="${path }/cmorder/order/index.do">营业额统计</a>
 								<a class="huhuoItem end" href="${path }/cmorder/order/index.do">客户量统计</a>
 							</li>
 
 							<li data-toggle="collapse" data-target="#systemMgr"><a
-								class="menu" href="javascript:void(0)">系统管理</a></li>
+								class="menu" href="javascript:void(0)"><i class="icon-wrench"></i>&nbsp;系统管理</a></li>
 							<li id="systemMgr" class="collapse leftdivchange"><a
 								class="huhuoItem frist" href="${path }/cmsystem/user/index.do">系统用户管理</a>
 								<a class="huhuoItem" href="${path }/cmsystem/store/index.do">门店管理</a>

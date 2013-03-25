@@ -46,6 +46,7 @@
 	<form class="form-search" action="">
 		<div class="span2  well" style="min-height: 500px">
 			<img src="http://www.baidu.com/img/baidu_jgylogo3.gif" class="img-polaroid">
+			<br>
 			<button style="width: 100px" class="btn">自动识别</button>
 		</div>
 
@@ -53,8 +54,9 @@
 			<div class="row-fluid ">
 				<div class="span5 well " style="min-height: 500px">
 					<div>
-						<label>会员信息</label> 
+						<label class="btn btn-large btn-block">会员信息</label> 
 					</div>
+					<br>
 					<div>
 						<label>会员姓名:</label> 
 						<input type="text" class="span6" placeholder="自动识别">
@@ -110,8 +112,9 @@
 				</div>
 				<div class="span5 well" style="min-height: 500px">
 					<div>
-						<label>驾照信息</label> 
+						<label class="btn btn-large btn-block">驾照信息</label> 
 					</div>
+					<br>
 					<div>
 						<label>驾驶证号:</label> 
 						<input type="text" class="span6" placeholder="请输入驾驶证号">
@@ -133,7 +136,8 @@
 						<label>地址:</label> 
 						<input type="text" class="span6" placeholder="请输入地址">
 					</div>
-					<button id="submitAdd" style="width: 200px" class="btn">提交</button>
+					<br>
+					<button id="submitAdd" style="width: 200px" class="btn btn-primary">提交</button>
 
 				</div>
 			</div>
@@ -141,9 +145,9 @@
 	</form>
 </div>
 
-<div class="well">
-<div class="span2">
-	<button id="addCustomer" style="width: 100px" class="btn">添加会员</button>
+<div id="customerManagerDiv">
+	<div class="span2">
+		<button id="addCustomer" style="width: 100px" class="btn">添加会员</button>
 	</div>
 	<div class="span2">
 		<button id="editCustomer" style="width: 100px" class="btn">编辑会员</button>
@@ -151,11 +155,9 @@
 	<div class="span2">
 		<button id="delteCustomer" style="width: 100px" class="btn">删除会员</button>
 	</div>
-</div>
-
-<div id="customerManagerDiv" class="well">
+	<br><br>
 	<div class="row-fluid">
-		<form class="form-search"
+		<form class="well form-search"
 			action="${path }/cmconsumer/consumer/get.do">
 			<div class="row-fluid">
 				<div class="span3">
