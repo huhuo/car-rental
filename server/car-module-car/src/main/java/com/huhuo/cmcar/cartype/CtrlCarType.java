@@ -38,14 +38,13 @@ public class CtrlCarType extends BaseCtrl {
 		return basePath + "/cartype/index";
 	}
 	
-	@RequestMapping(value="/get.do")
-	public void get(Condition<ModelCarType> condition, OutputStream out){
+	@RequestMapping(value="/condition/get.do")
+	public void get(OutputStream out, Condition<ModelCarType> condition, ModelCarType t){
 		try {
+			condition.setT(t);
 			logger.debug("---> server receive: condition={}", condition);
-//			condition.setPage(new Page(0, 30));
-//			List<ModelConsumer> list = servConsumer.findByCondition(condition);
-			List<ModelCarType> list = iservCarType.findModels(new Page(0, 10));
-			write(ExtUtils.getJsonStore(list, list.size()), out);
+			List<ModelCarType> records = iservCarType.findByCondition(condition);
+			write(ExtUtils.getJsonStore(records, records.size()), out);
 		} catch (HuhuoException e) {
 			logger.warn(e.getMessage());
 			write(new Message<String>(Status.FAILURE, e.getMessage()), out);

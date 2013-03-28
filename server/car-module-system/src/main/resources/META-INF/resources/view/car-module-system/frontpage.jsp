@@ -36,17 +36,13 @@
 			<div class="top" style="padding-top:10px">
 				<h3 align="center" style="margin-top:5px;">虎货汽车租赁系统 3.0 beta</h3>
 				
-				<!--  
-				<ul class="breadcrumb" style="opacity:30">
-					<li><a href="#">订单管理</a> <span class="divider">/</span></li>
-					<li><a href="#">添加客户</a> <span class="divider">/</span></li>
-					<li class="active">数据</li>
+				<ul class="breadcrumb">
+					<li><a href="#">首页</a><span class="divider">/</span></li>
+					<li><a href="#">车辆管理</a><span class="divider">/</span></li>
+					<li><a href="#">车型管理</a><span class="divider">/</span></li>
+					<li class="active">Data</li>
+					<li style="float: right;">吴雨轩，您好</li>
 				</ul>
-				-->
-				<div style="color: white;">
-					<a href="#">订单管理</a> / <a href="#">添加客户</a> / 数据
-					<div align="right">吴雨轩，您好</div>
-				</div>
 			</div>
 			
 			<div class="row-fluid" style="margin-top: 20px;">
