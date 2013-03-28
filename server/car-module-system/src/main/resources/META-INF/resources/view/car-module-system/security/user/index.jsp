@@ -8,6 +8,7 @@
 	$("#addUser").click(function(){
 			
 		$("#userManagerDiv").hide();
+		$("#aotu_read").hide();
 		$("#addUserForm").show();
 		
 	});
@@ -15,6 +16,19 @@
 	$("#submitAdd").click(function(){
 		$("#userManagerDiv").show();
 		$("#addUserForm").hide();
+	});
+	
+	$(document).ready(function(){
+		// bind click event to drop down component ==> reset search term
+		$('.search-term').click(function(event) {
+			var searchInput = $('#huhuoForm').children('.search-query');
+			searchInput.attr('placeholder', $(this).html());
+			searchInput.attr('name', $(this).attr('id'));
+		});
+		// bind click event to search button ==> query record by search term
+		$('#huhuoForm').huhuoFormPost(function(data, status) {
+			console.log(data);
+		});
 	});
 	
 
@@ -43,6 +57,16 @@
 						<label>身份证号:</label> 
 						<input type="text" class="span6" placeholder="自动识别">
 					</div>
+					<div>
+						<label>出生年月:</label> 
+						<input type="text" class="span6" placeholder="自动识别">
+					</div>
+					<div>
+						<label>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄:</label> 
+						<input type="text" class="span6" placeholder="自动识别">
+					</div>
+					
+					
 					
 						<label>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:</label>
 					
@@ -55,15 +79,6 @@
 					
 					<div>
 						<label>民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族:</label> 
-						<input type="text" class="span6" placeholder="自动识别">
-					</div>
-					
-					<div>
-						<label>出生年月:</label> 
-						<input type="text" class="span6" placeholder="自动识别">
-					</div>
-					<div>
-						<label>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄:</label> 
 						<input type="text" class="span6" placeholder="自动识别">
 					</div>
 
@@ -80,35 +95,45 @@
 	</form>
 </div>
 
-<div id="userManagerDiv">
-	<div class="span2">
-		<button id="addUser" style="width: 100px" class="btn">添加用户</button>
-	</div>
-	<div class="span2">
-		<button id="editUser" style="width: 100px" class="btn">编辑用户</button>
-	</div>
-	<div class="span2">
-		<button id="deleteUser" style="width: 100px" class="btn">删除用户</button>
-	</div>
-<br><br>
-	<div class="row-fluid">
-		<form class="well  form-search"
-			action="${path }/cmconsumer/consumer/get.do">
-			<div class="row-fluid">
-				<div class="span3">
-					<label>用户姓名:</label> 
-					<input type="text" class="span6" placeholder="请输入用户姓名...">
+<div id="userManagerDiv" class="well" style="padding: 0px;">
+<div class="navbar">
+		<div class="navbar-inner">
+			<div class="container">
+				<div id = "btn_group" class="btn-group">
+					<button id="addUser" class="btn">添加</button>
+					<button id="editUser" class="btn">编辑</button>
+					<button id="deleteUser" class="btn">删除</button>
 				</div>
-				<div class="span3">
-					<label>手机号码:</label> <input type="text" class="span6"
-						placeholder="请输入手机号...">
-				</div>
-				<div class="span3">
-					<button style="width: 100px"class="btn">搜索</button>
+				<!-- search box -->
+				<div id="search_div"class="pull-right">
+					<ul class="nav">
+						<li class="dropdown"><a href="javascript:void(0)"
+							class="dropdown-toggle" data-toggle="dropdown">搜索条件<b
+								class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a class="search-term" id="name"
+									href="javascript:void(0)">手机号</a></li>
+								<li><a class="search-term" id="category"
+									href="javascript:void(0)">姓名</a></li>
+								<li class="divider"></li>
+								<li><a class="search-term" id="seating"
+									href="javascript:void(0)">身份证号</a></li>
+								<li><a class="search-term" id="tankCapacity"
+									href="javascript:void(0)">住址</a></li>
+							</ul></li>
+					</ul>
+					<form id="huhuoForm" class="navbar-form" style="width: 400px;"
+						action="${path }/cmcar/cartype/condition/get.do">
+						<input type="text" class="search-query span6" name="mobileNumber"
+							placeholder="手机号">
+						<button type="submit" class="btn">搜索</button>
+					</form>
 				</div>
 			</div>
-		</form>
+		</div>
 	</div>
+	
+	<div >
 
 	<table class="table table-hover table-condensed">
 		<thead>
@@ -172,4 +197,8 @@
 			<li><a href="#">»</a></li>
 		</ul>
 	</div>
+</div>
+	
+
+
 </div>

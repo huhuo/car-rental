@@ -8,7 +8,11 @@
 	
 	$("#addStore").click(function() {
 		$("#storeManagerDiv").hide();
+		$("#aotu_read").hide();
 		$("#addStoreForm").show();
+		$("#btn_group").show();
+		$("#search_div").show();
+		
 	});
 	
 	$("#editStore").click(function() {
@@ -19,6 +23,19 @@
 	$("#submitAdd").click(function(){
 		$("#storeManagerDiv").show();
 		$("#addStoreForm").hide();
+	});
+	
+	$(document).ready(function(){
+		// bind click event to drop down component ==> reset search term
+		$('.search-term').click(function(event) {
+			var searchInput = $('#huhuoForm').children('.search-query');
+			searchInput.attr('placeholder', $(this).html());
+			searchInput.attr('name', $(this).attr('id'));
+		});
+		// bind click event to search button ==> query record by search term
+		$('#huhuoForm').huhuoFormPost(function(data, status) {
+			console.log(data);
+		});
 	});
 
 </script>
@@ -68,35 +85,39 @@
 	</form>
 </div>
 
-
-
-<div id="storeManagerDiv">
-	<div class="span2">
-		<button id="addStore" style="width: 100px" class="btn">添加分店</button>
-	</div>
-	<div class="span2">
-		<button id="editStore" style="width: 100px" class="btn">编辑分店</button>
-	</div>
-	<div class="span2">
-		<button id="deleteStore" style="width: 100px" class="btn">删除分店</button>
-	</div>
-<br><br>
-	<div class="row-fluid">
-		<form class="well  form-search"
-			action="${path }/cmconsumer/consumer/get.do">
-			<div class="row-fluid">
-				<div class="span3">
-					<input type="text" class="span6" placeholder="请输入店名">
-					<button style="width: 100px" class="btn">搜索</button>
+<div id="storeManagerDiv" class="well" style="padding: 0px;">
+<div class="navbar">
+		<div class="navbar-inner">
+			<div class="container">
+				<div id = "btn_group" class="btn-group">
+					<button id="addStore" class="btn">添加</button>
+					<button class="btn">编辑</button>
+					<button class="btn">删除</button>
 				</div>
-				<div class="span3">
-				</div>
-				<div class="span3">
+				<!-- search box -->
+				<div id="search_div"class="pull-right">
+					<ul class="nav">
+						<li class="dropdown"><a href="javascript:void(0)"
+							class="dropdown-toggle" data-toggle="dropdown">搜索条件<b
+								class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a class="search-term" id="name"
+									href="javascript:void(0)">店名</a></li>
+								<li><a class="search-term" id="category"
+									href="javascript:void(0)">地址</a></li>
+							</ul></li>
+					</ul>
+					<form id="huhuoForm" class="navbar-form" style="width: 400px;"
+						action="${path }/cmcar/cartype/condition/get.do">
+						<input type="text" class="search-query span6" name="mobileNumber"
+							placeholder="店名">
+						<button type="submit" class="btn">搜索</button>
+					</form>
 				</div>
 			</div>
-		</form>
+		</div>
 	</div>
-
+	<div>
 	<table class="table table-hover table-condensed">
 		<thead>
 			<tr>
@@ -156,4 +177,5 @@
 			<li><a href="#">»</a></li>
 		</ul>
 	</div>
+</div>
 </div>
