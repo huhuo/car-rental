@@ -8,7 +8,6 @@
 	$("#addForm").hide();
 
 	$("#addCustomer").click(function() {
-		alert(111);
 		$("#customerManagerDiv").hide();
 		$("#addForm").show();
 	});
@@ -159,7 +158,7 @@
 	</form>
 </div>
 
-<div class="well" style="padding: 0px;">
+<div  id="customerManagerDiv" class="well" style="padding: 0px;">
 	<div class="navbar">
 		<div class="navbar-inner">
 			<div class="container">
@@ -196,7 +195,7 @@
 			</div>
 		</div>
 	</div>
-	<div id="customerManagerDiv">
+	<div>
 		<table class="table table-hover table-condensed">
 			<thead>
 				<tr>
