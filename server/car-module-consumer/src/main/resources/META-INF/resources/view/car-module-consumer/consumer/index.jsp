@@ -7,17 +7,33 @@
 <script type="text/javascript">
 	$("#addForm").hide();
 
+	/**
+	
 	$("#addCustomer").click(function() {
 		$("#customerManagerDiv").hide();
 		$("#addForm").show();
+	});
+	 **/
+
+	// add, edit and delete button group event
+	var btnGroup = $('#customerManagerDiv div.navbar div.btn-group');
+	btnGroup.children('button[name="add"]').click(function(event) {
+		$("#customerManagerDiv").hide();
+		$("#addForm").show(500);
+	});
+	btnGroup.children('button[name="edit"]').click(function(event) {
+		console.log('=====edit======');
+	});
+	btnGroup.children('button[name="delete"]').click(function(event) {
+		console.log('=====delete======');
 	});
 
 	$("#editCustomer").click(function() {
 		$("#customerManagerDiv").hide();
 		$("#addForm").show();
 	});
-	
-	$(document).ready(function(){
+
+	$(document).ready(function() {
 		// bind click event to drop down component ==> reset search term
 		$('.search-term').click(function(event) {
 			var searchInput = $('#huhuoForm').children('.search-query');
@@ -42,7 +58,6 @@
 					console.info(data);
 
 				});
-
 				$("#addForm").hide();
 				$("#customerManagerDiv").show();
 			});
@@ -57,8 +72,8 @@
 	}
 </script>
 
-<div id="addForm" style="display: true">
-	<form class="form-search" action="">
+<div id="addForm">
+	<form class="form-horizontal " action="">
 		<div class="span2  well" style="min-height: 500px">
 			<img src="http://www.baidu.com/img/baidu_jgylogo3.gif"
 				class="img-polaroid"> <br>
@@ -67,105 +82,153 @@
 
 		<div class="span10  well" style="min-height: 500px">
 			<div class="row-fluid ">
-				<div class="span5 well " style="min-height: 500px">
+				<div class="span5  " style="min-height: 500px">
 					<div>
 						<label class="btn btn-large btn-block">会员信息</label>
 					</div>
 					<br>
-					<div>
-						<label>会员姓名:</label> <input type="text" class="span6"
-							placeholder="自动识别">
+					<div class="control-group">
+						<label class="control-label" for="inputSeating">会员姓名</label>
+						<div class="controls">
+							<input type="number" class="required digits" id="inputCustomerName"  name="username" placeholder="输入会员姓名">
+						</div>
 					</div>
-					<div>
-						<label>固定电话:</label> <input type="text" class="span6"
-							placeholder="请输入固定电话...">
+					<div class="control-group">
+						<label class="control-label" for="inputCellPhone">移动电话</label>
+						<div class="controls">
+							<input type="number" class="required digits" id="inputCellPhone"  name="mobileNumber" placeholder="输入移动电话">
+						</div>
 					</div>
-					<div>
-						<label>移动电话:</label> <input type="text" class="span6"
-							placeholder="请输入移动电话...">
+					<div class="control-group">
+						<label class="control-label" for="inputTelephone">固定电话</label>
+						<div class="controls">
+							<input type="number" class="required digits" id="inputTelephone"  name="telephone" placeholder="输入固定电话">
+						</div>
 					</div>
-					<div>
-						<label>身份证号:</label> <input type="text" class="span6"
-							placeholder="自动识别">
+					<div class="control-group">
+						<label class="control-label" for="inputIDCardNo">身份证号</label>
+						<div class="controls">
+							<input type="number" class="required digits" id="inputIDCardNo"  name="identityCardId" placeholder="输入身份证号">
+						</div>
 					</div>
-
-					<label>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:</label> <label
-						class="radio"> <input type="radio" name="optionsRadios"
-						id="optionsRadios1" value="option1" checked>男
-					</label> <label class="radio"> <input type="radio"
-						name="optionsRadios" id="optionsRadios2" value="option2">女
-					</label>
-
-					<div>
-						<label>民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族:</label> <input
-							type="text" class="span6" placeholder="自动识别">
+					
+					<div class="control-group">
+						<label class="control-label" for="inputBirthday">出生年月</label>
+						<div class="controls">
+							<input type="number" class="required digits" id="inputBirthday"  name="birthday" placeholder="输入出生年月">
+						</div>
 					</div>
-
-					<div>
-						<label>出生年月:</label> <input type="text" class="span6"
-							placeholder="自动识别">
+					
+					<div class="control-group">
+						<label class="control-label" for="inputAge">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄</label>
+						<div class="controls">
+							<input type="number" class="required digits" id="inputAge"  name="age" placeholder="输入年龄">
+						</div>
 					</div>
-					<div>
-						<label>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄:</label> <input
-							type="text" class="span6" placeholder="自动识别">
+					
+					<div class="control-group">
+						<label class="control-label" for="inputIDCardNo">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</label>
+						<div class="controls">
+								<label class="radio inline">
+									<input type="radio" id="inlineCheckbox1" name="optionsRadios" id="optionsRadios1" value="option1" checked> 男
+								</label>
+								<label class="radio inline">
+									<input type="radio" id="inlineCheckbox2" name="optionsRadios" id="optionsRadios2" value="option2">妞
+								</label>
+						</div>
 					</div>
-					<div>
-						<label>户籍地址:</label> <input type="text" class="span6"
-							placeholder="自动识别">
+					
+					<div class="control-group">
+						<label class="control-label" for="inputnNation">民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族</label>
+						<div class="controls">
+								<select id="inputNation"  name="nation" >
+									<option>汉族</option>
+									<option>壮族</option>
+									<option>土家族</option>
+									<option>藏族</option>
+								</select>
+						</div>
 					</div>
-					<div>
-						<label>发证机关:</label> <input type="text" class="span6"
-							placeholder="自动识别">
+					<div class="control-group">
+						<label class="control-label" for="inputPermanentAddress">户籍地址</label>
+						<div class="controls">
+							<input type="number" class="required digits" id="inputPermanentAddress"  name="address" placeholder="输入户籍地址">
+						</div>
 					</div>
-					<div>
-						<label>会员类型:</label> <input type="text" class="span6"
-							placeholder="此处应该是下拉列表">
+					<div class="control-group">
+						<label class="control-label" for="inputIssuingAuthority ">发证机关</label>
+						<div class="controls">
+							<input type="text" class="required digits" id="inputIssuingAuthority"  name="issuingauthority" placeholder="输入发证机关">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputnVIP">会员类型</label>
+						<div class="controls">
+								<select id="inputVIP"  name="vip" >
+									<option>普通会员</option>
+									<option>金卡会员</option>
+									<option>白金卡会员</option>
+								</select>
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<label class="control-label" for="inputCurrentAddress">现在住址</label>
+						<div class="controls">
+							<input type="text" class="required digits" id="inputCurrentAddress"  name="currentaddress" placeholder="请输入现在住址">
+						</div>
+					</div>
+					
+					<div class="control-group">
+						<div class="controls">
+								<button type="submit" class="btn btn-primary" id="inputSubmit"  name="submit" >添加</button>
+						</div>
 					</div>
 
 				</div>
-				<div class="span5 well" style="min-height: 500px">
+				<div class="span5 " style="min-height: 500px">
 					<div>
 						<label class="btn btn-large btn-block">驾照信息</label>
 					</div>
 					<br>
-					<div>
-						<label>驾驶证号:</label> <input type="text" class="span6"
-							placeholder="请输入驾驶证号">
+					<div class="control-group">
+						<label class="control-label" for="inputDrivingLicenseNo">驾驶证号</label>
+						<div class="controls">
+							<input type="text" class="required digits" id="inputDrivingLicenseNo"  name="drivinglicenseno" placeholder="输入驾驶证号">
+						</div>
 					</div>
-					<div>
-						<label>领取地区:</label> <input type="text" class="span6"
-							placeholder="请输入领取地区">
+					
+					<div class="control-group">
+						<label class="control-label" for="inputReceivingArea">领取地区</label>
+						<div class="controls">
+							<input type="text" class="required digits" id="inputReceivingArea"  name="receivingarea" placeholder="请输入领取地区">
+						</div>
 					</div>
-					<div>
-						<label>驾照类型:</label> <input type="text" class="span6"
-							placeholder="驾照类型(下拉列表，A1,B1,C1,C2等)">
+					
+					<div class="control-group">
+						<label class="control-label" for="inputnDriverType">驾照类型</label>
+						<div class="controls">
+								<select id="inputDriverType"  name="drivertype" >
+									<option>c1</option>
+									<option>b1</option>
+									<option>a1</option>
+								</select>
+						</div>
 					</div>
-
-				</div>
-			</div>
-			<div class="row-fluid ">
-				<div class="span10 well">
-					<div>
-						<label>地址:</label> <input type="text" class="span6"
-							placeholder="请输入地址">
-					</div>
-					<br>
-					<button id="submitAdd" style="width: 200px" class="btn btn-primary">提交</button>
-
 				</div>
 			</div>
 		</div>
 	</form>
 </div>
 
-<div  id="customerManagerDiv" class="well" style="padding: 0px;">
+<div id="customerManagerDiv" class="well" style="padding: 0px;">
 	<div class="navbar">
 		<div class="navbar-inner">
 			<div class="container">
 				<div class="btn-group">
-					<button id="addCustomer" class="btn">添加</button>
-					<button class="btn">编辑</button>
-					<button class="btn">删除</button>
+					<button name="add" class="btn">添加</button>
+					<button name="edit" class="btn">编辑</button>
+					<button name="delete" class="btn">删除</button>
 				</div>
 				<!-- search box -->
 				<div class="pull-right">

@@ -69,6 +69,11 @@ public class CtrlConsumer extends BaseCtrl {
 		
 	}
 	
+	@RequestMapping(value="/add.do")
+	public void addConsumer(ModelConsumer consumer,OutputStream out) {
+		
+	}
+	
 	/*************************************************************
 	 * loyalty point management
 	 *************************************************************/
