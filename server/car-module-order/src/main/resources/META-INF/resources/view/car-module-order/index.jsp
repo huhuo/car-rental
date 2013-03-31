@@ -1,70 +1,54 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="${path }/res/js/jquery/jquery.js"></script>
-<script src="${path }/res/js/jquery/jquery.blockUI.js"></script>
+<%@page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <script type="text/javascript">
-	$(document).ready(function() {
-		$('#blockButton').click(function() {
-			$('div.blockMe').block({
-				message : null
-			});
-		});
 
-		$('#blockButton2').click(function() {
-			$('div.blockMe').block({
-				message : '<h1>Processing</h1>',
-				css : {
-					border : '3px solid #a00'
-				}
-			});
-		});
+ $(document).ready(function(){
+	 $("#orderTableloadDiv").divBlickLoad("${path }/cmorder/order/get.do");
+	 
+	 
+ });
 
-		$('#unblockButton').click(function() {
-			$('div.blockMe').unblock();
-		});
-	});
 </script>
-</head>
-<body>
-
-	<h1>Element Blocking Examples</h1>
-	This page demonstrates how to block selected elements on the page
-	rather than the entire page. The buttons below will block/unblock
-	access to the bordered area beneath them.
-	<p></p>
-	<p>
-		<input id="blockButton" value="Block" type="submit"> <input
-			id="blockButton2" value="Block with Message" type="submit"> <input
-			id="unblockButton" value="Unblock" type="submit">
-	</p>
-
-	<div class="blockMe">
-		<a href="#" class="test">Test link - click me!</a>
-		<p>
-			<select><option>Option 1</option>
-				<option>Option 2</option></select> lorem ipsum dolor sit amet consectetuer
-			adipiscing elit sed lorem leo lorem leo consectetuer adipiscing elit
-			sed lorem leo rhoncus sit amet <select><option>Option
-					1</option>
-				<option>Option 2</option></select> lorem ipsum dolor sit amet consectetuer
-			adipiscing elit sed lorem leo <a href="#" class="test">Test link
-				- click me!</a> lorem leo consectetuer adipiscing elit sed lorem leo
-			rhoncus sit amet<br>
-			<textarea rows="2" cols="20">test textarea</textarea>
-
-		</p>
+	
+	
+	
+<div class="well" style="padding: 0px;">
+	<div class="navbar">
+		<div class="navbar-inner">
+			<div class="container">
+				<div class="btn-group">
+					<button id="addCustomer" class="btn">添加</button>
+					<button class="btn">编辑</button>
+					<button class="btn">删除</button>
+				</div>
+				<!-- search box -->
+				<div class="pull-right">
+					<ul class="nav">
+						<li class="dropdown"><a href="javascript:void(0)"
+							class="dropdown-toggle" data-toggle="dropdown">搜索条件<b
+								class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a class="search-term" id="name"
+									href="javascript:void(0)">手机号</a></li>
+								<li><a class="search-term" id="category"
+									href="javascript:void(0)">姓名</a></li>
+								<li class="divider"></li>
+								<li><a class="search-term" id="seating"
+									href="javascript:void(0)">身份证号</a></li>
+								<li><a class="search-term" id="tankCapacity"
+									href="javascript:void(0)">住址</a></li>
+							</ul></li>
+					</ul>
+					<form id="huhuoForm" class="navbar-form" style="width: 400px;"
+						action="${path }/cmcar/cartype/condition/get.do">
+						<input type="text" class="search-query span6" name="mobileNumber"
+							placeholder="车型名称">
+						<button type="submit" class="btn">search</button>
+					</form>
+				</div>
+			</div>
+		</div>
 	</div>
-	<div>
-		This text will not be blocked. <a href="#" class="test">Test link
-			- click me!</a>
+	<div id="orderTableloadDiv">
 	</div>
-
-
-
-
-</body>
-
-</html>
+</div>

@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
@@ -41,20 +42,18 @@ public class CtrlOrder extends BaseCtrl {
 	}
 	
 	@RequestMapping(value="/get.do")
-	public void get(Condition<ModelConsumer> condition, OutputStream out) {
+	public String get(Condition<ModelConsumer> condition,Model model) {
 		try {
 			logger.debug("server receive: condition={}", condition);
 //			condition.setPage(new Page(0, 30));
 //			List<ModelConsumer> list = servConsumer.findByCondition(condition);
 			List<ModelOrder> list = iservOrder.findModels(new Page(0, 10));
-			write(ExtUtils.getJsonStore(list, list.size()), out);
 		} catch (HuhuoException e) {
 			logger.warn(e.getMessage());
-			write(new Message<String>(Status.FAILURE, e.getMessage()), out);
 		} catch (Exception e) {
 			logger.error(ExceptionUtils.getFullStackTrace(e));
-			write(new Message<String>(Status.ERROR, e.getMessage()), out);
 		}
+		return basePath + "/ordertable";
 	}
 	
 	
