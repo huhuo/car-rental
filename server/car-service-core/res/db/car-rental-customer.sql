@@ -16,28 +16,6 @@ CREATE DATABASE /*!32312 IF NOT EXISTS*/`car-rental-customer` /*!40100 DEFAULT C
 
 USE `car-rental-customer`;
 
-/*Table structure for table `csm_charge_standard` */
-
-DROP TABLE IF EXISTS `csm_charge_standard`;
-
-CREATE TABLE `csm_charge_standard` (
-  `id` bigint(20) NOT NULL auto_increment COMMENT '主键',
-  `deposit` double default NULL COMMENT '押金',
-  `premium` double default NULL COMMENT '保险费，xxx元/次',
-  `rent` double default NULL COMMENT '租金（xxx元/天）',
-  `mileageLimits` bigint(20) default NULL COMMENT '里程限制（xxx公里/日）',
-  `overMileageFare` double default NULL COMMENT '超里程费用（xxx元/公里）',
-  `overTimeFare` double default NULL COMMENT '超时标准（xxx元/小时）',
-  `carSendFare` double default NULL COMMENT '上门送车（xxx元）',
-  `diffShopReturnFare` double default NULL COMMENT '异店结算（还车）附加费（元）',
-  `status` int(11) default NULL COMMENT '状态，字典表字段，组名：cust_charge_standard_status，0：删除；',
-  `createTime` datetime default NULL COMMENT '创建时间',
-  `updateTime` datetime default NULL COMMENT '更新时间',
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='车辆收费标准';
-
-/*Data for the table `csm_charge_standard` */
-
 /*Table structure for table `csm_consumer` */
 
 DROP TABLE IF EXISTS `csm_consumer`;
@@ -140,8 +118,6 @@ CREATE TABLE `cust_car` (
 
 /*Data for the table `cust_car` */
 
-insert  into `cust_car`(`id`,`carTypeId`,`licencePlate`,`storeId`,`engineNo`,`gpsNo`,`color`,`drivedKilometer`,`oilMass`,`warehouseId`,`location`,`status`,`createTime`,`updateTime`) values (1,1,'232213',2,'24','23',24,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-
 /*Table structure for table `cust_car_location` */
 
 DROP TABLE IF EXISTS `cust_car_location`;
@@ -179,6 +155,28 @@ CREATE TABLE `cust_car_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='车型管理';
 
 /*Data for the table `cust_car_type` */
+
+/*Table structure for table `cust_charge_standard` */
+
+DROP TABLE IF EXISTS `cust_charge_standard`;
+
+CREATE TABLE `cust_charge_standard` (
+  `id` bigint(20) NOT NULL auto_increment COMMENT '主键',
+  `deposit` double default NULL COMMENT '押金',
+  `premium` double default NULL COMMENT '保险费，xxx元/次',
+  `rent` double default NULL COMMENT '租金（xxx元/天）',
+  `mileageLimits` bigint(20) default NULL COMMENT '里程限制（xxx公里/日）',
+  `overMileageFare` double default NULL COMMENT '超里程费用（xxx元/公里）',
+  `overTimeFare` double default NULL COMMENT '超时标准（xxx元/小时）',
+  `carSendFare` double default NULL COMMENT '上门送车（xxx元）',
+  `diffShopReturnFare` double default NULL COMMENT '异店结算（还车）附加费（元）',
+  `status` int(11) default NULL COMMENT '状态，字典表字段，组名：cust_charge_standard_status，0：删除；',
+  `createTime` datetime default NULL COMMENT '创建时间',
+  `updateTime` datetime default NULL COMMENT '更新时间',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='车辆收费标准';
+
+/*Data for the table `cust_charge_standard` */
 
 /*Table structure for table `cust_store` */
 
