@@ -48,20 +48,17 @@ select {
 		});
 		// bind click event to search button ==> query record by search term
 		$('#huhuoForm').huhuoFormPost(function(data, status) {
-			console.log(data);
-			var data2 = JSON.parse(data, function(key, value) {
+			data = JSON.parse(data, function(key, value) {
 				return value;
 			});
-			console.log(data2);
-//			$('#pagediv tbody').empty();
-			$.each(data2.records, function(idx, record){
+			$('#pagediv tbody').empty();
+			$.each(data.records, function(idx, record){
 				var content = "<tr><td>#id</td><td>#icon</td><td>#name</td><td>#category</td><td>#seating</td><td>#tankCapacity</td><td>#drivingRange</td></tr>";
-				content = $(content).replace('#id', record.id).replace('#icon', record.icon)
+				content = content.replace('#id', record.id).replace('#icon', record.icon)
 					.replace('#name', record.name).replace('#category', record.category)
 					.replace('#seating', record.seating).replace('#tankCapacity', record.tankCapacity)
 					.replace('#drivingRange', record.drivingRange);
 				$('#pagediv tbody').append(content);
-				console.log( "Item #" + i + ": " + n );
 			});
 		});
 		// add, edit and delete button group event
@@ -118,7 +115,7 @@ select {
 						</li>
 					</ul>
 					<form id="huhuoForm" class="navbar-form" style="width: 400px;" action="${path }/cmcar/cartype/condition/get.do">
-						<input type="text" class="span6 search-query" name="mobileNumber" placeholder="车型名称">
+						<input type="text" class="span6 search-query" name="name" placeholder="车型名称">
 						<button type="submit" class="btn">search</button>
 					</form>
 				</div>
