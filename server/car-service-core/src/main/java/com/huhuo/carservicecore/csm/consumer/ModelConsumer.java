@@ -16,6 +16,8 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	private String username;
 	/** 用户密码 **/
 	private String password;
+	/** 用户头像**/
+	private String avatar;
 	/** 固定电 **/
 	private String telephone;
 	/** 手机号码 **/
@@ -30,12 +32,14 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	private String qq;
 	/** 紧急联系人 **/
 	private String emergencyContact;
+	/** 紧急联系人电话 **/
+	private String emergencyTel;
 	/** 性别（字典表查询，组名GENERAL_GENDER，dictValue：1：男；2：女） **/
 	private Integer gender;
 	/** 民族 **/
 	private String nation;
 	/** 出生日期 **/
-	private Date brithday;
+	private Date birthday;
 	/** 驾照 **/
 	private String licenseNum;
 	/** 会员积分 **/
@@ -44,6 +48,8 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	private Date createTime;
 	/** 更新时间 **/
 	private Date updateTime;
+	/** 是否是黑名单*/
+	private Boolean blackList;
 	
 	/**
 	 * 外联对象
@@ -123,11 +129,11 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	public void setNation(String nation) {
 		this.nation = nation;
 	}
-	public Date getBrithday() {
-		return brithday;
+	public Date getBirthday() {
+		return birthday;
 	}
-	public void setBrithday(Date brithday) {
-		this.brithday = brithday;
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
 	}
 	public String getLicenseNum() {
 		return licenseNum;
@@ -159,5 +165,24 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	public void setGenderDic(ModelDictionary genderDic) {
 		this.genderDic = genderDic;
 	}
+	public String getEmergencyTel() {
+		return emergencyTel;
+	}
+	public void setEmergencyTel(String emergencyTel) {
+		this.emergencyTel = emergencyTel;
+	}
+	public Boolean getBlackList() {
+		return blackList;
+	}
+	public void setBlackList(Boolean blackList) {
+		this.blackList = blackList;
+	}
+	public String getAvatar() {
+		return avatar;
+	}
+	public void setAvatar(String avatar) {
+		this.avatar = avatar;
+	}
+	
 	
 }
