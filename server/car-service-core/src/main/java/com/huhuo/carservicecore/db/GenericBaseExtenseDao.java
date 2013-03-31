@@ -392,7 +392,7 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 			boolean first = true;
 			for(Group group : groupList) {
 				if(first) {
-					sb.append("GROUP BY ");
+					sb.append(" GROUP BY ");
 					first = false;
 				}
 				sb.append(group.getField()).append(" ").append(group.getDir()).append(", ");
@@ -405,7 +405,7 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 			boolean first = true;
 			for(Order order : orderList) {
 				if(first) {
-					sb.append("ORDER BY ");
+					sb.append(" ORDER BY ");
 					first = false;
 				}
 				sb.append(order.getField()).append(" ").append(order.getDir()).append(", ");

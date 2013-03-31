@@ -19,11 +19,11 @@ import com.huhuo.integration.web.Message;
 import com.huhuo.integration.web.Message.Status;
 
 
-@Controller("cmcityCtrlCity")
+@Controller("cmsystemCtrlCity")
 @RequestMapping(value="/cmsystem/district/city")
 public class CtrlCity extends BaseCtrl {
 	
-	@Resource(name = "cmcarServCity")
+	@Resource(name = "cmsystemServCity")
 	private IServCity iServCity;
 	
 	@RequestMapping(value="/get.do")

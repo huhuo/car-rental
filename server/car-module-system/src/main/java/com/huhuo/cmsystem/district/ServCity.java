@@ -9,7 +9,7 @@ import com.huhuo.carservicecore.sys.district.IDaoCity;
 import com.huhuo.carservicecore.sys.district.ModelCity;
 import com.huhuo.integration.base.IBaseExtenseDao;
 
-@Service("cmcarServCity")
+@Service("cmsystemServCity")
 public class ServCity extends GenericBaseExtenseServ<ModelCity> implements IServCity {
 
 	@Resource(name = "carservicecoreDaoCity")

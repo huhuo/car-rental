@@ -1,4 +1,4 @@
-package com.huhuo.carservicecore.csm.charge;
+package com.huhuo.carservicecore.cust.car;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public class DaoChargeStandard extends GenericBaseExtenseDao<ModelChargeStandard
 
 	@Override
 	public String getTableName() {                                                                                                                                        
-		return "csm_charge_standard";
+		return "cust_charge_standard";
 	}
 
 	@Override

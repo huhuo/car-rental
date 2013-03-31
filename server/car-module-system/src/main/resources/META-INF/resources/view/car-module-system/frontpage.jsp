@@ -1,12 +1,11 @@
-<%@page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set value="${pageContext.request.contextPath }" var="path"
 	scope="application"></c:set>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>Bootstrap 101 Template</title>
+<title>虎货汽车租赁系统</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
 <link href="${path }/res/js/bootstrap/css/bootstrap.css"
@@ -15,16 +14,25 @@
 <script src="${path }/res/js/jquery/jquery.js"></script>
 <script src="${path }/res/js/bootstrap/js/bootstrap.js"></script>
 <script src="${path }/res/js/jquery/jquery.blockUI.js"></script>
+<script src="${path }/res/js/jquery/jquery.validate.js"></script>
 <script src="${path }/res/js/huhuo/huhuo.js"></script>
 <style type="text/css">
 
-
+.nav-tabs.nav-stacked > li > a.huhuo-item-selected {
+    background-color: #5D89F8;
+    color: #FFFFFF;
+}
 
 </style>
 
 <script type="text/javascript">
 	$(document).ready(function() {
-
+		$('.huhuoItem').click(function(event) {
+			$('.huhuoItem').each(function(idx, item) {
+				$(item).removeClass("huhuo-item-selected");
+			});
+			$(this).addClass("huhuo-item-selected");
+		});
 	});
 </script>
 
@@ -34,9 +42,9 @@
 
 		<div class="row-fluid show-grid">
 			<div class="top" style="padding-top:10px">
-				<h3 align="center" style="margin-top:5px;">虎货汽车租赁系统 3.0 beta</h3>
+				<h3 align="center" style="margin-top:5px; color: white;">虎货汽车租赁系统 3.0 beta</h3>
 				
-				<ul class="breadcrumb">
+				<ul class="breadcrumb" style="border-radius: 4px 4px 0px 0px;">
 					<li><a href="#">首页</a><span class="divider">/</span></li>
 					<li><a href="#">车辆管理</a><span class="divider">/</span></li>
 					<li><a href="#">车型管理</a><span class="divider">/</span></li>

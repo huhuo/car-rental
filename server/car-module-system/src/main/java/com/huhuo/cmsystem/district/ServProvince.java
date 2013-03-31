@@ -9,7 +9,7 @@ import com.huhuo.carservicecore.sys.district.IDaoProvince;
 import com.huhuo.carservicecore.sys.district.ModelProvince;
 import com.huhuo.integration.base.IBaseExtenseDao;
 
-@Service("cmcarServProvince")
+@Service("cmsystemServProvince")
 public class ServProvince extends GenericBaseExtenseServ<ModelProvince> implements IServProvince {
 
 	@Resource(name = "carservicecoreDaoProvince")

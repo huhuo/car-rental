@@ -27,69 +27,60 @@ public class ModelCarType extends BaseModel {
 	 * 外联对象
 	 ***************************************/
 	private transient ModelDictionary categoryDict;
-
+	private transient ModelChargeStandard chargeStandard;
 	public String getName() {
 		return name;
 	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
-
 	public String getIcon() {
 		return icon;
 	}
-
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
-
 	public Integer getCategory() {
 		return category;
 	}
-
 	public void setCategory(Integer category) {
 		this.category = category;
 	}
-
 	public Integer getSeating() {
 		return seating;
 	}
-
 	public void setSeating(Integer seating) {
 		this.seating = seating;
 	}
-
 	public Integer getTankCapacity() {
 		return tankCapacity;
 	}
-
 	public void setTankCapacity(Integer tankCapacity) {
 		this.tankCapacity = tankCapacity;
 	}
-
 	public Double getDrivingRange() {
 		return drivingRange;
 	}
-
 	public void setDrivingRange(Double drivingRange) {
 		this.drivingRange = drivingRange;
 	}
-
 	public Long getChargeStandardId() {
 		return chargeStandardId;
 	}
-
 	public void setChargeStandardId(Long chargeStandardId) {
 		this.chargeStandardId = chargeStandardId;
 	}
-
 	public ModelDictionary getCategoryDict() {
 		return categoryDict;
 	}
-
 	public void setCategoryDict(ModelDictionary categoryDict) {
 		this.categoryDict = categoryDict;
 	}
-	
+	public ModelChargeStandard getChargeStandard() {
+		return chargeStandard;
+	}
+	public void setChargeStandard(ModelChargeStandard chargeStandard) {
+		this.chargeStandard = chargeStandard;
+	}
+
 }

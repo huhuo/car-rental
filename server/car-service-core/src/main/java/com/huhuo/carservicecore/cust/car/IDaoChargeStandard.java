@@ -1,4 +1,4 @@
-package com.huhuo.carservicecore.csm.charge;
+package com.huhuo.carservicecore.cust.car;
 
 import com.huhuo.integration.base.IBaseExtenseDao;
 

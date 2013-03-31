@@ -10,6 +10,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.huhuo.carservicecore.CarServiceCoreTest;
+import com.huhuo.carservicecore.cust.car.IDaoChargeStandard;
+import com.huhuo.carservicecore.cust.car.ModelChargeStandard;
 import com.huhuo.carservicecore.db.DataSourceContextHolder;
 import com.huhuo.carservicecore.db.DataSourceType;
 
