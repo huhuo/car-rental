@@ -201,6 +201,7 @@ CREATE TABLE `cust_store` (
   `status` int(11) default NULL COMMENT '状态，字典表字段，组名：cust_store_status，0：删除；',
   `createTime` datetime default NULL COMMENT '创建时间',
   `updateTime` datetime default NULL COMMENT '更新时间',
+  `telephone` varchar(20) default NULL COMMENT '分店联系电话',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='门店';
 
