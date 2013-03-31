@@ -21,7 +21,6 @@ USE `car-rental-customer`;
 DROP TABLE IF EXISTS `csm_consumer`;
 
 CREATE TABLE `csm_consumer` (
-  `emergencyContactTelephone` varchar(20) default NULL COMMENT '紧急联系人电话',
   `id` bigint(20) NOT NULL auto_increment COMMENT '主键',
   `identityCardId` varchar(50) default NULL COMMENT '省份证号码',
   `username` varchar(50) default NULL COMMENT '用户姓名',
@@ -33,6 +32,7 @@ CREATE TABLE `csm_consumer` (
   `zipcode` varchar(10) default NULL COMMENT '邮编',
   `qq` varchar(50) default NULL,
   `emergencyContact` varchar(50) default NULL COMMENT '紧急联系人',
+  `emergencyTel` varchar(20) default NULL COMMENT '紧急联系人电话',
   `gender` int(11) default NULL COMMENT '性别（字典表查询，1：男；2：女）',
   `nation` varchar(30) default NULL COMMENT '民族',
   `brithday` datetime default NULL COMMENT '出生日期',
