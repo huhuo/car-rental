@@ -25,6 +25,7 @@ CREATE TABLE `csm_consumer` (
   `identityCardId` varchar(50) default NULL COMMENT '省份证号码',
   `username` varchar(50) default NULL COMMENT '用户姓名',
   `password` varchar(50) default NULL COMMENT '用户密码',
+  `avatar` varchar(100) default NULL COMMENT '用户头像地址',
   `telephone` varchar(50) default NULL COMMENT '固定电话',
   `mobileNumber` varchar(20) default NULL COMMENT '手机号码',
   `email` varchar(50) default NULL,
@@ -32,18 +33,22 @@ CREATE TABLE `csm_consumer` (
   `zipcode` varchar(10) default NULL COMMENT '邮编',
   `qq` varchar(50) default NULL,
   `emergencyContact` varchar(50) default NULL COMMENT '紧急联系人',
+  `emergencyTel` varchar(20) default NULL COMMENT '紧急联系人电话',
   `gender` int(11) default NULL COMMENT '性别（字典表查询，1：男；2：女）',
   `nation` varchar(30) default NULL COMMENT '民族',
-  `brithday` datetime default NULL COMMENT '出生日期',
+  `birthday` datetime default NULL COMMENT '出生日期',
   `licenseNum` varchar(50) default NULL COMMENT '驾照',
   `integral` int(11) default NULL COMMENT '会员积分',
   `status` int(11) default NULL COMMENT '状态，字典表字段，组名：cms_consumer_status，0：删除；',
   `createTime` datetime default NULL COMMENT '创建时间',
   `updateTime` datetime default NULL COMMENT '更新时间',
+  `blacklist` tinyint(1) default NULL COMMENT '是否是黑名单',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='租车客户';
 
 /*Data for the table `csm_consumer` */
+
+insert  into `csm_consumer`(`id`,`identityCardId`,`username`,`password`,`avatar`,`telephone`,`mobileNumber`,`email`,`address`,`zipcode`,`qq`,`emergencyContact`,`emergencyTel`,`gender`,`nation`,`birthday`,`licenseNum`,`integral`,`status`,`createTime`,`updateTime`,`blacklist`) values (2,'','s发大水了',NULL,NULL,'仿盛大','的说法',NULL,'',NULL,NULL,'','',2,'藏族',NULL,'',NULL,NULL,NULL,NULL,NULL),(3,'23123','三皮想亲',NULL,NULL,'123123','13838383838',NULL,'阿斯蒂芬撒地方 ',NULL,NULL,'所发生的','111',2,NULL,NULL,'',NULL,1,NULL,NULL,NULL);
 
 /*Table structure for table `csm_order` */
 
@@ -118,6 +123,8 @@ CREATE TABLE `cust_car` (
 
 /*Data for the table `cust_car` */
 
+insert  into `cust_car`(`id`,`carTypeId`,`licencePlate`,`storeId`,`engineNo`,`gpsNo`,`color`,`drivedKilometer`,`oilMass`,`warehouseId`,`location`,`status`,`createTime`,`updateTime`) values (1,1,'232213',2,'24','23',24,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+
 /*Table structure for table `cust_car_location` */
 
 DROP TABLE IF EXISTS `cust_car_location`;
@@ -156,6 +163,8 @@ CREATE TABLE `cust_car_type` (
 
 /*Data for the table `cust_car_type` */
 
+insert  into `cust_car_type`(`id`,`name`,`icon`,`category`,`seating`,`tankCapacity`,`drivingRange`,`chargeStandardId`,`status`,`createTime`,`updateTime`) values (1,'小家常菜',NULL,1,23,23,34,1,1,'2013-03-31 16:32:21','2013-03-31 16:32:21'),(2,'小家常菜^^&&^&',NULL,1,23,23,34,2,1,'2013-03-31 16:32:45','2013-03-31 16:32:45'),(3,'宝马X5',NULL,1,32,342,43,3,1,'2013-03-31 16:34:58','2013-03-31 16:34:58');
+
 /*Table structure for table `cust_charge_standard` */
 
 DROP TABLE IF EXISTS `cust_charge_standard`;
@@ -178,6 +187,8 @@ CREATE TABLE `cust_charge_standard` (
 
 /*Data for the table `cust_charge_standard` */
 
+insert  into `cust_charge_standard`(`id`,`deposit`,`premium`,`rent`,`mileageLimits`,`overMileageFare`,`overTimeFare`,`carSendFare`,`diffShopReturnFare`,`status`,`createTime`,`updateTime`) values (1,123,23,NULL,NULL,NULL,NULL,NULL,NULL,1,'2013-03-31 16:32:21','2013-03-31 16:32:21'),(2,123,23,NULL,NULL,NULL,NULL,NULL,NULL,1,'2013-03-31 16:32:45','2013-03-31 16:32:45'),(3,423,4,32,423,423,24,42,23,1,'2013-03-31 16:34:58','2013-03-31 16:34:58');
+
 /*Table structure for table `cust_store` */
 
 DROP TABLE IF EXISTS `cust_store`;
@@ -190,6 +201,7 @@ CREATE TABLE `cust_store` (
   `status` int(11) default NULL COMMENT '状态，字典表字段，组名：cust_store_status，0：删除；',
   `createTime` datetime default NULL COMMENT '创建时间',
   `updateTime` datetime default NULL COMMENT '更新时间',
+  `telephone` varchar(20) default NULL COMMENT '分店联系电话',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='门店';
 

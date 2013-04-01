@@ -18,13 +18,13 @@
   <div class="control-group">
     <label class="control-label" for="inputPassword">新的密码</label>
     <div class="controls">
-      <input type="password" id="inputPassword" placeholder="输入新密码">
+      <input type="password" id="inputPassword" name="password" placeholder="输入新密码">
     </div>
   </div>
   <div class="control-group">
-    <label class="control-label" for="inputPassword">确认密码</label>
+    <label class="control-label" for="inputRepeatPassword">确认密码</label>
     <div class="controls">
-      <input type="password" id="inputPassword" placeholder="再次输入新密码">
+      <input type="password" id="inputRepeatPassword" placeholder="再次输入新密码">
     </div>
   </div>
   <div class="control-group">

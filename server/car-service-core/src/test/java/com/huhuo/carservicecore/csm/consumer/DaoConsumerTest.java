@@ -18,7 +18,7 @@ public class DaoConsumerTest extends CarServiceCoreTest {
 		// add
 		ModelConsumer t = new ModelConsumer();
 		t.setAddress("北京万树园");
-		t.setBrithday(new Date());
+		t.setBirthday(new Date());
 		t.setEmail("binhong@gmail.com");
 		t.setNation("中国");
 		t.setGender(2);

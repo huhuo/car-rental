@@ -53,6 +53,7 @@ public class CtrlCarType extends BaseCtrl {
 	public String get(Model model, Condition<ModelCarType> condition, ModelCarType t){
 		try {
 			condition.setT(t);
+			condition.setOrderList(new Order("createTime", Dir.DESC), new Order("updateTime", Dir.DESC));
 			logger.debug("---> server receive: condition={}", condition);
 			List<ModelCarType> records = iservCarType.findByCondition(condition);
 //			write(ExtUtils.getJsonStore(records, records.size()), out);
