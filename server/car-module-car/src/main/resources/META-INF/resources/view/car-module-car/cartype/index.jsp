@@ -47,23 +47,20 @@ select {
 			searchInput.attr('name', $(this).attr('id'));
 		});
 		// bind click event to search button ==> query record by search term
+//		$("#pagediv tbody").divBlickLoad("${path }/cmorder/order/get.do");
+		
 		$('#huhuoForm').huhuoFormPost(function(data, status) {
-			data = JSON.parse(data, function(key, value) {
-				return value;
-			});
-			$('#pagediv tbody').empty();
-			$.each(data.records, function(idx, record){
-				var content = "<tr><td>#id</td><td>#icon</td><td>#name</td><td>#category</td><td>#seating</td><td>#tankCapacity</td><td>#drivingRange</td></tr>";
-				content = content.replace('#id', record.id).replace('#icon', record.icon)
-					.replace('#name', record.name).replace('#category', record.category)
-					.replace('#seating', record.seating).replace('#tankCapacity', record.tankCapacity)
-					.replace('#drivingRange', record.drivingRange);
-				$('#pagediv tbody').append(content);
-			});
+			if($.isJsonObj(data)) {
+				$.huhuoGrowlUI('error occur in server --> ' + JSON.parse(data).msg);
+			} else {
+				$('#pagediv tbody').empty();
+				$('#pagediv tbody').append(data);
+			}
 		});
 		// add, edit and delete button group event
 		var btnGroup = $('#cartypeMgrDivId div.navbar div.btn-group');
 		btnGroup.children('button[name="add"]').click(function(event) {
+			$("#cartypeEditDivId :input").val('');
 			$("#cartypeMgrDivId").hide();
 			$("#cartypeEditDivId").show(500);
 		});
@@ -88,7 +85,12 @@ select {
 	$('#cartypeEditDivId').huhuoFormPost(function(data, status) {
 		$('#cartypeEditDivId').hide();
 		$('#cartypeMgrDivId').show(500);
-	});
+		console.log($('#cartypeEditDivId').serialize());
+	}); 
+	
+	/* $('#submitBtnId').click(function(event) {
+		console.log($('#cartypeEditDivId').valid());
+	}); */
 	
 </script>
 
@@ -152,13 +154,13 @@ select {
 		<!-- style="position:fixed;top:150px;left:1100px" -->
 		<div class="pagination pagination-centered">
 			<ul>
-				<li><a href="#">«</a></li>
+				<li><a href="#">?</a></li>
 				<li><a href="#">1</a></li>
 				<li><a href="#">2</a></li>
 				<li><a href="#">3</a></li>
 				<li><a href="#">4</a></li>
 				<li><a href="#">5</a></li>
-				<li><a href="#">»</a></li>
+				<li><a href="#">?</a></li>
 			</ul>
 		</div>
 	</div>
@@ -255,7 +257,7 @@ select {
 			</div>
 			<div class="control-group">
 				<div class="controls">
-					<button type="submit" class="btn">添加</button>
+					<button id="submitBtnId" type="submit" class="btn">添加</button>
 				</div>
 			</div>
 		</div>

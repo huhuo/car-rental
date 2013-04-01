@@ -18,7 +18,6 @@ import com.huhuo.integration.db.mysql.Dir;
 import com.huhuo.integration.db.mysql.Order;
 import com.huhuo.integration.db.mysql.Page;
 import com.huhuo.integration.exception.HuhuoException;
-import com.huhuo.integration.util.ExtUtils;
 import com.huhuo.integration.web.Message;
 import com.huhuo.integration.web.Message.Status;
 
@@ -51,20 +50,29 @@ public class CtrlCarType extends BaseCtrl {
 	}
 	
 	@RequestMapping(value="/condition/get.do")
-	public void get(OutputStream out, Condition<ModelCarType> condition, ModelCarType t){
+	public String get(Model model, Condition<ModelCarType> condition, ModelCarType t){
 		try {
 			condition.setT(t);
 			logger.debug("---> server receive: condition={}", condition);
 			List<ModelCarType> records = iservCarType.findByCondition(condition);
-			write(ExtUtils.getJsonStore(records, records.size()), out);
+//			write(ExtUtils.getJsonStore(records, records.size()), out);
+			model.addAttribute("records", records);
 		} catch (HuhuoException e) {
 			logger.warn(e.getMessage());
-			write(new Message<String>(Status.FAILURE, e.getMessage()), out);
+			model.addAttribute("msg", new Message<String>(Status.FAILURE, e.getMessage()));
 		} catch (Exception e) {
 			logger.error(ExceptionUtils.getFullStackTrace(e));
-			write(new Message<String>(Status.ERROR, e.getMessage()), out);
+			model.addAttribute("msg", new Message<String>(Status.ERROR, e.getMessage()));
 		}
+		return basePath + "/cartype/grid-condition";
 	}
+	
+	@RequestMapping(value="/add-ui.do")
+	public String addUI(Model model) {
+		logger.debug("==> access add ui");
+		return basePath + "/cartype/edit-ui";
+	}
+	
 	@RequestMapping(value="/add.do")
 	public void huhuoForm(ModelCarType carType, ModelChargeStandard chargeStandard, OutputStream out){
 		try {
