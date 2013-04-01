@@ -61,6 +61,8 @@ select {
 				$('#pagediv tbody').append(content);
 			});
 		});
+		
+		
 		// add, edit and delete button group event
 		var btnGroup = $('#cartypeMgrDivId div.navbar div.btn-group');
 		btnGroup.children('button[name="add"]').click(function(event) {
@@ -88,6 +90,7 @@ select {
 	$('#cartypeEditDivId').huhuoFormPost(function(data, status) {
 		$('#cartypeEditDivId').hide();
 		$('#cartypeMgrDivId').show(500);
+		$('#cartypeMgrDivId form button').trigger("click");
 	});
 	
 </script>
@@ -137,15 +140,15 @@ select {
 			</thead>
 			<tbody>
 				<c:forEach items="${list }" var="item" varStatus="status">
-				<tr>
-					<td>${item.id}</td>
-					<td>${item.icon}</td>
-					<td>${item.name}</td>
-					<td>${item.category}</td>
-					<td>${item.seating}</td>
-					<td>${item.tankCapacity}</td>
-					<td>${item.drivingRange}</td>
-				</tr>
+					<tr>
+						<td>${item.id}</td>
+						<td>${item.icon}</td>
+						<td>${item.name}</td>
+						<td>${item.category}</td>
+						<td>${item.seating}</td>
+						<td>${item.tankCapacity}</td>
+						<td>${item.drivingRange}</td>
+					</tr>
 				</c:forEach>
 			</tbody>
 		</table>

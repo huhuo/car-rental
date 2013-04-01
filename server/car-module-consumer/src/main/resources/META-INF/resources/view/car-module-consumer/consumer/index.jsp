@@ -1,8 +1,6 @@
-<%@page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set value="${pageContext.request.contextPath }" var="path"
-	scope="application"></c:set>
+<c:set value="${pageContext.request.contextPath }" var="path" scope="application"></c:set>
 
 <script type="text/javascript">
 	$("#addForm").hide();
@@ -44,19 +42,20 @@
 		$('#huhuoForm').huhuoFormPost(function(data, status) {
 			console.log(data);
 		});
+		
+		$('#addForm form').huhuoFormPost(function(data, status) {
+			console.log(data);
+		});
 	});
 
 	$("#submitAdd").click(
 			function() {
-
 				var username = $("#addUserName").val();
 				alert("username:" + username);
 
 				$.get("${path }/cmconsumer/consumer/register.do?username="
-						+ username + "&t=" + Math.random(), function(data,
-						status) {
+						+ username + "&t=" + Math.random(), function(data, status) {
 					console.info(data);
-
 				});
 				$("#addForm").hide();
 				$("#customerManagerDiv").show();
@@ -70,10 +69,12 @@
 
 				});
 	}
+	
+	
 </script>
 
 <div id="addForm">
-	<form class="form-horizontal " action="">
+	<form class="form-horizontal " action="${path }/cmconsumer/consumer/add.do">
 		<div class="span2  well" style="min-height: 500px">
 			<img src="http://www.baidu.com/img/baidu_jgylogo3.gif"
 				class="img-polaroid"> <br>
@@ -115,7 +116,7 @@
 					<div class="control-group">
 						<label class="control-label" for="inputBirthday">出生年月</label>
 						<div class="controls">
-							<input type="number" class="required digits" id="inputBirthday"  name="birthday" placeholder="输入出生年月">
+							<input type="number" class="required digits" id="inputBirthday"  name="brithday" placeholder="输入出生年月">
 						</div>
 					</div>
 					
@@ -127,28 +128,29 @@
 					</div>
 					
 					<div class="control-group">
-						<label class="control-label" for="inputIDCardNo">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</label>
+						<label class="control-label" for="inputGender">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</label>
 						<div class="controls">
 								<label class="radio inline">
-									<input type="radio" id="inlineCheckbox1" name="optionsRadios" id="optionsRadios1" value="option1" checked> 男
+									<input type="radio" id="inputGender" name="gender" id="optionsRadios1" value="1" checked> 男
 								</label>
 								<label class="radio inline">
-									<input type="radio" id="inlineCheckbox2" name="optionsRadios" id="optionsRadios2" value="option2">妞
+									<input type="radio" id="inputGender" name="gender" id="optionsRadios2" value="2">女
 								</label>
 						</div>
 					</div>
-					
-					<div class="control-group">
-						<label class="control-label" for="inputnNation">民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族</label>
-						<div class="controls">
-								<select id="inputNation"  name="nation" >
-									<option>汉族</option>
-									<option>壮族</option>
-									<option>土家族</option>
-									<option>藏族</option>
-								</select>
+					<!-- 
+						<div class="control-group">
+							<label class="control-label" for="inputnNation">民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族</label>
+							<div class="controls">
+									<select id="inputNation"  name="nation" >
+										<option value="1">汉族</option>
+										<option>壮族</option>
+										<option>土家族</option>
+										<option>藏族</option>
+									</select>
+							</div>
 						</div>
-					</div>
+					 -->
 					<div class="control-group">
 						<label class="control-label" for="inputPermanentAddress">户籍地址</label>
 						<div class="controls">
@@ -165,9 +167,10 @@
 						<label class="control-label" for="inputnVIP">会员类型</label>
 						<div class="controls">
 								<select id="inputVIP"  name="vip" >
-									<option>普通会员</option>
-									<option>金卡会员</option>
-									<option>白金卡会员</option>
+									<option value="1">普通会员</option>
+									<option value="2">银卡会员</option>
+									<option value="3">金卡会员</option>
+									<option value="4">白金卡会员</option>
 								</select>
 						</div>
 					</div>
@@ -175,7 +178,19 @@
 					<div class="control-group">
 						<label class="control-label" for="inputCurrentAddress">现在住址</label>
 						<div class="controls">
-							<input type="text" class="required digits" id="inputCurrentAddress"  name="currentaddress" placeholder="请输入现在住址">
+							<input type="text" class="required digits" id="inputCurrentAddress"  name="currentaddress" placeholder="输入现在住址">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputEmergencyContact">紧急联系人</label>
+						<div class="controls">
+							<input type="text" class="required digits" id="inputemergencyContact"  name="emergencyContact" placeholder="输入紧急联系人">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputEmergencyTel">紧急联系人电话</label>
+						<div class="controls">
+							<input type="text" class="required digits" id="inputEmergencyTel"  name="emergencyTel" placeholder="输入紧急联系人电话">
 						</div>
 					</div>
 					
@@ -194,7 +209,7 @@
 					<div class="control-group">
 						<label class="control-label" for="inputDrivingLicenseNo">驾驶证号</label>
 						<div class="controls">
-							<input type="text" class="required digits" id="inputDrivingLicenseNo"  name="drivinglicenseno" placeholder="输入驾驶证号">
+							<input type="text" class="required digits" id="inputDrivingLicenseNo"  name="licenseNum" placeholder="输入驾驶证号">
 						</div>
 					</div>
 					
@@ -237,21 +252,23 @@
 							class="dropdown-toggle" data-toggle="dropdown">搜索条件<b
 								class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a class="search-term" id="name"
-									href="javascript:void(0)">手机号</a></li>
-								<li><a class="search-term" id="category"
-									href="javascript:void(0)">姓名</a></li>
+								<li>
+									<a class="search-term" id="mobileNumber" href="javascript:void(0)">手机号</a>
+								</li>
+								<li>
+									<a class="search-term" id="username"  href="javascript:void(0)">姓名</a>
+								</li>
 								<li class="divider"></li>
-								<li><a class="search-term" id="seating"
-									href="javascript:void(0)">身份证号</a></li>
-								<li><a class="search-term" id="tankCapacity"
-									href="javascript:void(0)">住址</a></li>
+								<li>
+									<a class="search-term" id="identityCardId" href="javascript:void(0)">身份证号</a>
+								</li>
+								<li>
+									<a class="search-term" id="address"  href="javascript:void(0)">住址</a>
+								</li>
 							</ul></li>
 					</ul>
-					<form id="huhuoForm" class="navbar-form" style="width: 400px;"
-						action="${path }/cmcar/cartype/condition/get.do">
-						<input type="text" class="search-query span6" name="mobileNumber"
-							placeholder="车型名称">
+					<form id="huhuoForm" class="navbar-form" style="width: 400px;" action="${path }/cmcar/cartype/condition/get.do">
+						<input type="text" class="search-query span6" name="mobileNumber"  placeholder="手机号">
 						<button type="submit" class="btn">search</button>
 					</form>
 				</div>
@@ -273,6 +290,7 @@
 				</tr>
 			</thead>
 			<tbody>
+			<!-- 
 				<tr>
 					<td><input type="radio" name="optionsRadios"
 						id="optionsRadios1"></td>
@@ -284,28 +302,43 @@
 					<td>250+38+2</td>
 					<td><button style="width: 100px" class="btn">短信</button></td>
 				</tr>
-				<tr>
-					<td><input type="radio" name="optionsRadios"
-						id="optionsRadios2"></td>
-					<td><img src="http://www.baidu.com/img/baidu_jgylogo3.gif"></td>
-					<td>10086</td>
-					<td>三皮兄</td>
-					<td>15252525252</td>
-					<td>正常</td>
-					<td>2080</td>
-					<td><button style="width: 100px" class="btn">短信</button></td>
-				</tr>
-				<tr>
-					<td><input type="radio" name="optionsRadios"
-						id="optionsRadios3"></td>
-					<td><img src="http://www.baidu.com/img/baidu_jgylogo3.gif"></td>
-					<td>10000</td>
-					<td>陈屌丝</td>
-					<td>15222222222</td>
-					<td>正常</td>
-					<td>1080</td>
-					<td><button style="width: 100px" class="btn">短信</button></td>
-				</tr>
+			 -->
+				<c:forEach items="${list }" var="item" varStatus="status">
+					<tr>
+					<td><input type="radio" name="optionsRadios" id="optionsRadios1"></td>
+						<td>${item.avatar}</td>
+						<td>${item.id}</td>
+						<td>${item.username}</td>
+						<td>${item.mobileNumber}</td>
+						<td>${item.blackList}</td>
+						<td>${item.integral}</td>
+						<td><button style="width: 100px" class="btn">短信</button></td>
+					</tr>
+				</c:forEach>
+				<!--  
+					<tr>
+						<td><input type="radio" name="optionsRadios"
+							id="optionsRadios2"></td>
+						<td><img src="http://www.baidu.com/img/baidu_jgylogo3.gif"></td>
+						<td>10086</td>
+						<td>三皮兄</td>
+						<td>15252525252</td>
+						<td>正常</td>
+						<td>2080</td>
+						<td><button style="width: 100px" class="btn">短信</button></td>
+					</tr>
+					<tr>
+						<td><input type="radio" name="optionsRadios"
+							id="optionsRadios3"></td>
+						<td><img src="http://www.baidu.com/img/baidu_jgylogo3.gif"></td>
+						<td>10000</td>
+						<td>陈屌丝</td>
+						<td>15222222222</td>
+						<td>正常</td>
+						<td>1080</td>
+						<td><button style="width: 100px" class="btn">短信</button></td>
+					</tr>
+				-->
 			</tbody>
 		</table>
 

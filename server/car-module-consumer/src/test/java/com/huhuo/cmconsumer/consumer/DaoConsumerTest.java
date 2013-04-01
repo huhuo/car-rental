@@ -46,7 +46,7 @@ public class DaoConsumerTest extends CarModuleConsumerTest {
 			c.setEmergencyContact("三皮" + i);
 			c.setGender(i % 2 == 0 ? 2 : 1);
 			c.setNation("汉族");
-			c.setBrithday(new Date());
+			c.setBirthday(new Date());
 			c.setLicenseNum("11110000" + i);
 			c.setIntegral(1000 + i );
 			c.setCreateTime(new Date());

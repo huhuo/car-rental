@@ -7,12 +7,16 @@ import javax.annotation.Resource;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.huhuo.carservicecore.csm.consumer.IDaoConsumer;
 import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
+import com.huhuo.carservicecore.cust.car.ModelCarType;
 import com.huhuo.integration.base.BaseCtrl;
 import com.huhuo.integration.db.mysql.Condition;
-import com.huhuo.integration.db.mysql.Group;
+import com.huhuo.integration.db.mysql.Dir;
+import com.huhuo.integration.db.mysql.Order;
 import com.huhuo.integration.db.mysql.Page;
 import com.huhuo.integration.exception.HuhuoException;
 import com.huhuo.integration.util.ExtUtils;
@@ -29,13 +33,23 @@ public class CtrlConsumer extends BaseCtrl {
 	@Resource(name = "cmconsumerServConsumer")
 	private IServConsumer iservConsumer;
 	
+	
+	@Resource(name="carservicecoreDaoConsumer")
+	private IDaoConsumer idaoConsumer;
+	
 	/*************************************************************
 	 * consumer management
 	 *************************************************************/
 	
 	@RequestMapping(value="/index.do")
-	public String consumerIndex() {
+	public String consumerIndex(Model model) {
 		logger.debug("access consumer management page");
+		
+		Condition<ModelConsumer> condition = new Condition<ModelConsumer>();
+		condition.setOrderList(new Order("createTime", Dir.DESC), new Order("updateTime", Dir.DESC));
+		condition.setPage(new Page(0, 20));
+		List<ModelConsumer> list = iservConsumer.findByCondition(condition, true);
+		model.addAttribute("list", list);
 		return basePath + "/consumer/index";
 	}
 	
@@ -62,7 +76,6 @@ public class CtrlConsumer extends BaseCtrl {
 	 */
 	@RequestMapping(value="/register.do")
 	public void registerCustomer(String username) {
-		setEncoding("UTF-8");
 		logger.debug("--->");
 		logger.debug("username:" + username);
 		logger.debug("<---");
@@ -72,6 +85,22 @@ public class CtrlConsumer extends BaseCtrl {
 	@RequestMapping(value="/add.do")
 	public void addConsumer(ModelConsumer consumer,OutputStream out) {
 		
+		
+		try {
+			logger.debug("--->");
+			
+			Integer count = idaoConsumer.add(consumer);
+			logger.debug("insert record count:" + count);
+			
+			logger.debug("<---");
+			write(new Message<ModelConsumer>(Status.SUCCESS, "add new consumer success!", consumer), out);
+		} catch (HuhuoException e) {
+			logger.warn(e.getMessage());
+			write(new Message<String>(Status.FAILURE, e.getMessage()), out);
+		} catch (Exception e) {
+			logger.error(ExceptionUtils.getFullStackTrace(e));
+			write(new Message<String>(Status.ERROR, e.getMessage()), out);
+		}
 	}
 	
 	/*************************************************************

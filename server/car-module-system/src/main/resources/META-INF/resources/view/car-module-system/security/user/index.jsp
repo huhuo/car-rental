@@ -36,7 +36,7 @@
 
 
 
-<div id="addUserForm" style="display: true">
+<div id="addUserForm"  class="form-horizontal">
 	<form class="form-search" action="">
 		<div class="span2 " style="min-height: 500px">
 			<button id="aotu_read" style="width: 200px" class="btn">自动识别</button>
@@ -45,50 +45,66 @@
 		<div class="span10 " style="min-height: 500px">
 			<div class="row-fluid ">
 				<div class="span5 well " style="min-height: 500px">
-					<div>
-						<label>用户姓名:</label> 
-						<input type="text" class="span6" placeholder="自动识别">
-					</div>
-					<div>
-						<label>移动电话:</label> 
-						<input type="text" class="span6" placeholder="请输入移动电话...">
-					</div>
-					<div>
-						<label>身份证号:</label> 
-						<input type="text" class="span6" placeholder="自动识别">
-					</div>
-					<div>
-						<label>出生年月:</label> 
-						<input type="text" class="span6" placeholder="自动识别">
-					</div>
-					<div>
-						<label>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄:</label> 
-						<input type="text" class="span6" placeholder="自动识别">
-					</div>
+				
+					<div class="control-group">
+					    <label class="control-label" for="inputUsername">用户姓名</label>
+					    <div class="controls">
+					      	<input type="text" id="inputUsername"  name="username" placeholder="输入用户名">
+					    </div>
+				  	</div>
+					<div class="control-group">
+					    <label class="control-label" for="inputPassword">用户密码</label>
+					    <div class="controls">
+					      	<input type="password" id="inputPassword"  name="password" placeholder="输入用户密码">
+					    </div>
+				  	</div>
+					<div class="control-group">
+					    <label class="control-label" for="inputRepeatPassword">重复密码</label>
+					    <div class="controls">
+					      	<input type="password" id="inputRepeatPassword"  name="password" placeholder="再次输入用户密码">
+					    </div>
+				  	</div>
+				  	
+					<div class="control-group">
+					    <label class="control-label" for="inputMobileNumber">移动电话</label>
+					    <div class="controls">
+					      	<input type="text" id="inputMobileNumber"  name="mobilenumber" placeholder="输入移动电话">
+					    </div>
+				  	</div>
 					
+					<div class="control-group">
+					    <label class="control-label" for="inputIdentityCardId">身份证号</label>
+					    <div class="controls">
+					      	<input type="text" id="inputIdentityCardId"  name="identitycardid" placeholder="输入身份证号">
+					    </div>
+				  	</div>
+				  	
 					
+					<div class="control-group">
+					    <label class="control-label" for="inputBirthday">出生日期</label>
+					    <div class="controls">
+					      	<input type="text" id="inputBirthday"  name="birthday" placeholder="输入出生日期">
+					    </div>
+				  	</div>
 					
-						<label>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:</label>
-					
-								<label class="radio"> 
-									<input type="radio" name="optionsRadios"  id="optionsRadios1"  value="option1" checked>男
+					<div class="control-group">
+						<label class="control-label" for="inputGender">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</label>
+						<div class="controls">
+								<label class="radio inline">
+									<input type="radio" id="inputGender" name="gender" id="optionsRadios1" value="1" checked> 男
 								</label>
-								<label class="radio"> 
-									<input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">女
+								<label class="radio inline">
+									<input type="radio" id="inputGender" name="gender" id="optionsRadios2" value="2">女
 								</label>
-					
-					<div>
-						<label>民&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;族:</label> 
-						<input type="text" class="span6" placeholder="自动识别">
+						</div>
 					</div>
+					
+					<div class="control-group">
+					    <div class="controls">
+								<button id="submitAdd" type="submit"  class="btn btn-large btn-primary" class="btn">提交</button>
+					    </div>
+				  	</div>
 
-				</div>
-				<div class="span5 " style="min-height: 500px">
-				</div>
-			</div>
-			<div class="row-fluid ">
-				<div class="span10">
-					<button id="submitAdd" style="width: 500px" class="btn">提交</button>
 				</div>
 			</div>
 		</div>
