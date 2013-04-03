@@ -48,7 +48,7 @@
 
 		<div class="span10 " style="min-height: 500px">
 			<div class="row-fluid ">
-				<div class="span5 well " style="min-height: 500px">
+				<div class="span5 " style="min-height: 500px">
 					
 					<div class="control-group">
 					    <label class="control-label" for="inputUsername">用户姓名</label>
