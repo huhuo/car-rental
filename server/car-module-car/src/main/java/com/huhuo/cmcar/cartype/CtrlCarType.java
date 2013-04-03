@@ -1,6 +1,7 @@
 package com.huhuo.cmcar.cartype;
 
 import java.io.OutputStream;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -79,9 +80,15 @@ public class CtrlCarType extends BaseCtrl {
 		try {
 			logger.debug("---> server receive: carType={}, chargeStandard={}", carType, chargeStandard);
 			// add charge standard
+			chargeStandard.setStatus(1);
+			chargeStandard.setCreateTime(new Date());
+			chargeStandard.setUpdateTime(new Date());
 			iServChargeStandard.add(chargeStandard);
 			carType.setChargeStandardId(chargeStandard.getId());
 			// add car type
+			carType.setStatus(1);
+			carType.setCreateTime(new Date());
+			carType.setUpdateTime(new Date());
 			iservCarType.add(carType);
 			write(new Message<ModelCarType>(Status.SUCCESS, "add new cartype success!", carType), out);
 		} catch (HuhuoException e) {

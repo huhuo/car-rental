@@ -1,6 +1,5 @@
 package com.huhuo.cmorder.order;
 
-import java.io.OutputStream;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -16,16 +15,13 @@ import com.huhuo.integration.base.BaseCtrl;
 import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.db.mysql.Page;
 import com.huhuo.integration.exception.HuhuoException;
-import com.huhuo.integration.util.ExtUtils;
-import com.huhuo.integration.web.Message;
-import com.huhuo.integration.web.Message.Status;
 
 
 @Controller("cmorderCtrlOrder")
 @RequestMapping(value="/cmorder/order")
 public class CtrlOrder extends BaseCtrl {
 	
-	protected String basePath = "/car-module-order";
+	protected final static String basePath = "/car-module-order";
 	
 	@Resource(name = "cmorderServOrder")
 	private IServOrder iservOrder;
@@ -42,12 +38,22 @@ public class CtrlOrder extends BaseCtrl {
 	}
 	
 	@RequestMapping(value="/get.do")
-	public String get(Condition<ModelConsumer> condition,Model model) {
+	public String get(Condition<ModelOrder> condition,Model model,Integer b,Integer s) {
 		try {
+			Page<ModelOrder> page = new Page<ModelOrder>();
+			page.setPageNo(b);
+			page.setLimit(s);
 			logger.debug("server receive: condition={}", condition);
 //			condition.setPage(new Page(0, 30));
 //			List<ModelConsumer> list = servConsumer.findByCondition(condition);
-			List<ModelOrder> list = iservOrder.findModels(new Page(0, 10));
+			List<ModelOrder> list = iservOrder.findModels(page);
+			
+			
+			
+			page.setTotal(iservOrder.count());
+			page.setRecords(list);
+			model.addAttribute("orderPage", page);
+			logger.debug("orderlist is [{}]",list);
 		} catch (HuhuoException e) {
 			logger.warn(e.getMessage());
 		} catch (Exception e) {
