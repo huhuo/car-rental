@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.alibaba.fastjson.JSON;
 import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
 import com.huhuo.carservicecore.csm.order.ModelOrder;
 import com.huhuo.integration.base.BaseCtrl;
@@ -38,17 +39,17 @@ public class CtrlOrder extends BaseCtrl {
 	}
 	
 	@RequestMapping(value="/get.do")
-	public String get(Condition<ModelOrder> condition,Model model,Integer b,Integer s) {
+	public String get(Condition<ModelOrder> condition,Model model) {
 		try {
-			Page<ModelOrder> page = new Page<ModelOrder>();
-			page.setPageNo(b);
-			page.setLimit(s);
 			logger.debug("server receive: condition={}", condition);
+			Page<ModelOrder> page = condition.getPage(); 
+			if(page==null){
+				page=new Page<ModelOrder>();
+				condition.setPage(page);
+			}
 //			condition.setPage(new Page(0, 30));
 //			List<ModelConsumer> list = servConsumer.findByCondition(condition);
 			List<ModelOrder> list = iservOrder.findModels(page);
-			
-			
 			
 			page.setTotal(iservOrder.count());
 			page.setRecords(list);
