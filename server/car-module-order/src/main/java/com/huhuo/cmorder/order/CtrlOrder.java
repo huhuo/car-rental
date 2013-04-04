@@ -42,7 +42,7 @@ public class CtrlOrder extends BaseCtrl {
 	public String get(Condition<ModelOrder> condition,Model model) {
 		try {
 			logger.debug("server receive: condition={}", condition);
-			Page<ModelOrder> page = condition.getPage(); 
+			Page<ModelOrder> page = condition.getPage();  
 			if(page==null){
 				page=new Page<ModelOrder>();
 				condition.setPage(page);
