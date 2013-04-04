@@ -54,7 +54,6 @@ public class CtrlOrder extends BaseCtrl {
 			page.setTotal(iservOrder.count());
 			page.setRecords(list);
 			model.addAttribute("orderPage", page);
-			model.addAttribute("orderPageJson", JSON.toJSONString(page));
 			logger.debug("orderlist is [{}]",list);
 		} catch (HuhuoException e) {
 			logger.warn(e.getMessage());

@@ -90,8 +90,5 @@ a.car-detail {
 
 <script type="text/javascript">
 	//绑定标签元素。设置当前页，页面数据条数，总数，要访问的url，对应的参数，点击标签时刷新的div，标签数
-	$("#bb").myPage(${orderPageJson }, "${path }/cmorder/order/get.do", ${condition.opt}, $("#orderTableloadDiv"), 5);
-	
-	
-	console.info(${orderPage.records});
+	$("#bb").myPage(${orderPage }, "${path }/cmorder/order/get.do", ${condition.opt}, $("#orderTableloadDiv"), 5);
 </script>
