@@ -8,21 +8,16 @@
 	$("#addOrder").click(function(){
 		var orderSearch= $("#orderSearch");
 		console.info(orderSearch.css("width"));
-		orderSearch.animate({
-			marginLeft:orderSearch.css("width")+""
-		},2000,function(){
-			orderSearch.hide();
-			$("#addOrderDiv").show();
+		orderSearch.hide(200,function(){
+			$("#addOrderDiv").show(200);
 		});
+		
 	});
 	$("#returnSearch").click(function(){
 		var addOrderDiv= $("#addOrderDiv");
-		addOrderDiv.animate({
-			marginLeft:addOrderDiv.css("width")+""
-		},2000,function(){
-			addOrderDiv.hide();
-			$("#orderSearch").show();
-		});
+			addOrderDiv.hide(200,function(){
+				$("#orderSearch").show(200);
+			});
 	});
 	
 	 
