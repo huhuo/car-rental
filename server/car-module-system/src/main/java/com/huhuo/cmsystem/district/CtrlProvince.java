@@ -1,9 +1,9 @@
 package com.huhuo.cmsystem.district;
 
-import java.io.OutputStream;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.stereotype.Controller;
@@ -28,17 +28,17 @@ public class CtrlProvince extends BaseCtrl {
 	private IServProvince iServProvince;
 	
 	@RequestMapping(value="/get.do")
-	public void get(Condition<ModelCity> condition, OutputStream out){
+	public void get(Condition<ModelCity> condition, HttpServletResponse resp){
 		try {
 			logger.debug("server receive: condition={}", condition);
-			List<ModelProvince> list = iServProvince.findModels(new Page(0, 10));
-			write(ExtUtils.getJsonStore(list, list.size()), out);
+			List<ModelProvince> list = iServProvince.findModels(new Page<ModelProvince>(0, 10));
+			write(ExtUtils.getJsonStore(list, list.size()), resp);
 		} catch (HuhuoException e) {
 			logger.warn(e.getMessage());
-			write(new Message<String>(Status.FAILURE, e.getMessage()), out);
+			write(new Message<String>(Status.FAILURE, e.getMessage()), resp);
 		} catch (Exception e) {
 			logger.error(ExceptionUtils.getFullStackTrace(e));
-			write(new Message<String>(Status.ERROR, e.getMessage()), out);
+			write(new Message<String>(Status.ERROR, e.getMessage()), resp);
 		}
 	}
 }

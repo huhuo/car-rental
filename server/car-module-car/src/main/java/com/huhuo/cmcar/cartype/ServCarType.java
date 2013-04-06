@@ -1,11 +1,13 @@
 package com.huhuo.cmcar.cartype;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.huhuo.carservicecore.constant.Dictionary.DictGroup;
 import com.huhuo.carservicecore.cust.car.IDaoCarType;
 import com.huhuo.carservicecore.cust.car.ModelCarType;
 import com.huhuo.carservicecore.cust.car.ModelChargeStandard;
@@ -14,6 +16,8 @@ import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
 import com.huhuo.cmsystem.dict.IServDictionary;
 import com.huhuo.integration.base.IBaseExtenseDao;
 import com.huhuo.integration.db.mysql.Condition;
+import com.huhuo.integration.exception.ServException;
+import com.huhuo.integration.util.BeanUtils;
 
 @Service("cmcarServCarType")
 public class ServCarType extends GenericBaseExtenseServ<ModelCarType> implements IServCarType {
@@ -41,15 +45,55 @@ public class ServCarType extends GenericBaseExtenseServ<ModelCarType> implements
 	public List<ModelCarType> findByCondition(
 			Condition<ModelCarType> condition, boolean injected) {
 		List<ModelCarType> list = findByCondition(condition);
-		if(injected) {
+		if(list!=null && injected) {
 			for(ModelCarType t : list) {
-				ModelDictionary categoryDict = iServDictionary.find(t.getCategory());
+				ModelDictionary categoryDict = iServDictionary.getBy(
+						DictGroup.CUST_CAR_TYPE_CATEGORY, t.getCategory());
 				t.setCategoryDict(categoryDict);
 				ModelChargeStandard chargeStandard = iServChargeStandard.find(t.getChargeStandardId());
 				t.setChargeStandard(chargeStandard);
 			}
 		}
 		return list;
+	}
+	
+	@Override
+	public Integer add(ModelCarType t) {
+		// validation
+		if(t == null) {
+			return null;
+		}
+		// update inner object chargeStandard
+		ModelChargeStandard chargeStandard = t.getChargeStandard();
+		if(chargeStandard != null) {
+			iServChargeStandard.add(chargeStandard);
+			t.setChargeStandardId(chargeStandard.getId());
+		}
+		// update t
+		t.setCreateTime(new Date());
+		t.setUpdateTime(new Date());
+		return super.add(t);
+	}
+	
+	@Override
+	public Integer update(ModelCarType t) {
+		try {
+			// validation
+			if(t == null) {
+				return null;
+			}
+			// persist object in security mode
+			ModelCarType carTypeDB = find(t.getId());
+			BeanUtils.copyProperties(carTypeDB, t, false);
+			// update inner object chargeStandard
+			ModelChargeStandard chargeStandard = t.getChargeStandard();
+			if (chargeStandard != null) {
+				iServChargeStandard.update(chargeStandard);
+			}
+			return super.update(carTypeDB);
+		} catch (Exception e) {
+			throw new ServException(e);
+		}
 	}
 
 }

@@ -2,6 +2,7 @@ package com.huhuo.carservicecore.cust.car;
 
 import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
 import com.huhuo.integration.base.BaseModel;
+import com.huhuo.integration.db.mysql.NotSqlField;
 
 
 public class ModelCarType extends BaseModel {
@@ -26,8 +27,11 @@ public class ModelCarType extends BaseModel {
 	/***************************************
 	 * 外联对象
 	 ***************************************/
-	private transient ModelDictionary categoryDict;
-	private transient ModelChargeStandard chargeStandard;
+	@NotSqlField
+	private ModelDictionary categoryDict;
+	
+	private @NotSqlField ModelChargeStandard chargeStandard;
+	
 	public String getName() {
 		return name;
 	}

@@ -31,7 +31,7 @@ public class DaoConsumerTest extends CarServiceCoreTest {
 		actual = iDaoConsumer.find(t.getId());
 		Assert.assertEquals("failed to update ModelConsumer", t, actual);
 		// delete
-		iDaoConsumer.delete(t);
+		iDaoConsumer.deletePhysical(t);
 		actual = iDaoConsumer.find(t.getId());
 		Assert.assertNull("failed to delete ModelConsumer", actual);
 	}

@@ -33,7 +33,7 @@ public class DaoStoreTest extends CarServiceCoreTest {
 		actual = iDaoStore.find(t.getId());
 		Assert.assertEquals("failed to update ModelOrder", t, actual);
 		// delete
-		iDaoStore.delete(t);
+		iDaoStore.deletePhysical(t);
 		actual = iDaoStore.find(t.getId());
 		Assert.assertNull("failed to delete ModelOrder", actual);
 	}

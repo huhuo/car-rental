@@ -1,7 +1,6 @@
 package com.huhuo.cmsystem.security;
 
 import java.awt.image.BufferedImage;
-import java.io.OutputStream;
 
 import javax.annotation.Resource;
 import javax.imageio.ImageIO;
@@ -18,9 +17,7 @@ import com.google.code.kaptcha.Producer;
 import com.huhuo.carservicecore.sys.user.ModelUser;
 import com.huhuo.cmsystem.constant.Constant;
 import com.huhuo.integration.base.BaseCtrl;
-import com.huhuo.integration.exception.HuhuoException;
-import com.huhuo.integration.web.Message;
-import com.huhuo.integration.web.Message.Status;
+import com.huhuo.integration.exception.CtrlException;
 
 @Controller("cmsystemCtrlLogin")
 @RequestMapping(value = "/cmsystem/security/login")
@@ -38,16 +35,8 @@ public class CtrlLogin extends BaseCtrl {
 
 	@RequestMapping(value = "/login.do")
 	public void login(HttpServletRequest req, HttpServletResponse resp,
-			HttpSession session, ModelUser user, OutputStream out) {
-		try {
-
-		} catch (HuhuoException e) {
-			logger.warn(e.getMessage());
-			write(new Message<String>(Status.FAILURE, e.getMessage()), out);
-		} catch (Exception e) {
-			logger.error(ExceptionUtils.getFullStackTrace(e));
-			write(new Message<String>(Status.ERROR, e.getMessage()), out);
-		}
+			HttpSession session, ModelUser user) {
+		
 	}
 
 	@RequestMapping(value = "/logout.do")
@@ -58,8 +47,7 @@ public class CtrlLogin extends BaseCtrl {
 	}
 
 	@RequestMapping(value = "/captcha.do")
-	public void get(HttpServletRequest request, HttpServletResponse response,
-			OutputStream out) {
+	public void get(HttpServletRequest request, HttpServletResponse response) {
 		try {
 			response.setDateHeader("Expires", 0);
 			// Set standard HTTP/1.1 no-cache headers.
@@ -80,15 +68,15 @@ public class CtrlLogin extends BaseCtrl {
 			BufferedImage bi = captchaProducer.createImage(capText);
 			// ServletOutputStream out = response.getOutputStream();
 			// write the data out
-			ImageIO.write(bi, "jpg", out);
+			ImageIO.write(bi, "jpg", response.getOutputStream());
 			try {
-				out.flush();
+				response.getOutputStream().flush();
 			} finally {
-				out.close();
+				response.getOutputStream().close();
 			}
 		} catch (Exception e) {
 			logger.error(ExceptionUtils.getFullStackTrace(e));
-			write(new Message<String>(Status.ERROR, e.getMessage()), out);
+			throw new CtrlException(e);
 		}
 	}
 

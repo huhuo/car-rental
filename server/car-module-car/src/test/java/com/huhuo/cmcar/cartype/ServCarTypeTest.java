@@ -1,56 +1,101 @@
 package com.huhuo.cmcar.cartype;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.junit.Assert;
 import org.junit.Test;
 
-import com.huhuo.carservicecore.cust.car.DaoCarType;
+import com.huhuo.carservicecore.constant.Dictionary.Dict;
 import com.huhuo.carservicecore.cust.car.ModelCarType;
+import com.huhuo.carservicecore.cust.car.ModelChargeStandard;
 import com.huhuo.cmcar.CarModuleCarTest;
+import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.db.mysql.Page;
 
 public class ServCarTypeTest extends CarModuleCarTest {
 
-	@Resource(name="cmcarServCarType")
+	@Resource(name = "cmcarServCarType")
 	private IServCarType iServCarType;
-	
+
 	@Test
 	public void curd() {
-		
-//		/** 车型名称 **/
-//		private String name;
-//		/** 图片地址（静态资源） **/
-//		private String icon;
-//		/** 车辆类别（字典表字段，组名：cust_car_type_category，1、轿车；2、越野汽车；3、客车；4、货车；5、自卸汽车；6、牵引汽车；7、专用汽车） **/
-//		private Integer category;
-//		/** 座位数 **/
-//		private Integer seating;
-//		/** 油箱容量（单位：升） **/
-//		private Integer tankCapacity;
-//		/** 可行驶里程数 **/
-//		private Double drivingRange;
-//		/** 车型使用的收费标准id（与csm_charge_standard表一对一） **/
-//		private Long chargeStandardId;
-		ModelCarType type = new ModelCarType();
-		type.setName("奔驰s6");
-		type.setIcon("");
-		type.setCategory(1);
-		type.setSeating(4);
-		type.setTankCapacity(50);
-		type.setDrivingRange(300D);
-		type.setChargeStandard(null);
-		DaoCarType dct = new DaoCarType();
-		dct.add(type);
-		
-		
+		// add
+		ModelCarType t = new ModelCarType();
+		t.setCategory(Dict.CUST_CAR_TYPE_CATEGORY_coach.getDicKey());
+		t.setChargeStandardId(234L);
+		t.setDrivingRange(3214.324);
+		t.setIcon("htt://www.google.com");
+		t.setName("jeep coach");
+		t.setSeating(32);
+		t.setTankCapacity(24234);
+		iServCarType.add(t);
+		ModelCarType actual = iServCarType.find(t.getId());
+		Assert.assertEquals("failed to add ModelOrder", t, actual);
+		// update
+		t.setName("hello");
+		iServCarType.update(t);
+		actual = iServCarType.find(t.getId());
+		Assert.assertEquals("failed to update ModelOrder", t, actual);
+		// delete
+		iServCarType.deletePhysical(t);
+		actual = iServCarType.find(t.getId());
+		Assert.assertNull("failed to delete ModelOrder", actual);
+	}
+
+	@Test
+	public void addInternalObj() {
+		ModelCarType t = getInstance();
+		iServCarType.add(t);
+		Condition<ModelCarType> condition = new Condition<ModelCarType>();
+		condition.setT(t);
+		print(iServCarType.findByCondition(condition, true));
+	}
+	
+	private ModelCarType getInstance() {
+		ModelCarType t = new ModelCarType();
+		t.setCategory(Dict.CUST_CAR_TYPE_CATEGORY_coach.getDicKey());
+		t.setChargeStandardId(234L);
+		t.setDrivingRange(3214.324);
+		t.setIcon("htt://www.google.com");
+		t.setName("jeep coach");
+		t.setSeating(32);
+		t.setTankCapacity(24234);
+		ModelChargeStandard chargeStandard = new ModelChargeStandard();
+		chargeStandard.setCarSendFare(3234.32);
+		chargeStandard.setDeposit(3242.32);
+		chargeStandard.setDiffShopReturnFare(3144.23);
+		chargeStandard.setMileageLimits(31424124L);
+		chargeStandard.setPremium(32341.32);
+		chargeStandard.setRent(2342.32);
+		chargeStandard.setOverMileageFare(32369.32);
+		chargeStandard.setOverTimeFare(8934234.32);
+		t.setChargeStandard(chargeStandard);
+		return t;
+	}
+	
+	@Test
+	public void addBatch() {
+		List<ModelCarType> list = new ArrayList<ModelCarType>();
+		for(int i=0; i<52; i++) {
+			list.add(getInstance());
+		}
+		iServCarType.addBatch(list);
+	}
+	
+	@Test
+	public void dataGenerate() {
+		for(int i=0; i<52; i++) {
+			iServCarType.add(getInstance());
+		}
 	}
 	
 	@Test
 	public void findModels() {
-		List<ModelCarType> list = iServCarType.findModels(new Page(0, 15));
+		List<ModelCarType> list = iServCarType.findModels(new Page<ModelCarType>(0, 15));
 		print(list);
 	}
-	
+
 }

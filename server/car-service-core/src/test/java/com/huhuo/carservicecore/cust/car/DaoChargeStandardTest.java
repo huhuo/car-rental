@@ -44,7 +44,7 @@ public class DaoChargeStandardTest extends CarServiceCoreTest {
 		actual = iDaoChargeStandard.find(t.getId());
 		Assert.assertEquals("failed to update operation", t, actual);
 		// delete
-		iDaoChargeStandard.delete(t);
+		iDaoChargeStandard.deletePhysical(t);
 		actual = iDaoChargeStandard.find(t.getId());
 		Assert.assertNull("failed to delete operation", actual);
 	}

@@ -19,7 +19,7 @@ public class ModelDictionary extends BaseModel {
 	/** 存储用于排序的数字，值越大越往后排 **/
 	private Integer orderNo;
 	/** 备注 **/
-	private Integer comment;
+	private String comment;
 	
 	public String getGroupName() {
 		return groupName;
@@ -57,10 +57,10 @@ public class ModelDictionary extends BaseModel {
 	public void setOrderNo(Integer orderNo) {
 		this.orderNo = orderNo;
 	}
-	public Integer getComment() {
+	public String getComment() {
 		return comment;
 	}
-	public void setComment(Integer comment) {
+	public void setComment(String comment) {
 		this.comment = comment;
 	}
 	

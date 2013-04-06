@@ -22,7 +22,7 @@ public class ServCarTest extends CarModuleCarTest {
 	
 	@Test
 	public void findModels() {
-		List<ModelCar> list = iServCar.findModels(new Page(0, 15));
+		List<ModelCar> list = iServCar.findModels(new Page<ModelCar>(0, 15));
 		print(list);
 	}
 	

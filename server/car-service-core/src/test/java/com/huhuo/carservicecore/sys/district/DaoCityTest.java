@@ -37,7 +37,7 @@ public class DaoCityTest extends CarServiceCoreTest {
 		ModelCity t3 = daoCity.find(ModelCity.class, t2.getId());
 		Assert.assertEquals(t2.toString(), t3.toString());
 		// delete
-		daoCity.delete(t3);
+		daoCity.deletePhysical(t3);
 		ModelCity t4 = daoCity.find(ModelCity.class, t3.getId());
 		Assert.assertEquals(null, t4);
 		System.out.println("--> test success!!!");

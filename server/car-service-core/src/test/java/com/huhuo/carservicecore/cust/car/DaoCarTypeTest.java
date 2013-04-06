@@ -38,9 +38,28 @@ public class DaoCarTypeTest extends CarServiceCoreTest {
 		actual = iDaoCarType.find(t.getId());
 		Assert.assertEquals("failed to update ModelOrder", t, actual);
 		// delete
-		iDaoCarType.delete(t);
+		iDaoCarType.deletePhysical(t);
 		actual = iDaoCarType.find(t.getId());
 		Assert.assertNull("failed to delete ModelOrder", actual);
+	}
+	
+	@Test
+	public void testPhysicalDelete() {
+		// add
+		ModelCarType t = new ModelCarType();
+		t.setCategory(Dict.CUST_CAR_TYPE_CATEGORY_coach.getDicKey());
+		t.setChargeStandardId(234L);
+		t.setCreateTime(TimeUtils.offsetDate(-3, new Date()));
+		t.setDrivingRange(3214.324);
+		t.setIcon("htt://www.google.com");
+		t.setName("jeep coach");
+		t.setSeating(32);
+		t.setStatus(0);
+		t.setTankCapacity(24234);
+		t.setUpdateTime(new Date());
+		iDaoCarType.add(t);
+		iDaoCarType.delete(t);
+		iDaoCarType.deletePhysical(t);
 	}
 	
 }
