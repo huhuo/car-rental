@@ -18,7 +18,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 
-import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.huhuo.integration.base.IBaseExtenseDao;
 import com.huhuo.integration.base.IBaseModel;
 import com.huhuo.integration.config.GlobalConstant.DateFormat;
@@ -76,10 +77,8 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 	public DataSource getDataSource() {
 		return getDataSource("routingDataSource");
 	}
-	/**
-	 * Return the JdbcTemplate for this DAO,
-	 * pre-initialized with the DataSource or set explicitly.
-	 */
+	
+	@Override
 	public final JdbcTemplate getJdbcTemplate() {
 		DataSource dataSource = getDataSource();
 		if(dataSource == null) {
@@ -110,7 +109,7 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 		for(final BeanHelper.GetterSetter gs : getterSetterArray){
 			cols.add(gs.propertyName);
 		}
-		return StringUtils.join(cols, ", ");
+		return StringUtils.join(cols, separator);
 	}
 	
 	@Override
@@ -124,6 +123,7 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 		BeanHelper.GetterSetter[] getterSetterArray = BeanHelper.getGetterSetter(getModelClazz());
 		Map<String, Object> args = new HashMap<String, Object>();
 		List<String> cols = new ArrayList<String>();
+		List<Object> values = new ArrayList<Object>();
 		for(final BeanHelper.GetterSetter gs : getterSetterArray){
 			// use auto increase strategy for primary key
 			if("id".equals(gs.propertyName)) {
@@ -137,12 +137,13 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 				logger.warn(null, e);
 			}
 			value = value == null ? gs.getter.getDefaultValue() : value;
+			values.add(value);
 			args.put(gs.propertyName, value);
 		}
 		insert.usingColumns(cols.toArray(new String[cols.size()]));
-		logger.debug("==> SQL --> {}", insert.getInsertString());
-		logger.debug("==> params --> {}", JSONArray.toJSONString(args));
 		Number id = insert.executeAndReturnKey(args);
+		logger.debug("==> SQL --> {}", insert.getInsertString());
+		logger.debug("==> params --> {}", prettyFormat(values));
 		logger.debug("==> primary key return --> {}", id);
 		if(id instanceof Long)
 			t.setId((Long) id);
@@ -187,7 +188,7 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 		sb.append(")");
 		final Object[] objects = values.toArray(new Object[values.size()]);
 		logger.debug("==> SQL --> {}", sb.toString());
-		logger.debug("==> params --> {}", JSONArray.toJSONString(objects));
+		logger.debug("==> params --> {}", prettyFormat(values));
 		int update = getJdbcTemplate().update(sb.toString(), objects);
 		logger.debug("==> row affected --> {}", update);
 		return update;
@@ -196,7 +197,7 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 	
 	@Override
 	public int[] addBatch(List<T> list) {
-		logger.debug("addBatch begin with list --> {}", JSONArray.toJSONStringWithDateFormat(list, DateFormat.LONG_FORMAT));
+		logger.debug("==> addBatch begin with list --> {}", prettyFormat(list));
 		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(getDataSource());
 		jdbcInsert.withTableName(getTableName()).usingGeneratedKeyColumns("id");
 		BeanPropertySqlParameterSource[] batch = new BeanPropertySqlParameterSource[list.size()];
@@ -241,8 +242,9 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 		values.add(t.getId());
 		final Object[] objects = values.toArray(new Object[values.size()]);
 		logger.debug("==> SQL --> {}", sb.toString());
-		logger.debug("==> params --> {}", StringUtils.join(objects, ","));
-		int update = getJdbcTemplate().update(sb.toString(),objects);
+//		logger.debug("==> params --> {}", StringUtils.join(objects, separator));
+		logger.debug("==> params --> {}", prettyFormat(values));
+		int update = getJdbcTemplate().update(sb.toString(), objects);
 		logger.debug("==> row affected --> {}", update);
 		return update;
 	}
@@ -291,13 +293,11 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 			throws DaoException {
 		List<T> rs = getJdbcTemplate().query(sql, args, new BeanPropertyRowMapper<T>(clazz));
 		logger.debug("==> SQL --> {}", sql);
-		logger.debug("==> params --> {}", StringUtils.join(args, separator));
+		logger.debug("==> params --> {}", prettyFormat(args));
 		if(rs == null) {
 			logger.debug("==> result set --> {}", rs);
 		} else {
-			for(int index=1; index<=rs.size(); index++) {
-				logger.debug("==> result set {} --> {}", index, rs.get(index - 1));
-			}
+			logger.debug("==> result set --> {}", prettyFormat(rs));
 		}
 		return rs;
 	}
@@ -313,9 +313,9 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 			throws DaoException {
 		try {
 			logger.debug("==> SQL --> {}", sql);
-			logger.debug("==> params --> {}", StringUtils.join(args, separator));
+			logger.debug("==> params --> {}", prettyFormat(args));
 			T singleResult = getJdbcTemplate().queryForObject(sql, BeanPropertyRowMapper.newInstance(clazz), args);
-			logger.debug("==> result set -->{}", singleResult);
+			logger.debug("==> result set -->{}", prettyFormat(singleResult));
 			return singleResult;
 		} catch (EmptyResultDataAccessException e) {
 			logger.warn("==> error cause by --> {}", e.getMessage());
@@ -474,6 +474,14 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 		} catch (Exception e) {
 			throw new DaoException(e);
 		}
+	}
+	/**
+	 * format obj to JSON format
+	 * @param obj
+	 * @return
+	 */
+	private String prettyFormat(Object obj) {
+		return JSON.toJSONStringWithDateFormat(obj, DateFormat.LONG_FORMAT, SerializerFeature.PrettyFormat);
 	}
 	
 }

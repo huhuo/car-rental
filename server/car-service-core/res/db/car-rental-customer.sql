@@ -2,7 +2,8 @@
 SQLyog 企业版 - MySQL GUI v8.14 
 MySQL - 5.0.22-community-nt : Database - car-rental-customer
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -47,8 +48,6 @@ CREATE TABLE `csm_consumer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='租车客户';
 
 /*Data for the table `csm_consumer` */
-
-insert  into `csm_consumer`(`id`,`identityCardId`,`username`,`password`,`avatar`,`telephone`,`mobileNumber`,`email`,`address`,`zipcode`,`qq`,`emergencyContact`,`emergencyTel`,`gender`,`nation`,`birthday`,`licenseNum`,`integral`,`status`,`createTime`,`updateTime`,`blacklist`) values (2,'','s发大水了',NULL,NULL,'仿盛大','的说法',NULL,'',NULL,NULL,'','',2,'藏族',NULL,'',NULL,NULL,NULL,NULL,NULL),(3,'23123','三皮想亲',NULL,NULL,'123123','13838383838',NULL,'阿斯蒂芬撒地方 ',NULL,NULL,'所发生的','111',2,NULL,NULL,'',NULL,1,NULL,NULL,NULL);
 
 /*Table structure for table `csm_order` */
 
@@ -123,8 +122,6 @@ CREATE TABLE `cust_car` (
 
 /*Data for the table `cust_car` */
 
-insert  into `cust_car`(`id`,`carTypeId`,`licencePlate`,`storeId`,`engineNo`,`gpsNo`,`color`,`drivedKilometer`,`oilMass`,`warehouseId`,`location`,`status`,`createTime`,`updateTime`) values (1,1,'232213',2,'24','23',24,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
-
 /*Table structure for table `cust_car_location` */
 
 DROP TABLE IF EXISTS `cust_car_location`;
@@ -163,8 +160,6 @@ CREATE TABLE `cust_car_type` (
 
 /*Data for the table `cust_car_type` */
 
-insert  into `cust_car_type`(`id`,`name`,`icon`,`category`,`seating`,`tankCapacity`,`drivingRange`,`chargeStandardId`,`status`,`createTime`,`updateTime`) values (1,'小家常菜',NULL,1,23,23,34,1,1,'2013-03-31 16:32:21','2013-03-31 16:32:21'),(2,'小家常菜^^&&^&',NULL,1,23,23,34,2,1,'2013-03-31 16:32:45','2013-03-31 16:32:45'),(3,'宝马X5',NULL,1,32,342,43,3,1,'2013-03-31 16:34:58','2013-03-31 16:34:58');
-
 /*Table structure for table `cust_charge_standard` */
 
 DROP TABLE IF EXISTS `cust_charge_standard`;
@@ -186,8 +181,6 @@ CREATE TABLE `cust_charge_standard` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='车辆收费标准';
 
 /*Data for the table `cust_charge_standard` */
-
-insert  into `cust_charge_standard`(`id`,`deposit`,`premium`,`rent`,`mileageLimits`,`overMileageFare`,`overTimeFare`,`carSendFare`,`diffShopReturnFare`,`status`,`createTime`,`updateTime`) values (1,123,23,NULL,NULL,NULL,NULL,NULL,NULL,1,'2013-03-31 16:32:21','2013-03-31 16:32:21'),(2,123,23,NULL,NULL,NULL,NULL,NULL,NULL,1,'2013-03-31 16:32:45','2013-03-31 16:32:45'),(3,423,4,32,423,423,24,42,23,1,'2013-03-31 16:34:58','2013-03-31 16:34:58');
 
 /*Table structure for table `cust_store` */
 
@@ -236,7 +229,7 @@ CREATE TABLE `statis_car_income` (
   `createTime` datetime default NULL COMMENT '创建时间',
   `updateTime` datetime default NULL COMMENT '更新时间',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='车辆收入统计（统计类）\n未详细设计，预计�';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='车辆收入统计（统计类）\n未详细设计，预计叧;
 
 /*Data for the table `statis_car_income` */
 
@@ -278,6 +271,26 @@ CREATE TABLE `sys_dictionary` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字典管理';
 
 /*Data for the table `sys_dictionary` */
+
+insert  into `sys_dictionary`(`id`,`groupName`,`groupDisplayName`,`dictKey`,`dictValue`,`dictDisplayName`,`orderNo`,`comment`,`status`,`createTime`,`updateTime`) values (1,'CUST_CAR_TYPE_CATEGORY','车辆类别','1','1','轿车',1,'轿车',1,'2013-04-05 11:18:45','2013-04-05 11:18:45'),(2,'CUST_CAR_TYPE_CATEGORY','车辆类别','2','2','越野汽车',2,'越野汽车',1,'2013-04-05 11:18:45','2013-04-05 11:18:45'),(3,'CUST_CAR_TYPE_CATEGORY','车辆类别','3','3','客车',3,'客车',1,'2013-04-05 11:18:45','2013-04-05 11:18:45'),(4,'CUST_CAR_TYPE_CATEGORY','车辆类别','4','4','货车',4,'货车',1,'2013-04-05 11:18:45','2013-04-05 11:18:45'),(5,'CUST_CAR_TYPE_CATEGORY','车辆类别','5','5','自卸汽车',5,'自卸汽车',1,'2013-04-05 11:18:45','2013-04-05 11:18:45'),(6,'CUST_CAR_TYPE_CATEGORY','车辆类别','6','6','牵引汽车',6,'牵引汽车',1,'2013-04-05 11:18:45','2013-04-05 11:18:45'),(7,'CUST_CAR_TYPE_CATEGORY','车辆类别','7','7','专用汽车',7,'专用汽车',1,'2013-04-05 11:18:45','2013-04-05 11:18:45');
+
+/*Table structure for table `sys_file_upload` */
+
+DROP TABLE IF EXISTS `sys_file_upload`;
+
+CREATE TABLE `sys_file_upload` (
+  `id` bigint(20) NOT NULL auto_increment COMMENT '主键',
+  `name` varchar(100) default NULL COMMENT '文件名称',
+  `path` text COMMENT '文件相对路径',
+  `md5` varchar(64) default NULL COMMENT 'MD5文件名（后缀由type解析）',
+  `type` int(11) default NULL COMMENT '文件类型（代码中用枚举解析）',
+  `status` int(11) default NULL COMMENT '状态',
+  `createTime` datetime default NULL COMMENT '创建时间',
+  `updateTime` datetime default NULL COMMENT '更新时间',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `sys_file_upload` */
 
 /*Table structure for table `sys_province` */
 

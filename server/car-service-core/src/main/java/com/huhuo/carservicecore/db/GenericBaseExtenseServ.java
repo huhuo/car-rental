@@ -3,6 +3,8 @@ package com.huhuo.carservicecore.db;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.jdbc.core.JdbcTemplate;
+
 import com.huhuo.integration.base.BaseServ;
 import com.huhuo.integration.base.IBaseExtenseDao;
 import com.huhuo.integration.base.IBaseExtenseServ;
@@ -26,6 +28,11 @@ public abstract class GenericBaseExtenseServ<T extends IBaseModel<Long>>
 	public abstract IBaseExtenseDao<T> getDao();
 	
 	public abstract Class<T> getModelClazz();
+	
+	@Override
+	public JdbcTemplate getJdbcTemplate() {
+		return getDao().getJdbcTemplate();
+	}
 	
 	@Override
 	public Integer add(T t) {

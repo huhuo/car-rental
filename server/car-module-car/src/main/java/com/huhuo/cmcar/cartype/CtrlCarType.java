@@ -67,7 +67,7 @@ public class CtrlCarType extends BaseCtrl {
 		model.addAttribute("page", page);
 		model.addAttribute("t", t);
 		
-		System.out.println(1/0);
+//		System.out.println(1/0);
 		
 		return basePath + "/cartype/page-grid";
 	}
@@ -113,5 +113,6 @@ public class CtrlCarType extends BaseCtrl {
 		iservCarType.deletePhysical(t);
 		write(new Message<ModelCarType>(Status.SUCCESS, "删除成功", t), resp);
 	}
+	
 	
 }
