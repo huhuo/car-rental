@@ -33,7 +33,7 @@ public class DaoCarLocationTest extends CarServiceCoreTest {
 		actual = iDaoCarLocation.find(t.getId());
 		Assert.assertEquals("failed to update ModelOrder", t, actual);
 		// delete
-		iDaoCarLocation.delete(t);
+		iDaoCarLocation.deletePhysical(t);
 		actual = iDaoCarLocation.find(t.getId());
 		Assert.assertNull("failed to delete ModelOrder", actual);
 	}

@@ -41,7 +41,7 @@ public class DaoOrderSnapshotTest extends CarServiceCoreTest {
 		actual = iDaoOrderSnapshot.find(t.getId());
 		Assert.assertEquals("failed to update ModelOrder", t, actual);
 		// delete
-		iDaoOrderSnapshot.delete(t);
+		iDaoOrderSnapshot.deletePhysical(t);
 		actual = iDaoOrderSnapshot.find(t.getId());
 		Assert.assertNull("failed to delete ModelOrder", actual);
 	}

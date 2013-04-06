@@ -3,6 +3,7 @@ package com.huhuo.carservicecore.db;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,8 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 	protected final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	protected DataSource dataSource;
+	
+	private String separator = ", ";
 	
 	/**
 	 * get table's in DB mapping this entity
@@ -80,7 +83,7 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 	public final JdbcTemplate getJdbcTemplate() {
 		DataSource dataSource = getDataSource();
 		if(dataSource == null) {
-			throw new DaoException("---> spring bean 'dataSource' is required");
+			throw new DaoException("==> spring bean 'dataSource' is required");
 		}
 		return new JdbcTemplate(dataSource);
 	}
@@ -88,12 +91,26 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 	@Override
 	public boolean save(T t) throws DaoException {
 		if(t == null)
-			throw new DaoException("---> model t can't be null");
+			throw new DaoException("==> model t can't be null");
 		if(update(t) < 1) {
 			add(t);
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * get field by clazz
+	 * @param clazz
+	 * @return
+	 */
+	protected String constructField(Class<T> clazz) {
+		BeanHelper.GetterSetter[] getterSetterArray = BeanHelper.getGetterSetter(getModelClazz());
+		List<String> cols = new ArrayList<String>();
+		for(final BeanHelper.GetterSetter gs : getterSetterArray){
+			cols.add(gs.propertyName);
+		}
+		return StringUtils.join(cols, ", ");
 	}
 	
 	@Override
@@ -123,10 +140,10 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 			args.put(gs.propertyName, value);
 		}
 		insert.usingColumns(cols.toArray(new String[cols.size()]));
+		logger.debug("==> SQL --> {}", insert.getInsertString());
+		logger.debug("==> params --> {}", JSONArray.toJSONString(args));
 		Number id = insert.executeAndReturnKey(args);
-		logger.debug("---> SQL --> {}", insert.getInsertString());
-		logger.debug("---> params --> {}", JSONArray.toJSONString(args));
-		logger.debug("---> primary key return --> {}", id);
+		logger.debug("==> primary key return --> {}", id);
 		if(id instanceof Long)
 			t.setId((Long) id);
 		return 1;
@@ -169,10 +186,10 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 		}
 		sb.append(")");
 		final Object[] objects = values.toArray(new Object[values.size()]);
+		logger.debug("==> SQL --> {}", sb.toString());
+		logger.debug("==> params --> {}", JSONArray.toJSONString(objects));
 		int update = getJdbcTemplate().update(sb.toString(), objects);
-		logger.debug("---> SQL --> {}", sb.toString());
-		logger.debug("---> params --> {}", JSONArray.toJSONString(objects));
-		logger.debug("---> row affected --> {}", update);
+		logger.debug("==> row affected --> {}", update);
 		return update;
 		
 	}
@@ -187,7 +204,7 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 			batch[i] = new BeanPropertySqlParameterSource(list.get(i));
 		}
 		int[] executeBatch = jdbcInsert.executeBatch(batch);
-		logger.debug("---> addBatch end with affected row --> {}", executeBatch);
+		logger.debug("==> addBatch end with affected row --> {}", executeBatch);
 		return executeBatch;
 	}
 
@@ -223,37 +240,49 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 		sb.append(" WHERE id=?");
 		values.add(t.getId());
 		final Object[] objects = values.toArray(new Object[values.size()]);
+		logger.debug("==> SQL --> {}", sb.toString());
+		logger.debug("==> params --> {}", StringUtils.join(objects, ","));
 		int update = getJdbcTemplate().update(sb.toString(),objects);
-		logger.debug("---> SQL --> {}", sb.toString());
-		logger.debug("---> params --> {}", StringUtils.join(objects, ","));
-		logger.debug("---> row affected --> {}", update);
+		logger.debug("==> row affected --> {}", update);
 		return update;
 	}
 
 	@Override
 	public Integer delete(T t) throws DaoException {
-		if(t!=null)
-			return deleteById(t.getId());
-		else
+		if(t == null) {
 			return null;
+		}
+		String sql = String.format("UPDATE %s SET status=0 WHERE id=?", getTableName());
+		logger.debug("==> SQL --> {}", sql);
+		logger.debug("==> params --> {}", t.getId());
+		int update = getJdbcTemplate().update(sql, t.getId());
+		logger.debug("==> row affected --> {}", update);
+		return update;
 	}
-
+	
+	@Override
+	public Integer deletePhysical(T t) throws DaoException {
+		if(t == null) {
+			return null;
+		}
+		return deleteById(t.getId());
+	}
 	@Override
 	public <PK> Integer deleteById(PK id) throws DaoException {
 		String sql = String.format("DELETE FROM %s WHERE id=?", getTableName());
+		logger.debug("==> SQL --> {}", sql);
+		logger.debug("==> params --> {}", id);
 		Integer update = getJdbcTemplate().update(sql, id);
-		logger.debug("---> SQL --> {}", sql);
-		logger.debug("---> params --> {}", id);
-		logger.debug("---> row affected --> {}", update);
+		logger.debug("==> row affected --> {}", update);
 		return update;
 	}
 	
 	@Override
 	public Long count() {
 		String sql = String.format("SELECT COUNT(*) FROM %s", getTableName());
+		logger.debug("==> SQL --> {}", sql);
 		long count = getJdbcTemplate().queryForLong(sql);
-		logger.debug("---> SQL --> {}", sql);
-		logger.debug("---> result count --> {}", count);
+		logger.debug("==> result count --> {}", count);
 		return count;
 	}
 	
@@ -261,13 +290,13 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 	public List<T> queryForList(String sql, Class<T> clazz, Object... args)
 			throws DaoException {
 		List<T> rs = getJdbcTemplate().query(sql, args, new BeanPropertyRowMapper<T>(clazz));
-		logger.debug("---> SQL --> {}", sql);
-		logger.debug("---> params --> {}", StringUtils.join(args, ","));
+		logger.debug("==> SQL --> {}", sql);
+		logger.debug("==> params --> {}", StringUtils.join(args, separator));
 		if(rs == null) {
-			logger.debug("---> result set\t--> {}", rs);
+			logger.debug("==> result set --> {}", rs);
 		} else {
 			for(int index=1; index<=rs.size(); index++) {
-				logger.debug("---> result set {}\t--> {}", index, rs.get(index - 1));
+				logger.debug("==> result set {} --> {}", index, rs.get(index - 1));
 			}
 		}
 		return rs;
@@ -283,14 +312,13 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 	public T queryForObject(String sql, Class<T> clazz, Object... args)
 			throws DaoException {
 		try {
+			logger.debug("==> SQL --> {}", sql);
+			logger.debug("==> params --> {}", StringUtils.join(args, separator));
 			T singleResult = getJdbcTemplate().queryForObject(sql, BeanPropertyRowMapper.newInstance(clazz), args);
-			logger.debug("---> SQL --> {}", sql);
-			logger.debug("---> params --> {}", StringUtils.join(args, ","));
-			logger.debug("---> result set -->{}", singleResult);
+			logger.debug("==> result set -->{}", singleResult);
 			return singleResult;
 		} catch (EmptyResultDataAccessException e) {
-			System.out.println(e.getMessage());
-			logger.warn("---> error cause by --> {}", e.getMessage());
+			logger.warn("==> error cause by --> {}", e.getMessage());
 			return null;
 		}
 	}
@@ -351,6 +379,10 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 	 */
 	private List<Object> constructCondition(Condition<T> condition, StringBuilder sb)
 			throws IllegalAccessException, InvocationTargetException {
+		// validation
+		if(condition == null) {
+			return new ArrayList<Object>();
+		}
 		// append where clause
 		List<Object> values = new ArrayList<Object>();
 		T t = condition.getT();
@@ -361,8 +393,10 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 				Object fieldValue = gs.getter.invoke(t);
 				if(fieldValue instanceof String
 						|| fieldValue instanceof Integer
+						|| fieldValue instanceof Long
 						|| fieldValue instanceof Float
-						|| fieldValue instanceof Double) {
+						|| fieldValue instanceof Double
+						|| fieldValue instanceof Date) {
 					if(first && fieldValue!=null) {
 						sb.append(" WHERE ").append(gs.propertyName);
 						if(fieldValue instanceof String) {
@@ -413,9 +447,11 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 			sb.deleteCharAt(sb.lastIndexOf(","));
 		}
 		// limit clause
-		Page page = condition.getPage();
+		Page<T> page = condition.getPage();
 		if(page!=null && page.getStart()!=null && page.getLimit()!=null) {
-			sb.append("LIMIT ").append(page.getStart()).append(", ").append(page.getLimit());
+			sb.append(" LIMIT ?, ?");
+			values.add(page.getStart());
+			values.add(page.getLimit());
 		}
 		sb = new StringBuilder(StringUtils.trim(sb.toString()));	// trim string
 		return values;
@@ -428,8 +464,12 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 			sb.append("SELECT COUNT(*) FROM ").append(getTableName());
 			condition.setGroupList(new ArrayList<Group>());
 			condition.setOrderList(new ArrayList<Order>());
+			condition.setPage(null);
 			List<Object> values = constructCondition(condition, sb);
+			logger.debug("==> SQL --> {}", sb.toString());
+			logger.debug("==> params --> {}", StringUtils.join(values, separator));
 			long ret = getJdbcTemplate().queryForLong(sb.toString(), values.toArray());
+			logger.debug("==> result set -->{}", ret);
 			return ret;
 		} catch (Exception e) {
 			throw new DaoException(e);

@@ -33,7 +33,7 @@ public class DaoCarIncomeTest extends CarServiceCoreTest {
 		actual = iDaoCarIncome.find(t.getId());
 		Assert.assertEquals("failed to update ModelOrder", t, actual);
 		// delete
-		iDaoCarIncome.delete(t);
+		iDaoCarIncome.deletePhysical(t);
 		actual = iDaoCarIncome.find(t.getId());
 		Assert.assertNull("failed to delete ModelOrder", actual);
 	}

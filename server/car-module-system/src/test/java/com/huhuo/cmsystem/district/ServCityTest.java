@@ -22,7 +22,7 @@ public class ServCityTest extends CarModuleSystemTest {
 	
 	@Test
 	public void findModels() {
-		List<ModelCity> list = iServCity.findModels(new Page(0, 15));
+		List<ModelCity> list = iServCity.findModels(new Page<ModelCity>(0, 15));
 		print(list);
 	}
 	

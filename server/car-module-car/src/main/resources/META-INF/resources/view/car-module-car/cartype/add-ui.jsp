@@ -1,107 +1,106 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script type="text/javascript">
-	$(document).ready(function() {
-		// cartype add page
-		$('#cartypeEditDivId form').huhuoFormPost(function(data, status) {
+$(document).ready(function() {
+	$('form').huhuoFormPost(function(data, status) {
+		console.log(data);
+		if(data.status == 'SUCCESS') {
 			$('#cartypeEditDivId').hide();
 			$('#cartypeMgrDivId').show(500);
-			$('#cartypeMgrDivId form button').trigger("click");
-			console.log($('#cartypeEditDivId form').serialize());
-		}, '${path}/');
-	});
+	//		$('#huhuoForm').trigger('submit');
+		} else {
+			$.huhuoGrowlUI('error occur in server --> ' + data.msg);
+		}
+	}, '${path}/cmcar/cartype/add.do');
+});
 </script>
 <form class="form-horizontal well" action="${path}/cmcar/cartype/add.do">
 	<div class="row-fluid">
 		<div class="span6">
-			<input type="hidden" value="${carType.id }">
 			<div class="control-group">
-				<label class="control-label" for="inputName">车型名称${carType }</label>
+				<label class="control-label" for="inputName">车型名称</label>
 				<div class="controls">
-					<input type="text" class="required" id="inputName" name="name" placeholder="车型名称..." value="${carType.name }">
+					<input type="text" class="required" id="inputName" name="name" placeholder="车型名称...">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="selectCategory">车辆类别</label>
 				<div class="controls">
 					<select id="selectCategory" name="category">
-					<c:forEach items="${carTypeCategoryList }" var="category">
-					<c:choose>
-					<c:when test="${category.dictKey == carType.category }">
-						<option value="${category.dictKey }" selected="selected">${category.dictDisplayName }</option>
-					</c:when>
-					<c:otherwise>
-						<option value="${category.dictKey }">${category.dictDisplayName }</option>
-					</c:otherwise>
-					</c:choose>
-					</c:forEach>
+						<option value="1" >轿车</option>
+						<option value="2" >越野汽车</option>
+						<option value="3" >客车</option>
+						<option value="4" >货车</option>
+						<option value="5" >自卸汽车</option>
+						<option value="6" >牵引汽车</option>
+						<option value="7" >专用汽车</option>
 					</select>
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputSeating">座位数</label>
 				<div class="controls">
-					<input type="number" class="required digits" id="inputSeating" name="seating" placeholder="座位数..." value="${carType.seating }">
+					<input type="number" class="required digits" id="inputSeating" name="seating" placeholder="座位数...">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputTankCapacity">油箱容量</label>
 				<div class="controls">
-					<input type="number" class="required digits" id="inputTankCapacity" name="tankCapacity" placeholder="油箱容量（单位：升）..." value="${carType.tankCapacity }">
+					<input type="number" class="required digits" id="inputTankCapacity" name="tankCapacity" placeholder="油箱容量（单位：升）...">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputDrivingRange">可行驶里程数</label>
 				<div class="controls">
-					<input type="number" class="required digits" id="inputDrivingRange" name="drivingRange" placeholder="可行驶里程数（单位：公里）..." value="${carType.drivingRange }">
+					<input type="number" class="required digits" id="inputDrivingRange" name="drivingRange" placeholder="可行驶里程数（单位：公里）...">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputDeposit">押金</label>
 				<div class="controls">
-					<input type="number" class="required" id="inputDeposit" name="deposit" placeholder="押金（xxx元）..." value="${carType.chargeStandard.deposit }">
+					<input type="number" class="required digit" id="inputDeposit" name="chargeStandard.deposit" placeholder="押金（xxx元）...">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputPremium">保险费</label>
 				<div class="controls">
-					<input type="number" class="required" id="inputPremium" name="premium" placeholder="保险费，xxx元/次..." value="${carType.chargeStandard.premium }">
+					<input type="number" class="required digit" id="inputPremium" name="chargeStandard.premium" placeholder="保险费，xxx元/次...">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputRent">租金</label>
 				<div class="controls">
-					<input type="number" class="required" id="inputRent" name="rent" placeholder="租金（xxx元/天）..." value="${carType.chargeStandard.rent }">
+					<input type="number" class="required digit" id="inputRent" name="chargeStandard.rent" placeholder="租金（xxx元/天）...">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputMileageLimits">里程限制</label>
 				<div class="controls">
-					<input type="number" class="required digits" id="inputMileageLimits" name="mileageLimits" placeholder="里程限制（xxx公里/日）..." value="${carType.chargeStandard.mileageLimits }">
+					<input type="number" class="required digits" id="inputMileageLimits" name="chargeStandard.mileageLimits" placeholder="里程限制（xxx公里/日）...">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputOverMileageFare">超里程费用</label>
 				<div class="controls">
-					<input type="number" class="required" id="inputOverMileageFare" name="overMileageFare" placeholder="超里程费用（xxx元/公里）..." value="${carType.chargeStandard.overMileageFare }">
+					<input type="number" class="required digit" id="inputOverMileageFare" name="chargeStandard.overMileageFare" placeholder="超里程费用（xxx元/公里）...">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputOverTimeFare">超时费用</label>
 				<div class="controls">
-					<input type="number" class="required" id="inputOverTimeFare" name="overTimeFare" placeholder="超时费用（xxx元/小时）..." value="${carType.chargeStandard.overTimeFare }">
+					<input type="number" class="required digit" id="inputOverTimeFare" name="chargeStandard.overTimeFare" placeholder="超时费用（xxx元/小时）...">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputCarSendFare">上门送车费用</label>
 				<div class="controls">
-					<input type="number" class="required" id="inputCarSendFare" name="carSendFare" placeholder="上门送车费用（xxx元）..." value="${carType.chargeStandard.carSendFare }">
+					<input type="number" class="required digit" id="inputCarSendFare" name="chargeStandard.carSendFare" placeholder="上门送车费用（xxx元）...">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputDiffShopReturnFare">异店结算附加费</label>
 				<div class="controls">
-					<input type="number" class="required" id="inputDiffShopReturnFare" name="diffShopReturnFare" placeholder="异店结算（还车）附加费（xxx元）..." value="${carType.chargeStandard.diffShopReturnFare }">
+					<input type="number" class="required digit" id="inputDiffShopReturnFare" name="chargeStandard.diffShopReturnFare" placeholder="异店结算（还车）附加费（xxx元）...">
 				</div>
 			</div>
 			<div class="control-group">

@@ -1,19 +1,22 @@
 package com.huhuo.carservicecore.db;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.huhuo.integration.base.BaseServ;
 import com.huhuo.integration.base.IBaseExtenseDao;
 import com.huhuo.integration.base.IBaseExtenseServ;
+import com.huhuo.integration.base.IBaseModel;
 import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.db.mysql.Page;
+import com.huhuo.integration.exception.DaoException;
 
 /**
  * util service associated with DAO
  * @author wuyuxuan
  * @param <T>
  */
-public abstract class GenericBaseExtenseServ<T> 
+public abstract class GenericBaseExtenseServ<T extends IBaseModel<Long>> 
 	extends BaseServ implements IBaseExtenseServ<T>{
 
 	/**
@@ -27,6 +30,10 @@ public abstract class GenericBaseExtenseServ<T>
 	@Override
 	public Integer add(T t) {
 		// TODO Auto-generated method stub
+		if(t == null)
+			return null;
+		if(t.getStatus() == null)
+			t.setStatus(1);
 		return getDao().add(t);
 	}
 
@@ -40,6 +47,12 @@ public abstract class GenericBaseExtenseServ<T>
 	public Integer delete(T t) {
 		// TODO Auto-generated method stub
 		return getDao().delete(t);
+	}
+
+	@Override
+	public Integer deletePhysical(T t) throws DaoException {
+		// TODO Auto-generated method stub
+		return getDao().deletePhysical(t);
 	}
 
 	@Override
@@ -57,6 +70,13 @@ public abstract class GenericBaseExtenseServ<T>
 	@Override
 	public Integer addBatch(List<T> list) {
 		// TODO Auto-generated method stub
+		if(list!=null) {
+			for(T t : list) {
+				if(t!=null && t.getStatus()==null) {
+					t.setStatus(1);
+				}
+			}
+		}
 		int[] addBatch = getDao().addBatch(list);
 		return addBatch.length;
 	}
@@ -64,13 +84,20 @@ public abstract class GenericBaseExtenseServ<T>
 	@Override
 	public List<T> findByCondition(Condition<T> condition) {
 		// TODO Auto-generated method stub
-		return getDao().findByCondition(condition);
+		if(condition!=null && condition.getT()!=null && condition.getT().getStatus()==null) {
+			condition.getT().setStatus(1);
+		}
+		List<T> list = getDao().findByCondition(condition);
+		if(list == null) {
+			list = new ArrayList<T>();
+		}
+		return list;
 	}
 
 	@Override
 	public List<T> findByCondition(Condition<T> condition, boolean injected) {
 		// TODO Auto-generated method stub
-		return getDao().findByCondition(condition);
+		return findByCondition(condition);
 	}
 
 	@Override
@@ -80,7 +107,7 @@ public abstract class GenericBaseExtenseServ<T>
 	}
 
 	@Override
-	public List<T> findModels(Page page) {
+	public List<T> findModels(Page<T> page) {
 		// TODO Auto-generated method stub
 		if(page == null) {
 			return null;
