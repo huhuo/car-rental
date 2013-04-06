@@ -65,6 +65,33 @@ public class CtrlOrder extends BaseCtrl {
 	}
 	
 	
+	
+	@RequestMapping(value="/addorder.do")
+	public void addOrder(Condition<ModelOrder> condition,Model model) {
+		try {
+			logger.debug("server receive: condition={}", condition);
+			Page<ModelOrder> page = condition.getPage();  
+			
+			if(page==null){
+				page=new Page<ModelOrder>();
+				condition.setPage(page);
+			}
+//			condition.setPage(new Page(0, 30));
+//			List<ModelConsumer> list = servConsumer.findByCondition(condition);
+			List<ModelOrder> list = iservOrder.findModels(page);
+			
+			page.setTotal(iservOrder.count());
+			page.setRecords(list);
+			model.addAttribute("orderPage", page);
+			logger.debug("orderlist is [{}]",list);
+		} catch (HuhuoException e) {
+			logger.warn(e.getMessage());
+		} catch (Exception e) {
+			logger.error(ExceptionUtils.getFullStackTrace(e));
+		}
+	}
+	
+	
 	/*************************************************************
 	 * order history management
 	 *************************************************************/

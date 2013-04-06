@@ -40,7 +40,7 @@
 
 </head>
 <body>
-	<div class="container-fluid">
+	<div class="container-fluid" style='min-width:1200px'>
 
 		<div class="row-fluid show-grid">
 			<div class="top" style="padding-top:10px">
