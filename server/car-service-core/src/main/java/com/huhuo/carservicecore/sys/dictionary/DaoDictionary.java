@@ -24,7 +24,7 @@ public class DaoDictionary extends GenericBaseExtenseDao<ModelDictionary> implem
 	@Override
 	public List<ModelDictionary> getGroupsBy(DictGroup dictGroup) {
 		String sql = String.format("SELECT * FROM %s WHERE groupName=?", getTableName());
-		List<ModelDictionary> list = queryForList(sql, dictGroup.getGroupName());
+		List<ModelDictionary> list = findList(sql, dictGroup.getGroupName());
 		return list;
 	}
 	

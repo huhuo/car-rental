@@ -51,7 +51,7 @@ public class DaoDictionaryTest extends CarServiceCoreTest {
 		List<Order> orderList = new ArrayList<Order>();
 //		orderList.add(new Order("dictDisplayName", Dir.DESC));
 //		orderList.add(new Order("orderNo", Dir.ASC));
-		Condition<ModelDictionary> condition = new Condition<ModelDictionary>(t, groupList, orderList, new Page());
+		Condition<ModelDictionary> condition = new Condition<ModelDictionary>(t, groupList, orderList, new Page<ModelDictionary>());
 		print(iDaoDictionary.findByCondition(condition));
 	}
 	@Test
@@ -67,7 +67,7 @@ public class DaoDictionaryTest extends CarServiceCoreTest {
 		List<Order> orderList = new ArrayList<Order>();
 		orderList.add(new Order("dictDisplayName", Dir.DESC));
 		orderList.add(new Order("orderNo", Dir.ASC));
-		Condition<ModelDictionary> condition = new Condition<ModelDictionary>(t, groupList, orderList, new Page());
+		Condition<ModelDictionary> condition = new Condition<ModelDictionary>(t, groupList, orderList, new Page<ModelDictionary>());
 		print(iDaoDictionary.countByCondition(condition));
 	}
 	

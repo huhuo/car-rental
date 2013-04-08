@@ -2,19 +2,20 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script type="text/javascript">
 $(document).ready(function() {
-	$('form').huhuoFormPost(function(data, status) {
+	$('#addCarTypeForm').huhuoFormPost(function(data, status) {
 		console.log(data);
 		if(data.status == 'SUCCESS') {
 			$('#cartypeEditDivId').hide();
 			$('#cartypeMgrDivId').show(500);
-	//		$('#huhuoForm').trigger('submit');
+			console.log($('#huhuoForm'));
+			$('#huhuoForm').trigger('submit');
 		} else {
 			$.huhuoGrowlUI('error occur in server --> ' + data.msg);
 		}
 	}, '${path}/cmcar/cartype/add.do');
 });
 </script>
-<form class="form-horizontal well" action="${path}/cmcar/cartype/add.do">
+<form id="addCarTypeForm" class="form-horizontal well" action="${path}/cmcar/cartype/add.do">
 	<div class="row-fluid">
 		<div class="span6">
 			<div class="control-group">

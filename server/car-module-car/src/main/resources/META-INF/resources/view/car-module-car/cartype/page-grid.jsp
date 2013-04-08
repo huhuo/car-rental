@@ -1,8 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<table class="table table-hover table-condensed">
+<style type="text/css">
+
+table.table-hover tbody tr.huhuo-item-selected {
+    background-color: #5D89F8;
+	color: #FFF;
+}
+
+
+</style>
+<table id="cartypePageGridId" class="table table-hover table-condensed">
 	<thead>
 		<tr>
+			<th><input type="checkbox" class="checkbox"></th>
 			<th>序号</th>
 			<th>图片</th>
 			<th>车型名称</th>
@@ -16,6 +26,7 @@
 	<tbody>
 		<c:forEach items="${records }" var="record">
 		<tr>
+			<td><input type="checkbox" class="checkbox"></td>
 			<td>${record.id}</td>
 			<td>${record.icon}</td>
 			<td>${record.name}</td>
@@ -32,13 +43,26 @@
 		</tr>
 		</c:forEach>
 	</tbody>
+	<tfoot>
+		<!-- style="position:fixed;top:150px;left:1100px" -->
+		<tr>
+			<td colspan="9">
+				<div class="pagination pagination-centered" style="margin-bottom: 0px;"></div>
+			</td>
+		</tr>
+	</tfoot>
 </table>
-<!-- style="position:fixed;top:150px;left:1100px" -->
-<div class="pagination pagination-centered"></div>
 
 <script type="text/javascript">
-	//绑定标签元素。设置当前页，页面数据条数，总数，要访问的url，对应的参数，点击标签时刷新的div，标签数
+$(document).ready(function() {
+	// 绑定标签元素。设置当前页，页面数据条数，总数，要访问的url，对应的参数，点击标签时刷新的div，标签数
 	var page = JSON.parse('${page}');
 	var t = JSON.parse('${t}');
 	$(".pagination").myPage(page, '${path }/cmcar/cartype/condition/get.do', t, $("#pagediv"), 5);
+	// add select css
+	$('#cartypePageGridId tbody tr').click(function(event) {
+		$(this).toggleClass('huhuo-item-selected');
+		$(this).find(':checkbox')[0].checked = !$(this).find(':checkbox')[0].checked;
+	});
+});
 </script>

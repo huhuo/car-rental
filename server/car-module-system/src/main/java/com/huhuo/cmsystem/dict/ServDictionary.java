@@ -44,5 +44,5 @@ public class ServDictionary extends GenericBaseExtenseServ<ModelDictionary>
 	public ModelDictionary getBy(Dict dict) {
 		return iDaoDictionary.getBy(dict);
 	}
-	
+
 }

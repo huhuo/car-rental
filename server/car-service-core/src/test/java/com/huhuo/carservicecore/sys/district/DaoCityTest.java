@@ -48,14 +48,14 @@ public class DaoCityTest extends CarServiceCoreTest {
 	}
 	@Test
 	public void findById() throws Exception{
-		ModelCity city = daoCity.find(ModelCity.class, 101010105);
+		ModelCity city = daoCity.find(ModelCity.class, 101010500);
 		System.out.println(city);
-		ModelCity city2 = daoCity.queryForObject("SELECT * FROM sys_city WHERE id=?", ModelCity.class, 101010105);
+		ModelCity city2 = daoCity.queryForObject("SELECT * FROM sys_city WHERE id=?", ModelCity.class, new Object[] {101010500});
 		print(city2);
 	}
 	@Test
 	public void queryForObject() throws Exception{
-		ModelCity t = daoCity.queryForObject("SELECT * FROM sys_city WHERE id=?", ModelCity.class, 1010407002);
+		ModelCity t = daoCity.queryForObject("SELECT * FROM sys_city WHERE id=?", ModelCity.class, new Object[] {101010500});
 		print(t);
 	}
 	
@@ -68,7 +68,7 @@ public class DaoCityTest extends CarServiceCoreTest {
 	@Test
 	public void queryForList() throws Exception{
 		String sql = "select * from sys_city LIMIT ?, ?";
-		List<ModelCity> list = daoCity.queryForList(sql, ModelCity.class, 0, 20);
+		List<ModelCity> list = daoCity.queryForList(sql, ModelCity.class, new Object[] {0, 20});
 		print(list);
 	}
 	
