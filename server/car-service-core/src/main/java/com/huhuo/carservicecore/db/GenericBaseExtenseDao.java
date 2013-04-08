@@ -12,8 +12,10 @@ import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.CallableStatementCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -287,11 +289,27 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 		logger.debug("==> result count --> {}", count);
 		return count;
 	}
-	
 	@Override
-	public List<T> queryForList(String sql, Class<T> clazz, Object... args)
+	public List<Map<String, Object>> queryForMapList(String sql, Object... args)
 			throws DaoException {
-		List<T> rs = getJdbcTemplate().query(sql, args, new BeanPropertyRowMapper<T>(clazz));
+		logger.debug("==> SQL --> {}", sql);
+		logger.debug("==> params --> {}", prettyFormat(args));
+		List<Map<String, Object>> rs = getJdbcTemplate().queryForList(sql, args);
+		logger.debug("==> result set --> {}", prettyFormat(rs));
+		return rs;
+	}
+	@Override
+	public Map<String, Object> queryForMap(String sql, Object... args) throws DaoException {
+		logger.debug("==> SQL --> {}", sql);
+		logger.debug("==> params --> {}", prettyFormat(args));
+		Map<String, Object> rs = getJdbcTemplate().queryForMap(sql, args);
+		logger.debug("==> result set --> {}", prettyFormat(rs));
+		return rs;
+	}
+	@Override
+	public <E> List<E> queryForList(String sql, Class<E> clazz, Object... args)
+			throws DaoException {
+		List<E> rs = getJdbcTemplate().query(sql, args, new BeanPropertyRowMapper<E>(clazz));
 		logger.debug("==> SQL --> {}", sql);
 		logger.debug("==> params --> {}", prettyFormat(args));
 		if(rs == null) {
@@ -303,18 +321,12 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 	}
 	
 	@Override
-	public List<T> queryForList(String sql, Object... args)
-			throws DaoException {
-		return queryForList(sql, getModelClazz(), args);
-	}
-	
-	@Override
-	public T queryForObject(String sql, Class<T> clazz, Object... args)
+	public <E> E queryForObject(String sql, Class<E> clazz, Object... args)
 			throws DaoException {
 		try {
 			logger.debug("==> SQL --> {}", sql);
 			logger.debug("==> params --> {}", prettyFormat(args));
-			T singleResult = getJdbcTemplate().queryForObject(sql, BeanPropertyRowMapper.newInstance(clazz), args);
+			E singleResult = getJdbcTemplate().queryForObject(sql, BeanPropertyRowMapper.newInstance(clazz), args);
 			logger.debug("==> result set -->{}", prettyFormat(singleResult));
 			return singleResult;
 		} catch (EmptyResultDataAccessException e) {
@@ -324,10 +336,14 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 	}
 	
 	@Override
-	public T queryForObject(String sql, Object... args) throws DaoException {
-		return queryForObject(sql, getModelClazz(), args);
+	public List<T> findList(String sql, Object... args) throws DaoException {
+		return queryForList(sql, getModelClazz(), args);
 	}
 	
+	@Override
+	public T findObject(String sql, Object... args) throws DaoException {
+		return queryForObject(sql, getModelClazz(), args);
+	}
 	@Override
 	public <PK> T find(Class<T> clazz, PK id)
 			throws DaoException {
@@ -349,7 +365,7 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 		} else {
 			sql = String.format("SELECT * FROM %s ORDER BY id DESC", getTableName());
 		}
-		return queryForList(sql, clazz);
+		return queryForList(sql, clazz, new Object[] {});
 	}
 	
 	@Override
@@ -363,7 +379,7 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 			StringBuilder sb = new StringBuilder();
 			sb.append("SELECT * FROM ").append(getTableName());
 			List<Object> values = constructCondition(condition, sb);
-			List<T> list = queryForList(sb.toString(), values.toArray());
+			List<T> list = findList(sb.toString(), values.toArray());
 			return list;
 		} catch (Exception e) {
 			throw new DaoException(e);
@@ -474,6 +490,22 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> implemen
 		} catch (Exception e) {
 			throw new DaoException(e);
 		}
+	}
+	@Override
+	public void execute(String sql) throws DaoException {
+		logger.debug("==> SQL --> {}", sql);
+		logger.debug("==> params --> {}", "empty");
+		getJdbcTemplate().execute(sql);
+		logger.debug("==> execute success!");
+	}
+	@Override
+	public <E> E execute(String callString, CallableStatementCallback<E> action)
+			throws DataAccessException {
+		logger.debug("==> callString --> {}", callString);
+		logger.debug("==> params --> {}", "empty");
+		E execute = getJdbcTemplate().execute(callString, action);
+		logger.debug("==> result set -->{}", prettyFormat(execute));
+		return execute;
 	}
 	/**
 	 * format obj to JSON format

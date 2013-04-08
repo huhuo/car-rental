@@ -2,7 +2,6 @@ package com.huhuo.cmcar.cartype;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -91,12 +90,6 @@ public class ServCarTypeTest extends CarModuleCarTest {
 		for(int i=0; i<52; i++) {
 			iServCarType.add(getInstance());
 		}
-	}
-	
-	@Test
-	public void queryForMap() {
-		List<Map<String, Object>> list = iServCarType.getJdbcTemplate().queryForList("SELECT * FROM cust_car_type ct LEFT JOIN cust_charge_standard cs ON ct.chargeStandardId=cs.id LIMIT ?, ?", 0, 10);
-		print(list);
 	}
 	
 	@Test

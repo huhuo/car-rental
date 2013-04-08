@@ -3,7 +3,6 @@ package com.huhuo.carservicecore.sys.file;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -21,7 +20,7 @@ public class DaoFileUploadTest extends CarServiceCoreTest {
 	private IDaoFileUpload<ModelFileUpload> iDaoFileUpload;
 	
 	@Test
-	public void curd() throws Exception {
+	public void crud() throws Exception {
 		// create
 		ModelFileUpload t = new ModelFileUpload();
 		t.setCreateTime(new Date());
@@ -69,12 +68,6 @@ public class DaoFileUploadTest extends CarServiceCoreTest {
 		Condition<ModelFileUpload> condition = new Condition<ModelFileUpload>();
 		condition.setPage(new Page<ModelFileUpload>(0, 10));
 		List<ModelFileUpload> list = iDaoFileUpload.findByCondition(condition);
-		print(list);
-	}
-	
-	@Test
-	public void queryForMap() {
-		List<Map<String, Object>> list = iDaoFileUpload.getJdbcTemplate().queryForList("SELECT * FROM cust_car_type ct LEFT JOIN cust_charge_standard cs ON ct.chargeStandardId=cs.id LIMIT ?, ?", 0, 10);
 		print(list);
 	}
 	
