@@ -36,30 +36,28 @@ div.titlewell {
 
 		});
 		
-		var phone = ["13112345671", "13112345672", "13112345673", "13112345674", "13112345675", "13112345676"];
 		$("#phonePromptOrderAdd").typeahead({
 			source: function (query, process) {
-			    states = [];
-			    map = {};
-			 
-			    var data = [
-			        {"stateCode": "CA", "stateName": "California"},
-			        {"stateCode": "AZ", "stateName": "Arizona"},
-			        {"stateCode": "NY", "stateName": "New York"},
-			        {"stateCode": "NV", "stateName": "Nevada"},
-			        {"stateCode": "OH", "stateName": "Ohio"}
-			    ];
-			 
-			    $.each(data, function (i, state) {
-			        map[state.stateName] = state;
-			        states.push(state.stateName);
+				consumers = [];
+				consumermap = {};
+			    var records;
+			    $.post('${path }/cmorder/order/conumer.do',{'phone':query},function(data,status){
+			    	
+			    	records=data.records;
+			    	
+				    $.each(records, function (i, consumer) {
+				    	consumermap[consumer.mobileNumber] = consumer;
+				        consumers.push(consumer.mobileNumber);
+				    });
+				 
+				    process(consumers);
 			    });
+			    
 			 
-			    process(states);
 			},
 			updater: function (item) {
-			    selectedState = map[item].stateCode;
-			    console.info(map[item]);
+			    var consumer = consumermap[item].mobileNumber;
+			    console.info(consumer);
 			    return item;
 			}
 		
