@@ -131,14 +131,14 @@ div.titlewell {
 								<label class="control-label" for="inputName">移动电话</label>
 								<div class="controls">
 									<input type="text" autocomplete='off' class="orderinput required" id='phonePromptOrderAdd'
-										name="name" placeholder="车型名称...">
+										name="mobileNumber" placeholder="车型名称...">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputName">客户姓名</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="name" placeholder="车型名称...">
+										name="username" placeholder="客户姓名...">
 								</div>
 							</div>
 
@@ -146,14 +146,14 @@ div.titlewell {
 								<label class="control-label" for="inputName">固定电话</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="name" placeholder="车型名称...">
+										name="telephone" placeholder="车型名称...">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputName">身份证号</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="name" placeholder="车型名称...">
+										name="identityCardId" placeholder="身份证号...">
 								</div>
 							</div>
 							<div class="control-group">

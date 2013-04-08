@@ -1,10 +1,13 @@
 package com.huhuo.carservicecore.csm.consumer;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
 import com.huhuo.integration.base.BaseModel;
+import com.huhuo.integration.db.mysql.NotSqlField;
+import com.huhuo.integration.util.TimeUtils;
 
 public class ModelConsumer extends BaseModel implements Serializable {
 
@@ -50,6 +53,9 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	private Date updateTime;
 	/** 是否是黑名单*/
 	private Boolean blackList;
+	
+	@NotSqlField
+	private Integer age;
 	
 	/**
 	 * 外联对象
@@ -134,6 +140,9 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	}
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
+		if(this.birthday!=null){
+			this.age=TimeUtils.getAge(this.birthday);
+		}
 	}
 	public String getLicenseNum() {
 		return licenseNum;
@@ -182,6 +191,14 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	}
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
+	}
+	public Integer getAge() {
+		return this.age;
+	}
+	public void setAge(Integer age) {
+		this.age = age;
+		
+		
 	}
 	
 	
