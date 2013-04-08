@@ -229,7 +229,7 @@ CREATE TABLE `statis_car_income` (
   `createTime` datetime default NULL COMMENT '创建时间',
   `updateTime` datetime default NULL COMMENT '更新时间',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='车辆收入统计（统计类）\n未详细设计，预计叧;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='车辆收入统计（统计类）\n未详细设计，预计叧';
 
 /*Data for the table `statis_car_income` */
 
@@ -331,6 +331,10 @@ CREATE TABLE `sys_user` (
   `updateTime` datetime default NULL COMMENT '更新时间',
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统管理员';
+
+
+alter table `car-rental-customer`.`csm_consumer` 
+   change `brithday` `birthday` datetime NULL  comment '出生日期'
 
 /*Data for the table `sys_user` */
 

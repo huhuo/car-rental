@@ -56,8 +56,30 @@ div.titlewell {
 			 
 			},
 			updater: function (item) {
-			    var consumer = consumermap[item].mobileNumber;
-			    console.info(consumer);
+			    var consumer = consumermap[item];
+			    console.info(consumer.mobileNumber);
+			    var addOrderform=$('#addOrderform');
+			    $.each(consumer, function (key, value) {
+			    	
+			    	var input=addOrderform.find('[name='+key+']').first();
+			    	console.info(input+'name='+key);
+			    	//單選框
+			    	if(input.attr('type')=='radio'){
+			    		
+			    		addOrderform.find('[name='+key+'][value='+value+']').first().attr('checked',true);
+			    	//下拉	
+			    	}else if (input.is('select')){
+			    		console.info(input+'name='+key+'--------');
+			    		input.find('[value='+value+']').attr('selected','selected');
+			    	}
+			    	//普通input
+			    	else{
+			    		console.info(key);
+			    		input.attr("value",value);
+			    	}
+			    	
+			    });
+			    
 			    return item;
 			}
 		
@@ -94,7 +116,7 @@ div.titlewell {
 
 	<div id="addOrderDiv" style="position: relative">
 		<button id="returnSearch" class="btn" style="margin-bottom: 5px;">返回</button>
-		<form class="form-horizontal"
+		<form id='addOrderform' class="form-horizontal"
 			action="${path}/cmorder/order/addorder.do">
 			<div class="row-fluid">
 				<div class="span12">
@@ -131,14 +153,14 @@ div.titlewell {
 								<label class="control-label" for="inputName">移动电话</label>
 								<div class="controls">
 									<input type="text" autocomplete='off' class="orderinput required" id='phonePromptOrderAdd'
-										name="name" placeholder="车型名称...">
+										name="mobileNumber" placeholder="车型名称...">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputName">客户姓名</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="name" placeholder="车型名称...">
+										name="username" placeholder="客户姓名...">
 								</div>
 							</div>
 
@@ -146,21 +168,21 @@ div.titlewell {
 								<label class="control-label" for="inputName">固定电话</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="name" placeholder="车型名称...">
+										name="telephone" placeholder="车型名称...">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputName">身份证号</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="name" placeholder="车型名称...">
+										name="identityCardId" placeholder="身份证号...">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputName">年龄</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="name" placeholder="车型名称...">
+										name="age" placeholder="车型名称...">
 								</div>
 							</div>
 							<div class="control-group">
@@ -169,12 +191,12 @@ div.titlewell {
 									<div class="row-fluid">
 										<div class="span4">
 											<label class="radio" style="padding-top: 5px;"> <input
-												type="radio" name="sex" value="man" checked>男
+												type="radio" name="gender" value="1" checked="true">男
 											</label>
 										</div>
 										<div class="span3">
 											<label class="radio" style="padding-top: 5px;"> <input
-												type="radio" name="sex" value="felman">女
+												type="radio" name="gender" value="0">女
 											</label>
 										</div>
 									</div>
@@ -184,14 +206,14 @@ div.titlewell {
 								<label class="control-label" for="inputName">驾驶证号</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="name" placeholder="车型名称...">
+										name="licenseNum" placeholder="车型名称...">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputName">住址</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="name" placeholder="车型名称...">
+										name="address" placeholder="车型名称...">
 								</div>
 							</div>
 
@@ -308,12 +330,9 @@ div.titlewell {
 							<div class="control-group">
 								<label class="control-label" for="inputName">押金方式</label>
 								<div class="controls">
-									<select name='paytype'>
+									<select name='email'>
 										<option value="1">现金</option>
-										<option>刷卡</option>
-										<option>3</option>
-										<option>4</option>
-										<option>5</option>
+										<option value="2">刷卡</option>
 									</select>
 								</div>
 							</div>
