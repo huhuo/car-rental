@@ -32,9 +32,6 @@ select {
 </style>
 
 <script type="text/javascript">
-	/****************************
-	event in cartype management panel
-	****************************/
 	$(document).ready(function(){
 		// bind click event to drop down component ==> reset search term
 		$('.search-term').click(function(event) {
@@ -79,27 +76,26 @@ select {
 			});
 		});
 		btnGroup.children('button[name="delete"]').click(function(event) {
-			console.log('=====delete======');
+			var confirm = window.confirm('确定删除？');
+			if(confirm) {
+				// get item selected
+				var ids = new Array();
+				$('#cartypePageGridId tbody input').each(function(index, input) {
+					if(input.checked) {
+						console.log($(input).parent().next().text());
+						ids.push($(input).parent().next().text());
+					}
+				});
+				// set request to server to delete the record selected
+				$.post('${path}/cmcar/cartype/delete.do', {
+					ids: ids
+				} , function(data, status, xhReq) {
+					$('#huhuoForm').trigger('submit');
+				});
+			}
 		});
 		
 	});
-</script>
-
-<script type="text/javascript">
-	/****************************
-	event in edit panel
-	****************************/
-	// initialization
-	$('#cartypeEditDivId').hide();
-	$('#cartypeEditDivId form').validate();
-	// cartype add page
-	$('#cartypeEditDivId form').huhuoFormPost(function(data, status) {
-		$('#cartypeEditDivId').hide();
-		$('#cartypeMgrDivId').show(500);
-		$('#cartypeMgrDivId form button').trigger("click");
-		console.log($('#cartypeEditDivId form').serialize());
-	});
-	
 </script>
 
 <div id="cartypeMgrDivId" class="well" style="padding: 0px;">

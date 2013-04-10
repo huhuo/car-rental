@@ -64,5 +64,15 @@ $(document).ready(function() {
 		$(this).toggleClass('huhuo-item-selected');
 		$(this).find(':checkbox')[0].checked = !$(this).find(':checkbox')[0].checked;
 	});
+	$('#cartypePageGridId thead tr :checkbox').click(function(event) {
+		$('#cartypePageGridId tbody :checkbox').each(function(index, element) {
+			element.checked = $('#cartypePageGridId thead tr :checkbox')[0].checked;
+			if(element.checked) {
+				$('#cartypePageGridId tbody tr').addClass('huhuo-item-selected');
+			} else {
+				$('#cartypePageGridId tbody tr').removeClass('huhuo-item-selected');
+			}
+		});
+	});
 });
 </script>

@@ -59,49 +59,49 @@
 			<div class="control-group">
 				<label class="control-label" for="inputDeposit">押金</label>
 				<div class="controls">
-					<input type="number" class="required" id="inputDeposit" name="deposit" placeholder="押金（xxx元）..." value="${carType.chargeStandard.deposit }">
+					<input type="number" class="required" id="inputDeposit" name="chargeStandard.deposit" placeholder="押金（xxx元）..." value="${carType.chargeStandard.deposit }">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputPremium">保险费</label>
 				<div class="controls">
-					<input type="number" class="required" id="inputPremium" name="premium" placeholder="保险费，xxx元/次..." value="${carType.chargeStandard.premium }">
+					<input type="number" class="required" id="inputPremium" name="chargeStandard.premium" placeholder="保险费，xxx元/次..." value="${carType.chargeStandard.premium }">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputRent">租金</label>
 				<div class="controls">
-					<input type="number" class="required" id="inputRent" name="rent" placeholder="租金（xxx元/天）..." value="${carType.chargeStandard.rent }">
+					<input type="number" class="required" id="inputRent" name="chargeStandard.rent" placeholder="租金（xxx元/天）..." value="${carType.chargeStandard.rent }">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputMileageLimits">里程限制</label>
 				<div class="controls">
-					<input type="number" class="required digits" id="inputMileageLimits" name="mileageLimits" placeholder="里程限制（xxx公里/日）..." value="${carType.chargeStandard.mileageLimits }">
+					<input type="number" class="required digits" id="inputMileageLimits" name="chargeStandard.mileageLimits" placeholder="里程限制（xxx公里/日）..." value="${carType.chargeStandard.mileageLimits }">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputOverMileageFare">超里程费用</label>
 				<div class="controls">
-					<input type="number" class="required" id="inputOverMileageFare" name="overMileageFare" placeholder="超里程费用（xxx元/公里）..." value="${carType.chargeStandard.overMileageFare }">
+					<input type="number" class="required" id="inputOverMileageFare" name="chargeStandard.overMileageFare" placeholder="超里程费用（xxx元/公里）..." value="${carType.chargeStandard.overMileageFare }">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputOverTimeFare">超时费用</label>
 				<div class="controls">
-					<input type="number" class="required" id="inputOverTimeFare" name="overTimeFare" placeholder="超时费用（xxx元/小时）..." value="${carType.chargeStandard.overTimeFare }">
+					<input type="number" class="required" id="inputOverTimeFare" name="chargeStandard.overTimeFare" placeholder="超时费用（xxx元/小时）..." value="${carType.chargeStandard.overTimeFare }">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputCarSendFare">上门送车费用</label>
 				<div class="controls">
-					<input type="number" class="required" id="inputCarSendFare" name="carSendFare" placeholder="上门送车费用（xxx元）..." value="${carType.chargeStandard.carSendFare }">
+					<input type="number" class="required" id="inputCarSendFare" name="chargeStandard.carSendFare" placeholder="上门送车费用（xxx元）..." value="${carType.chargeStandard.carSendFare }">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputDiffShopReturnFare">异店结算附加费</label>
 				<div class="controls">
-					<input type="number" class="required" id="inputDiffShopReturnFare" name="diffShopReturnFare" placeholder="异店结算（还车）附加费（xxx元）..." value="${carType.chargeStandard.diffShopReturnFare }">
+					<input type="number" class="required" id="inputDiffShopReturnFare" name="chargeStandard.diffShopReturnFare" placeholder="异店结算（还车）附加费（xxx元）..." value="${carType.chargeStandard.diffShopReturnFare }">
 				</div>
 			</div>
 			<div class="control-group">

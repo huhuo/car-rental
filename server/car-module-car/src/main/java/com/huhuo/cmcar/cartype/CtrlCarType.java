@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.huhuo.carservicecore.constant.Dictionary.DictGroup;
 import com.huhuo.carservicecore.cust.car.ModelCarType;
@@ -89,8 +90,6 @@ public class CtrlCarType extends BaseCtrl {
 	
 	@RequestMapping(value="/edit-ui.do")
 	public String editUI(Model model, ModelCarType t) {
-		// FIXME test data
-		t.setId(1L);
 		logger.debug("==> edit ModelCarType with id --> {}", t.getId());
 		Condition<ModelCarType> condition = new Condition<ModelCarType>(t, null, null, null);
 		model.addAttribute("carType", iservCarType.findByCondition(condition, true).get(0));
@@ -108,9 +107,11 @@ public class CtrlCarType extends BaseCtrl {
 	}
 	
 	@RequestMapping(value="/delete.do")
-	public void delete(HttpServletResponse resp, ModelCarType t) throws Exception {
+	public void delete(HttpServletResponse resp, ModelCarType t, @RequestParam(value="ids[]") List<Long> ids) {
+		// receive data
+		logger.debug("==> batch delete -->{}", ids);
 		// retrieve model form DB
-		iservCarType.deletePhysical(t);
+		iservCarType.deleteBatch(ids);
 		write(new Message<ModelCarType>(Status.SUCCESS, "删除成功", t), resp);
 	}
 	

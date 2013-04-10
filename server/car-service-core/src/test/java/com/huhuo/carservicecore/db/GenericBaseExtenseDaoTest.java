@@ -1,5 +1,8 @@
 package com.huhuo.carservicecore.db;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -51,6 +54,7 @@ public class GenericBaseExtenseDaoTest extends CarServiceCoreTest {
 		sql = "SELECT * FROM cust_car_type WHERE id IN (?,?)";
 		print(iDaoCarType.findList(sql, 1, 2));
 	}
+	
 	@Test
 	public void findObject() {
 		String sql = "SELECT * FROM cust_car_type WHERE id=?";
@@ -58,6 +62,24 @@ public class GenericBaseExtenseDaoTest extends CarServiceCoreTest {
 		// exception
 		sql = "SELECT * FROM cust_car_type WHERE id IN (?,?)";
 //		print(iDaoCarType.findObject(sql, 1, 2));
+	}
+	
+	@Test
+	public void deleteBatch() {
+		List<Long> ids = new ArrayList<Long>();
+		ids.add(1L);
+		ids.add(2L);
+		ids.add(3L);
+		print(iDaoCarType.deleteBatch(ids));
+	}
+	
+	@Test
+	public void deletePhysicalBatch() {
+		List<Long> ids = new ArrayList<Long>();
+		ids.add(1L);
+		ids.add(2L);
+		ids.add(3L);
+		print(iDaoCarType.deletePhysicalBatch(ids));
 	}
 	
 }
