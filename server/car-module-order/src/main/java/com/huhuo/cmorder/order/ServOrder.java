@@ -11,6 +11,8 @@ import com.huhuo.carservicecore.csm.consumer.IDaoConsumer;
 import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
 import com.huhuo.carservicecore.csm.order.IDaoOrder;
 import com.huhuo.carservicecore.csm.order.ModelOrder;
+import com.huhuo.carservicecore.cust.car.IDaoCar;
+import com.huhuo.carservicecore.cust.car.ModelCar;
 import com.huhuo.carservicecore.db.GenericBaseExtenseServ;
 import com.huhuo.integration.base.IBaseExtenseDao;
 
@@ -22,6 +24,9 @@ public class ServOrder extends GenericBaseExtenseServ<ModelOrder> implements ISe
 	
 	@Resource(name = "carservicecoreDaoConsumer")
 	private IDaoConsumer iDaoConsumer;
+	
+	@Resource(name = "carservicecoreDaoCar")
+	private IDaoCar iDaoCar;
 
 	@Override
 	public IBaseExtenseDao<ModelOrder> getDao() {
@@ -42,10 +47,25 @@ public class ServOrder extends GenericBaseExtenseServ<ModelOrder> implements ISe
 		sb.append("select * from csm_consumer where 1=1 ");
 		if(phone!=null){
 			sb.append(" and mobileNumber like ?");
-			list.add("%"+phone+"%");
+			list.add(phone+"%");
 		}
 		sb.append(" limit 0 , 10");
 		List<ModelConsumer> queryForList = iDaoConsumer.queryForList(sb.toString(), ModelConsumer.class, list.toArray());
+		
+		return queryForList;
+	}
+
+	@Override
+	public List<ModelCar> getCarListBylicencePlate(String licencePlate) {
+		StringBuilder sb=new StringBuilder();
+		List<Object> list=new ArrayList<Object>();
+		sb.append("select * from cust_car where 1=1 ");
+		if(licencePlate!=null){
+			sb.append(" and licencePlate like ?");
+			list.add(licencePlate+"%");
+		}
+		sb.append(" limit 0 , 10");
+		List<ModelCar> queryForList = iDaoCar.queryForList(sb.toString(), ModelCar.class, list.toArray());
 		
 		return queryForList;
 	}

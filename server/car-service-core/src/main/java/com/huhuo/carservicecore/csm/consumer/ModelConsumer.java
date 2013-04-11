@@ -1,7 +1,6 @@
 package com.huhuo.carservicecore.csm.consumer;
 
 import java.io.Serializable;
-import java.util.Calendar;
 import java.util.Date;
 
 import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;

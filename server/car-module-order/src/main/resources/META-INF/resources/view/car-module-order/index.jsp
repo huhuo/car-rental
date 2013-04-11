@@ -36,55 +36,9 @@ div.titlewell {
 
 		});
 		
-		$("#phonePromptOrderAdd").typeahead({
-			source: function (query, process) {
-				consumers = [];
-				consumermap = {};
-			    var records;
-			    $.post('${path }/cmorder/order/conumer.do',{'phone':query},function(data,status){
-			    	
-			    	records=data.records;
-			    	
-				    $.each(records, function (i, consumer) {
-				    	consumermap[consumer.mobileNumber] = consumer;
-				        consumers.push(consumer.mobileNumber);
-				    });
-				 
-				    process(consumers);
-			    });
-			    
-			 
-			},
-			updater: function (item) {
-			    var consumer = consumermap[item];
-			    console.info(consumer.mobileNumber);
-			    var addOrderform=$('#addOrderform');
-			    $.each(consumer, function (key, value) {
-			    	
-			    	var input=addOrderform.find('[name='+key+']').first();
-			    	console.info(input+'name='+key);
-			    	//單選框
-			    	if(input.attr('type')=='radio'){
-			    		
-			    		addOrderform.find('[name='+key+'][value='+value+']').first().attr('checked',true);
-			    	//下拉	
-			    	}else if (input.is('select')){
-			    		console.info(input+'name='+key+'--------');
-			    		input.find('[value='+value+']').attr('selected','selected');
-			    	}
-			    	//普通input
-			    	else{
-			    		console.info(key);
-			    		input.attr("value",value);
-			    	}
-			    	
-			    });
-			    
-			    return item;
-			}
+		$("#phonePromptOrderAdd").autoFill("${path }/cmorder/order/conumer.do","mobileNumber",$("#addOrderform"),null,"consumer");
 		
-		
-		});
+		$("#licencePlatePromptOrderAdd").autoFill("${path }/cmorder/order/car.do","licencePlate",$("#addOrderform"),null,"car");
 		
 		$("#returnSearch").click(function() {
 			var addOrderDiv = $("#addOrderDiv");
@@ -153,14 +107,14 @@ div.titlewell {
 								<label class="control-label" for="inputName">移动电话</label>
 								<div class="controls">
 									<input type="text" autocomplete='off' class="orderinput required" id='phonePromptOrderAdd'
-										name="mobileNumber" placeholder="车型名称...">
+										name="consumer.mobileNumber" placeholder="移动电话...">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputName">客户姓名</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="username" placeholder="客户姓名...">
+										name="consumer.username" placeholder="客户姓名...">
 								</div>
 							</div>
 
@@ -168,21 +122,21 @@ div.titlewell {
 								<label class="control-label" for="inputName">固定电话</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="telephone" placeholder="车型名称...">
+										name="consumer.telephone" placeholder="固定电话...">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputName">身份证号</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="identityCardId" placeholder="身份证号...">
+										name="consumer.identityCardId" placeholder="身份证号...">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputName">年龄</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="age" placeholder="车型名称...">
+										name="consumer.age" placeholder="年龄...">
 								</div>
 							</div>
 							<div class="control-group">
@@ -191,12 +145,12 @@ div.titlewell {
 									<div class="row-fluid">
 										<div class="span4">
 											<label class="radio" style="padding-top: 5px;"> <input
-												type="radio" name="gender" value="1" checked="true">男
+												type="radio" name="consumer.gender" value="1" checked="true">男
 											</label>
 										</div>
 										<div class="span3">
 											<label class="radio" style="padding-top: 5px;"> <input
-												type="radio" name="gender" value="0">女
+												type="radio" name="consumer.gender" value="0">女
 											</label>
 										</div>
 									</div>
@@ -206,14 +160,14 @@ div.titlewell {
 								<label class="control-label" for="inputName">驾驶证号</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="licenseNum" placeholder="车型名称...">
+										name="consumer.licenseNum" placeholder="驾驶证号...">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputName">住址</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="address" placeholder="车型名称...">
+										name="consumer.address" placeholder="车型名称...">
 								</div>
 							</div>
 
@@ -223,59 +177,61 @@ div.titlewell {
 								<label style='text-align: center; font-weight: bold;'>车辆信息</label>
 							</div>
 							<div class="control-group">
+								<label class="control-label" for="inputName">牌号</label>
+								<div class="controls">
+									<input type="text" class="orderinput required" id="licencePlatePromptOrderAdd"
+										name="car.licencePlate" placeholder="牌号...">
+								</div>
+							</div>
+							<div class="control-group">
 								<label class="control-label" for="inputName">车型</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="name" placeholder="车型名称...">
+										name="carType.name" placeholder="车型名称...">
+									<input type="hidden"
+										name="carType.carTypeId">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputName">车辆</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="name" placeholder="车型名称...">
+										name="car.name" placeholder="车辆名称...">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputName">门店</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="name" placeholder="车型名称...">
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label" for="inputName">牌号</label>
-								<div class="controls">
-									<input type="text" class="orderinput required" 
-										name="name" placeholder="车型名称...">
+										name="car.storeName" placeholder="车型名称...">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputName">颜色</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="name" placeholder="车型名称...">
+										name="car.color" placeholder="颜色...">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputName">发动机号</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="name" placeholder="车型名称...">
+										name="car.engineNo" placeholder="发动机号...">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputName">当前油量</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="name" placeholder="车型名称...">
+										name="car.oilMass" placeholder="当前油量...">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputName">当前里程</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="name" placeholder="车型名称...">
+										name="car.drivedKilometer" placeholder="当前里程...">
 								</div>
 							</div>
 						</div>
