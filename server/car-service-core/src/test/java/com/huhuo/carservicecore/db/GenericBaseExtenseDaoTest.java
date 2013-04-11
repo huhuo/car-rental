@@ -10,6 +10,7 @@ import org.junit.Test;
 import com.huhuo.carservicecore.CarServiceCoreTest;
 import com.huhuo.carservicecore.cust.car.IDaoCarType;
 import com.huhuo.carservicecore.cust.car.ModelCarType;
+import com.huhuo.carservicecore.sys.district.ModelCity;
 
 public class GenericBaseExtenseDaoTest extends CarServiceCoreTest {
 
@@ -65,6 +66,13 @@ public class GenericBaseExtenseDaoTest extends CarServiceCoreTest {
 	}
 	
 	@Test
+	public void find() {
+		print(iDaoCarType.find(ModelCarType.class, 1));
+		print(iDaoCarType.find(1));
+		print(iDaoCarType.queryForList("select * from sys_city limit ?, ?", ModelCity.class, 0, 10));
+	}
+	
+	@Test
 	public void deleteBatch() {
 		List<Long> ids = new ArrayList<Long>();
 		ids.add(1L);
@@ -83,3 +91,4 @@ public class GenericBaseExtenseDaoTest extends CarServiceCoreTest {
 	}
 	
 }
+
