@@ -78,6 +78,13 @@ public class ServCarTypeTest extends CarModuleCarTest {
 	
 	@Test
 	public void addBatch() {
+		for(int i=0; i<52; i++) {
+			print(iServCarType.add(getInstance()));
+		}
+	}
+	
+	@Test
+	public void addBatch2() {
 		List<ModelCarType> list = new ArrayList<ModelCarType>();
 		for(int i=0; i<52; i++) {
 			list.add(getInstance());

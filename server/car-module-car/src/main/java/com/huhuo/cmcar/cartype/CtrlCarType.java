@@ -88,6 +88,16 @@ public class CtrlCarType extends BaseCtrl {
 		write(msg, resp);
 	}
 	
+	@RequestMapping(value="/detail.do")
+	public String detail(Model model, ModelCarType t) {
+		logger.debug("==> edit ModelCarType with id --> {}", t.getId());
+		Condition<ModelCarType> condition = new Condition<ModelCarType>(t, null, null, null);
+		model.addAttribute("carType", iservCarType.findByCondition(condition, true).get(0));
+		List<ModelDictionary> carTypeCategoryList = iServDictionary.getGroupsBy(DictGroup.CUST_CAR_TYPE_CATEGORY);
+		model.addAttribute("carTypeCategoryList", carTypeCategoryList);
+		return basePath + "/cartype/detail";
+	}
+	
 	@RequestMapping(value="/edit-ui.do")
 	public String editUI(Model model, ModelCarType t) {
 		logger.debug("==> edit ModelCarType with id --> {}", t.getId());

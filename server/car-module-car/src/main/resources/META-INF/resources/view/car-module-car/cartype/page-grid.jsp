@@ -36,8 +36,8 @@ table.table-hover tbody tr.huhuo-item-selected {
 			<td>${record.drivingRange}</td>
 			<td>
 				<div class="btn-group">
-					<button class="btn">查看详情</button>
-					<button class="btn">修改</button>
+					<button name="detail" class="btn">查看详情</button>
+					<button name="edit" class="btn">修改</button>
 				</div>
 			</td>
 		</tr>
@@ -64,6 +64,7 @@ $(document).ready(function() {
 		$(this).toggleClass('huhuo-item-selected');
 		$(this).find(':checkbox')[0].checked = !$(this).find(':checkbox')[0].checked;
 	});
+	// add select event
 	$('#cartypePageGridId thead tr :checkbox').click(function(event) {
 		$('#cartypePageGridId tbody :checkbox').each(function(index, element) {
 			element.checked = $('#cartypePageGridId thead tr :checkbox')[0].checked;
@@ -72,6 +73,25 @@ $(document).ready(function() {
 			} else {
 				$('#cartypePageGridId tbody tr').removeClass('huhuo-item-selected');
 			}
+		});
+	});
+	// add event to edit button
+	$('#cartypePageGridId tbody button[name="detail"]').click(function(event) {
+		var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
+		$("#cartypeEditDivId").load('${path}/cmcar/cartype/detail.do', {
+			id: selectedId
+		}, function(resp, status, xhReq) {
+			$("#cartypeMgrDivId").hide();
+			$("#cartypeEditDivId").show(500);
+		});
+	});
+	$('#cartypePageGridId tbody button[name="edit"]').click(function(event) {
+		var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
+		$("#cartypeEditDivId").load('${path}/cmcar/cartype/edit-ui.do', {
+			id: selectedId
+		}, function(resp, status, xhReq) {
+			$("#cartypeMgrDivId").hide();
+			$("#cartypeEditDivId").show(500);
 		});
 	});
 });
