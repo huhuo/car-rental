@@ -6,10 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.huhuo.integration.base.BaseCtrl;
+import com.huhuo.cmsystem.SystemBaseCtrl;
 
 @Controller("cmsystemCtrlHome")
-public class CtrlHome extends BaseCtrl {
+public class CtrlHome extends SystemBaseCtrl {
 	
 	protected String basePath = "/car-module-system";
 	

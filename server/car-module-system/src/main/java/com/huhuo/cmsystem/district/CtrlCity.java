@@ -10,7 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.huhuo.carservicecore.sys.district.ModelCity;
-import com.huhuo.integration.base.BaseCtrl;
+import com.huhuo.cmsystem.SystemBaseCtrl;
 import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.db.mysql.Page;
 import com.huhuo.integration.exception.HuhuoException;
@@ -21,7 +21,7 @@ import com.huhuo.integration.web.Message.Status;
 
 @Controller("cmsystemCtrlCity")
 @RequestMapping(value="/cmsystem/district/city")
-public class CtrlCity extends BaseCtrl {
+public class CtrlCity extends SystemBaseCtrl {
 	
 	@Resource(name = "cmsystemServCity")
 	private IServCity iServCity;
