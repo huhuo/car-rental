@@ -2,8 +2,10 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script type="text/javascript">
 $(document).ready(function() {
+	// validation
+	$('#cartypeEditDivId form').validate();
+	// form commit
 	$('#addCarTypeForm').huhuoFormPost(function(data, status) {
-		console.log(data);
 		if(data.status == 'SUCCESS') {
 			$('#cartypeEditDivId').hide();
 			$('#cartypeMgrDivId').show(500);

@@ -13,13 +13,12 @@ table.table-hover tbody tr.huhuo-item-selected {
 	<thead>
 		<tr>
 			<th><input type="checkbox" class="checkbox"></th>
-			<th>序号</th>
-			<th>图片</th>
-			<th>车型名称</th>
-			<th>类别</th>
-			<th>座位数</th>
-			<th>油箱容量（单位：升）</th>
-			<th>可行驶里程数</th>
+			<th>&nbsp;&nbsp;头像</th>
+			<th>会员编号</th>
+			<th>会员姓名</th>
+			<th>手机号码</th>
+			<th>会员状态</th>
+			<th>会员积分</th>
 			<th>操作</th>
 		</tr>
 	</thead>
@@ -27,17 +26,17 @@ table.table-hover tbody tr.huhuo-item-selected {
 		<c:forEach items="${records }" var="record">
 		<tr>
 			<td><input type="checkbox" class="checkbox"></td>
+			<td>${record.avatar}</td>
 			<td>${record.id}</td>
-			<td>${record.icon}</td>
-			<td>${record.name}</td>
-			<td>${record.category}</td>
-			<td>${record.seating}</td>
-			<td>${record.tankCapacity}</td>
-			<td>${record.drivingRange}</td>
+			<td>${record.username}</td>
+			<td>${record.mobileNumber}</td>
+			<td>${record.blackList}</td>
+			<td>${record.integral}</td>
 			<td>
 				<div class="btn-group">
-					<button name="detail" class="btn">查看详情</button>
-					<button name="edit" class="btn">修改</button>
+					<button class="btn">查看详情</button>
+					<button class="btn">修改</button>
+					<button class="btn">短信</button>
 				</div>
 			</td>
 		</tr>
@@ -64,7 +63,6 @@ $(document).ready(function() {
 		$(this).toggleClass('huhuo-item-selected');
 		$(this).find(':checkbox')[0].checked = !$(this).find(':checkbox')[0].checked;
 	});
-	// add select event
 	$('#cartypePageGridId thead tr :checkbox').click(function(event) {
 		$('#cartypePageGridId tbody :checkbox').each(function(index, element) {
 			element.checked = $('#cartypePageGridId thead tr :checkbox')[0].checked;
@@ -73,25 +71,6 @@ $(document).ready(function() {
 			} else {
 				$('#cartypePageGridId tbody tr').removeClass('huhuo-item-selected');
 			}
-		});
-	});
-	// add event to edit button
-	$('#cartypePageGridId tbody button[name="detail"]').click(function(event) {
-		var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
-		$("#cartypeEditDivId").load('${path}/cmcar/cartype/detail.do', {
-			id: selectedId
-		}, function(resp, status, xhReq) {
-			$("#cartypeMgrDivId").hide();
-			$("#cartypeEditDivId").show(500);
-		});
-	});
-	$('#cartypePageGridId tbody button[name="edit"]').click(function(event) {
-		var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
-		$("#cartypeEditDivId").load('${path}/cmcar/cartype/edit-ui.do', {
-			id: selectedId
-		}, function(resp, status, xhReq) {
-			$("#cartypeMgrDivId").hide();
-			$("#cartypeEditDivId").show(500);
 		});
 	});
 });

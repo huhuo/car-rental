@@ -57,6 +57,24 @@ public class CtrlConsumer extends BaseCtrl {
 		List<ModelConsumer> list = iservConsumer.findModels(new Page<ModelConsumer>(0, 10));
 		write(ExtUtils.getJsonStore(list, list.size()), resp);
 	}
+	
+	@RequestMapping(value="/condition/get.do")
+	public String get(Model model, Condition<ModelConsumer> condition, ModelConsumer t){
+		condition.setT(t);
+		condition.setOrderList(new Order("createTime", Dir.DESC), new Order("updateTime", Dir.DESC));
+		logger.debug("---> server receive: condition={}", condition);
+		Page<ModelConsumer> page = condition.getPage();
+		if(page == null) {
+			page = new Page<ModelConsumer>();
+		}
+		List<ModelConsumer> records = iservConsumer.findByCondition(condition);
+		model.addAttribute("records", records);
+		page.setTotal(iservConsumer.countByCondition(condition));
+		model.addAttribute("page", page);
+		model.addAttribute("t", t);
+		
+		return basePath + "/consumer/page-grid";
+	}
 	/**
 	 * register customer
 	 * @param condition
