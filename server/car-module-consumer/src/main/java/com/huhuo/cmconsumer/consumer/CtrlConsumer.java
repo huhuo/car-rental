@@ -75,6 +75,15 @@ public class CtrlConsumer extends BaseCtrl {
 		
 		return basePath + "/consumer/page-grid";
 	}
+	
+	@RequestMapping(value="/add.do")
+	public void add(HttpServletResponse resp, ModelConsumer consumer) {
+		logger.debug("---> server receive: carType={}, chargeStandard={}", consumer);
+		// add car type
+		iservConsumer.add(consumer);
+		Message<ModelConsumer> msg = new Message<ModelConsumer>(Status.SUCCESS, "add new consumer success!", consumer);
+		write(msg, resp);
+	}
 	/**
 	 * register customer
 	 * @param condition
@@ -85,19 +94,6 @@ public class CtrlConsumer extends BaseCtrl {
 		logger.debug("--->");
 		logger.debug("username:" + username);
 		logger.debug("<---");
-		
-	}
-	
-	@RequestMapping(value="/add.do")
-	public void addConsumer(HttpServletResponse resp, ModelConsumer consumer) {
-		
-		logger.debug("--->");
-		
-		Integer count = idaoConsumer.add(consumer);
-		logger.debug("insert record count:" + count);
-		
-		logger.debug("<---");
-		write(new Message<ModelConsumer>(Status.SUCCESS, "add new consumer success!", consumer), resp);
 		
 	}
 	

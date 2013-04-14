@@ -9,7 +9,7 @@ table.table-hover tbody tr.huhuo-item-selected {
 
 
 </style>
-<table id="cartypePageGridId" class="table table-hover table-condensed">
+<table id="consumerPageGridId" class="table table-hover table-condensed">
 	<thead>
 		<tr>
 			<th><input type="checkbox" class="checkbox"></th>
@@ -59,17 +59,17 @@ $(document).ready(function() {
 	var t = JSON.parse('${t}');
 	$(".pagination").myPage(page, '${path }/cmcar/cartype/condition/get.do', t, $("#pagediv"), 5);
 	// add select css
-	$('#cartypePageGridId tbody tr').click(function(event) {
+	$('#consumerPageGridId tbody tr').click(function(event) {
 		$(this).toggleClass('huhuo-item-selected');
 		$(this).find(':checkbox')[0].checked = !$(this).find(':checkbox')[0].checked;
 	});
-	$('#cartypePageGridId thead tr :checkbox').click(function(event) {
-		$('#cartypePageGridId tbody :checkbox').each(function(index, element) {
-			element.checked = $('#cartypePageGridId thead tr :checkbox')[0].checked;
+	$('#consumerPageGridId thead tr :checkbox').click(function(event) {
+		$('#consumerPageGridId tbody :checkbox').each(function(index, element) {
+			element.checked = $('#consumerPageGridId thead tr :checkbox')[0].checked;
 			if(element.checked) {
-				$('#cartypePageGridId tbody tr').addClass('huhuo-item-selected');
+				$('#consumerPageGridId tbody tr').addClass('huhuo-item-selected');
 			} else {
-				$('#cartypePageGridId tbody tr').removeClass('huhuo-item-selected');
+				$('#consumerPageGridId tbody tr').removeClass('huhuo-item-selected');
 			}
 		});
 	});
