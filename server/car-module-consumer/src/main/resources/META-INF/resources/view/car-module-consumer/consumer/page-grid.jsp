@@ -34,8 +34,8 @@ table.table-hover tbody tr.huhuo-item-selected {
 			<td>${record.integral}</td>
 			<td>
 				<div class="btn-group">
-					<button class="btn">查看详情</button>
-					<button class="btn">修改</button>
+					<button name="detail" class="btn">查看详情</button>
+					<button name="edit" class="btn">修改</button>
 					<button class="btn">短信</button>
 				</div>
 			</td>
@@ -57,7 +57,7 @@ $(document).ready(function() {
 	// 绑定标签元素。设置当前页，页面数据条数，总数，要访问的url，对应的参数，点击标签时刷新的div，标签数
 	var page = JSON.parse('${page}');
 	var t = JSON.parse('${t}');
-	$(".pagination").myPage(page, '${path }/cmcar/cartype/condition/get.do', t, $("#pagediv"), 5);
+	$(".pagination").myPage(page, '${path }/cmconsumer/consumer/condition/get.do', t, $("#pagediv"), 5);
 	// add select css
 	$('#consumerPageGridId tbody tr').click(function(event) {
 		$(this).toggleClass('huhuo-item-selected');
@@ -71,6 +71,26 @@ $(document).ready(function() {
 			} else {
 				$('#consumerPageGridId tbody tr').removeClass('huhuo-item-selected');
 			}
+		});
+	});
+	
+	// add event to edit button
+	$('#consumerPageGridId tbody button[name="detail"]').click(function(event) {
+		var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
+		$("#consumerEditDivId").load('${path}/cmconsumer/consumer/detail.do', {
+			id: selectedId
+		}, function(resp, status, xhReq) {
+			$("#consumerManagerDiv").hide();
+			$("#consumerEditDivId").show(500);
+		});
+	});
+	$('#consumerPageGridId tbody button[name="edit"]').click(function(event) {
+		var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
+		$("#consumerEditDivId").load('${path}/cmconsumer/consumer/edit-ui.do', {
+			id: selectedId
+		}, function(resp, status, xhReq) {
+			$("#consumerManagerDiv").hide();
+			$("#consumerEditDivId").show(500);
 		});
 	});
 });

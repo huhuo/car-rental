@@ -84,6 +84,22 @@ public class CtrlConsumer extends BaseCtrl {
 		Message<ModelConsumer> msg = new Message<ModelConsumer>(Status.SUCCESS, "add new consumer success!", consumer);
 		write(msg, resp);
 	}
+	
+	@RequestMapping(value="/detail.do")
+	public String detail(Model model, ModelConsumer t) {
+		logger.debug("==> edit ModelConsumer with id --> {}", t.getId());
+		Condition<ModelConsumer> condition = new Condition<ModelConsumer>(t, null, null, null);
+		model.addAttribute("consumer", iservConsumer.findByCondition(condition, true).get(0));
+		return basePath + "/consumer/detail";
+	}
+	
+	@RequestMapping(value="/edit-ui.do")
+	public String editUI(Model model, ModelConsumer t) {
+		logger.debug("==> edit ModelConsumer with id --> {}", t.getId());
+		Condition<ModelConsumer> condition = new Condition<ModelConsumer>(t, null, null, null);
+		model.addAttribute("consumer", iservConsumer.findByCondition(condition, true).get(0));
+		return basePath + "/consumer/edit-ui";
+	}
 	/**
 	 * register customer
 	 * @param condition

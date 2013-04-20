@@ -8,7 +8,8 @@
 			$('#consumerManagerDiv').show(500);
 			$('#consumerManagerDiv form button').trigger("click");
 			console.log($('#consumerEditDivId form').serialize());
-		}, '${path}/');
+		//}, '${path}/');
+		});
 	});
 </script>
 <form id="addConsumerForm" class="form-horizontal " action="${path }/cmconsumer/consumer/add.do">
@@ -23,33 +24,33 @@
 				<div>
 					<label class="btn btn-large btn-block">会员信息</label>
 				</div>
-				<br>
+				<input type="hidden" name="id" value="${consumer.id }">
 				<div class="control-group">
 					<label class="control-label" for="inputSeating">会员姓名</label>
 					<div class="controls">
 						<input type="number" class="required digits"
-							id="inputCustomerName" name="username" placeholder="输入会员姓名">
+							id="inputCustomerName" name="username" placeholder="输入会员姓名" value="${consumer.username }">
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="inputCellPhone">移动电话</label>
 					<div class="controls">
 						<input type="number" class="required digits" id="inputCellPhone"
-							name="mobileNumber" placeholder="输入移动电话">
+							name="mobileNumber" placeholder="输入移动电话" value="${consumer.mobileNumber }">
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="inputTelephone">固定电话</label>
 					<div class="controls">
 						<input type="number" class="required digits" id="inputTelephone"
-							name="telephone" placeholder="输入固定电话">
+							name="telephone" placeholder="输入固定电话" value="${consumer.telephone }">
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="inputIDCardNo">身份证号</label>
 					<div class="controls">
 						<input type="number" class="required digits" id="inputIDCardNo"
-							name="identityCardId" placeholder="输入身份证号">
+							name="identityCardId" placeholder="输入身份证号" >
 					</div>
 				</div>
 
@@ -57,7 +58,7 @@
 					<label class="control-label" for="inputBirthday">出生年月</label>
 					<div class="controls">
 						<input type="number" class="required digits" id="inputBirthday"
-							name="brithday" placeholder="输入出生年月">
+							name="brithday" placeholder="输入出生年月" value="${consumer.birthday }">
 					</div>
 				</div>
 
@@ -65,7 +66,7 @@
 					<label class="control-label" for="inputAge">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄</label>
 					<div class="controls">
 						<input type="number" class="required digits" id="inputAge"
-							name="age" placeholder="输入年龄">
+							name="age" placeholder="输入年龄" value="${consumer.age }">
 					</div>
 				</div>
 
@@ -84,7 +85,7 @@
 					<label class="control-label" for="inputPermanentAddress">户籍地址</label>
 					<div class="controls">
 						<input type="number" class="required digits"
-							id="inputPermanentAddress" name="address" placeholder="输入户籍地址">
+							id="inputPermanentAddress" name="address" placeholder="输入户籍地址" >
 					</div>
 				</div>
 				<div class="control-group">
@@ -112,7 +113,7 @@
 					<div class="controls">
 						<input type="text" class="required digits"
 							id="inputCurrentAddress" name="currentaddress"
-							placeholder="输入现在住址">
+							placeholder="输入现在住址" value="${consumer.address }">
 					</div>
 				</div>
 				<div class="control-group">
@@ -120,17 +121,17 @@
 					<div class="controls">
 						<input type="text" class="required digits"
 							id="inputemergencyContact" name="emergencyContact"
-							placeholder="输入紧急联系人">
+							placeholder="输入紧急联系人" value="${consumer.emergencyContact }">
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="inputEmergencyTel">紧急联系人电话</label>
 					<div class="controls">
 						<input type="text" class="required digits" id="inputEmergencyTel"
-							name="emergencyTel" placeholder="输入紧急联系人电话">
+							name="emergencyTel" placeholder="输入紧急联系人电话" value="${consumer.emergencyTel }">
 					</div>
 				</div>
-
+	
 				<div class="control-group">
 					<div class="controls">
 						<button type="submit" class="btn btn-primary" id="inputSubmit"
@@ -148,7 +149,7 @@
 					<label class="control-label" for="inputDrivingLicenseNo">驾驶证号</label>
 					<div class="controls">
 						<input type="text" class="required digits"
-							id="inputDrivingLicenseNo" name="licenseNum" placeholder="输入驾驶证号">
+							id="inputDrivingLicenseNo" name="licenseNum" placeholder="输入驾驶证号" value="${consumer.licenseNum }">
 					</div>
 				</div>
 
@@ -156,7 +157,7 @@
 					<label class="control-label" for="inputReceivingArea">领取地区</label>
 					<div class="controls">
 						<input type="text" class="required digits" id="inputReceivingArea"
-							name="receivingarea" placeholder="请输入领取地区">
+							name="receivingarea" placeholder="请输入领取地区" >
 					</div>
 				</div>
 
