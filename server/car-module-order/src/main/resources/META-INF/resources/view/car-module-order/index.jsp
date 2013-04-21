@@ -26,7 +26,22 @@ div.titlewell {
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#addOrderDiv").hide();
-
+		//生成下拉框
+		$.post("${path }/cmorder/order/carType.do",null,function(data,status){
+			if (status == 'success') {
+				var records=data.records;
+				var carTypeDom=$("#addOrderCarType");
+			  	$.each(records, function (i, carType) {
+			  		carTypeDom.append("<option value='"+carType.id+"'>"+carType.name+"</option>");
+			    });
+				
+				
+			} else {
+				$.huhuoGrowlUI("查询车型数据错误");
+			}
+		});
+		
+		
 		$("#addOrder").click(function() {
 			var orderSearch = $("#orderSearch");
 			console.info(orderSearch.css("width"));
@@ -35,10 +50,60 @@ div.titlewell {
 			});
 
 		});
-		
+		//根据对应的手机号，查询对应的用户信息并且填充
 		$("#phonePromptOrderAdd").autoFill("${path }/cmorder/order/conumer.do","mobileNumber",$("#addOrderform"),null,"consumer");
 		
-		$("#licencePlatePromptOrderAdd").autoFill("${path }/cmorder/order/car.do","licencePlate",$("#addOrderform"),null,"car");
+		var carparams=function(params){
+			params['carTypeId']=$("#addOrderCarType").val();
+			return params;
+		};
+		//添加输入车牌号自动填充对应内容
+		$("#licencePlatePromptOrderAdd").autoFill("${path }/cmorder/order/car.do","licencePlate",$("#addOrderform"),carparams,"car",null,function(item){
+			//查询车型
+			$.post("${path }/cmorder/order/carType.do",{carTypeId:item.carTypeId},function(data,status){
+				if (status == 'success') {
+					var records=data.records;
+					console.info(records);
+					if(records!=null&&records.length>0){
+						var record =records[0];
+						$("#addOrderform").find("[name='carType.id']").first().find('[value='+record.id+']')[0].selected=true;
+						
+						
+						//查询车辆附属付费信息
+						$.post("${path }/cmorder/order/chargeStandard.do",{chargeStandardId:record.chargeStandardId},function(data,status){
+							if (status == 'success') {
+								var records=data.records;
+								console.info(records);
+								if(records!=null&&records.length>0){
+									var record =records[0];
+									 $.setFormValue(record,$("#addOrderform"),"chargeStandard");
+								}
+							} else {
+								$.huhuoGrowlUI("查询车辆附属付费信息失败");
+							}
+						});
+						
+					}
+				} else {
+					$.huhuoGrowlUI("查询车型数据错误");
+				}
+			});
+			//查询车辆所属门店
+			$.post("${path }/cmorder/order/store.do",{storeId:item.storeId},function(data,status){
+				if (status == 'success') {
+					var records=data.records;
+					console.info(records);
+					if(records!=null&&records.length>0){
+						var record =records[0];
+						$("#addOrderform").find("[name='car.storeName']").first().attr('value',record.name);
+					}
+				} else {
+					$.huhuoGrowlUI("查询车辆所属门店失败");
+				}
+			});
+			
+			
+		});
 		
 		$("#returnSearch").click(function() {
 			var addOrderDiv = $("#addOrderDiv");
@@ -75,7 +140,7 @@ div.titlewell {
 			<div class="row-fluid">
 				<div class="span12">
 					<div class="row-fluid">
-						<div class="span4 well">
+						<div class="span4 well"  style="min-height:495px;">
 
 							<ul class="thumbnails">
 								<li class="span12"><a href="javascript:void(0)"
@@ -99,7 +164,7 @@ div.titlewell {
 								</div>
 							</div>
 						</div>
-						<div class="span4 well">
+						<div class="span4 well"   style="min-height:495px;">
 							<div class='well titlewell'>
 								<label style='text-align: center; font-weight: bold;'>客户信息</label>
 							</div>
@@ -172,7 +237,7 @@ div.titlewell {
 							</div>
 
 						</div>
-						<div class="span4 well">
+						<div class="span4 well"  style="min-height:495px;">
 							<div class='well titlewell'>
 								<label style='text-align: center; font-weight: bold;'>车辆信息</label>
 							</div>
@@ -181,22 +246,16 @@ div.titlewell {
 								<div class="controls">
 									<input type="text" class="orderinput required" id="licencePlatePromptOrderAdd"
 										name="car.licencePlate" placeholder="牌号...">
+										<input type="hidden"
+										name="car.id">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputName">车型</label>
 								<div class="controls">
-									<input type="text" class="orderinput required" 
-										name="carType.name" placeholder="车型名称...">
-									<input type="hidden"
-										name="carType.carTypeId">
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label" for="inputName">车辆</label>
-								<div class="controls">
-									<input type="text" class="orderinput required" 
-										name="car.name" placeholder="车辆名称...">
+									<select  id='addOrderCarType' name='carType.id' style='width: 87%;'>
+										<option value="">全部</option>
+									</select>
 								</div>
 							</div>
 							<div class="control-group">
@@ -266,8 +325,8 @@ div.titlewell {
 								<label class="control-label" for="inputName">租金标准</label>
 								<div class="controls">
 									<div class="input-append  orderinput">
-										<input type="text" class="required"  name="name"
-											placeholder="车型名称..."> <span class="add-on">元/天</span>
+										<input type="text" class="required"  name="chargeStandard.rent"
+											placeholder="租金标准..."> <span class="add-on">元/天</span>
 									</div>
 								</div>
 							</div>
@@ -276,7 +335,7 @@ div.titlewell {
 								<div class="controls">
 									<div class="input-append  orderinput">
 										<input type="text" class="orderinput required" 
-											name="name" placeholder="车型名称..."> <span
+											name="chargeStandard.diffShopReturnFare" placeholder="异店还车..."> <span
 											class="add-on">元/次</span>
 									</div>
 								</div>
@@ -296,7 +355,7 @@ div.titlewell {
 								<label class="control-label" for="inputName">押金金额</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="name" placeholder="车型名称...">
+										name="chargeStandard.deposit" placeholder="押金金额...">
 								</div>
 							</div>
 							<div class="control-group">
@@ -304,7 +363,7 @@ div.titlewell {
 								<div class="controls">
 									<div class="input-append  orderinput">
 										<input type="text" class="orderinput required" 
-											name="name" placeholder="车型名称..."> <span
+											name="chargeStandard.overTimeFare" placeholder="车型名称..."> <span
 											class="add-on">元/小时</span>
 									</div>
 								</div>
@@ -323,7 +382,7 @@ div.titlewell {
 								<div class="controls">
 									<div class="input-append  orderinput">
 										<input type="text" class="orderinput required" 
-											name="name" placeholder="车型名称..."> <span
+											name="chargeStandard.mileageLimits" placeholder="里程限制..."> <span
 											class="add-on">公里/日</span>
 									</div>
 								</div>
@@ -333,7 +392,7 @@ div.titlewell {
 								<div class="controls">
 									<div class="input-append  orderinput">
 										<input type="text" class="orderinput required" 
-											name="name" placeholder="车型名称..."> <span
+											name="chargeStandard.overMileageFare" placeholder="超里程费..."> <span
 											class="add-on">元/公里</span>
 									</div>
 								</div>
@@ -343,7 +402,7 @@ div.titlewell {
 								<div class="controls">
 									<div class="input-append  orderinput">
 										<input type="text" class="orderinput required" 
-											name="name" placeholder="车型名称..."> <span
+											name="chargeStandard.carSendFare" placeholder="上门送车..."> <span
 											class="add-on">元/次</span>
 									</div>
 								</div>
