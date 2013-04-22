@@ -76,7 +76,7 @@ $(document).ready(function() {
 	
 	// add event to edit button
 	$('#consumerPageGridId tbody button[name="detail"]').click(function(event) {
-		var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
+		var selectedId = $(this).parent().parent().parent().children().slice(2, 3).text();
 		$("#consumerEditDivId").load('${path}/cmconsumer/consumer/detail.do', {
 			id: selectedId
 		}, function(resp, status, xhReq) {
