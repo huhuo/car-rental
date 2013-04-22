@@ -12,7 +12,7 @@
 		});
 	});
 </script>
-<form id="addConsumerForm" class="form-horizontal " action="${path }/cmconsumer/consumer/add.do">
+<form id="addConsumerForm" class="form-horizontal " action="${path }/cmconsumer/consumer/update.do">
 	<div class="span2  well" style="min-height: 500px">
 		<img src="http://www.baidu.com/img/baidu_jgylogo3.gif" class="img-polaroid"> <br>
 		<button style="width: 100px" class="btn">自动识别</button>

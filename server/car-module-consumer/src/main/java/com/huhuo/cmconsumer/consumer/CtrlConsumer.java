@@ -8,9 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.huhuo.carservicecore.csm.consumer.IDaoConsumer;
 import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
+import com.huhuo.carservicecore.cust.car.ModelCarType;
 import com.huhuo.integration.base.BaseCtrl;
 import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.db.mysql.Dir;
@@ -85,6 +87,12 @@ public class CtrlConsumer extends BaseCtrl {
 		write(msg, resp);
 	}
 	
+	@RequestMapping(value="/add-ui.do")
+	public String addUI(Model model) {
+		logger.debug("==> access add ui");
+		return basePath + "/consumer/add-ui";
+	}
+	
 	@RequestMapping(value="/detail.do")
 	public String detail(Model model, ModelConsumer t) {
 		logger.debug("==> edit ModelConsumer with id --> {}", t.getId());
@@ -99,6 +107,23 @@ public class CtrlConsumer extends BaseCtrl {
 		Condition<ModelConsumer> condition = new Condition<ModelConsumer>(t, null, null, null);
 		model.addAttribute("consumer", iservConsumer.findByCondition(condition, true).get(0));
 		return basePath + "/consumer/edit-ui";
+	}
+	
+	@RequestMapping(value="/update.do")
+	public void update(HttpServletResponse resp, ModelConsumer t) throws Exception {
+		// retrieve model form DB
+		iservConsumer.update(t);
+		Message<ModelConsumer> msg = new Message<ModelConsumer>(Status.SUCCESS, "修改成功", t);
+		write(msg, resp);
+	}
+	
+	@RequestMapping(value="/delete.do")
+	public void delete(HttpServletResponse resp, ModelConsumer t, @RequestParam(value="ids[]") List<Long> ids) {
+		// receive data
+		logger.debug("==> batch delete -->{}", ids);
+		// retrieve model form DB
+		iservConsumer.deleteBatch(ids);
+		write(new Message<ModelConsumer>(Status.SUCCESS, "删除成功", t), resp);
 	}
 	/**
 	 * register customer
