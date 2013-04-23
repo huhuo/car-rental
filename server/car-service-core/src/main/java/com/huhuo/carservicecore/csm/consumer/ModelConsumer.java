@@ -26,8 +26,10 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	private String mobileNumber;
 	/** 邮箱 **/
 	private String email;
-	/** 地址 **/
+	/**现在 地址 **/
 	private String address;
+	/**户籍地址*/
+	private String permanentAddress;
 	/** 邮编 **/
 	private String zipcode;
 	/** 腾讯qq号 **/
@@ -44,6 +46,8 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	private Date birthday;
 	/** 驾照 **/
 	private String licenseNum;
+	/**驾照领取地区*/
+	private String receiveArea;
 	/** 会员积分 **/
 	private Integer integral;
 	/** 创建时间 **/
@@ -52,7 +56,8 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	private Date updateTime;
 	/** 是否是黑名单*/
 	private Boolean blackList;
-	
+	/** 身份证号码*/
+	private String idCard;
 	@NotSqlField
 	private Integer age;
 	
@@ -196,8 +201,24 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	}
 	public void setAge(Integer age) {
 		this.age = age;
-		
-		
+	}
+	public String getIdCard() {
+		return idCard;
+	}
+	public void setIdCard(String idCard) {
+		this.idCard = idCard;
+	}
+	public String getPermanentAddress() {
+		return permanentAddress;
+	}
+	public void setPermanentAddress(String permanentAddress) {
+		this.permanentAddress = permanentAddress;
+	}
+	public String getReceiveArea() {
+		return receiveArea;
+	}
+	public void setReceiveArea(String receiveArea) {
+		this.receiveArea = receiveArea;
 	}
 	
 	

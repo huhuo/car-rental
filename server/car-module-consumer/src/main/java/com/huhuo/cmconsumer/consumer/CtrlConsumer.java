@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.huhuo.carservicecore.csm.consumer.IDaoConsumer;
 import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
-import com.huhuo.carservicecore.cust.car.ModelCarType;
 import com.huhuo.integration.base.BaseCtrl;
 import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.db.mysql.Dir;
