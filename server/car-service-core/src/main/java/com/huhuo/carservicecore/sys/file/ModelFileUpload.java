@@ -7,11 +7,11 @@ public class ModelFileUpload extends BaseModel {
 
 	private static final long serialVersionUID = 2810998066713702692L;
 	
-	/** 文件名称 **/
+	/** 文件名称，如，beauty.jpg **/
 	private String name;
-	/** 文件相对路径 **/
+	/** 文件相对路径，如，file/upload/2013-04-21 **/
 	private String path;
-	/** MD5文件名（后缀由type解析） **/
+	/** MD5文件名（后缀由type解析），如，d9197322d05124d7ec1164337ad7a9a1.jpg **/
 	private String md5;
 	/** 文件类型（代码中用枚举解析），1、jpg；2、 **/
 	private Integer type;

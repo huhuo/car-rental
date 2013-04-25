@@ -144,19 +144,19 @@ CREATE TABLE `cust_car_location` (
 DROP TABLE IF EXISTS `cust_car_type`;
 
 CREATE TABLE `cust_car_type` (
-  `id` bigint(20) NOT NULL auto_increment COMMENT '主键',
-  `name` varchar(50) default NULL COMMENT '车型名称',
-  `icon` varchar(200) default NULL COMMENT '图片地址（静态资源）',
-  `category` int(11) default NULL COMMENT '车辆类别（字典表字段，组名：cust_car_type_category，1、轿车；2、越野汽车；3、客车；4、货车；5、自卸汽车；6、牵引汽车；7、专用汽车）',
-  `seating` int(11) default NULL COMMENT '座位数',
-  `tankCapacity` int(11) default NULL COMMENT '油箱容量（单位：升）',
-  `drivingRange` double default NULL COMMENT '可行驶里程数',
-  `chargeStandardId` bigint(20) default NULL COMMENT '车型使用的收费标准id（与csm_charge_standard表一对一）',
-  `status` int(11) default NULL COMMENT '状态，字典表字段，组名：cust_car_type_status，0：删除；',
-  `createTime` datetime default NULL COMMENT '创建时间',
-  `updateTime` datetime default NULL COMMENT '更新时间',
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='车型管理';
+   `id` bigint(20) NOT NULL auto_increment COMMENT '主键',
+   `name` varchar(50) default NULL COMMENT '车型名称',
+   `iconId` bigint(20) default NULL COMMENT '上传图片的id，与sys_file_upload表关联',
+   `category` int(11) default NULL COMMENT '车辆类别（字典表字段，组名：cust_car_type_category，1、轿车；2、越野汽车；3、客车；4、货车；5、自卸汽车；6、牵引汽车；7、专用汽车）',
+   `seating` int(11) default NULL COMMENT '座位数',
+   `tankCapacity` int(11) default NULL COMMENT '油箱容量（单位：升）',
+   `drivingRange` double default NULL COMMENT '可行驶里程数',
+   `chargeStandardId` bigint(20) default NULL COMMENT '车型使用的收费标准id（与csm_charge_standard表一对一）',
+   `status` int(11) default NULL COMMENT '状态，字典表字段，组名：cust_car_type_status，0：删除；',
+   `createTime` datetime default NULL COMMENT '创建时间',
+   `updateTime` datetime default NULL COMMENT '更新时间',
+   PRIMARY KEY  (`id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='车型管理'
 
 /*Data for the table `cust_car_type` */
 

@@ -27,7 +27,7 @@ public class ServCarTypeTest extends CarModuleCarTest {
 		t.setCategory(Dict.CUST_CAR_TYPE_CATEGORY_coach.getDicKey());
 		t.setChargeStandardId(234L);
 		t.setDrivingRange(3214.324);
-		t.setIcon("htt://www.google.com");
+		t.setIconId(1L);
 		t.setName("jeep coach");
 		t.setSeating(32);
 		t.setTankCapacity(24234);
@@ -59,7 +59,7 @@ public class ServCarTypeTest extends CarModuleCarTest {
 		t.setCategory(Dict.CUST_CAR_TYPE_CATEGORY_coach.getDicKey());
 		t.setChargeStandardId(234L);
 		t.setDrivingRange(3214.324);
-		t.setIcon("htt://www.google.com");
+		t.setIconId(1L);
 		t.setName("jeep coach");
 		t.setSeating(32);
 		t.setTankCapacity(24234);

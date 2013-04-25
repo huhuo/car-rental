@@ -15,6 +15,7 @@ public class SystemBaseCtrl extends BaseCtrl {
 	 */
 	protected String render(Model model, Object obj) {
 		model.addAttribute(GeneralPage.MSG_PAGE.getAttrName(), obj);
+		logger.info("==> return message --> {}", obj);
 		return GeneralPage.MSG_PAGE.getLocation();
 	}
 	

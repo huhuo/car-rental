@@ -3,20 +3,62 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		// validation
-		$('#cartypeEditDivId form').validate();
+		$('#editCarTypeForm').validate();
+		// image upload event
+		var percent = $('#fileUploadForm .progress .percent');
+		var bar = $('#fileUploadForm .progress .bar');
+		$('#fileUploadForm').ajaxForm({
+			beforeSubmit: function(file, form, option) {
+				if(file[0].value == '') {
+					alert('请先选择要上传的图片');
+					return false;
+				}
+			},
+			beforeSend: function(s, xhr) {
+				var percentVal = '0%';
+				bar.width(percentVal);
+				percent.html(percentVal);
+			},
+			uploadProgress: function(event, position, total, percentComplete) {
+				var percentVal = percentComplete + '%';
+				bar.width(percentVal);
+				percent.html(percentVal);
+			},
+			success: function(data, status, xhr) {
+				var percentVal = '100%';
+				bar.width(percentVal);
+				percent.html(percentVal);
+				// add upload file url to submit form
+				if(data.data) {
+					$('#editCarTypeForm input[name="icon.name"]').val(data.data.name);
+					$('#editCarTypeForm input[name="icon.md5"]').val(data.data.md5);
+				}
+			},
+			complete: function(xhr) {
+				msg = JSON.parse(xhr.responseText);
+				$.huhuoGrowlUI(msg.msg);
+				if(msg.data) {
+					$('#fileUploadForm img').attr('src', '${path}/' + msg.data.path + '/' + msg.data.md5);
+				}
+			}
+		});
 		// cartype add page
-		$('#cartypeEditDivId form').huhuoFormPost(function(data, status) {
-			$('#cartypeEditDivId').hide();
-			$('#cartypeMgrDivId').show(500);
-			$('#cartypeMgrDivId form button').trigger("click");
-			console.log($('#cartypeEditDivId form').serialize());
+		$('#editCarTypeForm').huhuoFormPost(function(data, status) {
+			if(data.status == 'SUCCESS') {
+				$('#cartypeEditDivId').hide();
+				$('#cartypeMgrDivId').show(500);
+				$('#huhuoForm').trigger('submit');
+			} else {
+				$.huhuoGrowlUI('error occur in server --> ' + data.msg);
+			}
 		});
 		
 	});
 </script>
-<form class="form-horizontal well" action="${path}/cmcar/cartype/update.do">
-	<div class="row-fluid">
-		<div class="span6">
+
+<div class="row-fluid">
+	<div class="span6">
+		<form id="editCarTypeForm" class="form-horizontal" action="${path}/cmcar/cartype/update.do">
 			<input type="hidden" name="id" value="${carType.id }">
 			<div class="control-group">
 				<label class="control-label" for="inputName">车型名称</label>
@@ -109,26 +151,37 @@
 					<input type="number" class="required" id="inputDiffShopReturnFare" name="chargeStandard.diffShopReturnFare" placeholder="异店结算（还车）附加费（xxx元）..." value="${carType.chargeStandard.diffShopReturnFare }">
 				</div>
 			</div>
+			<input type="hidden" name="icon.id" value="${carType.icon.id }">
+			<input type="hidden" name="icon.name" value="${carType.icon.name }">
+			<input type="hidden" name="icon.md5" value="${carType.icon.md5 }">
 			<div class="control-group">
 				<div class="controls">
 					<button type="submit" class="btn">修改</button>
 				</div>
 			</div>
-		</div>
-		<div class="span6">
+		</form>
+	</div>
+	<div class="span6">
+		<form id="fileUploadForm" class="form-horizontal" method="post"
+			action="${path}/cmsystem/file/fileupload/cached.do" enctype="multipart/form-data">
 			<ul class="thumbnails">
 				<li class="span12">
 					<a href="javascript:void(0)" class="thumbnail">
-						<img class="img-rounded" src="${path }/res/images/status/bazzi.jpg" alt="">
+						<img class="img-rounded" src="${path }/${carType.icon.path}/${carType.icon.md5}" alt="">
 					</a>
 				</li>
 			</ul>
-			<div class="control-group">
+			<div  class="control-group">
 				<label class="control-label" for="inputIcon">图片上传</label>
 				<div class="controls">
-					<input type="file" id="inputIcon" name="icon" placeholder="图片上传...">
+					<input type="file" id="inputIcon" name="uploadFile">
+					<input type="submit" value="Upload File to Server">
 				</div>
 			</div>
-		</div>
+			<div class="progress progress-striped active">
+				<div class="bar"></div >
+				<div class="percent">0%</div >
+			</div>
+		</form>
 	</div>
-</form>
+</div>

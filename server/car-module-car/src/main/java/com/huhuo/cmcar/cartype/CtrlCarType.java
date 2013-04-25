@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.huhuo.carservicecore.constant.Dictionary.DictGroup;
 import com.huhuo.carservicecore.cust.car.ModelCarType;
-import com.huhuo.carservicecore.cust.car.ModelChargeStandard;
 import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
 import com.huhuo.cmsystem.dict.IServDictionary;
 import com.huhuo.integration.base.BaseCtrl;
@@ -80,8 +79,8 @@ public class CtrlCarType extends BaseCtrl {
 	}
 	
 	@RequestMapping(value="/add.do")
-	public void add(HttpServletResponse resp, ModelCarType carType, ModelChargeStandard chargeStandard) {
-		logger.debug("---> server receive: carType={}, chargeStandard={}", carType, chargeStandard);
+	public void add(HttpServletResponse resp, ModelCarType carType, String icon) {
+		logger.debug("---> server receive: carType={}, icon={}", carType, icon);
 		// add car type
 		iservCarType.add(carType);
 		Message<ModelCarType> msg = new Message<ModelCarType>(Status.SUCCESS, "add new cartype success!", carType);

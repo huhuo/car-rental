@@ -16,6 +16,7 @@
 <script src="${path }/res/js/jquery/jquery.blockUI.js"></script>
 <script src="${path }/res/js/jquery/jquery.validate.js"></script>
 <script src="${path }/res/js/jquery/jquery.validate.message.js"></script>
+<script src="${path }/res/js/jquery/jquery.form.js"></script>
 <%-- <script src="${path }/res/js/kissy/kissy.js"></script> --%>
 <script src="${path }/res/js/huhuo/huhuo.js"></script>
 <style type="text/css">

@@ -23,7 +23,7 @@ public class DaoCarTypeTest extends CarServiceCoreTest {
 		t.setChargeStandardId(234L);
 		t.setCreateTime(TimeUtils.offsetDate(-3, new Date()));
 		t.setDrivingRange(3214.324);
-		t.setIcon("htt://www.google.com");
+		t.setIconId(1L);
 		t.setName("jeep coach");
 		t.setSeating(32);
 		t.setStatus(0);
@@ -51,7 +51,7 @@ public class DaoCarTypeTest extends CarServiceCoreTest {
 		t.setChargeStandardId(234L);
 		t.setCreateTime(TimeUtils.offsetDate(-3, new Date()));
 		t.setDrivingRange(3214.324);
-		t.setIcon("htt://www.google.com");
+		t.setIconId(1L);
 		t.setName("jeep coach");
 		t.setSeating(32);
 		t.setStatus(0);
