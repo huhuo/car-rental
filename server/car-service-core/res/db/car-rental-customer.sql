@@ -156,7 +156,7 @@ CREATE TABLE `cust_car_type` (
    `createTime` datetime default NULL COMMENT '创建时间',
    `updateTime` datetime default NULL COMMENT '更新时间',
    PRIMARY KEY  (`id`)
- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='车型管理'
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='车型管理';
 
 /*Data for the table `cust_car_type` */
 
@@ -333,8 +333,6 @@ CREATE TABLE `sys_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统管理员';
 
 
-alter table `car-rental-customer`.`csm_consumer` 
-   change `brithday` `birthday` datetime NULL  comment '出生日期'
 
 /*Data for the table `sys_user` */
 
