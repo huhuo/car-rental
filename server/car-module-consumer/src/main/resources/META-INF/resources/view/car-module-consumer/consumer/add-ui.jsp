@@ -126,14 +126,6 @@ div.titlewell {
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="inputIssuingAuthority ">发证机关</label>
-							<div class="controls">
-								<input type="text" class="consumerinput required digits"
-									id="inputIssuingAuthority" name="issuingauthority"
-									placeholder="输入发证机关">
-							</div>
-						</div>
-						<div class="control-group">
 							<label class="control-label" for="inputnVIP">会员类型</label>
 							<div class="controls">
 								<select id="inputVIP" name="vip" style="width: 87% ">
