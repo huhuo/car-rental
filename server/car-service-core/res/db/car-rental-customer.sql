@@ -113,7 +113,7 @@ CREATE TABLE `cust_car` (
   `drivedKilometer` bigint(20) default NULL COMMENT '已经行驶里程数',
   `oilMass` double default NULL COMMENT '油量（单位，升）',
   `warehouseId` bigint(20) default NULL COMMENT '入库门店的id，与cust_store表关联',
-  `location` bigint(20) default NULL COMMENT '车辆位置信息id，与表cust_car_location表关联',
+  `locationId` bigint(20) default NULL COMMENT '车辆位置信息id，与表cust_car_location表关联',
   `status` int(11) default NULL COMMENT '车辆状态，字典查询，关键字cust_car_status，0、删除；1、在库待租；2、已经出租；3、维修保养中；4、报废',
   `createTime` datetime default NULL COMMENT '创建时间',
   `updateTime` datetime default NULL COMMENT '更新时间',
