@@ -150,7 +150,7 @@ DROP TABLE IF EXISTS `cust_car_type`;
 CREATE TABLE `cust_car_type` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(50) DEFAULT NULL COMMENT '车型名称',
-  `iconId` varchar(200) DEFAULT NULL COMMENT '图片地址（静态资源）',
+  `iconId` varchar(200) DEFAULT NULL COMMENT '上传图片的id，与sys_file_upload表关联',
   `category` int(11) DEFAULT NULL COMMENT '车辆类别（字典表字段，组名：cust_car_type_category，1、轿车；2、越野汽车；3、客车；4、货车；5、自卸汽车；6、牵引汽车；7、专用汽车）',
   `seating` int(11) DEFAULT NULL COMMENT '座位数',
   `tankCapacity` int(11) DEFAULT NULL COMMENT '油箱容量（单位：升）',
