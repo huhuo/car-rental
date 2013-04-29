@@ -61,7 +61,7 @@ div.titlewell {
 									name="scanIDCard">扫描身份证</button>
 					</div>
 					
-					<div class="span4 well ">
+					<div class="span4 well " >
 						<div class='well titlewell'>
 							<label style='text-align: center; font-weight: bold;'>客户信息</label>
 						</div>
