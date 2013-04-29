@@ -8,12 +8,6 @@ div.huhuo-label {
 	padding-right: 10px;
 	text-align: right;
 }
-.huhuoyes {
-	background-image: url("res/images/status/btn_check_buttonless_on.png");
-	background-repeat: no-repeat;
-	background-position: 80% center;
-
-}
 
 .form-horizontal .control-label {
 	width: 100px;
@@ -33,6 +27,13 @@ select {
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		
+		// test
+		$('#huhuoForm [name="name"]').focusout(function(event) {
+			console.log($(this).val());
+			console.log(/^\d+$/.test($(this).val()) || /^\d+\.\d{1,2}$/.test($(this).val()));
+		});
+		
 		// bind click event to drop down component ==> reset search term
 		$('.search-term').click(function(event) {
 			$('.search-term').each(function(idx, item) {
@@ -53,7 +54,7 @@ select {
 			}
 		});
 		$('#huhuoForm').trigger('submit');
-		// add, edit and delete button group event
+		// add and delete button group event
 		var btnGroup = $('#cartypeMgrDivId div.navbar div.btn-group');
 		btnGroup.children('button[name="add"]').click(function(event) {
 			$("#cartypeMgrDivId").hide();
@@ -64,16 +65,6 @@ select {
 				$("#cartypeEditDivId").show(500);
 			});
 			
-		});
-		btnGroup.children('button[name="edit"]').click(function(event) {
-			$("#cartypeMgrDivId").hide();
-			// load element to cartypeEditDivId
-			
-			$("#cartypeEditDivId").load('${path}/cmcar/cartype/edit-ui.do', {
-				aa: 323
-			}, function(resp, status, xhReq) {
-				$("#cartypeEditDivId").show(500);
-			});
 		});
 		btnGroup.children('button[name="delete"]').click(function(event) {
 			var confirm = window.confirm('确定删除？');
@@ -104,7 +95,6 @@ select {
 			<div class="container">
 				<div class="btn-group">
 					<button name="add" class="btn">添加</button>
-					<button name="edit" class="btn">编辑</button>
 					<button name="delete" class="btn">删除</button>
 				</div>
 				<!-- search box -->
