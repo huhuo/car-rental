@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import com.huhuo.carservicecore.sys.user.ModelUser;
+import com.huhuo.cmsystem.SystemBaseCtrl;
 import com.huhuo.cmsystem.constant.Constant;
-import com.huhuo.integration.base.BaseCtrl;
 import com.huhuo.integration.exception.CtrlException;
 
 @Controller("cmsystemCtrlLogin")
 @RequestMapping(value = "/cmsystem/security/login")
-public class CtrlLogin extends BaseCtrl {
+public class CtrlLogin extends SystemBaseCtrl {
 
 	protected String basePath = "system-manage/";
 

@@ -1,6 +1,6 @@
 /*
 SQLyog 企业版 - MySQL GUI v8.14 
-MySQL - 5.0.22-community-nt : Database - car-rental-customer
+MySQL - 5.5.28 : Database - car-rental-customer
 *********************************************************************
 */
 
@@ -13,8 +13,6 @@ MySQL - 5.0.22-community-nt : Database - car-rental-customer
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`car-rental-customer` /*!40100 DEFAULT CHARACTER SET utf8 */;
-
 USE `car-rental-customer`;
 
 /*Table structure for table `csm_consumer` */
@@ -22,53 +20,57 @@ USE `car-rental-customer`;
 DROP TABLE IF EXISTS `csm_consumer`;
 
 CREATE TABLE `csm_consumer` (
-  `id` bigint(20) NOT NULL auto_increment COMMENT '主键',
-  `identityCardId` varchar(50) default NULL COMMENT '省份证号码',
-  `username` varchar(50) default NULL COMMENT '用户姓名',
-  `password` varchar(50) default NULL COMMENT '用户密码',
-  `avatar` varchar(100) default NULL COMMENT '用户头像地址',
-  `telephone` varchar(50) default NULL COMMENT '固定电话',
-  `mobileNumber` varchar(20) default NULL COMMENT '手机号码',
-  `email` varchar(50) default NULL,
-  `address` varchar(200) default NULL,
-  `zipcode` varchar(10) default NULL COMMENT '邮编',
-  `qq` varchar(50) default NULL,
-  `emergencyContact` varchar(50) default NULL COMMENT '紧急联系人',
-  `emergencyTel` varchar(20) default NULL COMMENT '紧急联系人电话',
-  `gender` int(11) default NULL COMMENT '性别（字典表查询，1：男；2：女）',
-  `nation` varchar(30) default NULL COMMENT '民族',
-  `birthday` datetime default NULL COMMENT '出生日期',
-  `licenseNum` varchar(50) default NULL COMMENT '驾照',
-  `integral` int(11) default NULL COMMENT '会员积分',
-  `status` int(11) default NULL COMMENT '状态，字典表字段，组名：cms_consumer_status，0：删除；',
-  `createTime` datetime default NULL COMMENT '创建时间',
-  `updateTime` datetime default NULL COMMENT '更新时间',
-  `blacklist` tinyint(1) default NULL COMMENT '是否是黑名单',
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='租车客户';
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `identityCardId` varchar(50) DEFAULT NULL COMMENT '省份证号码',
+  `username` varchar(50) DEFAULT NULL COMMENT '用户姓名',
+  `password` varchar(50) DEFAULT NULL COMMENT '用户密码',
+  `avatar` varchar(100) DEFAULT NULL COMMENT '用户头像地址',
+  `telephone` varchar(50) DEFAULT NULL COMMENT '固定电话',
+  `mobileNumber` varchar(20) DEFAULT NULL COMMENT '手机号码',
+  `email` varchar(50) DEFAULT NULL COMMENT '用户邮箱',
+  `permanentAddress` varchar(200) DEFAULT NULL COMMENT '户籍地址',
+  `address` varchar(200) DEFAULT NULL COMMENT '当前住址',
+  `zipcode` varchar(10) DEFAULT NULL COMMENT '邮编',
+  `qq` varchar(50) DEFAULT NULL COMMENT 'qq号码',
+  `emergencyContact` varchar(50) DEFAULT NULL COMMENT '紧急联系人',
+  `emergencyTel` varchar(20) DEFAULT NULL COMMENT '紧急联系人电话',
+  `gender` int(11) DEFAULT NULL COMMENT '性别（字典表查询，1：男；2：女）',
+  `nation` varchar(30) DEFAULT NULL COMMENT '民族',
+  `birthday` datetime DEFAULT NULL COMMENT '出生日期',
+  `licenseNum` varchar(50) DEFAULT NULL COMMENT '驾照',
+  `receiveArea` varchar(50) DEFAULT NULL COMMENT '领取地区',
+  `integral` int(11) DEFAULT NULL COMMENT '会员积分',
+  `status` int(11) DEFAULT NULL COMMENT '状态，字典表字段，组名：cms_consumer_status，0：删除；',
+  `createTime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updateTime` datetime DEFAULT NULL COMMENT '更新时间',
+  `blacklist` tinyint(1) DEFAULT NULL COMMENT '是否是黑名单',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='租车客户';
 
 /*Data for the table `csm_consumer` */
+
+insert  into `csm_consumer`(`id`,`identityCardId`,`username`,`password`,`avatar`,`telephone`,`mobileNumber`,`email`,`permanentAddress`,`address`,`zipcode`,`qq`,`emergencyContact`,`emergencyTel`,`gender`,`nation`,`birthday`,`licenseNum`,`receiveArea`,`integral`,`status`,`createTime`,`updateTime`,`blacklist`) values (2,'','s发大水了',NULL,NULL,'仿盛大','的说法',NULL,NULL,'',NULL,NULL,'','',2,'藏族',NULL,'',NULL,NULL,NULL,NULL,NULL,NULL),(3,'23123','三皮想亲',NULL,NULL,'123123','13838383838',NULL,NULL,'阿斯蒂芬撒地方 ',NULL,NULL,'所发生的','111',2,NULL,NULL,'',NULL,NULL,1,NULL,NULL,NULL);
 
 /*Table structure for table `csm_order` */
 
 DROP TABLE IF EXISTS `csm_order`;
 
 CREATE TABLE `csm_order` (
-  `id` bigint(20) NOT NULL auto_increment COMMENT '主键',
-  `consumerId` bigint(20) default NULL COMMENT '租车人id（与csm_consumer关联）',
-  `carId` bigint(20) default NULL COMMENT '车辆id',
-  `oilmassBegin` double default NULL COMMENT '车辆出租前油量',
-  `oilmassEnd` double default NULL COMMENT '车辆出租后油量',
-  `carRentTime` datetime default NULL COMMENT '车辆出租时间',
-  `carRetTime` datetime default NULL COMMENT '车辆实际归还时间',
-  `carPlanRetTime` datetime default NULL COMMENT '车辆预计归还时间',
-  `mileageBegin` bigint(20) default NULL COMMENT '车辆开始里程数（以车辆出租时为标准）',
-  `mileageEnd` bigint(20) default NULL COMMENT '车辆结束里程数（以车辆归还时为标准）',
-  `totalFee` double default NULL COMMENT '总计（前面各项费用经过一定的算法之后得到的实际费用总额）',
-  `status` int(11) default NULL COMMENT '状态，字典表字段，组名：csm_order_status，0：删除；1：待结帐；2：已结帐',
-  `createTime` datetime default NULL COMMENT '创建时间',
-  `updateTime` datetime default NULL COMMENT '更新时间',
-  PRIMARY KEY  (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `consumerId` bigint(20) DEFAULT NULL COMMENT '租车人id（与csm_consumer关联）',
+  `carId` bigint(20) DEFAULT NULL COMMENT '车辆id',
+  `oilmassBegin` double DEFAULT NULL COMMENT '车辆出租前油量',
+  `oilmassEnd` double DEFAULT NULL COMMENT '车辆出租后油量',
+  `carRentTime` datetime DEFAULT NULL COMMENT '车辆出租时间',
+  `carRetTime` datetime DEFAULT NULL COMMENT '车辆实际归还时间',
+  `carPlanRetTime` datetime DEFAULT NULL COMMENT '车辆预计归还时间',
+  `mileageBegin` bigint(20) DEFAULT NULL COMMENT '车辆开始里程数（以车辆出租时为标准）',
+  `mileageEnd` bigint(20) DEFAULT NULL COMMENT '车辆结束里程数（以车辆归还时为标准）',
+  `totalFee` double DEFAULT NULL COMMENT '总计（前面各项费用经过一定的算法之后得到的实际费用总额）',
+  `status` int(11) DEFAULT NULL COMMENT '状态，字典表字段，组名：csm_order_status，0：删除；1：待结帐；2：已结帐',
+  `createTime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updateTime` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单';
 
 /*Data for the table `csm_order` */
@@ -78,22 +80,22 @@ CREATE TABLE `csm_order` (
 DROP TABLE IF EXISTS `csm_order_snapshot`;
 
 CREATE TABLE `csm_order_snapshot` (
-  `id` bigint(20) NOT NULL auto_increment COMMENT '主键',
-  `orderId` bigint(20) default NULL COMMENT '订单id',
-  `consumerId` bigint(20) default NULL COMMENT '租车人id（与csm_consumer关联）',
-  `carId` bigint(20) default NULL COMMENT '车辆id',
-  `oilmassBegin` double default NULL COMMENT '车辆出租前油量',
-  `oilmassEnd` double default NULL COMMENT '车辆出租后油量',
-  `carRentTime` datetime default NULL COMMENT '车辆出租时间',
-  `carRetTime` datetime default NULL COMMENT '车辆实际归还时间',
-  `carPlanRetTime` datetime default NULL COMMENT '车辆预计归还时间',
-  `mileageBegin` bigint(20) default NULL COMMENT '车辆开始里程数（以车辆出租时为标准）',
-  `mileageEnd` bigint(20) default NULL COMMENT '车辆结束里程数（以车辆归还时为标准）',
-  `totalFee` double default NULL COMMENT '总计（前面各项费用经过一定的算法之后得到的实际费用总额）',
-  `status` int(11) default NULL COMMENT '状态，字典表字段，组名：csm_order_snapshot_status，0：删除；1：待审批；2：已审批',
-  `createTime` datetime default NULL COMMENT '创建时间',
-  `updateTime` datetime default NULL COMMENT '更新时间',
-  PRIMARY KEY  (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `orderId` bigint(20) DEFAULT NULL COMMENT '订单id',
+  `consumerId` bigint(20) DEFAULT NULL COMMENT '租车人id（与csm_consumer关联）',
+  `carId` bigint(20) DEFAULT NULL COMMENT '车辆id',
+  `oilmassBegin` double DEFAULT NULL COMMENT '车辆出租前油量',
+  `oilmassEnd` double DEFAULT NULL COMMENT '车辆出租后油量',
+  `carRentTime` datetime DEFAULT NULL COMMENT '车辆出租时间',
+  `carRetTime` datetime DEFAULT NULL COMMENT '车辆实际归还时间',
+  `carPlanRetTime` datetime DEFAULT NULL COMMENT '车辆预计归还时间',
+  `mileageBegin` bigint(20) DEFAULT NULL COMMENT '车辆开始里程数（以车辆出租时为标准）',
+  `mileageEnd` bigint(20) DEFAULT NULL COMMENT '车辆结束里程数（以车辆归还时为标准）',
+  `totalFee` double DEFAULT NULL COMMENT '总计（前面各项费用经过一定的算法之后得到的实际费用总额）',
+  `status` int(11) DEFAULT NULL COMMENT '状态，字典表字段，组名：csm_order_snapshot_status，0：删除；1：待审批；2：已审批',
+  `createTime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updateTime` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单快照表（用于订单修改审批）';
 
 /*Data for the table `csm_order_snapshot` */
@@ -103,38 +105,40 @@ CREATE TABLE `csm_order_snapshot` (
 DROP TABLE IF EXISTS `cust_car`;
 
 CREATE TABLE `cust_car` (
-  `id` bigint(20) NOT NULL auto_increment COMMENT '主键',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `carTypeId` bigint(20) NOT NULL COMMENT '车辆型号（1个车型对应多个车辆）',
-  `licencePlate` varchar(50) default NULL COMMENT '车牌号',
-  `storeId` bigint(20) default NULL COMMENT '所属门店',
-  `engineNo` varchar(50) default NULL COMMENT '引擎编号',
-  `gpsNo` varchar(100) default NULL COMMENT 'GPS设备编号',
-  `color` int(11) default NULL COMMENT '车身颜色（字典查询，组别关键字cust_car_color：1、银色；2、银灰色；3、灰色；4、红色；5、黄色；6、白色；7、 橙色；8、绿色；）',
-  `drivedKilometer` bigint(20) default NULL COMMENT '已经行驶里程数',
-  `oilMass` double default NULL COMMENT '油量（单位，升）',
-  `warehouseId` bigint(20) default NULL COMMENT '入库门店的id，与cust_store表关联',
-  `location` bigint(20) default NULL COMMENT '车辆位置信息id，与表cust_car_location表关联',
-  `status` int(11) default NULL COMMENT '车辆状态，字典查询，关键字cust_car_status，0、删除；1、在库待租；2、已经出租；3、维修保养中；4、报废',
-  `createTime` datetime default NULL COMMENT '创建时间',
-  `updateTime` datetime default NULL COMMENT '更新时间',
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='车辆管理';
+  `licencePlate` varchar(50) DEFAULT NULL COMMENT '车牌号',
+  `storeId` bigint(20) DEFAULT NULL COMMENT '所属门店',
+  `engineNo` varchar(50) DEFAULT NULL COMMENT '引擎编号',
+  `gpsNo` varchar(100) DEFAULT NULL COMMENT 'GPS设备编号',
+  `color` int(11) DEFAULT NULL COMMENT '车身颜色（字典查询，组别关键字cust_car_color：1、银色；2、银灰色；3、灰色；4、红色；5、黄色；6、白色；7、 橙色；8、绿色；）',
+  `drivedKilometer` bigint(20) DEFAULT NULL COMMENT '已经行驶里程数',
+  `oilMass` double DEFAULT NULL COMMENT '油量（单位，升）',
+  `warehouseId` bigint(20) DEFAULT NULL COMMENT '入库门店的id，与cust_store表关联',
+  `location` bigint(20) DEFAULT NULL COMMENT '车辆位置信息id，与表cust_car_location表关联',
+  `status` int(11) DEFAULT NULL COMMENT '车辆状态，字典查询，关键字cust_car_status，0、删除；1、在库待租；2、已经出租；3、维修保养中；4、报废',
+  `createTime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updateTime` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='车辆管理';
 
 /*Data for the table `cust_car` */
+
+insert  into `cust_car`(`id`,`carTypeId`,`licencePlate`,`storeId`,`engineNo`,`gpsNo`,`color`,`drivedKilometer`,`oilMass`,`warehouseId`,`location`,`status`,`createTime`,`updateTime`) values (1,1,'232213',2,'24','23',24,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*Table structure for table `cust_car_location` */
 
 DROP TABLE IF EXISTS `cust_car_location`;
 
 CREATE TABLE `cust_car_location` (
-  `id` bigint(20) NOT NULL auto_increment COMMENT '主键',
-  `longitude` double default NULL COMMENT '经度',
-  `latitude` double default NULL COMMENT '纬度',
-  `holderStoreId` bigint(20) default NULL COMMENT '入库门店id，与cust_store表关联，如果没有入库，则该字段为null',
-  `status` int(11) default NULL COMMENT '状态，字典表字段，组名：cust_car_location_status，0：删除；',
-  `createTime` datetime default NULL COMMENT '创建时间',
-  `updateTime` datetime default NULL COMMENT '更新时间',
-  PRIMARY KEY  (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `longitude` double DEFAULT NULL COMMENT '经度',
+  `latitude` double DEFAULT NULL COMMENT '纬度',
+  `holderStoreId` bigint(20) DEFAULT NULL COMMENT '入库门店id，与cust_store表关联，如果没有入库，则该字段为null',
+  `status` int(11) DEFAULT NULL COMMENT '状态，字典表字段，组名：cust_car_location_status，0：删除；',
+  `createTime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updateTime` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='车辆位置信息';
 
 /*Data for the table `cust_car_location` */
@@ -144,58 +148,62 @@ CREATE TABLE `cust_car_location` (
 DROP TABLE IF EXISTS `cust_car_type`;
 
 CREATE TABLE `cust_car_type` (
-  `id` bigint(20) NOT NULL auto_increment COMMENT '主键',
-  `name` varchar(50) default NULL COMMENT '车型名称',
-  `icon` varchar(200) default NULL COMMENT '图片地址（静态资源）',
-  `category` int(11) default NULL COMMENT '车辆类别（字典表字段，组名：cust_car_type_category，1、轿车；2、越野汽车；3、客车；4、货车；5、自卸汽车；6、牵引汽车；7、专用汽车）',
-  `seating` int(11) default NULL COMMENT '座位数',
-  `tankCapacity` int(11) default NULL COMMENT '油箱容量（单位：升）',
-  `drivingRange` double default NULL COMMENT '可行驶里程数',
-  `chargeStandardId` bigint(20) default NULL COMMENT '车型使用的收费标准id（与csm_charge_standard表一对一）',
-  `status` int(11) default NULL COMMENT '状态，字典表字段，组名：cust_car_type_status，0：删除；',
-  `createTime` datetime default NULL COMMENT '创建时间',
-  `updateTime` datetime default NULL COMMENT '更新时间',
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='车型管理';
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(50) DEFAULT NULL COMMENT '车型名称',
+  `iconId` varchar(200) DEFAULT NULL COMMENT '图片地址（静态资源）',
+  `category` int(11) DEFAULT NULL COMMENT '车辆类别（字典表字段，组名：cust_car_type_category，1、轿车；2、越野汽车；3、客车；4、货车；5、自卸汽车；6、牵引汽车；7、专用汽车）',
+  `seating` int(11) DEFAULT NULL COMMENT '座位数',
+  `tankCapacity` int(11) DEFAULT NULL COMMENT '油箱容量（单位：升）',
+  `drivingRange` double DEFAULT NULL COMMENT '可行驶里程数',
+  `chargeStandardId` bigint(20) DEFAULT NULL COMMENT '车型使用的收费标准id（与csm_charge_standard表一对一）',
+  `status` int(11) DEFAULT NULL COMMENT '状态，字典表字段，组名：cust_car_type_status，0：删除；',
+  `createTime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updateTime` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='车型管理';
 
 /*Data for the table `cust_car_type` */
+
+insert  into `cust_car_type`(`id`,`name`,`iconId`,`category`,`seating`,`tankCapacity`,`drivingRange`,`chargeStandardId`,`status`,`createTime`,`updateTime`) values (1,'小家常菜',NULL,1,23,23,34,1,1,'2013-03-31 16:32:21','2013-03-31 16:32:21'),(2,'小家常菜^^&&^&',NULL,1,23,23,34,2,1,'2013-03-31 16:32:45','2013-03-31 16:32:45'),(3,'宝马X5',NULL,1,32,342,43,3,1,'2013-03-31 16:34:58','2013-03-31 16:34:58');
 
 /*Table structure for table `cust_charge_standard` */
 
 DROP TABLE IF EXISTS `cust_charge_standard`;
 
 CREATE TABLE `cust_charge_standard` (
-  `id` bigint(20) NOT NULL auto_increment COMMENT '主键',
-  `deposit` double default NULL COMMENT '押金',
-  `premium` double default NULL COMMENT '保险费，xxx元/次',
-  `rent` double default NULL COMMENT '租金（xxx元/天）',
-  `mileageLimits` bigint(20) default NULL COMMENT '里程限制（xxx公里/日）',
-  `overMileageFare` double default NULL COMMENT '超里程费用（xxx元/公里）',
-  `overTimeFare` double default NULL COMMENT '超时标准（xxx元/小时）',
-  `carSendFare` double default NULL COMMENT '上门送车（xxx元）',
-  `diffShopReturnFare` double default NULL COMMENT '异店结算（还车）附加费（元）',
-  `status` int(11) default NULL COMMENT '状态，字典表字段，组名：cust_charge_standard_status，0：删除；',
-  `createTime` datetime default NULL COMMENT '创建时间',
-  `updateTime` datetime default NULL COMMENT '更新时间',
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='车辆收费标准';
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `deposit` double DEFAULT NULL COMMENT '押金',
+  `premium` double DEFAULT NULL COMMENT '保险费，xxx元/次',
+  `rent` double DEFAULT NULL COMMENT '租金（xxx元/天）',
+  `mileageLimits` bigint(20) DEFAULT NULL COMMENT '里程限制（xxx公里/日）',
+  `overMileageFare` double DEFAULT NULL COMMENT '超里程费用（xxx元/公里）',
+  `overTimeFare` double DEFAULT NULL COMMENT '超时标准（xxx元/小时）',
+  `carSendFare` double DEFAULT NULL COMMENT '上门送车（xxx元）',
+  `diffShopReturnFare` double DEFAULT NULL COMMENT '异店结算（还车）附加费（元）',
+  `status` int(11) DEFAULT NULL COMMENT '状态，字典表字段，组名：cust_charge_standard_status，0：删除；',
+  `createTime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updateTime` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='车辆收费标准';
 
 /*Data for the table `cust_charge_standard` */
+
+insert  into `cust_charge_standard`(`id`,`deposit`,`premium`,`rent`,`mileageLimits`,`overMileageFare`,`overTimeFare`,`carSendFare`,`diffShopReturnFare`,`status`,`createTime`,`updateTime`) values (1,123,23,NULL,NULL,NULL,NULL,NULL,NULL,1,'2013-03-31 16:32:21','2013-03-31 16:32:21'),(2,123,23,23,321,111,8,2134,111,NULL,NULL,NULL),(3,423,4,32,423,423,24,42,23,1,'2013-03-31 16:34:58','2013-03-31 16:34:58');
 
 /*Table structure for table `cust_store` */
 
 DROP TABLE IF EXISTS `cust_store`;
 
 CREATE TABLE `cust_store` (
-  `id` bigint(20) NOT NULL auto_increment COMMENT '主键',
-  `name` varchar(100) default NULL COMMENT '门店名称',
-  `address` varchar(300) default NULL COMMENT '地址',
-  `managerId` bigint(20) default NULL COMMENT '店长（与sys_user关联）',
-  `status` int(11) default NULL COMMENT '状态，字典表字段，组名：cust_store_status，0：删除；',
-  `createTime` datetime default NULL COMMENT '创建时间',
-  `updateTime` datetime default NULL COMMENT '更新时间',
-  `telephone` varchar(20) default NULL COMMENT '分店联系电话',
-  PRIMARY KEY  (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `name` varchar(100) DEFAULT NULL COMMENT '门店名称',
+  `address` varchar(300) DEFAULT NULL COMMENT '地址',
+  `managerId` bigint(20) DEFAULT NULL COMMENT '店长（与sys_user关联）',
+  `status` int(11) DEFAULT NULL COMMENT '状态，字典表字段，组名：cust_store_status，0：删除；',
+  `createTime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updateTime` datetime DEFAULT NULL COMMENT '更新时间',
+  `telephone` varchar(20) DEFAULT NULL COMMENT '分店联系电话',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='门店';
 
 /*Data for the table `cust_store` */
@@ -205,13 +213,13 @@ CREATE TABLE `cust_store` (
 DROP TABLE IF EXISTS `mid_car_consumer`;
 
 CREATE TABLE `mid_car_consumer` (
-  `id` bigint(20) NOT NULL auto_increment COMMENT '主键',
-  `carId` bigint(20) default NULL COMMENT '车辆id',
-  `consumerId` bigint(20) default NULL COMMENT '消费者id',
-  `status` int(11) default NULL COMMENT '状态，字典表字段，组名：mid_car_consumer_status，0：删除；',
-  `createTime` datetime default NULL COMMENT '创建时间',
-  `updateTime` datetime default NULL COMMENT '更新时间',
-  PRIMARY KEY  (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `carId` bigint(20) DEFAULT NULL COMMENT '车辆id',
+  `consumerId` bigint(20) DEFAULT NULL COMMENT '消费者id',
+  `status` int(11) DEFAULT NULL COMMENT '状态，字典表字段，组名：mid_car_consumer_status，0：删除；',
+  `createTime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updateTime` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='car和consumer的中间表';
 
 /*Data for the table `mid_car_consumer` */
@@ -221,15 +229,15 @@ CREATE TABLE `mid_car_consumer` (
 DROP TABLE IF EXISTS `statis_car_income`;
 
 CREATE TABLE `statis_car_income` (
-  `id` bigint(20) NOT NULL auto_increment COMMENT '主键',
-  `carId` bigint(20) default NULL COMMENT '车辆id（与mgr_car关联）',
-  `income` double default NULL COMMENT '收入',
-  `pay` double default NULL COMMENT '车辆支出',
-  `status` int(11) default NULL COMMENT '状态，字典表字段，组名：cust_charge_standard_status，0：删除；',
-  `createTime` datetime default NULL COMMENT '创建时间',
-  `updateTime` datetime default NULL COMMENT '更新时间',
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='车辆收入统计（统计类）\n未详细设计，预计叧';
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `carId` bigint(20) DEFAULT NULL COMMENT '车辆id（与mgr_car关联）',
+  `income` double DEFAULT NULL COMMENT '收入',
+  `pay` double DEFAULT NULL COMMENT '车辆支出',
+  `status` int(11) DEFAULT NULL COMMENT '状态，字典表字段，组名：cust_charge_standard_status，0：删除；',
+  `createTime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updateTime` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='车辆收入统计（统计类）\n未详细设计，预计�';
 
 /*Data for the table `statis_car_income` */
 
@@ -239,12 +247,12 @@ DROP TABLE IF EXISTS `sys_city`;
 
 CREATE TABLE `sys_city` (
   `id` bigint(11) NOT NULL COMMENT '主键id',
-  `name` varchar(20) default NULL,
-  `spelling` varchar(20) default NULL COMMENT '城市名称的全拼',
-  `orderNo` int(20) default NULL COMMENT '存储用于排序的数字，值越大越往后排',
-  `zipCode` varchar(20) default NULL,
-  `provinceId` int(11) default NULL,
-  `level` smallint(2) default NULL COMMENT '城市等级'
+  `name` varchar(20) DEFAULT NULL,
+  `spelling` varchar(20) DEFAULT NULL COMMENT '城市名称的全拼',
+  `orderNo` int(20) DEFAULT NULL COMMENT '存储用于排序的数字，值越大越往后排',
+  `zipCode` varchar(20) DEFAULT NULL,
+  `provinceId` int(11) DEFAULT NULL,
+  `level` smallint(2) DEFAULT NULL COMMENT '城市等级'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*Data for the table `sys_city` */
@@ -256,41 +264,21 @@ insert  into `sys_city`(`id`,`name`,`spelling`,`orderNo`,`zipCode`,`provinceId`,
 DROP TABLE IF EXISTS `sys_dictionary`;
 
 CREATE TABLE `sys_dictionary` (
-  `id` bigint(20) NOT NULL auto_increment COMMENT '主键',
-  `groupName` varchar(100) default NULL COMMENT '组名（字典组关键字）',
-  `groupDisplayName` varchar(100) default NULL COMMENT '组别显示名称',
-  `dictKey` varchar(100) default NULL COMMENT '典字key',
-  `dictValue` varchar(100) default NULL COMMENT '典字value',
-  `dictDisplayName` varchar(100) default NULL COMMENT '字典值显示名称',
-  `orderNo` int(11) default NULL COMMENT '存储用于排序的数字，值越大越往后排',
-  `comment` varchar(200) default NULL COMMENT ' 备注',
-  `status` int(11) default NULL COMMENT '状态，字典表字段，组名：sys_dictoinary_status，0：删除；',
-  `createTime` datetime default NULL COMMENT '创建时间',
-  `updateTime` datetime default NULL COMMENT '更新时间',
-  PRIMARY KEY  (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `groupName` varchar(100) DEFAULT NULL COMMENT '组名（字典组关键字）',
+  `groupDisplayName` varchar(100) DEFAULT NULL COMMENT '组别显示名称',
+  `dictKey` varchar(100) DEFAULT NULL COMMENT '典字key',
+  `dictValue` varchar(100) DEFAULT NULL COMMENT '典字value',
+  `dictDisplayName` varchar(100) DEFAULT NULL COMMENT '字典值显示名称',
+  `orderNo` int(11) DEFAULT NULL COMMENT '存储用于排序的数字，值越大越往后排',
+  `comment` varchar(200) DEFAULT NULL COMMENT ' 备注',
+  `status` int(11) DEFAULT NULL COMMENT '状态，字典表字段，组名：sys_dictoinary_status，0：删除；',
+  `createTime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updateTime` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字典管理';
 
 /*Data for the table `sys_dictionary` */
-
-insert  into `sys_dictionary`(`id`,`groupName`,`groupDisplayName`,`dictKey`,`dictValue`,`dictDisplayName`,`orderNo`,`comment`,`status`,`createTime`,`updateTime`) values (1,'CUST_CAR_TYPE_CATEGORY','车辆类别','1','1','轿车',1,'轿车',1,'2013-04-05 11:18:45','2013-04-05 11:18:45'),(2,'CUST_CAR_TYPE_CATEGORY','车辆类别','2','2','越野汽车',2,'越野汽车',1,'2013-04-05 11:18:45','2013-04-05 11:18:45'),(3,'CUST_CAR_TYPE_CATEGORY','车辆类别','3','3','客车',3,'客车',1,'2013-04-05 11:18:45','2013-04-05 11:18:45'),(4,'CUST_CAR_TYPE_CATEGORY','车辆类别','4','4','货车',4,'货车',1,'2013-04-05 11:18:45','2013-04-05 11:18:45'),(5,'CUST_CAR_TYPE_CATEGORY','车辆类别','5','5','自卸汽车',5,'自卸汽车',1,'2013-04-05 11:18:45','2013-04-05 11:18:45'),(6,'CUST_CAR_TYPE_CATEGORY','车辆类别','6','6','牵引汽车',6,'牵引汽车',1,'2013-04-05 11:18:45','2013-04-05 11:18:45'),(7,'CUST_CAR_TYPE_CATEGORY','车辆类别','7','7','专用汽车',7,'专用汽车',1,'2013-04-05 11:18:45','2013-04-05 11:18:45');
-
-/*Table structure for table `sys_file_upload` */
-
-DROP TABLE IF EXISTS `sys_file_upload`;
-
-CREATE TABLE `sys_file_upload` (
-  `id` bigint(20) NOT NULL auto_increment COMMENT '主键',
-  `name` varchar(100) default NULL COMMENT '文件名称',
-  `path` text COMMENT '文件相对路径',
-  `md5` varchar(64) default NULL COMMENT 'MD5文件名（后缀由type解析）',
-  `type` int(11) default NULL COMMENT '文件类型（代码中用枚举解析）',
-  `status` int(11) default NULL COMMENT '状态',
-  `createTime` datetime default NULL COMMENT '创建时间',
-  `updateTime` datetime default NULL COMMENT '更新时间',
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-/*Data for the table `sys_file_upload` */
 
 /*Table structure for table `sys_province` */
 
@@ -298,12 +286,12 @@ DROP TABLE IF EXISTS `sys_province`;
 
 CREATE TABLE `sys_province` (
   `id` bigint(20) NOT NULL COMMENT '主键',
-  `name` varchar(50) default NULL COMMENT '省份名称',
-  `spelling` varchar(50) default NULL COMMENT '省份名称的全拼',
-  `orderNo` int(11) default NULL COMMENT '存储用于排序的数字，值越大越往后排',
-  `mapAreaId` varchar(20) default NULL COMMENT '统计中地图控件用',
-  `hasMetaData` tinyint(4) default NULL COMMENT '是否有metadata',
-  PRIMARY KEY  (`id`)
+  `name` varchar(50) DEFAULT NULL COMMENT '省份名称',
+  `spelling` varchar(50) DEFAULT NULL COMMENT '省份名称的全拼',
+  `orderNo` int(11) DEFAULT NULL COMMENT '存储用于排序的数字，值越大越往后排',
+  `mapAreaId` varchar(20) DEFAULT NULL COMMENT '统计中地图控件用',
+  `hasMetaData` tinyint(4) DEFAULT NULL COMMENT '是否有metadata',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='省份管理表';
 
 /*Data for the table `sys_province` */
@@ -315,26 +303,22 @@ insert  into `sys_province`(`id`,`name`,`spelling`,`orderNo`,`mapAreaId`,`hasMet
 DROP TABLE IF EXISTS `sys_user`;
 
 CREATE TABLE `sys_user` (
-  `id` bigint(20) NOT NULL auto_increment COMMENT '主键',
-  `username` varchar(50) default NULL COMMENT '用户姓名',
-  `password` varchar(50) default NULL COMMENT '用户密码',
-  `gender` int(11) default NULL COMMENT '性别（字典查询：1：男；2：女）',
-  `birthday` datetime default NULL COMMENT '生日',
-  `mobileNumber` varchar(20) default NULL COMMENT '手机号码',
-  `telephone` varchar(20) default NULL COMMENT '固定电话',
-  `email` varchar(100) default NULL COMMENT '邮箱',
-  `identityCardId` varchar(20) default NULL COMMENT '身份证',
-  `address` varchar(200) default NULL COMMENT '住址',
-  `storeId` bigint(11) default NULL COMMENT '管理员所属分店id，与cust_store表关联',
-  `status` int(11) default NULL COMMENT '状态，字典表字段，组名：sys_user_status，0：删除；',
-  `createTime` datetime default NULL COMMENT '创建时间',
-  `updateTime` datetime default NULL COMMENT '更新时间',
-  PRIMARY KEY  (`id`)
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `username` varchar(50) DEFAULT NULL COMMENT '用户姓名',
+  `password` varchar(50) DEFAULT NULL COMMENT '用户密码',
+  `gender` int(11) DEFAULT NULL COMMENT '性别（字典查询：1：男；2：女）',
+  `birthday` datetime DEFAULT NULL COMMENT '生日',
+  `mobileNumber` varchar(20) DEFAULT NULL COMMENT '手机号码',
+  `telephone` varchar(20) DEFAULT NULL COMMENT '固定电话',
+  `email` varchar(100) DEFAULT NULL COMMENT '邮箱',
+  `identityCardId` varchar(20) DEFAULT NULL COMMENT '身份证',
+  `address` varchar(200) DEFAULT NULL COMMENT '住址',
+  `storeId` bigint(11) DEFAULT NULL COMMENT '管理员所属分店id，与cust_store表关联',
+  `status` int(11) DEFAULT NULL COMMENT '状态，字典表字段，组名：sys_user_status，0：删除；',
+  `createTime` datetime DEFAULT NULL COMMENT '创建时间',
+  `updateTime` datetime DEFAULT NULL COMMENT '更新时间',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统管理员';
-
-
-alter table `car-rental-customer`.`csm_consumer` 
-   change `brithday` `birthday` datetime NULL  comment '出生日期'
 
 /*Data for the table `sys_user` */
 

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.huhuo.carservicecore.csm.consumer.IDaoConsumer;
 import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
@@ -57,6 +58,72 @@ public class CtrlConsumer extends BaseCtrl {
 		List<ModelConsumer> list = iservConsumer.findModels(new Page<ModelConsumer>(0, 10));
 		write(ExtUtils.getJsonStore(list, list.size()), resp);
 	}
+	
+	@RequestMapping(value="/condition/get.do")
+	public String get(Model model, Condition<ModelConsumer> condition, ModelConsumer t){
+		condition.setT(t);
+		condition.setOrderList(new Order("createTime", Dir.DESC), new Order("updateTime", Dir.DESC));
+		logger.debug("---> server receive: condition={}", condition);
+		Page<ModelConsumer> page = condition.getPage();
+		if(page == null) {
+			page = new Page<ModelConsumer>();
+		}
+		List<ModelConsumer> records = iservConsumer.findByCondition(condition);
+		model.addAttribute("records", records);
+		page.setTotal(iservConsumer.countByCondition(condition));
+		model.addAttribute("page", page);
+		model.addAttribute("t", t);
+		
+		return basePath + "/consumer/page-grid";
+	}
+	
+	@RequestMapping(value="/add.do")
+	public void add(HttpServletResponse resp, ModelConsumer consumer) {
+		logger.debug("---> server receive: carType={}, chargeStandard={}", consumer);
+		// add car type
+		iservConsumer.add(consumer);
+		Message<ModelConsumer> msg = new Message<ModelConsumer>(Status.SUCCESS, "add new consumer success!", consumer);
+		write(msg, resp);
+	}
+	
+	@RequestMapping(value="/add-ui.do")
+	public String addUI(Model model) {
+		logger.debug("==> access add ui");
+		return basePath + "/consumer/add-ui";
+	}
+	
+	@RequestMapping(value="/detail.do")
+	public String detail(Model model, ModelConsumer t) {
+		logger.debug("==> edit ModelConsumer with id --> {}", t.getId());
+		Condition<ModelConsumer> condition = new Condition<ModelConsumer>(t, null, null, null);
+		model.addAttribute("consumer", iservConsumer.findByCondition(condition, true).get(0));
+		return basePath + "/consumer/detail";
+	}
+	
+	@RequestMapping(value="/edit-ui.do")
+	public String editUI(Model model, ModelConsumer t) {
+		logger.debug("==> edit ModelConsumer with id --> {}", t.getId());
+		Condition<ModelConsumer> condition = new Condition<ModelConsumer>(t, null, null, null);
+		model.addAttribute("consumer", iservConsumer.findByCondition(condition, true).get(0));
+		return basePath + "/consumer/edit-ui";
+	}
+	
+	@RequestMapping(value="/update.do")
+	public void update(HttpServletResponse resp, ModelConsumer t) throws Exception {
+		// retrieve model form DB
+		iservConsumer.update(t);
+		Message<ModelConsumer> msg = new Message<ModelConsumer>(Status.SUCCESS, "修改成功", t);
+		write(msg, resp);
+	}
+	
+	@RequestMapping(value="/delete.do")
+	public void delete(HttpServletResponse resp, ModelConsumer t, @RequestParam(value="ids[]") List<Long> ids) {
+		// receive data
+		logger.debug("==> batch delete -->{}", ids);
+		// retrieve model form DB
+		iservConsumer.deleteBatch(ids);
+		write(new Message<ModelConsumer>(Status.SUCCESS, "删除成功", t), resp);
+	}
 	/**
 	 * register customer
 	 * @param condition
@@ -67,19 +134,6 @@ public class CtrlConsumer extends BaseCtrl {
 		logger.debug("--->");
 		logger.debug("username:" + username);
 		logger.debug("<---");
-		
-	}
-	
-	@RequestMapping(value="/add.do")
-	public void addConsumer(HttpServletResponse resp, ModelConsumer consumer) {
-		
-		logger.debug("--->");
-		
-		Integer count = idaoConsumer.add(consumer);
-		logger.debug("insert record count:" + count);
-		
-		logger.debug("<---");
-		write(new Message<ModelConsumer>(Status.SUCCESS, "add new consumer success!", consumer), resp);
 		
 	}
 	

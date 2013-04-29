@@ -53,7 +53,11 @@
 			}
 		});
 		
+<<<<<<< HEAD
 	});
+=======
+	});
+>>>>>>> branch 'master' of https://github.com/huhuo/car-rental.git
 </script>
 
 <div class="row-fluid">

@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
 import com.huhuo.carservicecore.csm.order.ModelOrder;
+import com.huhuo.carservicecore.cust.car.ModelCar;
+import com.huhuo.carservicecore.cust.car.ModelCarType;
+import com.huhuo.carservicecore.cust.car.ModelChargeStandard;
+import com.huhuo.carservicecore.cust.store.ModelStore;
 import com.huhuo.integration.base.BaseCtrl;
 import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.db.mysql.Page;
@@ -24,6 +28,7 @@ public class CtrlOrder extends BaseCtrl {
 
 	@Resource(name = "cmorderServOrder")
 	private IServOrder iservOrder;
+	
 
 	/*************************************************************
 	 * order info management
@@ -85,11 +90,46 @@ public class CtrlOrder extends BaseCtrl {
 	}
 	
 	@RequestMapping(value="/conumer.do")
-	public void get(HttpServletResponse resp, String phone){
-		logger.debug("server receive: phone={}", phone);
+	public void getConsumer(HttpServletResponse resp, String mobileNumber){
+		logger.debug("server receive: mobileNumber={}", mobileNumber);
 //			condition.setPage(new Page(0, 30));
 //			List<ModelConsumer> list = servConsumer.findByCondition(condition);
-		List<ModelConsumer> list = iservOrder.getConsumerListByPhone(phone);
+		List<ModelConsumer> list = iservOrder.getConsumerListByPhone(mobileNumber);
+		write(ExtUtils.getJsonStore(list, list.size()), resp);
+	}
+	
+	@RequestMapping(value="/car.do")
+	public void getCar(HttpServletResponse resp, String licencePlate,Long carTypeId){
+		logger.debug("server receive: licencePlate={},carTypeId={}", licencePlate,carTypeId);
+//			condition.setPage(new Page(0, 30));
+//			List<ModelConsumer> list = servConsumer.findByCondition(condition);
+		List<ModelCar> list = iservOrder.getCarListBylicencePlate(licencePlate,carTypeId);
+		write(ExtUtils.getJsonStore(list, list.size()), resp);
+	}
+	@RequestMapping(value="/carType.do")
+	public void getCarType(HttpServletResponse resp, String carTypeName,Long carTypeId){
+		logger.debug("server receive: carTypeName={},carTypeId={}", carTypeName,carTypeId);
+//			condition.setPage(new Page(0, 30));
+//			List<ModelConsumer> list = servConsumer.findByCondition(condition);
+		List<ModelCarType> list = iservOrder.getCarTypeList(carTypeName,carTypeId);
+		write(ExtUtils.getJsonStore(list, list.size()), resp);
+	}
+	
+	@RequestMapping(value="/store.do")
+	public void getCarType(HttpServletResponse resp,Long storeId){
+		logger.debug("server receive: storeId={}", storeId);
+//			condition.setPage(new Page(0, 30));
+//			List<ModelConsumer> list = servConsumer.findByCondition(condition);
+		List<ModelStore> list = iservOrder.getStoreById(storeId);
+		write(ExtUtils.getJsonStore(list, list.size()), resp);
+	}
+	
+	@RequestMapping(value="/chargeStandard.do")
+	public void getChargeStandard(HttpServletResponse resp,Long chargeStandardId){
+		logger.debug("server receive: chargeStandardId={}", chargeStandardId);
+//			condition.setPage(new Page(0, 30));
+//			List<ModelConsumer> list = servConsumer.findByCondition(condition);
+		List<ModelChargeStandard> list = iservOrder.getchargeStandardById(chargeStandardId);
 		write(ExtUtils.getJsonStore(list, list.size()), resp);
 	}
 

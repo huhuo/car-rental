@@ -1,6 +1,7 @@
 package com.huhuo.carservicecore.cust.car;
 
 import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
+import com.huhuo.carservicecore.sys.file.ModelFileUpload;
 import com.huhuo.integration.base.BaseModel;
 import com.huhuo.integration.db.mysql.NotSqlField;
 
@@ -12,7 +13,7 @@ public class ModelCarType extends BaseModel {
 	/** 车型名称 **/
 	private String name;
 	/** 图片地址（静态资源） **/
-	private String icon;
+	private Long iconId;
 	/** 车辆类别（字典表字段，组名：cust_car_type_category，1、轿车；2、越野汽车；3、客车；4、货车；5、自卸汽车；6、牵引汽车；7、专用汽车） **/
 	private Integer category;
 	/** 座位数 **/
@@ -29,6 +30,8 @@ public class ModelCarType extends BaseModel {
 	 ***************************************/
 	@NotSqlField
 	private ModelDictionary categoryDict;
+	@NotSqlField
+	private ModelFileUpload icon;
 	
 	private @NotSqlField ModelChargeStandard chargeStandard;
 	
@@ -38,11 +41,11 @@ public class ModelCarType extends BaseModel {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getIcon() {
-		return icon;
+	public Long getIconId() {
+		return iconId;
 	}
-	public void setIcon(String icon) {
-		this.icon = icon;
+	public void setIconId(Long iconId) {
+		this.iconId = iconId;
 	}
 	public Integer getCategory() {
 		return category;
@@ -85,6 +88,12 @@ public class ModelCarType extends BaseModel {
 	}
 	public void setChargeStandard(ModelChargeStandard chargeStandard) {
 		this.chargeStandard = chargeStandard;
+	}
+	public ModelFileUpload getIcon() {
+		return icon;
+	}
+	public void setIcon(ModelFileUpload icon) {
+		this.icon = icon;
 	}
 
 }

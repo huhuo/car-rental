@@ -6,14 +6,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
-import com.huhuo.integration.base.BaseCtrl;
+import com.huhuo.cmsystem.SystemBaseCtrl;
 import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.util.ExtUtils;
 
 
 @Controller("cmsystemCtrlUser")
 @RequestMapping(value="/cmsystem/user")
-public class CtrlUser extends BaseCtrl {
+public class CtrlUser extends SystemBaseCtrl {
 	
 	protected String basePath = "/car-module-system/security";
 	

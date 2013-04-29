@@ -13,7 +13,9 @@ import com.huhuo.carservicecore.cust.car.ModelCarType;
 import com.huhuo.carservicecore.cust.car.ModelChargeStandard;
 import com.huhuo.carservicecore.db.GenericBaseExtenseServ;
 import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
+import com.huhuo.carservicecore.sys.file.ModelFileUpload;
 import com.huhuo.cmsystem.dict.IServDictionary;
+import com.huhuo.cmsystem.file.IServFileUpload;
 import com.huhuo.integration.base.IBaseExtenseDao;
 import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.exception.ServException;
@@ -30,6 +32,9 @@ public class ServCarType extends GenericBaseExtenseServ<ModelCarType> implements
 	
 	@Resource(name = "cmsystemServDictionary")
 	private IServDictionary iServDictionary;
+	
+	@Resource(name = "cmsystemServFileUpload")
+	private IServFileUpload iServFileUpload;
 
 	@Override
 	public IBaseExtenseDao<ModelCarType> getDao() {
@@ -52,6 +57,8 @@ public class ServCarType extends GenericBaseExtenseServ<ModelCarType> implements
 				t.setCategoryDict(categoryDict);
 				ModelChargeStandard chargeStandard = iServChargeStandard.find(t.getChargeStandardId());
 				t.setChargeStandard(chargeStandard);
+				ModelFileUpload icon = iServFileUpload.find(t.getIconId());
+				t.setIcon(icon);
 			}
 		}
 		return list;
@@ -72,6 +79,13 @@ public class ServCarType extends GenericBaseExtenseServ<ModelCarType> implements
 		// update t
 		t.setCreateTime(new Date());
 		t.setUpdateTime(new Date());
+		// update icon infomation
+		ModelFileUpload icon = t.getIcon();
+		// update DB
+		if(icon != null) {
+			icon = iServFileUpload.uploadFile(icon);
+			t.setIconId(icon.getId());
+		}
 		return super.add(t);
 	}
 	
@@ -89,6 +103,11 @@ public class ServCarType extends GenericBaseExtenseServ<ModelCarType> implements
 			ModelChargeStandard chargeStandard = t.getChargeStandard();
 			if (chargeStandard != null) {
 				iServChargeStandard.update(chargeStandard);
+			}
+			ModelFileUpload icon = t.getIcon();
+			if(icon != null) {
+				iServFileUpload.uploadFile(icon);
+				carTypeDB.setIconId(icon.getId());
 			}
 			return super.update(carTypeDB);
 		} catch (Exception e) {
