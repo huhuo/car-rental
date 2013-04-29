@@ -2,7 +2,8 @@
 SQLyog 企业版 - MySQL GUI v8.14 
 MySQL - 5.5.28 : Database - car-rental-customer
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -149,7 +150,7 @@ DROP TABLE IF EXISTS `cust_car_type`;
 CREATE TABLE `cust_car_type` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(50) DEFAULT NULL COMMENT '车型名称',
-  `icon` varchar(200) DEFAULT NULL COMMENT '图片地址（静态资源）',
+  `iconId` varchar(200) DEFAULT NULL COMMENT '图片地址（静态资源）',
   `category` int(11) DEFAULT NULL COMMENT '车辆类别（字典表字段，组名：cust_car_type_category，1、轿车；2、越野汽车；3、客车；4、货车；5、自卸汽车；6、牵引汽车；7、专用汽车）',
   `seating` int(11) DEFAULT NULL COMMENT '座位数',
   `tankCapacity` int(11) DEFAULT NULL COMMENT '油箱容量（单位：升）',
@@ -163,7 +164,7 @@ CREATE TABLE `cust_car_type` (
 
 /*Data for the table `cust_car_type` */
 
-insert  into `cust_car_type`(`id`,`name`,`icon`,`category`,`seating`,`tankCapacity`,`drivingRange`,`chargeStandardId`,`status`,`createTime`,`updateTime`) values (1,'小家常菜',NULL,1,23,23,34,1,1,'2013-03-31 16:32:21','2013-03-31 16:32:21'),(2,'小家常菜^^&&^&',NULL,1,23,23,34,2,1,'2013-03-31 16:32:45','2013-03-31 16:32:45'),(3,'宝马X5',NULL,1,32,342,43,3,1,'2013-03-31 16:34:58','2013-03-31 16:34:58');
+insert  into `cust_car_type`(`id`,`name`,`iconId`,`category`,`seating`,`tankCapacity`,`drivingRange`,`chargeStandardId`,`status`,`createTime`,`updateTime`) values (1,'小家常菜',NULL,1,23,23,34,1,1,'2013-03-31 16:32:21','2013-03-31 16:32:21'),(2,'小家常菜^^&&^&',NULL,1,23,23,34,2,1,'2013-03-31 16:32:45','2013-03-31 16:32:45'),(3,'宝马X5',NULL,1,32,342,43,3,1,'2013-03-31 16:34:58','2013-03-31 16:34:58');
 
 /*Table structure for table `cust_charge_standard` */
 
@@ -236,7 +237,7 @@ CREATE TABLE `statis_car_income` (
   `createTime` datetime DEFAULT NULL COMMENT '创建时间',
   `updateTime` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='车辆收入统计（统计类）\n未详细设计，预计�';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='车辆收入统计（统计类）\n未详细设计，预计�';
 
 /*Data for the table `statis_car_income` */
 

@@ -116,16 +116,10 @@
 			<ul class="thumbnails">
 				<li class="span12">
 					<a href="javascript:void(0)" class="thumbnail">
-						<img class="img-rounded" src="${path }/res/images/status/bazzi.jpg" alt="">
+						<img class="img-rounded" src="${path }/${carType.icon.path}/${carType.icon.md5}" alt="">
 					</a>
 				</li>
 			</ul>
-			<div class="control-group">
-				<label class="control-label" for="inputIcon">图片上传</label>
-				<div class="controls">
-					<input type="file" id="inputIcon" name="icon" placeholder="图片上传...">
-				</div>
-			</div>
 		</div>
 	</div>
 </form>

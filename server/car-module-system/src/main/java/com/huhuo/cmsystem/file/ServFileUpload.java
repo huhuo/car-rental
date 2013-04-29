@@ -91,7 +91,7 @@ public class ServFileUpload extends GenericBaseExtenseServ<ModelFileUpload> impl
 	public ModelFileUpload uploadFile(ModelFileUpload t) {
 		try {
 			File srcFile = new File(ctx.getRealPath(cachedPath + fileSeparator + t.getMd5()));
-			if(srcFile.exists()) {
+			if(srcFile.exists() && srcFile.isFile()) {
 				// copy file in cached directory to persist directory
 				String firstLevel = TimeUtils.format(new Date(), false);
 				File destDir = new File(ctx.getRealPath(webResPath + fileSeparator + firstLevel));

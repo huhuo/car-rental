@@ -107,6 +107,7 @@ public class ServCarType extends GenericBaseExtenseServ<ModelCarType> implements
 			ModelFileUpload icon = t.getIcon();
 			if(icon != null) {
 				iServFileUpload.uploadFile(icon);
+				carTypeDB.setIconId(icon.getId());
 			}
 			return super.update(carTypeDB);
 		} catch (Exception e) {
