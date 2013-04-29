@@ -23,26 +23,6 @@ public class Constant {
 	public static final String FILE_UPLOAD_CACHE_PATH = config.getString("file.upload.cache.path");
 	public static final String FILE_UPLOAD_PERSIST_PATH = config.getString("file.upload.persist.path");
 	
-	public enum GeneralPage {
-		EXCEPTION_PAGE("msg", "/car-module-system/exception"),
-		MSG_PAGE("msg", "/car-module-system/message"),
-		;
-		/** the key of data stored in request scope **/
-		private String attrName;
-		/** the location of rendering page the request will jump to **/
-		private String location;
-		GeneralPage(String attrName, String location) {
-			this.attrName = attrName;
-			this.location = location;
-		}
-		public String getAttrName() {
-			return this.attrName;
-		}
-		public String getLocation() {
-			return this.location;
-		}
-	}
-	
 	public enum Suffix {
 		PNG(1),
 		JPG(2),

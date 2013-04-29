@@ -61,14 +61,11 @@ public class CtrlCarType extends BaseCtrl {
 		if(page == null) {
 			page = new Page<ModelCarType>();
 		}
-		List<ModelCarType> records = iservCarType.findByCondition(condition);
+		List<ModelCarType> records = iservCarType.findByCondition(condition, true);
 		model.addAttribute("records", records);
 		page.setTotal(iservCarType.countByCondition(condition));
 		model.addAttribute("page", page);
 		model.addAttribute("t", t);
-		
-//		System.out.println(1/0);
-		
 		return basePath + "/cartype/page-grid";
 	}
 	

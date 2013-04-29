@@ -28,7 +28,11 @@ table.table-hover tbody tr.huhuo-item-selected {
 		<tr>
 			<td><input type="checkbox" class="checkbox"></td>
 			<td>${record.id}</td>
-			<td>${record.icon}</td>
+			<td>
+				<a href="javascript:void(0)" class="thumbnail">
+					<img class="img-rounded" style="height: 100px; width: 150px;" src="${path }/${record.icon.path}/${record.icon.md5}">
+				</a>
+			</td>
 			<td>${record.name}</td>
 			<td>${record.category}</td>
 			<td>${record.seating}</td>

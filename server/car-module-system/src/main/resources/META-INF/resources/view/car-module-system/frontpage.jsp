@@ -29,14 +29,16 @@
 </style>
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		$('.huhuoItem').click(function(event) {
-			$('.huhuoItem').each(function(idx, item) {
-				$(item).removeClass("huhuo-item-selected");
-			});
-			$(this).addClass("huhuo-item-selected");
+// define a global variables
+var ctxPath = '${path}';
+$(document).ready(function() {
+	$('.huhuoItem').click(function(event) {
+		$('.huhuoItem').each(function(idx, item) {
+			$(item).removeClass("huhuo-item-selected");
 		});
+		$(this).addClass("huhuo-item-selected");
 	});
+});
 </script>
 
 </head>
