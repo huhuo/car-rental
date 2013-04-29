@@ -63,7 +63,7 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputSeating">会员姓名</label>
 							<div class="controls">
-								<input type="number" class="consumerinput required digits" value="${consumer.username } 
+								<input type="number" class="consumerinput required" value="${consumer.username } 
 									id="inputCustomerName" name="username" placeholder="输入会员姓名">
 							</div>
 						</div>
@@ -116,7 +116,7 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputCurrentAddress">现在住址</label>
 							<div class="controls">
-								<input type="text" class="consumerinput required digits" value="${consumer.address } 
+								<input type="text" class="consumerinput required" value="${consumer.address } 
 									id="inputCurrentAddress" name="currentaddress"
 									placeholder="输入现在住址">
 							</div>
@@ -124,7 +124,7 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputPermanentAddress">户籍地址</label>
 							<div class="controls">
-								<input type="number" class="consumerinput required digits" value="${consumer.permanentAddress } 
+								<input type="number" class="consumerinput required" value="${consumer.permanentAddress } 
 									id="inputPermanentAddress" name="address" placeholder="输入户籍地址">
 							</div>
 						</div>
@@ -142,7 +142,7 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputEmergencyContact">紧急联系人</label>
 							<div class="controls">
-								<input type="text" class="consumerinput required digits" value="${consumer.emergencyContact } 
+								<input type="text" class="consumerinput required" value="${consumer.emergencyContact } 
 									id="inputemergencyContact" name="emergencyContact"
 									placeholder="输入紧急联系人">
 							</div>
@@ -171,7 +171,7 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputDrivingLicenseNo">驾驶证号</label>
 							<div class="controls">
-								<input type="text" class="consumerinput required digits" 
+								<input type="text" class="consumerinput required" 
 									id="inputDrivingLicenseNo" name="licenseNum"
 									placeholder="输入驾驶证号">
 							</div>
@@ -180,7 +180,7 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputReceivingArea">领取地区</label>
 							<div class="controls">
-								<input type="text" class="consumerinput required digits" 
+								<input type="text" class="consumerinput required" 
 									id="inputReceivingArea" name="receivingarea"
 									placeholder="请输入领取地区">
 							</div>
