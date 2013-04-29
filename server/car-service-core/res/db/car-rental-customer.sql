@@ -70,6 +70,14 @@ CREATE TABLE `csm_order` (
   `status` int(11) DEFAULT NULL COMMENT '状态，字典表字段，组名：csm_order_status，0：删除；1：待结帐；2：已结帐',
   `createTime` datetime DEFAULT NULL COMMENT '创建时间',
   `updateTime` datetime DEFAULT NULL COMMENT '更新时间',
+    `deposit` double DEFAULT NULL COMMENT '押金',
+  `premium` double DEFAULT NULL COMMENT '保险费，xxx元/次',
+  `rent` double DEFAULT NULL COMMENT '租金（xxx元/天）',
+  `mileageLimits` bigint(20) DEFAULT NULL COMMENT '里程限制（xxx公里/日）',
+  `overMileageFare` double DEFAULT NULL COMMENT '超里程费用（xxx元/公里）',
+  `overTimeFare` double DEFAULT NULL COMMENT '超时标准（xxx元/小时）',
+  `carSendFare` double DEFAULT NULL COMMENT '上门送车（xxx元）',
+  `diffShopReturnFare` double DEFAULT NULL COMMENT '异店结算（还车）附加费（元）',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单';
 
@@ -95,6 +103,14 @@ CREATE TABLE `csm_order_snapshot` (
   `status` int(11) DEFAULT NULL COMMENT '状态，字典表字段，组名：csm_order_snapshot_status，0：删除；1：待审批；2：已审批',
   `createTime` datetime DEFAULT NULL COMMENT '创建时间',
   `updateTime` datetime DEFAULT NULL COMMENT '更新时间',
+  `deposit` double DEFAULT NULL COMMENT '押金',
+  `premium` double DEFAULT NULL COMMENT '保险费，xxx元/次',
+  `rent` double DEFAULT NULL COMMENT '租金（xxx元/天）',
+  `mileageLimits` bigint(20) DEFAULT NULL COMMENT '里程限制（xxx公里/日）',
+  `overMileageFare` double DEFAULT NULL COMMENT '超里程费用（xxx元/公里）',
+  `overTimeFare` double DEFAULT NULL COMMENT '超时标准（xxx元/小时）',
+  `carSendFare` double DEFAULT NULL COMMENT '上门送车（xxx元）',
+  `diffShopReturnFare` double DEFAULT NULL COMMENT '异店结算（还车）附加费（元）',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单快照表（用于订单修改审批）';
 

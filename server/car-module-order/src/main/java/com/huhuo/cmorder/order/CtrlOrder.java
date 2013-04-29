@@ -15,14 +15,15 @@ import com.huhuo.carservicecore.cust.car.ModelCar;
 import com.huhuo.carservicecore.cust.car.ModelCarType;
 import com.huhuo.carservicecore.cust.car.ModelChargeStandard;
 import com.huhuo.carservicecore.cust.store.ModelStore;
-import com.huhuo.integration.base.BaseCtrl;
+import com.huhuo.cmorder.order.model.OrderFormModel;
 import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.db.mysql.Page;
 import com.huhuo.integration.util.ExtUtils;
+import com.huhuo.webbase.general.HuhuoWebBaseBaseCtrl;
 
 @Controller("cmorderCtrlOrder")
 @RequestMapping(value = "/cmorder/order")
-public class CtrlOrder extends BaseCtrl {
+public class CtrlOrder extends HuhuoWebBaseBaseCtrl {
 
 	protected final static String basePath = "/car-module-order";
 
@@ -61,22 +62,14 @@ public class CtrlOrder extends BaseCtrl {
 	}
 
 	@RequestMapping(value = "/addorder.do")
-	public void addOrder(Condition<ModelOrder> condition, Model model) {
-		logger.debug("server receive: condition={}", condition);
-		Page<ModelOrder> page = condition.getPage();
-
-		if (page == null) {
-			page = new Page<ModelOrder>();
-			condition.setPage(page);
-		}
+	public void addOrder(HttpServletResponse resp, OrderFormModel orderForm) {
+		logger.debug("server receive: orderForm={}", orderForm);
+		
 		// condition.setPage(new Page(0, 30));
 		// List<ModelConsumer> list = servConsumer.findByCondition(condition);
-		List<ModelOrder> list = iservOrder.findModels(page);
-
-		page.setTotal(iservOrder.count());
-		page.setRecords(list);
-		model.addAttribute("orderPage", page);
-		logger.debug("orderlist is [{}]", list);
+//		Message<ModelCarType> msg = new Message<ModelOrder>(Status.SUCCESS, "add new cartype success!", odelOrder);
+//		write(msg, resp);
+//		logger.debug("orderlist is [{}]", list);
 	}
 
 	/*************************************************************
@@ -122,6 +115,7 @@ public class CtrlOrder extends BaseCtrl {
 //			List<ModelConsumer> list = servConsumer.findByCondition(condition);
 		List<ModelStore> list = iservOrder.getStoreById(storeId);
 		write(ExtUtils.getJsonStore(list, list.size()), resp);
+		
 	}
 	
 	@RequestMapping(value="/chargeStandard.do")
