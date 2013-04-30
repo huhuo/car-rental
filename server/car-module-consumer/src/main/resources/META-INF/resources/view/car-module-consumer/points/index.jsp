@@ -6,6 +6,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>积分管理</h1>
+	<h1>敬请期待 Comming Soon !</h1>
 </body>
 </html>
