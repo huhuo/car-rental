@@ -228,10 +228,10 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	public void setReceiveArea(String receiveArea) {
 		this.receiveArea = receiveArea;
 	}
-	public int getConsumerStatus() {
+	public Integer getConsumerStatus() {
 		return consumerStatus;
 	}
-	public void setConsumerStatus(int consumerStatus) {
+	public void setConsumerStatus(Integer consumerStatus) {
 		this.consumerStatus = consumerStatus;
 	}
 	public String getBondsman() {
