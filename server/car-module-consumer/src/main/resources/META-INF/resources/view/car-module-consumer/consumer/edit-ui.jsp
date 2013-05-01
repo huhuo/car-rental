@@ -155,6 +155,34 @@ div.titlewell {
 									placeholder="输入紧急联系人电话">
 							</div>
 						</div>
+						
+						
+						<div class="control-group">
+							<label class="control-label" for="inputBondsman">担保人姓名</label>
+							<div class="controls">
+								<input type="text" class="consumerinput required digits"
+									id="inputBondsman" name="bondsman"
+									placeholder="输入担保人姓名">
+							</div>
+						</div>
+						
+						<div class="control-group">
+							<label class="control-label" for="inputBondsmanIdentityCard">担保人身份证号</label>
+							<div class="controls">
+								<input type="text" class="consumerinput required digits"
+									id="inputBondsmanIdentityCard" name="bondsmanIdentityCard"
+									placeholder="输入担保人身份证号">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="inputBondsmanTel">担保人电话</label>
+							<div class="controls">
+								<input type="text" class="consumerinput required digits"
+									id="inputBondsmanTel"" name="bondsmanTel"
+									placeholder="输入担保人电话">
+							</div>
+						</div>
+						
 						<div class="control-group">
 							<div class="controls">
 								<button type="submit" class="btn btn-primary" id="inputSubmit"

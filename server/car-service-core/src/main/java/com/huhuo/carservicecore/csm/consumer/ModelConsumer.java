@@ -12,7 +12,7 @@ public class ModelConsumer extends BaseModel implements Serializable {
 
 	private static final long serialVersionUID = 1861309734833243740L;
 	
-	/** 省份证号码 **/
+	/** 身份证号码 **/
 	private String identityCardId;
 	/** 用户姓名 **/
 	private String username;
@@ -56,12 +56,11 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	private Date updateTime;
 	/** 是否是黑名单*/
 	private Boolean blackList;
-	/** 身份证号码*/
-	private String idCard;
 	@NotSqlField
 	private Integer age;
 	/**客户状态（字典表查询，dictValue：1：正常；2：黑名单 */
-	private int consumerStatus;
+	@NotSqlField
+	private Integer consumerStatus;
 	/**担保人*/
 	private String bondsman;
 	/**担保人身份证号*/
@@ -210,12 +209,6 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	public void setAge(Integer age) {
 		this.age = age;
 	}
-	public String getIdCard() {
-		return idCard;
-	}
-	public void setIdCard(String idCard) {
-		this.idCard = idCard;
-	}
 	public String getPermanentAddress() {
 		return permanentAddress;
 	}
@@ -228,10 +221,10 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	public void setReceiveArea(String receiveArea) {
 		this.receiveArea = receiveArea;
 	}
-	public int getConsumerStatus() {
+	public Integer getConsumerStatus() {
 		return consumerStatus;
 	}
-	public void setConsumerStatus(int consumerStatus) {
+	public void setConsumerStatus(Integer consumerStatus) {
 		this.consumerStatus = consumerStatus;
 	}
 	public String getBondsman() {
