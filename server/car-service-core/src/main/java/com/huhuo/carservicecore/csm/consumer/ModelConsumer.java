@@ -60,6 +60,14 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	private String idCard;
 	@NotSqlField
 	private Integer age;
+	/**客户状态（字典表查询，dictValue：1：正常；2：黑名单 */
+	private int consumerStatus;
+	/**担保人*/
+	private String bondsman;
+	/**担保人身份证号*/
+	private String bondsmanIdentityCard;
+	/**担保人联系电话（手机）*/
+	private String bondsmanTel;
 	
 	/**
 	 * 外联对象
@@ -219,6 +227,30 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	}
 	public void setReceiveArea(String receiveArea) {
 		this.receiveArea = receiveArea;
+	}
+	public int getConsumerStatus() {
+		return consumerStatus;
+	}
+	public void setConsumerStatus(int consumerStatus) {
+		this.consumerStatus = consumerStatus;
+	}
+	public String getBondsman() {
+		return bondsman;
+	}
+	public void setBondsman(String bondsman) {
+		this.bondsman = bondsman;
+	}
+	public String getBondsmanIdentityCard() {
+		return bondsmanIdentityCard;
+	}
+	public void setBondsmanIdentityCard(String bondsmanIdentityCard) {
+		this.bondsmanIdentityCard = bondsmanIdentityCard;
+	}
+	public String getBondsmanTel() {
+		return bondsmanTel;
+	}
+	public void setBondsmanTel(String bondsmanTel) {
+		this.bondsmanTel = bondsmanTel;
 	}
 	
 	
