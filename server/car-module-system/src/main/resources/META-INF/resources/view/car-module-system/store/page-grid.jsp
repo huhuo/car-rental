@@ -9,7 +9,7 @@ table.table-hover tbody tr.huhuo-item-selected {
 
 
 </style>
-<table id="cartypePageGridId" class="table table-hover table-condensed">
+<table id="storePageGridId" class="table table-hover table-condensed">
 	<thead>
 		<tr>
 			<th><input type="checkbox" class="checkbox"></th>
@@ -36,8 +36,8 @@ table.table-hover tbody tr.huhuo-item-selected {
 			<td>${record.rentNum}</td>
 			<td>
 				<div class="btn-group">
-					<button class="btn">查看详情</button>
-					<button class="btn">修改</button>
+					<button  name="detail" class="btn">查看详情</button>
+					<button  name="edit" class="btn">修改</button>
 				</div>
 			</td>
 		</tr>
@@ -58,11 +58,45 @@ $(document).ready(function() {
 	// 绑定标签元素。设置当前页，页面数据条数，总数，要访问的url，对应的参数，点击标签时刷新的div，标签数
 	var page = JSON.parse('${page}');
 	var t = JSON.parse('${t}');
+	console.info(page);
 	$(".pagination").myPage(page, '${path }/cmsystem/store/condition/get.do', t, $("#pagediv"), 5);
 	// add select css
-	$('#cartypePageGridId tbody tr').click(function(event) {
+	$('#storePageGridId tbody tr').click(function(event) {
 		$(this).toggleClass('huhuo-item-selected');
 		$(this).find(':checkbox')[0].checked = !$(this).find(':checkbox')[0].checked;
+		console.log("++++++++++>>>>");
+	});
+	// add select event
+	$('#storePageGridId thead tr :checkbox').click(function(event) {
+		$('#storePageGridId tbody :checkbox').each(function(index, element) {
+			element.checked = $('#storePageGridId thead tr :checkbox')[0].checked;
+			if(element.checked) {
+				$('#storePageGridId tbody tr').addClass('huhuo-item-selected');
+			} else {
+				$('#storePageGridId tbody tr').removeClass('huhuo-item-selected');
+			}
+		});
+	});
+	// add event to edit button
+	$('#storePageGridId tbody button[name="detail"]').click(function(event) {
+		var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
+		$("#storeEditDivId").load('${path}/cmsystem/store/detail.do', {
+			id: selectedId
+		}, function(resp, status, xhReq) {
+			$("#storeMgrDivId").hide();
+			$("#storeEditDivId").show(500);
+		});
+	});
+	$('#storePageGridId tbody button[name="edit"]').click(function(event) {
+		console.log($(this));
+		var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
+		
+		$("#storeEditDivId").load('${path}/cmsystem/store/edit-ui.do', {
+			id: selectedId
+		}, function(resp, status, xhReq) {
+			$("#storeMgrDivId").hide();
+			$("#storeEditDivId").show(500);
+		});
 	});
 });
 </script>

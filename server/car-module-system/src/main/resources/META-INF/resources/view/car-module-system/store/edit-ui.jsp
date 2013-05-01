@@ -3,11 +3,11 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		// cartype add page
-		$('#cartypeEditDivId form').huhuoFormPost(function(data, status) {
-			$('#cartypeEditDivId').hide();
-			$('#cartypeMgrDivId').show(500);
-			$('#cartypeMgrDivId form button').trigger("click");
-			console.log($('#cartypeEditDivId form').serialize());
+		$('#storeEditDivId form').huhuoFormPost(function(data, status) {
+			$('#storeEditDivId').hide();
+			$('#storeMgrDivId').show(500);
+			$('#storeMgrDivId form button').trigger("click");
+			console.log($('#storeEditDivId form').serialize());
 		}, '${path}/');
 	});
 </script>

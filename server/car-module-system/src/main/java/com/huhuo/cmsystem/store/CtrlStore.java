@@ -9,17 +9,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.huhuo.carservicecore.constant.Dictionary.DictGroup;
-import com.huhuo.carservicecore.cust.car.ModelCarType;
-import com.huhuo.carservicecore.cust.car.ModelChargeStandard;
+import com.huhuo.carservicecore.cust.car.ModelCar;
 import com.huhuo.carservicecore.cust.store.ModelStore;
 import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
+import com.huhuo.carservicecore.sys.user.ModelUser;
 import com.huhuo.cmsystem.dict.IServDictionary;
+import com.huhuo.cmsystem.security.user.IServUser;
 import com.huhuo.integration.base.BaseCtrl;
 import com.huhuo.integration.db.mysql.Condition;
-import com.huhuo.integration.db.mysql.Dir;
-import com.huhuo.integration.db.mysql.Order;
 import com.huhuo.integration.db.mysql.Page;
 import com.huhuo.integration.web.Message;
 import com.huhuo.integration.web.Message.Status;
@@ -34,8 +34,11 @@ public class CtrlStore extends BaseCtrl {
 	/*************************************************************
 	 * store info management
 	 *************************************************************/
-	@Resource(name="cmcarServStore")
+	@Resource(name="cmsystemServStore")
 	private IServStore iServStore;
+	
+	@Resource(name = "cmsystemServUser")
+	private IServUser iServUser;
 	
 	@Resource(name = "cmsystemServDictionary")
 	private IServDictionary iServDictionary;
@@ -48,17 +51,11 @@ public class CtrlStore extends BaseCtrl {
 	
 	@RequestMapping(value="/condition/get.do")
 	public String get(Model model, Condition<ModelStore> condition, ModelStore t) {
-		condition.setT(t);
-		condition.setOrderList(new Order("createTime", Dir.DESC), new Order("updateTime", Dir.DESC));
-		logger.debug("---> server receive: condition={}", condition);
-		Page<ModelStore> page = condition.getPage();
-		if(page==null){
-			page = new Page<ModelStore>();
-		}
 		//List<Map<String, Object>> records = iServStore.findByCondition(condition);
-		List<Map<String, Object>> records = iServStore.multiQuery();
+		Page<ModelStore> page = condition.getPage();
+		List<Map<String, Object>> records = iServStore.multiQuery(t, page);
 		model.addAttribute("records", records);
-		page.setTotal(iServStore.countByCondition(condition));
+		page.setTotal(iServStore.countMultiQuery(t, page));
 		model.addAttribute("page", page);
 		model.addAttribute("t", t);
 		
@@ -67,27 +64,61 @@ public class CtrlStore extends BaseCtrl {
 	
 	@RequestMapping(value="/add-ui.do")
 	public String addUI(Model model) {
-		List<ModelStore> list = iServStore.findByCondition(null);
-		model.addAttribute("record", list);
+		List<ModelUser> mgrs = iServUser.findByCondition(null, true);
+		model.addAttribute("mgrs", mgrs);
 		logger.debug("==> access add ui");
 		return basePath + "/store/add-ui";
 	}
 	@RequestMapping(value="/add.do")
-	public void add(HttpServletResponse resp, ModelStore store, ModelChargeStandard chargeStandard) {
-		
+	public void add(HttpServletResponse resp, ModelStore store) {
 		logger.debug("==> access add ui");
 		iServStore.add(store);
-		Message<ModelStore> msg = new Message<ModelStore>(Status.SUCCESS, "add new cartype success!", store);
+		Message<ModelStore> msg = new Message<ModelStore>(Status.SUCCESS, "add new store success!", store);
 		write(msg, resp);
 	}
 	
+	
+	@RequestMapping(value="/delete.do")
+	public void delete(HttpServletResponse resp, ModelStore t,@RequestParam(value="ids[]") List<Long> ids) {
+		// receive data
+		logger.debug("==> batch delete -->{}", ids);
+		// retrieve model form DB
+		iServStore.deleteBatch(ids);
+		write(new Message<ModelStore>(Status.SUCCESS, "删除成功", t), resp);
+	}
+	
+	@RequestMapping(value="/detail.do")
+	public String detail(Model model, ModelStore t) {
+		logger.debug("==> detail ModelStore with id --> {}", t.getId());
+//		model.addAttribute("detail", iServStore.detailQuery(t));
+		
+		ModelStore store = iServStore.find(t.getId());
+		model.addAttribute("store", store);
+		ModelUser manage = iServUser.find(store.getManagerId());
+		model.addAttribute("manage", manage);
+		
+		Condition<ModelCar> condition = new Condition<ModelCar>();
+		ModelCar modelCar = new ModelCar();
+		modelCar.setStatus(1);
+		modelCar.setStoreId(store.getId());
+		condition.setT(modelCar);
+		Page<ModelCar> page = new Page<ModelCar>();
+		page.setStart(0);
+		page.setLimit(12);
+		condition.setPage(page);
+		List<ModelCar> carList = iServStore.getCarByCondition(condition);
+		model.addAttribute("carList", carList);
+		
+		return basePath + "/store/detail";
+	}
+	
 	@RequestMapping(value="/edit-ui.do")
-	public String editUI(Model model, ModelCarType t) {
+	public String editUI(Model model, ModelStore t) {
 		logger.debug("==> edit ModelStore with id --> {}", t.getId());
-		Condition<ModelStore> condition = new Condition<ModelStore>();
-		model.addAttribute("store", iServStore.findByCondition(condition, true).get(0));
-		List<ModelDictionary> storeCategoryList = iServDictionary.getGroupsBy(DictGroup.CUST_CAR_TYPE_CATEGORY);
-		model.addAttribute("carTypeCategoryList", storeCategoryList);
+		model.addAttribute("carType", iServStore.find(t.getId()));
+		List<ModelDictionary> carTypeCategoryList = iServDictionary.getGroupsBy(DictGroup.CUST_CAR_TYPE_CATEGORY);
+		model.addAttribute("carTypeCategoryList", carTypeCategoryList);
 		return basePath + "/store/edit-ui";
 	}
+	
 }

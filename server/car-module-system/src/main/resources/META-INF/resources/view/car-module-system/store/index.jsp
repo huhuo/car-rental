@@ -57,25 +57,40 @@ select {
 		});
 		$('#huhuoForm').trigger('submit');
 		// add, edit and delete button group event
-		var btnGroup = $('#cartypeMgrDivId div.navbar div.btn-group');
+		var btnGroup = $('#storeMgrDivId div.navbar div.btn-group');
 		btnGroup.children('button[name="add"]').click(function(event) {
-			$("#cartypeMgrDivId").hide();
-			$("#cartypeEditDivId").show();
+			$("#storeMgrDivId").hide();
+			$("#storeEditDivId").show();
 			// load element to cartypeEditDivId
-			$("#cartypeEditDivId").load('${path}/cmsystem/store/add-ui.do');
+			$("#storeEditDivId").load('${path}/cmsystem/store/add-ui.do');
 			
 		});
 		btnGroup.children('button[name="edit"]').click(function(event) {
-			$("#cartypeMgrDivId").hide();
+			$("#storeMgrDivId").hide();
 			// load element to cartypeEditDivId
 			
-			$("#cartypeEditDivId").load('${path}/cmsystem/store/edit-ui.do', {
+			$("#storeEditDivId").load('${path}/cmsystem/store/edit-ui.do', {
 				aa: 323
 			}, function(resp, status, xhReq) {
-				$("#cartypeEditDivId").show(500);
+				$("#storeEditDivId").show(500);
 			});
 		});
 		btnGroup.children('button[name="delete"]').click(function(event) {
+			var flag = window.confirm('确定要删除吗？');
+			if(flag) {
+				var ids = new Array();
+				$('#storePageGridId tbody input').each(function(index, input) {
+					if(input.checked) {
+						console.log($(input).parent().next().text());
+						ids.push($(input).parent().next().text());
+					}
+					
+				});
+				$.post('${path}/cmsystem/store/delete.do',{ids : ids},
+						function(data, status, xhReq){
+							$('#huhuoForm').trigger('submit');
+				});
+			}
 			console.log('=====delete======');
 		});
 		
@@ -87,25 +102,24 @@ select {
 	event in edit panel
 	****************************/
 	// initialization
-	$('#cartypeEditDivId').hide();
-	$('#cartypeEditDivId form').validate();
+	$('#storeEditDivId').hide();
+	$('#storeEditDivId form').validate();
 	// cartype add page
-	$('#cartypeEditDivId form').huhuoFormPost(function(data, status) {
-		$('#cartypeEditDivId').hide();
-		$('#cartypeMgrDivId').show(500);
-		$('#cartypeMgrDivId form button').trigger("click");
-		console.log($('#cartypeEditDivId form').serialize());
+	$('#storeEditDivId form').huhuoFormPost(function(data, status) {
+		$('#storeEditDivId').hide();
+		$('#storeMgrDivId').show(500);
+		$('#storeMgrDivId form button').trigger("click");
+		console.log($('#storeEditDivId form').serialize());
 	});
 	
 </script>
 
-<div id="cartypeMgrDivId" class="well" style="padding: 0px;">
+<div id="storeMgrDivId" class="well" style="padding: 0px;">
 	<div class="navbar">
 		<div class="navbar-inner">
 			<div class="container">
 				<div class="btn-group">
 					<button name="add" class="btn">添加</button>
-					<button name="edit" class="btn">编辑</button>
 					<button name="delete" class="btn">删除</button>
 				</div>
 				<!-- search box -->
@@ -114,8 +128,8 @@ select {
 						<li class="dropdown">
 							<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">搜索条件<b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a class="search-term" id="seating" href="javascript:void(0)">名称</a></li>
-								<li><a class="search-term" id="tankCapacity" href="javascript:void(0)">地址</a></li>
+								<li><a class="search-term" id="name" href="javascript:void(0)">名称</a></li>
+								<li><a class="search-term" id="address" href="javascript:void(0)">地址</a></li>
 							</ul>
 						</li>
 					</ul>
@@ -134,6 +148,6 @@ select {
 	</div>
 </div>
 
-<div id="cartypeEditDivId">
+<div id="storeEditDivId">
 
 </div>

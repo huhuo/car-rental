@@ -2,6 +2,7 @@ package com.huhuo.carservicecore.sys.user;
 
 import java.util.Date;
 
+import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
 import com.huhuo.integration.base.BaseModel;
 
 public class ModelUser extends BaseModel {
@@ -28,6 +29,8 @@ public class ModelUser extends BaseModel {
 	private String address;
 	/** 管理员所属分店id，与cust_store表关联 **/
 	private Long storeId;
+	
+	private ModelDictionary genderDict;
 	
 	public String getUsername() {
 		return username;
@@ -88,6 +91,12 @@ public class ModelUser extends BaseModel {
 	}
 	public void setStoreId(Long storeId) {
 		this.storeId = storeId;
+	}
+	public ModelDictionary getGenderDict() {
+		return genderDict;
+	}
+	public void setGenderDict(ModelDictionary genderDict) {
+		this.genderDict = genderDict;
 	}
 	
 }
