@@ -41,8 +41,7 @@ div.titlewell {
 </script>
 <div style="position: relative">
 	<button id="returnSearch" class="btn" style="margin-bottom: 5px;">返回</button>
-	<form id='addConsumerForm' class="form-horizontal"
-		action="${path }/cmconsumer/consumer/add.do">
+	<form id='addConsumerForm' class="form-horizontal" action="${path }/cmconsumer/consumer/add.do">
 		<div class="row-fluid">
 			<div class="span12">
 				<div class="row-fluid">

@@ -89,17 +89,19 @@ $(document).ready(function() {
 
 							<li data-toggle="collapse" data-target="#businessMgr"><a
 								class="menu" href="javascript:void(0)"><i class="icon-fire"></i>&nbsp;业务运营（*）</a></li>
-							<li id="businessMgr" class="collapse leftdivchange"><a
-								class="huhuoItem first" href="${path }/cmorder/order/index.do">车辆运营服务</a>
-								<a class="huhuoItem" href="${path }/cmorder/order/index.do">短信发布服务</a>
-								<a class="huhuoItem end" href="${path }/cmorder/order/index.do">移动终端服务</a>
+							<li id="businessMgr" class="collapse leftdivchange">
+							<!-- 
+							<a class="huhuoItem first" href="${path }/cmorder/order/index.do">车辆运营服务</a>
+							 -->
+								<a class="huhuoItem" href="${path }/cmconsumer/consumer/points.do">短信发布服务</a>
+								<a class="huhuoItem end" href="${path }/cmconsumer/consumer/points.do">移动终端服务</a>
 							</li>
 
 							<li data-toggle="collapse" data-target="#analyMgr"><a
 								class="menu" href="javascript:void(0)"><i class="icon-align-right"></i>&nbsp;运营分析统计（*）</a></li>
 							<li id="analyMgr" class="collapse leftdivchange"><a
-								class="huhuoItem first" href="${path }/cmorder/order/index.do">营业额统计</a>
-								<a class="huhuoItem end" href="${path }/cmorder/order/index.do">客户量统计</a>
+								class="huhuoItem first" href="${path }/cmconsumer/consumer/points.do">营业额统计</a>
+								<a class="huhuoItem end" href="${path }/cmconsumer/consumer/points.do">客户量统计</a>
 							</li>
 
 							<li data-toggle="collapse" data-target="#systemMgr"><a

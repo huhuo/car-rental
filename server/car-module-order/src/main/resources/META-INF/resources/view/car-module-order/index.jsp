@@ -50,6 +50,36 @@ div.titlewell {
 			});
 
 		});
+		
+		
+		
+		$("#addOrderDays").change(function(){
+			  var days=$(this).val();
+			  
+			  days=Number(days);
+			  
+			  if(days!=NaN){
+				  
+				  var myDate=new Date();
+				  
+				  var times=myDate.getTime();
+				  
+				  times=times+days*1000*60*60*24;
+				  
+				  var tarDate=new Date(times);
+				  
+				  var timeStr=tarDate.format('yyyy-MM-dd hh:mm:ss');
+				  console.info(timeStr);
+				  
+				  $("#addOrderRetTime").val(timeStr);
+				  
+			  }
+			  
+			  
+			
+			  $("#addOrderRetTime").css("background-color","#FFFFCC");
+		});
+		
 		//根据对应的手机号，查询对应的用户信息并且填充
 		$("#phonePromptOrderAdd").autoFill("${path }/cmorder/order/conumer.do","mobileNumber",$("#addOrderform"),null,"consumer");
 		
@@ -111,6 +141,12 @@ div.titlewell {
 				$("#orderSearch").show(200);
 			});
 		});
+		
+		$('#huhuoFormPost').huhuoFormPost(function(){
+			
+			
+			
+		});
 
 		//指定搜索表单刷新的div元素
 		$('#huhuoForm').huhuoFormRefushDiv($("#orderTableloadDiv"));
@@ -127,6 +163,52 @@ div.titlewell {
 		});
 		//指定div去刷新对应的table页面
 		$("#orderTableloadDiv").divBlickLoad("${path }/cmorder/order/get.do");
+		
+		$("#countButton").click(function(){
+			
+			getTotalPrice();
+		});
+		
+		
+		
+		function getTotalPrice(){
+			var days=$("#addOrderform").find("[name='order.orderdays']").first().val();
+			days=Number(days);
+			if(days==NaN){
+				days=0;
+			}
+			var rent=$("#addOrderform").find("[name='chargeStandard.rent']").first().val();
+			rent=Number(rent);
+			if(rent==NaN){
+				rent=0;
+			}
+			
+			
+			
+			var diffShopReturnFare=0;  
+			if($("#addOrderform").find("[name='chargeStandard.diffShopCheck']").first()[0].checked){
+				diffShopReturnFare=$("#addOrderform").find("[name='chargeStandard.diffShopReturnFare']").first().val();
+				diffShopReturnFare=Number(rent);
+				if(diffShopReturnFare==NaN){
+					diffShopReturnFare=0;
+				}
+			}
+			
+			var carSendFare=0;  
+			if($("#addOrderform").find("[name='chargeStandard.carSendCheck']").first()[0].checked){  
+				carSendFare=$("#addOrderform").find("[name='chargeStandard.carSendFare']").first().val();
+				carSendFare=Number(rent);
+				if(carSendFare==NaN){
+					carSendFare=0;
+				}
+			}
+			  
+			var totalPrice=	days *rent+diffShopReturnFare+carSendFare;
+			  
+			
+			
+			$("#addOrderform").find("[name='order.totalPrice']").first().val(totalPrice);  
+		};
 
 	});
 </script>
@@ -309,16 +391,16 @@ div.titlewell {
 								<label class="control-label" for="inputName">出租天数</label>
 								<div class="controls">
 									<div class="input-append orderinput">
-										<input type="text" class="required"  name="name"
-											placeholder="车型名称..."> <span class="add-on">天</span>
+										<input type="text" class="required"  name="order.orderdays" id='addOrderDays'
+											placeholder="出租天数..." value='1' > <span class="add-on">天</span>
 									</div>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputName">还车时间</label>
 								<div class="controls">
-									<input type="text" class="orderinput required" 
-										name="name" placeholder="车型名称...">
+									<input type="text" class="orderinput required" id='addOrderRetTime' 
+										name="order.carPlanRetTime" placeholder="还车时间...">
 								</div>
 							</div>
 							<div class="control-group">
@@ -338,6 +420,7 @@ div.titlewell {
 											name="chargeStandard.diffShopReturnFare" placeholder="异店还车..."> <span
 											class="add-on">元/次</span>
 									</div>
+									<input type="checkbox" name="chargeStandard.diffShopCheck" value="0">
 								</div>
 							</div>
 						</div>
@@ -345,7 +428,7 @@ div.titlewell {
 							<div class="control-group">
 								<label class="control-label" for="inputName">押金方式</label>
 								<div class="controls">
-									<select name='email'>
+									<select name='order.rentalType'>
 										<option value="1">现金</option>
 										<option value="2">刷卡</option>
 									</select>
@@ -363,7 +446,7 @@ div.titlewell {
 								<div class="controls">
 									<div class="input-append  orderinput">
 										<input type="text" class="orderinput required" 
-											name="chargeStandard.overTimeFare" placeholder="车型名称..."> <span
+											name="chargeStandard.overTimeFare" placeholder="超时标准..."> <span
 											class="add-on">元/小时</span>
 									</div>
 								</div>
@@ -371,8 +454,12 @@ div.titlewell {
 							<div class="control-group">
 								<label class="control-label" for="inputName">共计金额</label>
 								<div class="controls">
-									<input type="text" class="orderinput required" 
-										name="name" placeholder="车型名称...">
+									<div class="input-append  orderinput">
+										<input type="text" class="orderinput required" 
+											name="order.totalPrice" placeholder="共计金额..."><span
+											class="add-on">元</span>
+											<button id='countButton' class="btn btn-success" type="button">计算</button>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -405,6 +492,7 @@ div.titlewell {
 											name="chargeStandard.carSendFare" placeholder="上门送车..."> <span
 											class="add-on">元/次</span>
 									</div>
+									<input type="checkbox" name="chargeStandard.carSendCheck" value="0">
 								</div>
 							</div>
 						</div>

@@ -111,7 +111,7 @@ public class ServOrder extends GenericBaseExtenseServ<ModelOrder> implements ISe
 	public List<ModelChargeStandard> getchargeStandardById(Long chargeStandardId) {
 		StringBuilder sb=new StringBuilder();
 		List<Object> list=new ArrayList<Object>();
-		sb.append("select * from csm_charge_standard where 1=1 ");
+		sb.append("select * from cust_charge_standard where 1=1 ");
 		if(chargeStandardId!=null){
 			sb.append(" and id = ?");
 			list.add(chargeStandardId);
