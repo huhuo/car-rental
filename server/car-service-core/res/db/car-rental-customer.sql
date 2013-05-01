@@ -83,6 +83,8 @@ CREATE TABLE `csm_order` (
   `overTimeFare` double DEFAULT NULL COMMENT '超时标准（xxx元/小时）',
   `carSendFare` double DEFAULT NULL COMMENT '上门送车（xxx元）',
   `diffShopReturnFare` double DEFAULT NULL COMMENT '异店结算（还车）附加费（元）',
+  `isCarSend` boolean default NULL COMMENT '是否上门送车',
+  `isDiffShopReturn` boolean default NULL COMMENT '是否异店换车',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单';
 
@@ -116,6 +118,8 @@ CREATE TABLE `csm_order_snapshot` (
   `overTimeFare` double DEFAULT NULL COMMENT '超时标准（xxx元/小时）',
   `carSendFare` double DEFAULT NULL COMMENT '上门送车（xxx元）',
   `diffShopReturnFare` double DEFAULT NULL COMMENT '异店结算（还车）附加费（元）',
+  `isCarSend` boolean default NULL COMMENT '是否上门送车',
+  `isDiffShopReturn` boolean default NULL COMMENT '是否异店换车',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单快照表（用于订单修改审批）';
 

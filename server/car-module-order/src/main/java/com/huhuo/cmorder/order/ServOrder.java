@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.stereotype.Service;
 
 import com.huhuo.carservicecore.csm.consumer.IDaoConsumer;
@@ -18,6 +19,7 @@ import com.huhuo.carservicecore.cust.car.ModelChargeStandard;
 import com.huhuo.carservicecore.cust.store.ModelStore;
 import com.huhuo.carservicecore.db.GenericBaseExtenseServ;
 import com.huhuo.integration.base.IBaseExtenseDao;
+import com.huhuo.integration.exception.DaoException;
 
 @Service("cmorderServOrder")
 public class ServOrder extends GenericBaseExtenseServ<ModelOrder> implements IServOrder {
@@ -43,15 +45,20 @@ public class ServOrder extends GenericBaseExtenseServ<ModelOrder> implements ISe
 	
 	@Override
 	public List<ModelConsumer> getConsumerListByPhone(String phone){
-		StringBuilder sb=new StringBuilder();
-		List<Object> list=new ArrayList<Object>();
-		sb.append("select * from csm_consumer where 1=1 ");
-		if(phone!=null){
-			sb.append(" and mobileNumber like ?");
-			list.add(phone+"%");
+		List<ModelConsumer> queryForList=null;
+		try {
+			StringBuilder sb=new StringBuilder();
+			List<Object> list=new ArrayList<Object>();
+			sb.append("select * from csm_consumer where 1=1 ");
+			if(phone!=null){
+				sb.append(" and mobileNumber like ?");
+				list.add(phone+"%");
+			}
+			sb.append(" limit 0 , 10");
+			queryForList = iDaoConsumer.queryForList(sb.toString(), ModelConsumer.class, list.toArray());
+		} catch (DaoException e) {
+			logger.error(ExceptionUtils.getStackTrace(e));
 		}
-		sb.append(" limit 0 , 10");
-		List<ModelConsumer> queryForList = iDaoConsumer.queryForList(sb.toString(), ModelConsumer.class, list.toArray());
 		
 		return queryForList;
 	}

@@ -34,6 +34,12 @@ public class ModelOrderSnapshot extends BaseModel implements Serializable {
 	/** 状态，字典表字段，组名：csm_order_status，0：删除；1：待结帐；2：已结帐 **/
 	private Integer status;
 	
+	/** 是否上门送车 **/
+	private Boolean isCarSend;
+	/** 是否异店换车 **/
+	private Boolean isDiffShopReturn;
+	/** 出租天数 **/
+	
 	/** 押金（元） **/
 	private Double deposit;
 	/** 保险费，xxx元/次 **/
@@ -169,6 +175,18 @@ public class ModelOrderSnapshot extends BaseModel implements Serializable {
 	}
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+	public Boolean getIsCarSend() {
+		return isCarSend;
+	}
+	public void setIsCarSend(Boolean isCarSend) {
+		this.isCarSend = isCarSend;
+	}
+	public Boolean getIsDiffShopReturn() {
+		return isDiffShopReturn;
+	}
+	public void setIsDiffShopReturn(Boolean isDiffShopReturn) {
+		this.isDiffShopReturn = isDiffShopReturn;
 	}
 	
 }
