@@ -1,25 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <style type="text/css">
-
 table.table-hover tbody tr.huhuo-item-selected {
     background-color: #5D89F8;
 	color: #FFF;
 }
-
-
 </style>
-<table id="cartypePageGridId" class="table table-hover table-condensed">
+<table id="pageGridId" class="table table-hover table-condensed">
 	<thead>
 		<tr>
 			<th><input type="checkbox" class="checkbox"></th>
 			<th>序号</th>
 			<th>图片</th>
-			<th>车型名称</th>
-			<th>类别</th>
-			<th>座位数</th>
-			<th>油箱容量（单位：升）</th>
-			<th>可行驶里程数</th>
+			<th>车型</th>
+			<th>车牌号</th>
+			<th>颜色</th>
+			<th>所属门店</th>
+			<th>入库门店</th>
+			<th>状态</th>
 			<th>操作</th>
 		</tr>
 	</thead>
@@ -30,17 +28,18 @@ table.table-hover tbody tr.huhuo-item-selected {
 			<td>${record.id}</td>
 			<td>
 				<a href="javascript:void(0)" class="thumbnail">
-					<img class="img-rounded" style="height: 100px; width: 150px;" src="${path }/${record.icon.path}/${record.icon.md5}">
+					<img class="img-rounded" style="height: 100px; width: 150px;" src="${path }/${record.picture.path}/${record.picture.md5}">
 				</a>
 			</td>
-			<td>${record.name}</td>
-			<td>${record.category}</td>
-			<td class="number">${record.seating}</td>
-			<td class="digit">${record.tankCapacity}</td>
-			<td class="digit">${record.drivingRange}</td>
+			<td>${record.carTypeId}</td>
+			<td>${record.licencePlate}</td>
+			<td>${record.color}</td>
+			<td>${record.storeId}</td>
+			<td>${record.warehouseId}</td>
+			<td>${record.status}</td>
 			<td>
 				<div class="btn-group">
-					<button name="detail" class="btn">查看详情</button>
+					<button name="detail" class="btn">详情</button>
 					<button name="edit" class="btn">修改</button>
 				</div>
 			</td>
@@ -60,45 +59,45 @@ table.table-hover tbody tr.huhuo-item-selected {
 <script type="text/javascript">
 $(document).ready(function() {
 	// number output format
-	$('.number').formatNumber({format:'#,###', local:'cn'});
-	$('.digit').formatNumber({format:'#,###.##', local:'cn'});
+	$('.number').formatNumber({format:'#,###.##', local:'cn'});
+	$('.digits').formatNumber({format:'#,###', local:'cn'});
 	// 绑定标签元素。设置当前页，页面数据条数，总数，要访问的url，对应的参数，点击标签时刷新的div，标签数
 	var page = JSON.parse('${page}');
 	var t = JSON.parse('${t}');
-	$(".pagination").myPage(page, '${path }/cmcar/cartype/condition/get.do', t, $("#pagediv"), 5);
+	$(".pagination").myPage(page, '${path }/cmcar/car/condition/get.do', t, $("#pagediv"), 5);
 	// add select css
-	$('#cartypePageGridId tbody tr').click(function(event) {
+	$('#pageGridId tbody tr').click(function(event) {
 		$(this).toggleClass('huhuo-item-selected');
 		$(this).find(':checkbox')[0].checked = !$(this).find(':checkbox')[0].checked;
 	});
 	// add select event
-	$('#cartypePageGridId thead tr :checkbox').click(function(event) {
-		$('#cartypePageGridId tbody :checkbox').each(function(index, element) {
-			element.checked = $('#cartypePageGridId thead tr :checkbox')[0].checked;
+	$('#pageGridId thead tr :checkbox').click(function(event) {
+		$('#pageGridId tbody :checkbox').each(function(index, element) {
+			element.checked = $('#pageGridId thead tr :checkbox')[0].checked;
 			if(element.checked) {
-				$('#cartypePageGridId tbody tr').addClass('huhuo-item-selected');
+				$('#pageGridId tbody tr').addClass('huhuo-item-selected');
 			} else {
-				$('#cartypePageGridId tbody tr').removeClass('huhuo-item-selected');
+				$('#pageGridId tbody tr').removeClass('huhuo-item-selected');
 			}
 		});
 	});
 	// add event to edit button
-	$('#cartypePageGridId tbody button[name="detail"]').click(function(event) {
+	$('#pageGridId tbody button[name="detail"]').click(function(event) {
 		var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
-		$("#cartypeEditDivId").load('${path}/cmcar/cartype/detail.do', {
+		$("#editDivId").load('${path}/cmcar/car/detail.do', {
 			id: selectedId
 		}, function(resp, status, xhReq) {
-			$("#cartypeMgrDivId").hide();
-			$("#cartypeEditDivId").show(500);
+			$("#mgrDivId").hide();
+			$("#editDivId").show(500);
 		});
 	});
-	$('#cartypePageGridId tbody button[name="edit"]').click(function(event) {
+	$('#pageGridId tbody button[name="edit"]').click(function(event) {
 		var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
-		$("#cartypeEditDivId").load('${path}/cmcar/cartype/edit-ui.do', {
+		$("#editDivId").load('${path}/cmcar/car/edit-ui.do', {
 			id: selectedId
 		}, function(resp, status, xhReq) {
-			$("#cartypeMgrDivId").hide();
-			$("#cartypeEditDivId").show(500);
+			$("#mgrDivId").hide();
+			$("#editDivId").show(500);
 		});
 	});
 });

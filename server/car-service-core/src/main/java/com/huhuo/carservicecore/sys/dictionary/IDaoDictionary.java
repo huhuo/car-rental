@@ -6,7 +6,7 @@ import com.huhuo.carservicecore.constant.Dictionary.Dict;
 import com.huhuo.carservicecore.constant.Dictionary.DictGroup;
 import com.huhuo.integration.base.IBaseExtenseDao;
 
-public interface IDaoDictionary<T> extends IBaseExtenseDao<T> {
+public interface IDaoDictionary extends IBaseExtenseDao<ModelDictionary> {
 	/**
 	 * get a group of dictionary by group name
 	 * @param dictGroup

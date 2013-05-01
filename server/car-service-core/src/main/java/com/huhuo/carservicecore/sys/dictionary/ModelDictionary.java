@@ -64,4 +64,23 @@ public class ModelDictionary extends BaseModel {
 		this.comment = comment;
 	}
 	
+	public ModelDictionary() {
+		super();
+	}
+	
+	public ModelDictionary(String groupName, String groupDisplayName,
+			Integer dictKey, String dictValue, String dictDisplayName,
+			Integer orderNo, String comment) {
+		super();
+		this.groupName = groupName;
+		this.groupDisplayName = groupDisplayName;
+		this.dictKey = dictKey;
+		this.dictValue = dictValue;
+		this.dictDisplayName = dictDisplayName;
+		this.orderNo = orderNo;
+		this.comment = comment;
+	}
+	
+	
+	
 }

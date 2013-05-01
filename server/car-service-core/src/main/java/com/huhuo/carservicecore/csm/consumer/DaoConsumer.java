@@ -16,7 +16,7 @@ import com.huhuo.integration.db.mysql.Condition;
 public class DaoConsumer extends GenericBaseExtenseDao<ModelConsumer> implements IDaoConsumer {
 
 	@Resource(name = "carservicecoreDaoDictionary")
-	private IDaoDictionary<ModelDictionary> iDaoDictionary;
+	private IDaoDictionary iDaoDictionary;
 	
 	@Override
 	public String getTableName() {
@@ -34,7 +34,7 @@ public class DaoConsumer extends GenericBaseExtenseDao<ModelConsumer> implements
 		// TODO Auto-generated method stub
 		List<ModelConsumer> list = super.findByCondition(condition);
 		for(ModelConsumer consumer : list) {
-			ModelDictionary genderDic = iDaoDictionary.getBy(DictGroup.GENERAL_GENDER, consumer.getGender());
+			ModelDictionary genderDic = iDaoDictionary.getBy(DictGroup.GENERAL_SYS_GENDER, consumer.getGender());
 			consumer.setGenderDic(genderDic);
 		}
 		return list;

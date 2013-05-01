@@ -27,13 +27,6 @@ select {
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		
-		// test
-		$('#huhuoForm [name="name"]').focusout(function(event) {
-			console.log($(this).val());
-			console.log(/^\d+$/.test($(this).val()) || /^\d+\.\d{1,2}$/.test($(this).val()));
-		});
-		
 		// bind click event to drop down component ==> reset search term
 		$('.search-term').click(function(event) {
 			$('.search-term').each(function(idx, item) {
