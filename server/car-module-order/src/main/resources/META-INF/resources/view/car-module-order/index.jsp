@@ -186,7 +186,7 @@ div.titlewell {
 			
 			
 			var diffShopReturnFare=0;  
-			if($("#addOrderform").find("[name='chargeStandard.diffShopCheck']").first()[0].checked){
+			if($("#addOrderform").find("[name='order.isDiffShopReturn']").first()[0].checked){
 				diffShopReturnFare=$("#addOrderform").find("[name='chargeStandard.diffShopReturnFare']").first().val();
 				diffShopReturnFare=Number(rent);
 				if(diffShopReturnFare==NaN){
@@ -195,7 +195,7 @@ div.titlewell {
 			}
 			
 			var carSendFare=0;  
-			if($("#addOrderform").find("[name='chargeStandard.carSendCheck']").first()[0].checked){  
+			if($("#addOrderform").find("[name='order.isCarSend']").first()[0].checked){  
 				carSendFare=$("#addOrderform").find("[name='chargeStandard.carSendFare']").first().val();
 				carSendFare=Number(rent);
 				if(carSendFare==NaN){
@@ -235,14 +235,14 @@ div.titlewell {
 								<label class="control-label" for="inputName">客户状态</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="name" placeholder="车型名称...">
+										name="consumer.consumerStatus" placeholder="车型名称...">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="inputName">担保人</label>
 								<div class="controls">
 									<input type="text" class="orderinput required" 
-										name="name" placeholder="车型名称...">
+										name="consumer.bondsmanIdentityCard" placeholder="车型名称...">
 								</div>
 							</div>
 						</div>
@@ -255,6 +255,8 @@ div.titlewell {
 								<div class="controls">
 									<input type="text" autocomplete='off' class="orderinput required" id='phonePromptOrderAdd'
 										name="consumer.mobileNumber" placeholder="移动电话...">
+										<input type="hidden"
+										name="consumer.id">
 								</div>
 							</div>
 							<div class="control-group">
@@ -297,7 +299,7 @@ div.titlewell {
 										</div>
 										<div class="span3">
 											<label class="radio" style="padding-top: 5px;"> <input
-												type="radio" name="consumer.gender" value="0">女
+												type="radio" name="consumer.gender" value="2">女
 											</label>
 										</div>
 									</div>
@@ -420,7 +422,7 @@ div.titlewell {
 											name="chargeStandard.diffShopReturnFare" placeholder="异店还车..."> <span
 											class="add-on">元/次</span>
 									</div>
-									<input type="checkbox" name="chargeStandard.diffShopCheck" value="0">
+									<input type="checkbox" name="order.isDiffShopReturn" value="0">
 								</div>
 							</div>
 						</div>
@@ -492,7 +494,7 @@ div.titlewell {
 											name="chargeStandard.carSendFare" placeholder="上门送车..."> <span
 											class="add-on">元/次</span>
 									</div>
-									<input type="checkbox" name="chargeStandard.carSendCheck" value="0">
+									<input type="checkbox" name="order.isCarSend" value="0">
 								</div>
 							</div>
 						</div>

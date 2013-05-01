@@ -4,17 +4,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.collections.iterators.EntrySetMapIterator;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.huhuo.carservicecore.constant.Dictionary.Dict;
-import com.huhuo.carservicecore.cust.car.ModelCarType;
-import com.huhuo.carservicecore.cust.car.ModelChargeStandard;
 import com.huhuo.carservicecore.cust.store.ModelStore;
 import com.huhuo.cmsystem.CarModuleSystemTest;
 import com.huhuo.integration.db.mysql.Condition;
@@ -22,7 +17,7 @@ import com.huhuo.integration.db.mysql.Page;
 
 public class ServStoreTest extends CarModuleSystemTest {
 
-	@Resource(name = "cmcarServStore")
+	@Resource(name = "cmsystemServStore")
 	private IServStore iServStore;
 
 	@Test
@@ -69,7 +64,7 @@ public class ServStoreTest extends CarModuleSystemTest {
 		t.setStatus(1);
 		t.setUpdateTime(new Date());
 		t.setTelephone("18612257368");
-		List<Map<String,Object>> list = iServStore.multiQuery();
+		List<Map<String,Object>> list = iServStore.multiQuery(t, null);
 		for(Map<String, Object> map : list) {
 			System.out.println("----------->>>>"+map.get("freeNum"));
 			System.out.println("----------->>>>"+map.get("rentNum"));
@@ -94,7 +89,7 @@ public class ServStoreTest extends CarModuleSystemTest {
 		t.setStatus(1);
 		t.setUpdateTime(new Date());
 		t.setTelephone("18612257368");
-		List<Map<String,Object>> list = iServStore.multiQuery();
+		List<Map<String,Object>> list = iServStore.multiQuery(t, null);
 		for(Map<String, Object> map : list) {
 			System.out.println("----------->>>>"+map.get("freeNum"));
 			System.out.println("----------->>>>"+map.get("rentNum"));

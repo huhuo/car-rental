@@ -38,7 +38,7 @@ public class CtrlCar extends SystemBaseCtrl {
 	private IServCar iservCar;
 	@Resource(name = "cmcarServCarType")
 	private IServCarType iServCarType;
-	@Resource(name = "cmcarServStore")
+	@Resource(name = "cmsystemServStore")
 	private IServStore iServStore;
 	@Resource(name = "cmsystemServDictionary")
 	private IServDictionary iServDictionary;

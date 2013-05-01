@@ -58,7 +58,6 @@ $(document).ready(function(){
 		searchInput.val('');
 		searchInput.attr('placeholder', selectedItem.html());
 		// autofil event listener
-		console.log(selectedItem.attr('url'));
 		searchInput.autoFill($(this).attr('url'), $(this).attr('paramKey'), 
 				$('#huhuoForm'), null, null, null, function(data) {
 			$('#keyword').attr('name', selectedItem.attr('keyword'));
@@ -75,6 +74,8 @@ $(document).ready(function(){
 			$('#pagediv').append(data);
 		}
 	});
+	console.log($('.search-term.huhuo-item-selected'));
+	console.log('---');
 	$('#huhuoForm').trigger('submit');
 	// add and delete button group event
 	var btnGroup = $('#mgrDivId div.navbar div.btn-group');
@@ -95,7 +96,6 @@ $(document).ready(function(){
 			var ids = new Array();
 			$('#pageGridId tbody input').each(function(index, input) {
 				if(input.checked) {
-					console.log($(input).parent().next().text());
 					ids.push($(input).parent().next().text());
 				}
 			});

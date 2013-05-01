@@ -1,5 +1,7 @@
 package com.huhuo.cmorder.order;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,7 +20,10 @@ import com.huhuo.carservicecore.cust.store.ModelStore;
 import com.huhuo.cmorder.order.model.OrderFormModel;
 import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.db.mysql.Page;
+import com.huhuo.integration.util.BeanUtils;
 import com.huhuo.integration.util.ExtUtils;
+import com.huhuo.integration.web.Message;
+import com.huhuo.integration.web.Message.Status;
 import com.huhuo.webbase.general.HuhuoWebBaseBaseCtrl;
 
 @Controller("cmorderCtrlOrder")
@@ -63,13 +68,40 @@ public class CtrlOrder extends HuhuoWebBaseBaseCtrl {
 
 	@RequestMapping(value = "/addorder.do")
 	public void addOrder(HttpServletResponse resp, OrderFormModel orderForm) {
-		logger.debug("server receive: orderForm={}", orderForm);
+		logger.debug("server receive: orderForm=[{}]", orderForm);
+		
+		//TODO 添加入入参校验
+		try {
+			ModelConsumer consumer = orderForm.getConsumer();
+			ModelCar car = orderForm.getCar();
+			ModelChargeStandard chargeStandard = orderForm.getChargeStandard();
+			ModelOrder order = orderForm.getOrder();
+			
+			
+			order.setCarId(car.getId());
+			order.setOilmassBegin(car.getOilMass());
+			order.setMileageBegin(car.getDrivedKilometer());
+			
+			
+			order.setConsumerId(consumer.getId());
+			
+			
+			order.setCarRentTime(new Date());
+			
+			
+			BeanUtils.copyProperties(order, chargeStandard, false);
+			
+			order.setId(null);
+			iservOrder.add(order);
+			Message<ModelOrder> msg = new Message<ModelOrder>(Status.SUCCESS, "add new order success!", order);
+			logger.debug("orderlist is [{}]", msg);
+			write(msg, resp);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} 
 		
 		// condition.setPage(new Page(0, 30));
 		// List<ModelConsumer> list = servConsumer.findByCondition(condition);
-//		Message<ModelCarType> msg = new Message<ModelOrder>(Status.SUCCESS, "add new cartype success!", odelOrder);
-//		write(msg, resp);
-//		logger.debug("orderlist is [{}]", list);
 	}
 
 	/*************************************************************
@@ -87,7 +119,10 @@ public class CtrlOrder extends HuhuoWebBaseBaseCtrl {
 		logger.debug("server receive: mobileNumber={}", mobileNumber);
 //			condition.setPage(new Page(0, 30));
 //			List<ModelConsumer> list = servConsumer.findByCondition(condition);
+		logger.debug("111");
 		List<ModelConsumer> list = iservOrder.getConsumerListByPhone(mobileNumber);
+		
+		logger.debug("MOdelConsumerList is {}",list);
 		write(ExtUtils.getJsonStore(list, list.size()), resp);
 	}
 	

@@ -5,10 +5,10 @@
 		$('#addStoreForm').submit(function(){
 			var fir = $('#addStoreForm');
 			$.post("${path}/cmsystem/store/add.do",fir.serialize(),function(data,status,xhrq){
-				$('#cartypeEditDivId').hide();
-				$("#cartypeMgrDivId").show();
+				$('#storeEditDivId').hide();
+				$("#storeMgrDivId").show();
 				// load element to cartypeEditDivId
-				$("#cartypeEditDivId").load('${path}/cmsystem/store/index.do');
+				$("#storeEditDivId").load('${path}/cmsystem/store/index.do');
 				
 			});
 			 
@@ -24,31 +24,31 @@
 	<div class="row-fluid">
 		<div class="span6">
 			<div class="control-group">
-				<label class="control-label" for="selectCategory">分店名称</label>
+				<label class="control-label" for="inputname">分店名称</label>
 				<div class="controls">
-					<input type="text" class="required" id="inputSeating" name="seating" placeholder="分店名称...">
+					<input type="text" class="required" id="inputname" name="name" placeholder="分店名称...">
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="inputSeating">分店地址</label>
+				<label class="control-label" for="inputaddress">分店地址</label>
 				<div class="controls">
-					<input type="text" class="required" id="inputSeating" name="seating" placeholder="分店地址...">
+					<input type="text" class="required" id="inputaddress" name="address" placeholder="分店地址...">
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="inputTankCapacity">分店店长</label>
+				<label class="control-label" for="inputmanagerId">分店店长</label>
 				<div class="controls">
-					<select id="selectCategory" name="category">
-						 <c:forEach items="${record}" var="record">
-							<option value="${record.id}" >${record.managerId}</option>
+					<select id="selectCategory" name="managerId">
+						 <c:forEach items="${mgrs}" var="mgr">
+							<option value="${mgr.id}">${mgr.username}  ${mgr.genderDict.dictDisplayName }</option>
 						 </c:forEach>	
 					</select>
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="inputDrivingRange">联系电话</label>
+				<label class="control-label" for="inputtelephone">联系电话</label>
 				<div class="controls">
-					<input type="text" class="required" id="inputDrivingRange" name="drivingRange" placeholder="联系电话...">
+					<input type="text" class="required" id="inputtelephone" name="telephone" placeholder="联系电话...">
 				</div>
 			</div>
 			<div class="control-group">
