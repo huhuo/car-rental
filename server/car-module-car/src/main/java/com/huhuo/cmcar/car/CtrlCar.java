@@ -106,7 +106,25 @@ public class CtrlCar extends SystemBaseCtrl {
 	@RequestMapping(value="/add-ui.do")
 	public String addUI(Model model) {
 		logger.debug("==> access add ui");
+		// prepare store for combo box of carTypeId
+		List<ModelCarType> carTypeList = iServCarType.findByCondition(null);
+		model.addAttribute("carTypeList", carTypeList);
+		// prepare store for combo box of storeId
+		List<ModelStore> storeList = iServStore.findByCondition(null);
+		model.addAttribute("storeList", storeList);
+		// prepare dictionary for combo box of color
+		List<ModelDictionary> colorList = iServDictionary.getGroupsBy(DictGroup.CUST_CAR_COLOR);
+		model.addAttribute("colorList", colorList);
 		return basePath + "/car/add-ui";
+	}
+	
+	@RequestMapping(value="/add.do")
+	public void add(HttpServletResponse resp, ModelCar car, String icon) {
+		logger.debug("---> server receive: car={}, icon={}", car, icon);
+		// add new car
+		iservCar.add(car);
+		Message<ModelCar> msg = new Message<ModelCar>(Status.SUCCESS, "add new car success!", car);
+		write(msg, resp);
 	}
 	
 	

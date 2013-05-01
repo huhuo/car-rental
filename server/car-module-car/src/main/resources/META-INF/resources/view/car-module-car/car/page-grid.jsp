@@ -31,12 +31,12 @@ table.table-hover tbody tr.huhuo-item-selected {
 					<img class="img-rounded" style="height: 100px; width: 150px;" src="${path }/${record.picture.path}/${record.picture.md5}">
 				</a>
 			</td>
-			<td>${record.carTypeId}</td>
+			<td>${record.carType.name}</td>
 			<td>${record.licencePlate}</td>
-			<td>${record.color}</td>
-			<td>${record.storeId}</td>
-			<td>${record.warehouseId}</td>
-			<td>${record.status}</td>
+			<td>${record.colorDict.dictDisplayName}</td>
+			<td>${record.store.name}</td>
+			<td>${record.warehouse.name}</td>
+			<td>${record.statusDict.dictDisplayName}</td>
 			<td>
 				<div class="btn-group">
 					<button name="detail" class="btn">详情</button>

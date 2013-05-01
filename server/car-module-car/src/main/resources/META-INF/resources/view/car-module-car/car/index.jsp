@@ -27,7 +27,7 @@
 						<input type="hidden" name="page.limit" value="10">
 						<input type="text" class="span6 search-query" placeholder="车牌号">
 						<input type="hidden" id="keyword" name="licencePlate">
-						<button type="submit" class="btn">search</button>
+						<button type="submit" class="btn">搜索</button>
 					</form>
 				</div>
 			</div>
@@ -58,11 +58,22 @@ $(document).ready(function(){
 		searchInput.val('');
 		searchInput.attr('placeholder', selectedItem.html());
 		// autofil event listener
-		searchInput.autoFill($(this).attr('url'), $(this).attr('paramKey'), 
+		searchInput.autoFill(selectedItem.attr('url'), selectedItem.attr('paramKey'), 
 				$('#huhuoForm'), null, null, null, function(data) {
 			$('#keyword').attr('name', selectedItem.attr('keyword'));
-			$('#keyword').val(data.id);
+			if(selectedItem.attr('keyword') == 'status') {
+				$('#keyword').val(data.dictKey);
+			} else {
+				$('#keyword').val(data.id);
+			}
 			$('#huhuoForm').trigger('submit');
+		});
+		$('#keyword').val('');	// reset keyword value
+		// when the search input value is empty, then clear up the keyword param's value
+		searchInput.focusout(function(event) {
+			if(searchInput.val() == '') {
+				$('#keyword').val('');
+			}
 		});
 	});
 	// bind click event to search button ==> query record by search term
@@ -74,8 +85,7 @@ $(document).ready(function(){
 			$('#pagediv').append(data);
 		}
 	});
-	console.log($('.search-term.huhuo-item-selected'));
-	console.log('---');
+	$('.search-term.huhuo-item-selected').trigger('click');
 	$('#huhuoForm').trigger('submit');
 	// add and delete button group event
 	var btnGroup = $('#mgrDivId div.navbar div.btn-group');

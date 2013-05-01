@@ -179,7 +179,7 @@
 			<div  class="control-group">
 				<label class="control-label" for="inputIcon">图片上传</label>
 				<div class="controls">
-					<input type="file" id="inputIcon" name="uploadFile">
+					<input type="file" id="inputIcon" name="cachedFile">
 					<input type="submit" value="Upload File to Server">
 				</div>
 			</div>

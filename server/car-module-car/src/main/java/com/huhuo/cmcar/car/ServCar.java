@@ -6,9 +6,14 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
+import com.huhuo.carservicecore.constant.Dictionary.DictGroup;
 import com.huhuo.carservicecore.cust.car.IDaoCar;
 import com.huhuo.carservicecore.cust.car.ModelCar;
 import com.huhuo.carservicecore.db.GenericBaseExtenseServ;
+import com.huhuo.cmcar.cartype.IServCarType;
+import com.huhuo.cmsystem.dict.IServDictionary;
+import com.huhuo.cmsystem.file.IServFileUpload;
+import com.huhuo.cmsystem.store.IServStore;
 import com.huhuo.integration.base.IBaseExtenseDao;
 import com.huhuo.integration.db.mysql.Condition;
 
@@ -17,6 +22,14 @@ public class ServCar extends GenericBaseExtenseServ<ModelCar> implements IServCa
 
 	@Resource(name = "carservicecoreDaoCar")
 	private IDaoCar idaoCar;
+	@Resource(name = "cmcarServCarType")
+	private IServCarType iServCarType;
+	@Resource(name = "cmsystemServDictionary")
+	private IServDictionary iServDictionary;
+	@Resource(name = "cmsystemServFileUpload")
+	private IServFileUpload iServFileUpload;
+	@Resource(name = "cmsystemServStore")
+	private IServStore iServStore;
 
 	@Override
 	public IBaseExtenseDao<ModelCar> getDao() {
@@ -33,13 +46,18 @@ public class ServCar extends GenericBaseExtenseServ<ModelCar> implements IServCa
 	@Override
 	public List<ModelCar> findByCondition(Condition<ModelCar> condition,
 			boolean injected) {
-		// TODO Auto-generated method stub
-		
+		List<ModelCar> list = findByCondition(condition);
 		if(injected) {
-			
+			for(ModelCar car : list) {
+				car.setCarType(iServCarType.find(car.getCarTypeId()));
+				car.setColorDict(iServDictionary.getBy(DictGroup.CUST_CAR_COLOR, car.getColor()));
+				car.setStatusDict(iServDictionary.getBy(DictGroup.CUST_CAR_STATUS, car.getStatus()));
+				car.setPicture(iServFileUpload.find(car.getPictureId()));
+				car.setStore(iServStore.find(car.getStoreId()));
+				car.setWarehouse(iServStore.find(car.getWarehouseId()));
+			}
 		}
-		
-		return super.findByCondition(condition, injected);
+		return list;
 	}
 
 }
