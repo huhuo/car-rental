@@ -18,7 +18,7 @@ public class ServDictionary extends GenericBaseExtenseServ<ModelDictionary>
 	implements IServDictionary {
 
 	@Resource(name = "carservicecoreDaoDictionary")
-	private IDaoDictionary<ModelDictionary> iDaoDictionary;
+	private IDaoDictionary iDaoDictionary;
 	
 	@Override
 	public IBaseExtenseDao<ModelDictionary> getDao() {

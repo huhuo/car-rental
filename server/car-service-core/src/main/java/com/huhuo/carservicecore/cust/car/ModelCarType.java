@@ -66,7 +66,7 @@ public class ModelCarType extends BaseModel {
 		this.tankCapacity = tankCapacity;
 	}
 	public Double getDrivingRange() {
-		return drivingRange;
+		return this.drivingRange;
 	}
 	public void setDrivingRange(Double drivingRange) {
 		this.drivingRange = drivingRange;

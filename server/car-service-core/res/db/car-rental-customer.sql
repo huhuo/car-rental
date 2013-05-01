@@ -1,8 +1,9 @@
 /*
 SQLyog 企业版 - MySQL GUI v8.14 
-MySQL - 5.5.31-0ubuntu0.12.04.1 : Database - car-rental-customer
+MySQL - 5.5.28 : Database - car-rental-customer
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -45,16 +46,12 @@ CREATE TABLE `csm_consumer` (
   `createTime` datetime DEFAULT NULL COMMENT '创建时间',
   `updateTime` datetime DEFAULT NULL COMMENT '更新时间',
   `blacklist` tinyint(1) DEFAULT NULL COMMENT '是否是黑名单',
-  `consumerStatus` int(11) DEFAULT NULL COMMENT '客户状态1:正常;2:黑名单',
-  `bondsman` varchar(50) DEFAULT NULL COMMENT '担保人',
-  `bondsmanIdentityCard` varchar(18) DEFAULT NULL COMMENT '担保人身份证号',
-  `bondsmanTel` varchar(18) DEFAULT NULL COMMENT '担保人电话（默认手机）',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='租车客户';
 
 /*Data for the table `csm_consumer` */
 
-insert  into `csm_consumer`(`id`,`identityCardId`,`username`,`password`,`avatar`,`telephone`,`mobileNumber`,`email`,`permanentAddress`,`address`,`zipcode`,`qq`,`emergencyContact`,`emergencyTel`,`gender`,`nation`,`birthday`,`licenseNum`,`receiveArea`,`integral`,`status`,`createTime`,`updateTime`,`blacklist`,`consumerStatus`,`bondsman`,`bondsmanIdentityCard`,`bondsmanTel`) values (2,'','s发大水了',NULL,NULL,'仿盛大','13555556666',NULL,NULL,'',NULL,NULL,'','',1,'藏族','2013-04-30 22:15:30','',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,'23123','三皮想亲',NULL,NULL,'123123','13838383838',NULL,NULL,'阿斯蒂芬撒地方 ',NULL,NULL,'所发生的','111',1,NULL,'2013-04-30 22:15:32','',NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+insert  into `csm_consumer`(`id`,`identityCardId`,`username`,`password`,`avatar`,`telephone`,`mobileNumber`,`email`,`permanentAddress`,`address`,`zipcode`,`qq`,`emergencyContact`,`emergencyTel`,`gender`,`nation`,`birthday`,`licenseNum`,`receiveArea`,`integral`,`status`,`createTime`,`updateTime`,`blacklist`) values (2,'','s发大水了',NULL,NULL,'仿盛大','的说法',NULL,NULL,'',NULL,NULL,'','',2,'藏族',NULL,'',NULL,NULL,NULL,NULL,NULL,NULL),(3,'23123','三皮想亲',NULL,NULL,'123123','13838383838',NULL,NULL,'阿斯蒂芬撒地方 ',NULL,NULL,'所发生的','111',2,NULL,NULL,'',NULL,NULL,1,NULL,NULL,NULL);
 
 /*Table structure for table `csm_order` */
 
@@ -75,14 +72,6 @@ CREATE TABLE `csm_order` (
   `status` int(11) DEFAULT NULL COMMENT '状态，字典表字段，组名：csm_order_status，0：删除；1：待结帐；2：已结帐',
   `createTime` datetime DEFAULT NULL COMMENT '创建时间',
   `updateTime` datetime DEFAULT NULL COMMENT '更新时间',
-  `deposit` double DEFAULT NULL COMMENT '押金',
-  `premium` double DEFAULT NULL COMMENT '保险费，xxx元/次',
-  `rent` double DEFAULT NULL COMMENT '租金（xxx元/天）',
-  `mileageLimits` bigint(20) DEFAULT NULL COMMENT '里程限制（xxx公里/日）',
-  `overMileageFare` double DEFAULT NULL COMMENT '超里程费用（xxx元/公里）',
-  `overTimeFare` double DEFAULT NULL COMMENT '超时标准（xxx元/小时）',
-  `carSendFare` double DEFAULT NULL COMMENT '上门送车（xxx元）',
-  `diffShopReturnFare` double DEFAULT NULL COMMENT '异店结算（还车）附加费（元）',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单';
 
@@ -108,14 +97,6 @@ CREATE TABLE `csm_order_snapshot` (
   `status` int(11) DEFAULT NULL COMMENT '状态，字典表字段，组名：csm_order_snapshot_status，0：删除；1：待审批；2：已审批',
   `createTime` datetime DEFAULT NULL COMMENT '创建时间',
   `updateTime` datetime DEFAULT NULL COMMENT '更新时间',
-  `deposit` double DEFAULT NULL COMMENT '押金',
-  `premium` double DEFAULT NULL COMMENT '保险费，xxx元/次',
-  `rent` double DEFAULT NULL COMMENT '租金（xxx元/天）',
-  `mileageLimits` bigint(20) DEFAULT NULL COMMENT '里程限制（xxx公里/日）',
-  `overMileageFare` double DEFAULT NULL COMMENT '超里程费用（xxx元/公里）',
-  `overTimeFare` double DEFAULT NULL COMMENT '超时标准（xxx元/小时）',
-  `carSendFare` double DEFAULT NULL COMMENT '上门送车（xxx元）',
-  `diffShopReturnFare` double DEFAULT NULL COMMENT '异店结算（还车）附加费（元）',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单快照表（用于订单修改审批）';
 
@@ -209,7 +190,7 @@ CREATE TABLE `cust_charge_standard` (
 
 /*Data for the table `cust_charge_standard` */
 
-insert  into `cust_charge_standard`(`id`,`deposit`,`premium`,`rent`,`mileageLimits`,`overMileageFare`,`overTimeFare`,`carSendFare`,`diffShopReturnFare`,`status`,`createTime`,`updateTime`) values (1,123,23,22,123,123,123,123,1,1,'2013-03-31 16:32:21','2013-03-31 16:32:21'),(2,123,23,23,321,111,8,2134,111,NULL,NULL,NULL),(3,423,4,32,423,423,24,42,23,1,'2013-03-31 16:34:58','2013-03-31 16:34:58');
+insert  into `cust_charge_standard`(`id`,`deposit`,`premium`,`rent`,`mileageLimits`,`overMileageFare`,`overTimeFare`,`carSendFare`,`diffShopReturnFare`,`status`,`createTime`,`updateTime`) values (1,123,23,NULL,NULL,NULL,NULL,NULL,NULL,1,'2013-03-31 16:32:21','2013-03-31 16:32:21'),(2,123,23,23,321,111,8,2134,111,NULL,NULL,NULL),(3,423,4,32,423,423,24,42,23,1,'2013-03-31 16:34:58','2013-03-31 16:34:58');
 
 /*Table structure for table `cust_store` */
 
@@ -297,11 +278,9 @@ CREATE TABLE `sys_dictionary` (
   `createTime` datetime DEFAULT NULL COMMENT '创建时间',
   `updateTime` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='字典管理';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字典管理';
 
 /*Data for the table `sys_dictionary` */
-
-insert  into `sys_dictionary`(`id`,`groupName`,`groupDisplayName`,`dictKey`,`dictValue`,`dictDisplayName`,`orderNo`,`comment`,`status`,`createTime`,`updateTime`) values (1,'CUST_CAR_COLOR','车辆颜色','1','1','银色',1,NULL,1,'2013-04-30 13:29:45','2013-04-30 13:29:45'),(2,'CUST_CAR_COLOR','车辆颜色','2','2','银灰色',2,NULL,1,'2013-04-30 13:29:45','2013-04-30 13:29:45'),(3,'CUST_CAR_COLOR','车辆颜色','3','3','灰色',3,NULL,1,'2013-04-30 13:29:45','2013-04-30 13:29:45'),(4,'CUST_CAR_COLOR','车辆颜色','4','3','红色',4,NULL,1,'2013-04-30 13:29:45','2013-04-30 13:29:45'),(5,'CUST_CAR_COLOR','车辆颜色','5','5','黄色',5,NULL,1,'2013-04-30 13:29:45','2013-04-30 13:29:45'),(6,'CUST_CAR_COLOR','车辆颜色','6','6','白色',6,NULL,1,'2013-04-30 13:29:45','2013-04-30 13:29:45'),(7,'CUST_CAR_COLOR','车辆颜色','7','7','橙色',7,NULL,1,'2013-04-30 13:29:45','2013-04-30 13:29:45'),(8,'CUST_CAR_COLOR','车辆颜色','8','8','绿色',8,NULL,1,'2013-04-30 13:29:45','2013-04-30 13:29:45'),(9,'CUST_CAR_STATUS','车辆状态','1','1','在库待租',1,NULL,1,'2013-04-30 13:29:45','2013-04-30 13:29:45'),(10,'CUST_CAR_STATUS','车辆状态','2','2','已经出租',2,NULL,1,'2013-04-30 13:29:45','2013-04-30 13:29:45'),(11,'CUST_CAR_TYPE_CATEGORY','车型类别','1','1','轿车',1,NULL,1,'2013-04-30 13:29:45','2013-04-30 13:29:45'),(12,'CUST_CAR_TYPE_CATEGORY','车型类别','2','2','越野汽车',2,NULL,1,'2013-04-30 13:29:45','2013-04-30 13:29:45'),(13,'CUST_CAR_TYPE_CATEGORY','车型类别','3','3','客车',3,NULL,1,'2013-04-30 13:29:45','2013-04-30 13:29:45'),(14,'CUST_CAR_TYPE_CATEGORY','车型类别','4','4','货车',4,NULL,1,'2013-04-30 13:29:45','2013-04-30 13:29:45'),(15,'CUST_CAR_TYPE_CATEGORY','车型类别','5','5','自卸汽车',5,NULL,1,'2013-04-30 13:29:45','2013-04-30 13:29:45'),(16,'CUST_CAR_TYPE_CATEGORY','车型类别','6','6','牵引汽车',6,NULL,1,'2013-04-30 13:29:45','2013-04-30 13:29:45'),(17,'CUST_CAR_TYPE_CATEGORY','车型类别','7','7','专用汽车',7,NULL,1,'2013-04-30 13:29:45','2013-04-30 13:29:45'),(18,'GENERAL_GENDER','性别','1','1','男',1,NULL,1,'2013-04-30 13:29:45','2013-04-30 13:29:45'),(19,'GENERAL_GENDER','性别','2','2','女',2,NULL,1,'2013-04-30 13:29:45','2013-04-30 13:29:45');
 
 /*Table structure for table `sys_province` */
 

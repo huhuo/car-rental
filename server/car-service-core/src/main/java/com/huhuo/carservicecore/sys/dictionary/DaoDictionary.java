@@ -9,7 +9,7 @@ import com.huhuo.carservicecore.constant.Dictionary.DictGroup;
 import com.huhuo.carservicecore.db.GenericBaseExtenseDao;
 
 @Repository("carservicecoreDaoDictionary")
-public class DaoDictionary extends GenericBaseExtenseDao<ModelDictionary> implements IDaoDictionary<ModelDictionary> {
+public class DaoDictionary extends GenericBaseExtenseDao<ModelDictionary> implements IDaoDictionary {
 
 	@Override
 	public String getTableName() {

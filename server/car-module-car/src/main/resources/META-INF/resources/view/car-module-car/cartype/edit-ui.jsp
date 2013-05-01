@@ -2,6 +2,12 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <script type="text/javascript">
 	$(document).ready(function() {
+		// number output format
+		console.log('${carType.drivingRange }');
+		console.log($.formatNumber('${carType.drivingRange }', {format:'#,###.00', local:'cn'}));
+		console.log($.formatNumber('${carType.drivingRange }', {format:'#', local:'cn'}));
+		$('.digits').formatNumber({format:'#', local:'cn'});
+		$('.number').formatNumber({format:'#.00', local:'cn'});
 		// validation
 		$('#editCarTypeForm').validate();
 		// image upload event

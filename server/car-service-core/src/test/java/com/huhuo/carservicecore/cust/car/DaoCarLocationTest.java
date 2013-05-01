@@ -1,6 +1,7 @@
 package com.huhuo.carservicecore.cust.car;
 
 import java.util.Date;
+import java.util.Random;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -36,6 +37,22 @@ public class DaoCarLocationTest extends CarServiceCoreTest {
 		iDaoCarLocation.deletePhysical(t);
 		actual = iDaoCarLocation.find(t.getId());
 		Assert.assertNull("failed to delete ModelOrder", actual);
+	}
+	
+	@Test
+	public void dataInitialization() {
+		// initialization
+		iDaoCarLocation.execute("TRUNCATE cust_car_location");
+		// add batch data
+		Random r = new Random();
+		for(int i=0; i<12; i++) {
+			ModelCarLocation t = new ModelCarLocation();
+			t.setLatitude(r.nextDouble());
+			t.setLongitude(r.nextDouble());
+			iDaoCarLocation.add(t);
+		}
+		// initial other field
+		iDaoCarLocation.update("UPDATE cust_car_location SET status=?, createTime=?, updateTime=?", 1, new Date(), new Date());
 	}
 	
 }
