@@ -1,7 +1,9 @@
 package com.huhuo.carservicecore.cust.car;
 
 import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
+import com.huhuo.carservicecore.sys.file.ModelFileUpload;
 import com.huhuo.integration.base.BaseModel;
+import com.huhuo.integration.db.mysql.NotSqlField;
 
 
 public class ModelCar extends BaseModel {
@@ -10,6 +12,8 @@ public class ModelCar extends BaseModel {
 	
 	/** 车辆型号（1个车型对应多个车辆） **/
 	private Long carTypeId;
+	/** 上传图片的id，与sys_file_upload表关联 **/
+	private Long pictureId;
 	/** 车牌号 **/
 	private String licencePlate;
 	/** 所属门店 **/
@@ -30,7 +34,7 @@ public class ModelCar extends BaseModel {
 	/** 入库门店的id，与cust_store表关联 **/
 	private Long warehouseId;
 	/** 车辆位置信息id，与表cust_car_location表关联 **/
-	private Long location;
+	private Long locationId;
 	/**
 	 * 车辆状态，字典查询，关键字cust_car_status，0、删除；1、在库待租；2、已经出租；
 	 * 3、维修保养中；4、报废 
@@ -40,6 +44,9 @@ public class ModelCar extends BaseModel {
 	/**
 	 * 外联对象
 	 */
+	@NotSqlField
+	private ModelFileUpload picture;
+	
 	private transient ModelDictionary colorDict;
 	
 	private transient ModelDictionary statusDict;
@@ -49,6 +56,12 @@ public class ModelCar extends BaseModel {
 	}
 	public void setCarTypeId(Long carTypeId) {
 		this.carTypeId = carTypeId;
+	}
+	public Long getPictureId() {
+		return pictureId;
+	}
+	public void setPictureId(Long pictureId) {
+		this.pictureId = pictureId;
 	}
 	public String getLicencePlate() {
 		return licencePlate;
@@ -98,17 +111,23 @@ public class ModelCar extends BaseModel {
 	public void setWarehouseId(Long warehouseId) {
 		this.warehouseId = warehouseId;
 	}
-	public Long getLocation() {
-		return location;
+	public Long getLocationId() {
+		return locationId;
 	}
-	public void setLocation(Long location) {
-		this.location = location;
+	public void setLocationId(Long locationId) {
+		this.locationId = locationId;
 	}
 	public Integer getStatus() {
 		return status;
 	}
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+	public ModelFileUpload getPicture() {
+		return picture;
+	}
+	public void setPicture(ModelFileUpload picture) {
+		this.picture = picture;
 	}
 	public ModelDictionary getColorDict() {
 		return colorDict;

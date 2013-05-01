@@ -19,7 +19,7 @@ public interface Dictionary {
 	 * @author wuyuxuan
 	 */
 	public enum DictGroup {
-		GENERAL_GENDER("GENERAL_GENDER", "性别"),							// gender for general usage
+		GENERAL_SYS_GENDER("GENERAL_GENDER", "性别"),							// gender for general usage
 		CUST_CAR_COLOR("CUST_CAR_COLOR", "车辆颜色"),						// car color
 		CUST_CAR_STATUS("CUST_CAR_STATUS", "车辆状态"),						// car status
 		CUST_CAR_TYPE_CATEGORY("CUST_CAR_TYPE_CATEGORY", "车型类别"),		// car type category
@@ -43,8 +43,8 @@ public interface Dictionary {
 	 */
 	public enum Dict implements Dictionary {
 		// 1、男；2、女
-		GENERAL_GENDER_male(DictGroup.GENERAL_GENDER, 1),
-		GENERAL_GENDER_female(DictGroup.GENERAL_GENDER, 2),
+		GENERAL_SYS_GENDER_male(DictGroup.GENERAL_SYS_GENDER, 1),
+		GENERAL_SYS_GENDER_female(DictGroup.GENERAL_SYS_GENDER, 2),
 		// 1、银色；2、银灰色；3、灰色；4、红色；5、黄色；6、白色；7、 橙色；8、绿色；
 		CUST_CAR_COLOR_silvery(DictGroup.CUST_CAR_COLOR, 1),
 		CUST_CAR_COLOR_silveryGray(DictGroup.CUST_CAR_COLOR, 2),

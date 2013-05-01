@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.alibaba.fastjson.JSON;
 import com.huhuo.carservicecore.constant.Dictionary.DictGroup;
 import com.huhuo.carservicecore.cust.car.ModelCarType;
 import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
@@ -62,7 +63,7 @@ public class CtrlCarType extends BaseCtrl {
 			page = new Page<ModelCarType>();
 		}
 		List<ModelCarType> records = iservCarType.findByCondition(condition, true);
-		model.addAttribute("records", records);
+		model.addAttribute("records", JSON.parseArray(records.toString()));
 		page.setTotal(iservCarType.countByCondition(condition));
 		model.addAttribute("page", page);
 		model.addAttribute("t", t);
@@ -113,12 +114,12 @@ public class CtrlCarType extends BaseCtrl {
 	}
 	
 	@RequestMapping(value="/delete.do")
-	public void delete(HttpServletResponse resp, ModelCarType t, @RequestParam(value="ids[]") List<Long> ids) {
+	public void delete(HttpServletResponse resp, @RequestParam(value="ids[]") List<Long> ids) {
 		// receive data
 		logger.debug("==> batch delete -->{}", ids);
 		// retrieve model form DB
 		iservCarType.deleteBatch(ids);
-		write(new Message<ModelCarType>(Status.SUCCESS, "删除成功", t), resp);
+		write(new Message<List<Long>>(Status.SUCCESS, "删除成功", ids), resp);
 	}
 	
 	

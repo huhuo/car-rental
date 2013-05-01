@@ -66,6 +66,12 @@ public class GenericBaseExtenseDaoTest extends CarServiceCoreTest {
 	}
 	
 	@Test
+	public void queryForSingleColVal() {
+		String sql = "SELECT count(*) FROM cust_car_type WHERE id IN (?,?)";
+		print(iDaoCarType.queryForSingleColVal(sql, Long.class, 1, 2));
+	}
+	
+	@Test
 	public void find() {
 		print(iDaoCarType.find(ModelCarType.class, 1));
 		print(iDaoCarType.find(1));
