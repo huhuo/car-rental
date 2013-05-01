@@ -75,6 +75,7 @@ $(document).ready(function(){
 		}
 	});
 	console.log($('.search-term.huhuo-item-selected'));
+	console.log('---');
 	$('#huhuoForm').trigger('submit');
 	// add and delete button group event
 	var btnGroup = $('#mgrDivId div.navbar div.btn-group');
