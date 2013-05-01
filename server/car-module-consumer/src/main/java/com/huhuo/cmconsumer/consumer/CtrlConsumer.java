@@ -146,5 +146,21 @@ public class CtrlConsumer extends BaseCtrl {
 		logger.debug("access consumer points management page");
 		return basePath + "/points/index";
 	}
+	@RequestMapping(value="/sms_index.do")
+	public String smsIndex() {
+		return basePath + "/points/sms_index";
+	}
+	@RequestMapping(value="/mobile_index.do")
+	public String mobileIndex() {
+		return basePath + "/points/mobile_index";
+	}
+	@RequestMapping(value="/stat_index.do")
+	public String statIndex() {
+		return basePath + "/points/stat_index";
+	}
+	@RequestMapping(value="/cusomer_stat_index.do")
+	public String cusomerStatIndex() {
+		return basePath + "/points/cusomer_stat_index";
+	}
 	
 }

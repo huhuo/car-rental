@@ -110,7 +110,6 @@ $(document).ready(function(){
 			<div class="container">
 				<div class="btn-group">
 					<button name="add" class="btn">添加</button>
-					<button name="edit" class="btn">编辑</button>
 					<button name="delete" class="btn">删除</button>
 				</div>
 				<!-- search box -->

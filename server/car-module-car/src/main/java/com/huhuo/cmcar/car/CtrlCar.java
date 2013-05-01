@@ -146,4 +146,8 @@ public class CtrlCar extends SystemBaseCtrl {
 		logger.debug("---> access car trace page");
 		return basePath + "/car/index";
 	}
+	@RequestMapping(value="/trace/trace.do")
+	public String traceTemp() {	// car trace management page
+		return basePath + "/trace/index";
+	}
 }
