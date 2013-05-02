@@ -58,22 +58,22 @@ a.car-detail {
 			<tr>
 				<td>${record.id}</td>
 				<td><a class="pic"
-					href="http://trade.taobao.com/trade/detail/tradeSnap.htm?spm=a1z09.2.9.70.tHHXch&amp;tradeID=287862446464244"
-					title="查看宝贝详情" target="_blank" data-spm-anchor-id="a1z09.2.9.70">
+					href="http://www.baidu.com"
+					title="${record.name}" target="_blank" data-spm-anchor-id="a1z09.2.9.70">
 						<img class='pic'
-						src="http://img04.taobaocdn.com/bao/uploaded/i4/T1vJ_7XiXfXXaTa0Q5_055349.jpg_sum.jpg "
-						alt="查看宝贝详情">
+						src="${path }/${record.path}/${record.md5} "
+						alt="图片暂无">
 				</a>
 					<div class="desc">
 						<a
 							href="http://trade.taobao.com/trade/detail/tradeSnap.htm?spm=a1z09.2.9.71.tHHXch&amp;tradeID=287862446464244"
 							target="_blank" class="car-detail"
-							data-spm-anchor-id="a1z09.2.9.71"> 陕西特产 汉中秦巴山区野生木耳 秦岭压缩黑木耳
-							480克 特价包邮 </a>
+							data-spm-anchor-id="a1z09.2.9.71"> 车型：${record.name} <br>
+							牌号：${record.licencePlate} </a>
 					</div></td>
-				<td>都市爱情喜剧</td>
-				<td>2010</td>
-				<td>爱情公寓</td>
+				<td>${record.username}(${record.mobileNumber})</td>
+				<td>${record.carRentTime}</td>
+				<td>${record.carPlanRetTime}</td>
 				<td><div class="btn-group">
 						<button class="btn">结账</button>
 						<button class="btn">修改</button>

@@ -83,23 +83,19 @@ div.titlewell {
 									class="caret"></b></a>
 								<ul class="dropdown-menu">
 									<li><a class="search-term huhuo-item-selected"
-										valuename="condition.opt.phone" href="javascript:void(0)">手机号</a></li>
+										valuename="opt.phone" href="javascript:void(0)">手机号</a></li>
 									<li><a class="search-term"
-										valuename="condition.opt.orderNo" href="javascript:void(0)">订单编号</a></li>
+										valuename="opt.orderNo" href="javascript:void(0)">订单编号</a></li>
 									<li class="divider"></li>
-									<li><a class="search-term" valuename="condition.opt.name"
+									<li><a class="search-term" valuename="opt.name"
 										href="javascript:void(0)">姓名</a></li>
 									<li class="divider"></li>
-									<li><a class="search-term" id="seating"
-										valuename="condition.opt.cardId" href="javascript:void(0)">身份证号</a></li>
-									<li><a class="search-term" id="tankCapacity"
-										valuename="condition.opt.address" href="javascript:void(0)">住址</a></li>
 								</ul></li>
 						</ul>
 						<form id="huhuoForm" class="navbar-form" style="width: 400px;"
 							action="${path }/cmorder/order/get.do">
 							<input type="text" class="search-query span6"
-								name="condition.opt.phone" placeholder="手机号">
+								name="opt.phone" placeholder="手机号">
 							<button type="submit" class="btn">search</button>
 						</form>
 					</div>

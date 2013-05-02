@@ -1,8 +1,8 @@
 package com.huhuo.cmorder.order;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
@@ -53,22 +53,22 @@ public class CtrlOrder extends HuhuoWebBaseBaseCtrl {
 	}
 
 	@RequestMapping(value = "/get.do")
-	public String get(Condition<ModelOrder> condition, Model model) {
+	public String get(Condition<Map<String,Object>> condition, Model model) {
 		logger.debug("server receive: condition={}", condition);
-		Page<ModelOrder> page = condition.getPage();
+		Map<String, Object> opt = condition.getOpt();
+		opt.put("status", 1);
+		
+		Page<Map<String,Object>> page = condition.getPage();
 
 		if (page == null) {
-			page = new Page<ModelOrder>();
+			page = new Page<Map<String,Object>>();
 			condition.setPage(page);
 		}
 		// condition.setPage(new Page(0, 30));
 		// List<ModelConsumer> list = servConsumer.findByCondition(condition);
-		List<ModelOrder> list = iservOrder.findModels(page);
-
-		page.setTotal(iservOrder.count());
-		page.setRecords(list);
+		page= iservOrder.findOrderPage(condition);
 		model.addAttribute("orderPage", page);
-		logger.debug("orderlist is [{}]", list);
+		logger.debug("page is [{}]", page);
 		return basePath + "/ordertable";
 	}
 
