@@ -106,9 +106,26 @@ public class CtrlCar extends SystemBaseCtrl {
 	@RequestMapping(value="/add-ui.do")
 	public String addUI(Model model) {
 		logger.debug("==> access add ui");
+		// prepare store for combo box of carTypeId
+		List<ModelCarType> carTypeList = iServCarType.findByCondition(null);
+		model.addAttribute("carTypeList", carTypeList);
+		// prepare store for combo box of storeId
+		List<ModelStore> storeList = iServStore.findByCondition(null);
+		model.addAttribute("storeList", storeList);
+		// prepare dictionary for combo box of color
+		List<ModelDictionary> colorList = iServDictionary.getGroupsBy(DictGroup.CUST_CAR_COLOR);
+		model.addAttribute("colorList", colorList);
 		return basePath + "/car/add-ui";
 	}
 	
+	@RequestMapping(value="/add.do")
+	public void add(HttpServletResponse resp, ModelCar car, String icon) {
+		logger.debug("---> server receive: car={}, icon={}", car, icon);
+		// add new car
+		iservCar.add(car);
+		Message<ModelCar> msg = new Message<ModelCar>(Status.SUCCESS, "add new car success!", car);
+		write(msg, resp);
+	}
 	
 	@RequestMapping(value="/delete.do")
 	public void delete(HttpServletResponse resp, @RequestParam(value="ids[]") List<Long> ids) {
@@ -119,6 +136,49 @@ public class CtrlCar extends SystemBaseCtrl {
 		write(new Message<List<Long>>(Status.SUCCESS, "删除成功", ids), resp);
 	}
 	
+	@RequestMapping(value="/detail.do")
+	public String detail(Model model, ModelCar t) {
+		logger.debug("==> edit ModeCar with id --> {}", t.getId());
+		Condition<ModelCar> condition = new Condition<ModelCar>(t, null, null, new Page<ModelCar>(0, 1));
+		model.addAttribute("car", iservCar.findByCondition(condition, true).get(0));
+		// prepare store for combo box of carTypeId
+		List<ModelCarType> carTypeList = iServCarType.findByCondition(null);
+		model.addAttribute("carTypeList", carTypeList);
+		// prepare store for combo box of storeId
+		List<ModelStore> storeList = iServStore.findByCondition(null);
+		model.addAttribute("storeList", storeList);
+		// prepare dictionary for combo box of color
+		List<ModelDictionary> colorList = iServDictionary.getGroupsBy(DictGroup.CUST_CAR_COLOR);
+		model.addAttribute("colorList", colorList);
+		return basePath + "/car/detail";
+	}
+	
+	@RequestMapping(value="/edit-ui.do")
+	public String editUI(Model model, ModelCar t) {
+		logger.debug("==> edit ModeCar with id --> {}", t.getId());
+		Condition<ModelCar> condition = new Condition<ModelCar>(t, null, null, new Page<ModelCar>(0, 1));
+		model.addAttribute("car", iservCar.findByCondition(condition, true).get(0));
+		// prepare store for combo box of carTypeId
+		List<ModelCarType> carTypeList = iServCarType.findByCondition(null);
+		model.addAttribute("carTypeList", carTypeList);
+		// prepare store for combo box of storeId
+		List<ModelStore> storeList = iServStore.findByCondition(null);
+		model.addAttribute("storeList", storeList);
+		// prepare dictionary for combo box of color
+		List<ModelDictionary> colorList = iServDictionary.getGroupsBy(DictGroup.CUST_CAR_COLOR);
+		model.addAttribute("colorList", colorList);
+		return basePath + "/car/edit-ui";
+	}
+	
+
+	@RequestMapping(value="/update.do")
+	public void update(HttpServletResponse resp, ModelCar t) throws Exception {
+		// retrieve model form DB
+		iservCar.update(t);
+		Message<ModelCar> msg = new Message<ModelCar>(Status.SUCCESS, "修改成功", t);
+		write(msg, resp);
+	}
+	
 	/*************************************************************
 	 * car trace business
 	 *************************************************************/
@@ -127,5 +187,9 @@ public class CtrlCar extends SystemBaseCtrl {
 	public String trace() {	// car trace management page
 		logger.debug("---> access car trace page");
 		return basePath + "/car/index";
+	}
+	@RequestMapping(value="/trace/trace.do")
+	public String traceTemp() {	// car trace management page
+		return basePath + "/trace/index";
 	}
 }

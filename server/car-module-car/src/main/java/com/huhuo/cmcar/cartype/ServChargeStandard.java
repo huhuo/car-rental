@@ -55,8 +55,10 @@ public class ServChargeStandard extends GenericBaseExtenseServ<ModelChargeStanda
 			if(chargeStandardDB != null) {
 				BeanUtils.copyProperties(chargeStandardDB, t, false);
 				chargeStandardDB.setUpdateTime(new Date());
+				return super.update(chargeStandardDB);
+			} else {
+				return add(t);
 			}
-			return super.update(t);
 		} catch (Exception e) {
 			throw new ServException(e);
 		}

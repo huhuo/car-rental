@@ -1,65 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<script type="text/javascript">
-$(document).ready(function() {
-	// validation  这里不能选择"cartypeEditDivId"下的所有form validate（），不然新加的form也会被校验，你个大虎货
- 	 $('#addCarTypeForm').validate(); 
-	// image upload event
-	var percent = $('#fileUploadForm .progress .percent');
-	var bar = $('#fileUploadForm .progress .bar');
-	$('#fileUploadForm').ajaxForm({
-		beforeSubmit: function(file, form, option) {
-			if(file[0].value == '') {
-				alert('请先选择要上传的图片');
-				return false;
-			}
-		},
-		beforeSend: function(s, xhr) {
-			var percentVal = '0%';
-			bar.width(percentVal);
-			percent.html(percentVal);
-		},
-		uploadProgress: function(event, position, total, percentComplete) {
-			var percentVal = percentComplete + '%';
-			bar.width(percentVal);
-			percent.html(percentVal);
-		},
-		success: function(data, status, xhr) {
-			var percentVal = '100%';
-			bar.width(percentVal);
-			percent.html(percentVal);
-			// add upload file url to submit form
-			if(data.data) {
-				$('#addCarTypeForm input[name="icon.name"]').val(data.data.name);
-				$('#addCarTypeForm input[name="icon.md5"]').val(data.data.md5);
-			}
-		},
-		complete: function(xhr) {
-			msg = JSON.parse(xhr.responseText);
-			$.huhuoGrowlUI(msg.msg);
-			if(msg.data) {
-				$('#fileUploadForm img').attr('src', '${path}/' + msg.data.path + '/' + msg.data.md5);
-			}
-		}
-	});
-	
-	// form commit
-	$('#addCarTypeForm').huhuoFormPost(function(data, status) {
-		if(data.status == 'SUCCESS') {
-			$('#cartypeEditDivId').hide();
-			$('#cartypeMgrDivId').show(500);
-			$('#huhuoForm').trigger('submit');
-		} else {
-			$.huhuoGrowlUI('error occur in server --> ' + data.msg);
-		}
-	}, '${path}/cmcar/cartype/add.do');
-	
-});
-</script>
-
 <div class="row-fluid">
 	<div class="span6">
-		<form id="addCarTypeForm" class="form-horizontal well" action="${path}/cmcar/cartype/add.do">
+		<form id="addForm" class="form-horizontal well" action="${path}/cmcar/cartype/add.do">
 			<div class="control-group">
 				<label class="control-label" for="inputName">车型名称</label>
 				<div class="controls">
@@ -156,7 +99,7 @@ $(document).ready(function() {
 		</form>
 	</div>
 	<div class="span6">
-		<form id="fileUploadForm" class="form-horizontal" action="${path}/cmsystem/file/fileupload/cached.do" method="post" enctype="multipart/form-data">
+		<form id="fileUploadForm" class="form-horizontal">
 			<ul class="thumbnails">
 				<li class="span12">
 					<a href="javascript:void(0)" class="thumbnail">
@@ -165,9 +108,9 @@ $(document).ready(function() {
 				</li>
 			</ul>
 			<div  class="control-group">
-				<label class="control-label" for="inputIcon">图片上传</label>
+				<label class="control-label" for="inputPicture">图片上传</label>
 				<div class="controls">
-					<input type="file" id="inputIcon" name="uploadFile">
+					<input type="file" id="inputPicture" name="cachedFile">
 					<input type="submit" value="Upload File to Server">
 				</div>
 			</div>
@@ -178,4 +121,30 @@ $(document).ready(function() {
 		</form>
 	</div>
 </div>
+<script type="text/javascript">
+$(document).ready(function() {
+	// validation  这里不能选择"cartypeEditDivId"下的所有form validate（），不然新加的form也会被校验，你个大虎货
+ 	 $('#addForm').validate(); 
+	// image upload event
+	$('#fileUploadForm').fileUpload(function(data, status, xhr) {
+		// add upload file url to submit form
+		if(data.data) {
+			$('#addForm input[name="icon.name"]').val(data.data.name);
+			$('#addForm input[name="icon.md5"]').val(data.data.md5);
+		}
+	});
+	
+	// form commit
+	$('#addForm').huhuoFormPost(function(data, status) {
+		if(data.status == 'SUCCESS') {
+			$('#cartypeEditDivId').hide();
+			$('#cartypeMgrDivId').show(500);
+			$('#huhuoForm').trigger('submit');
+		} else {
+			$.huhuoGrowlUI('error occur in server --> ' + data.msg);
+		}
+	}, '${path}/cmcar/cartype/add.do');
+	
+});
+</script>
 

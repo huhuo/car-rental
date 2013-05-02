@@ -1,5 +1,6 @@
 package com.huhuo.carservicecore.cust.car;
 
+import com.huhuo.carservicecore.cust.store.ModelStore;
 import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
 import com.huhuo.carservicecore.sys.file.ModelFileUpload;
 import com.huhuo.integration.base.BaseModel;
@@ -41,15 +42,21 @@ public class ModelCar extends BaseModel {
 	 */
 	private Integer status;
 	
-	/**
+	/***************************************
 	 * 外联对象
-	 */
+	 ***************************************/
+	@NotSqlField
+	private ModelCarType carType;
 	@NotSqlField
 	private ModelFileUpload picture;
-	
-	private transient ModelDictionary colorDict;
-	
-	private transient ModelDictionary statusDict;
+	@NotSqlField
+	private ModelStore store;
+	@NotSqlField
+	private ModelDictionary colorDict;
+	@NotSqlField
+	private ModelStore warehouse;
+	@NotSqlField
+	private ModelDictionary statusDict;
 	
 	public Long getCarTypeId() {
 		return carTypeId;
@@ -123,17 +130,35 @@ public class ModelCar extends BaseModel {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+	public ModelCarType getCarType() {
+		return carType;
+	}
+	public void setCarType(ModelCarType carType) {
+		this.carType = carType;
+	}
 	public ModelFileUpload getPicture() {
 		return picture;
 	}
 	public void setPicture(ModelFileUpload picture) {
 		this.picture = picture;
 	}
+	public ModelStore getStore() {
+		return store;
+	}
+	public void setStore(ModelStore store) {
+		this.store = store;
+	}
 	public ModelDictionary getColorDict() {
 		return colorDict;
 	}
 	public void setColorDict(ModelDictionary colorDict) {
 		this.colorDict = colorDict;
+	}
+	public ModelStore getWarehouse() {
+		return warehouse;
+	}
+	public void setWarehouse(ModelStore warehouse) {
+		this.warehouse = warehouse;
 	}
 	public ModelDictionary getStatusDict() {
 		return statusDict;

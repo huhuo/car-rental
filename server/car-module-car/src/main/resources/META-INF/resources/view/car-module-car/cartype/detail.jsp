@@ -1,19 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<script type="text/javascript">
-	$(document).ready(function() {
-		// validation
-		$('#cartypeEditDivId form').validate();
-		// cartype add page
-		$('#cartypeEditDivId form button').click(function(event) {
-			$('#cartypeEditDivId').hide();
-			$('#cartypeMgrDivId').show(500);
-			return false;
-		});
-		
-	});
-</script>
-<form class="form-horizontal well" action="${path}/cmcar/cartype/add.do">
+<form class="form-horizontal well">
 	<div class="row-fluid">
 		<div class="span6">
 			<input type="hidden" value="${carType.id }">
@@ -123,3 +110,13 @@
 		</div>
 	</div>
 </form>
+<script type="text/javascript">
+	$(document).ready(function() {
+		// cartype add page
+		$('#editDivId form button').click(function(event) {
+			$('#editDivId').hide();
+			$('#mgrDivId').show(500);
+			return false;
+		});
+	});
+</script>

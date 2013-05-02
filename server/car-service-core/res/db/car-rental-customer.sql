@@ -82,6 +82,7 @@ CREATE TABLE `csm_order` (
   `diffShopReturnFare` double DEFAULT NULL COMMENT '异店结算（还车）附加费（元）',
   `isCarSend` boolean default NULL COMMENT '是否上门送车',
   `isDiffShopReturn` boolean default NULL COMMENT '是否异店换车',
+  `remark` varchar(300) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单';
 
@@ -117,6 +118,7 @@ CREATE TABLE `csm_order_snapshot` (
   `diffShopReturnFare` double DEFAULT NULL COMMENT '异店结算（还车）附加费（元）',
   `isCarSend` boolean default NULL COMMENT '是否上门送车',
   `isDiffShopReturn` boolean default NULL COMMENT '是否异店换车',
+  `remark` varchar(300) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单快照表（用于订单修改审批）';
 

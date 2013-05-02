@@ -25,19 +25,26 @@ div.titlewell {
 }
 </style>
 <script type="text/javascript">
+	
+	// form commit
+	$('#addConsumerForm').huhuoFormPost(function(data, status) {
+		if(data.status == 'SUCCESS') {
+			$('#consumerEditDivId').hide();
+			$('#consumerManagerDiv').show(500);
+			$('#huhuoForm').trigger('submit');
+		} else {
+			$.huhuoGrowlUI('error occur in server --> ' + data.msg);
+		}
+	}, '${path}/cmconsumer/consumer/add.do'); 
+	
+	
 	$(document).ready(function() {
-		$('#addConsumerForm').huhuoFormPost(function(data, status) {
-			console.log(data);
-			if (data.status == 'SUCCESS') {
-				$('#"consumerEditDivId"').hide();
-				$('#consumerManagerDiv').show(500);
-				console.log($('#huhuoForm'));
-				$('#huhuoForm').trigger('submit');
-			} else {
-				$.huhuoGrowlUI('error occur in server --> ' + data.msg);
-			}
-		}, '${path}/cmconsumer/consumer/add.do');
+		$("#returnSearch").click(function() {
+			$('#consumerEditDivId').hide();
+			$('#consumerManagerDiv').show(500);
+		});
 	});
+	
 </script>
 <div style="position: relative">
 	<button id="returnSearch" class="btn" style="margin-bottom: 5px;">返回</button>
@@ -67,7 +74,7 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputSeating">会员姓名</label>
 							<div class="controls">
-								<input type="number" class="consumerinput required"
+								<input type="text" class="consumerinput "
 									id="inputCustomerName" name="username" placeholder="输入会员姓名">
 							</div>
 						</div>
@@ -88,7 +95,7 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputIDCardNo">身份证号</label>
 							<div class="controls">
-								<input type="number" class="consumerinput required digits" id="inputIDCardNo"
+								<input type="text" class="consumerinput required digits" id="inputIDCardNo"
 									name="identityCardId" placeholder="输入身份证号">
 							</div>
 						</div>
@@ -120,7 +127,7 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputPermanentAddress">户籍地址</label>
 							<div class="controls">
-								<input type="number" class="consumerinput required"
+								<input type="text" class="consumerinput required"
 									id="inputPermanentAddress" name="address" placeholder="输入户籍地址">
 							</div>
 						</div>
@@ -151,6 +158,7 @@ div.titlewell {
 									placeholder="输入紧急联系人">
 							</div>
 						</div>
+						
 						<div class="control-group">
 							<label class="control-label" for="inputEmergencyTel">紧急联系人电话</label>
 							<div class="controls">
@@ -159,6 +167,44 @@ div.titlewell {
 									placeholder="输入紧急联系人电话">
 							</div>
 						</div>
+						
+						<div class="control-group">
+							<label class="control-label" for="inputBondsman">担保人姓名</label>
+							<div class="controls">
+								<input type="text" class="consumerinput required"
+									id="inputBondsman" name="bondsman"
+									placeholder="输入担保人姓名">
+							</div>
+						</div>
+						
+						<div class="control-group">
+							<label class="control-label" for="inputBondsmanIdentityCard">担保人身份证号</label>
+							<div class="controls">
+								<input type="text" class="consumerinput required digits"
+									id="inputBondsmanIdentityCard" name="bondsmanIdentityCard"
+									placeholder="输入担保人身份证号">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="inputBondsmanTel">担保人电话</label>
+							<div class="controls">
+								<input type="text" class="consumerinput required digits"
+									id="inputBondsmanTel"" name="bondsmanTel"
+									placeholder="输入担保人电话">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="inputConsumerStatus">客户状态</label>
+							<div class="controls">
+								<label class="radio inline"> 
+									<input type="radio" id="inputConsumerStatus" name="consumerStatus" id="optionsRadios1" value="1" checked> 正常
+								</label> 
+								<label class="radio inline"> 
+								<input type="radio" id="inputConsumerStatus" name="consumerStatus" id="optionsRadios2" value="2">黑名单
+								</label>
+							</div>
+						</div>
+						
 						<div class="control-group">
 							<div class="controls">
 								<button type="submit" class="btn btn-primary" id="inputSubmit"

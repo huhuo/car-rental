@@ -6,6 +6,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>客户积分正在紧张开发中，敬请期待 Comming Soon !</h1>
+	<h1>车辆跟踪模块正在紧张开发，敬请期待 Comming Soon !</h1>
 </body>
 </html>

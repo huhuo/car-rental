@@ -32,7 +32,7 @@ public class DaoDictionaryTest extends CarServiceCoreTest {
 	}
 	@Test
 	public void getBy() {
-		DictGroup valueOf = DictGroup.valueOf("GENERAL_GENDER");
+		DictGroup valueOf = DictGroup.valueOf("GENERAL_SYS_GENDER");
 		print(valueOf);
 		print(iDaoDictionary.getBy(DictGroup.GENERAL_SYS_GENDER, 1));
 	}

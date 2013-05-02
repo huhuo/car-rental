@@ -45,6 +45,12 @@ public class CtrlOrder extends HuhuoWebBaseBaseCtrl {
 		logger.debug("access order management page");
 		return basePath + "/index";
 	}
+	
+	@RequestMapping(value = "/addUI.do")
+	public String addUI() { // order manage page
+		logger.debug("access addUI management page");
+		return basePath + "/addui";
+	}
 
 	@RequestMapping(value = "/get.do")
 	public String get(Condition<ModelOrder> condition, Model model) {
@@ -93,6 +99,12 @@ public class CtrlOrder extends HuhuoWebBaseBaseCtrl {
 			
 			order.setId(null);
 			iservOrder.add(order);
+			
+			
+			iservOrder.updateCarStatus(car.getId());
+			
+			
+					
 			Message<ModelOrder> msg = new Message<ModelOrder>(Status.SUCCESS, "add new order success!", order);
 			logger.debug("orderlist is [{}]", msg);
 			write(msg, resp);

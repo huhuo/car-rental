@@ -5,7 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>虎货汽车租赁系统</title>
+<title>汽车租赁管理系统</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
 <link href="${path }/res/js/bootstrap/css/bootstrap.css"
@@ -40,6 +40,7 @@ $(document).ready(function() {
 		});
 		$(this).addClass("huhuo-item-selected");
 	});
+	$('#rentalInfoMgr a.first').trigger('click');
 });
 </script>
 
@@ -77,15 +78,16 @@ $(document).ready(function() {
 							<li id="carInfoMgr" class="collapse leftdivchange">
 								<a class="huhuoItem  first" href="${path }/cmcar/cartype/index.do">车型管理</a>
 								<a class="huhuoItem" href="${path }/cmcar/car/index.do">车辆管理</a>
-								<a class="huhuoItem end" href="${path }/cmcar/car/trace/index.do">车辆跟踪</a>
+								<!-- ${path }/cmcar/car/trace/index.do -->
+								<a class="huhuoItem end" href="${path }/cmcar/trace/trace.do">车辆跟踪</a>
 							</li>
 							<li data-toggle="collapse" data-target="#consumerInfoMgr">
 								<a class="menu" href="javascript:void(0)"><i class="icon-user"></i>&nbsp;客户管理</a>
 							</li>
 							<li id="consumerInfoMgr" class="collapse leftdivchange"><a
-								class="huhuoItem first" href="${path }/cmconsumer/consumer/index.do">会员管理</a>
+								class="huhuoItem first" href="${path }/cmconsumer/consumer/index.do">客户管理</a>
 								<a class="huhuoItem end"
-								href="${path }/cmconsumer/consumer/points.do">会员积分管理</a></li>
+								href="${path }/cmconsumer/consumer/points.do">客户积分管理</a></li>
 
 							<li data-toggle="collapse" data-target="#businessMgr"><a
 								class="menu" href="javascript:void(0)"><i class="icon-fire"></i>&nbsp;业务运营（*）</a></li>
@@ -93,15 +95,15 @@ $(document).ready(function() {
 							<!-- 
 							<a class="huhuoItem first" href="${path }/cmorder/order/index.do">车辆运营服务</a>
 							 -->
-								<a class="huhuoItem" href="${path }/cmconsumer/consumer/points.do">短信发布服务</a>
-								<a class="huhuoItem end" href="${path }/cmconsumer/consumer/points.do">移动终端服务</a>
+								<a class="huhuoItem" href="${path }/cmconsumer/consumer/sms_index.do">短信发布服务</a>
+								<a class="huhuoItem end" href="${path }/cmconsumer/consumer/mobile_index.do">移动终端服务</a>
 							</li>
 
 							<li data-toggle="collapse" data-target="#analyMgr"><a
 								class="menu" href="javascript:void(0)"><i class="icon-align-right"></i>&nbsp;运营分析统计（*）</a></li>
 							<li id="analyMgr" class="collapse leftdivchange"><a
-								class="huhuoItem first" href="${path }/cmconsumer/consumer/points.do">营业额统计</a>
-								<a class="huhuoItem end" href="${path }/cmconsumer/consumer/points.do">客户量统计</a>
+								class="huhuoItem first" href="${path }/cmconsumer/consumer/stat_index.do">营业额统计</a>
+								<a class="huhuoItem end" href="${path }/cmconsumer/consumer/cusomer_stat_index.do">客户量统计</a>
 							</li>
 
 							<li data-toggle="collapse" data-target="#systemMgr"><a
@@ -113,8 +115,6 @@ $(document).ready(function() {
 							</li>
 
 						</ul>
-
-
 					</div>
 
 					<div class="span10 well loaddiv" style="min-height: 500px">
