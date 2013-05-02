@@ -186,14 +186,14 @@
 					<div class="control-group">
 						<label class="control-label" for="inputName">客户状态</label>
 						<div class="controls">
-							<input type="text" class="orderinput required" disabled="disabled"
+							<input type="text" class="orderinput required" readonly="readonly"
 								name="consumer.consumerStatus" placeholder="客户状态...">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputName">担保人</label>
 						<div class="controls">
-							<input type="text" class="orderinput required" disabled="disabled" 
+							<input type="text" class="orderinput required" readonly="readonly" 
 								name="consumer.bondsmanIdentityCard" placeholder="担保人...">
 						</div>
 					</div>
@@ -214,7 +214,7 @@
 					<div class="control-group">
 						<label class="control-label" for="inputName">客户姓名</label>
 						<div class="controls">
-							<input type="text" class="orderinput required" disabled="disabled" 
+							<input type="text" class="orderinput required" readonly="readonly" 
 								name="consumer.username" placeholder="客户姓名...">
 						</div>
 					</div>
@@ -222,21 +222,21 @@
 					<div class="control-group">
 						<label class="control-label" for="inputName">固定电话</label>
 						<div class="controls">
-							<input type="text" class="orderinput required" disabled="disabled"
+							<input type="text" class="orderinput required" readonly="readonly"
 								name="consumer.telephone" placeholder="固定电话...">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputName">身份证号</label>
 						<div class="controls">
-							<input type="text" class="orderinput required" disabled="disabled"
+							<input type="text" class="orderinput required" readonly="readonly"
 								name="consumer.identityCardId" placeholder="身份证号...">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputName">年龄</label>
 						<div class="controls">
-							<input type="text" class="orderinput required" disabled="disabled"
+							<input type="text" class="orderinput required" readonly="readonly"
 								name="consumer.age" placeholder="年龄...">
 						</div>
 					</div>
@@ -246,12 +246,12 @@
 							<div class="row-fluid">
 								<div class="span4">
 									<label class="radio" style="padding-top: 5px;"> <input
-										type="radio" name="consumer.gender" disabled="disabled" value="1" checked="true">男
+										type="radio" name="consumer.gender" readonly="readonly" value="1" checked="true">男
 									</label>
 								</div>
 								<div class="span3">
 									<label class="radio" style="padding-top: 5px;"> <input
-										type="radio" name="consumer.gender" disabled="disabled" value="2">女
+										type="radio" name="consumer.gender" readonly="readonly" value="2">女
 									</label>
 								</div>
 							</div>
@@ -260,14 +260,14 @@
 					<div class="control-group">
 						<label class="control-label" for="inputName">驾驶证号</label>
 						<div class="controls">
-							<input type="text" class="orderinput required" disabled="disabled"
+							<input type="text" class="orderinput required" readonly="readonly"
 								name="consumer.licenseNum" placeholder="驾驶证号...">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputName">住址</label>
 						<div class="controls">
-							<input type="text" class="orderinput required" disabled="disabled"
+							<input type="text" class="orderinput required" readonly="readonly"
 								name="consumer.address" placeholder="住址...">
 						</div>
 					</div>
@@ -297,35 +297,35 @@
 					<div class="control-group">
 						<label class="control-label" for="inputName">门店</label>
 						<div class="controls">
-							<input type="text" class="orderinput required" disabled="disabled" 
+							<input type="text" class="orderinput required" readonly="readonly" 
 								name="car.storeName" placeholder="门店...">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputName">颜色</label>
 						<div class="controls">
-							<input type="text" class="orderinput required" disabled="disabled" 
+							<input type="text" class="orderinput required" readonly="readonly" 
 								name="car.color" placeholder="颜色...">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputName">发动机号</label>
 						<div class="controls">
-							<input type="text" class="orderinput required" disabled="disabled" 
+							<input type="text" class="orderinput required" readonly="readonly" 
 								name="car.engineNo" placeholder="发动机号...">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputName">当前油量</label>
 						<div class="controls">
-							<input type="text" class="orderinput required"  disabled="disabled" 
+							<input type="text" class="orderinput required"  readonly="readonly" 
 								name="car.oilMass" placeholder="当前油量...">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputName">当前里程</label>
 						<div class="controls">
-							<input type="text" class="orderinput required" disabled="disabled" 
+							<input type="text" class="orderinput required" readonly="readonly" 
 								name="car.drivedKilometer" placeholder="当前里程...">
 						</div>
 					</div>
@@ -353,7 +353,7 @@
 					<div class="control-group">
 						<label class="control-label" for="inputName">还车时间</label>
 						<div class="controls">
-							<input type="text" class="orderinput required" id='addOrderRetTime' disabled="disabled" 
+							<input type="text" class="orderinput required" id='addOrderRetTime' readonly="readonly" 
 								name="order.carPlanRetTime" placeholder="还车时间...">
 						</div>
 					</div>
@@ -371,7 +371,7 @@
 						<div class="controls">
 							<div class="input-append  orderinput">
 								<input type="text" class="orderinput required" 
-									name="chargeStandard.diffShopReturnFare" disabled="disabled" placeholder="异店还车..."> <span
+									name="chargeStandard.diffShopReturnFare" readonly="readonly" placeholder="异店还车..."> <span
 									class="add-on">元/次</span>
 							</div>
 							<input type="checkbox" name="order.isDiffShopReturn" value="true">
@@ -392,14 +392,14 @@
 						<label class="control-label" for="inputName">押金金额</label>
 						<div class="controls">
 							<input type="text" class="orderinput required" 
-								name="chargeStandard.deposit" disabled="disabled" placeholder="押金金额...">
+								name="chargeStandard.deposit" readonly="readonly" placeholder="押金金额...">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputName">超时标准</label>
 						<div class="controls">
 							<div class="input-append  orderinput">
-								<input type="text" class="orderinput required" disabled="disabled" 
+								<input type="text" class="orderinput required" readonly="readonly" 
 									name="chargeStandard.overTimeFare" placeholder="超时标准..."> <span
 									class="add-on">元/小时</span>
 							</div>
@@ -409,7 +409,7 @@
 						<label class="control-label" for="inputName">共计金额</label>
 						<div class="controls">
 							<div class="input-append  orderinput">
-								<input type="text" class="orderinput required" disabled="disabled"
+								<input type="text" class="orderinput required" readonly="readonly"
 									name="order.totalPrice" placeholder="共计金额..."><span
 									class="add-on">元</span>
 									<button id='countButton' class="btn btn-success" type="button">计算</button>
@@ -422,7 +422,7 @@
 						<label class="control-label" for="inputName">里程限制</label>
 						<div class="controls">
 							<div class="input-append  orderinput">
-								<input type="text" class="orderinput required" disabled="disabled"
+								<input type="text" class="orderinput required" readonly="readonly"
 									name="chargeStandard.mileageLimits" placeholder="里程限制..."> <span
 									class="add-on">公里/日</span>
 							</div>
@@ -432,7 +432,7 @@
 						<label class="control-label" for="inputName">超里程费</label>
 						<div class="controls">
 							<div class="input-append  orderinput">
-								<input type="text" class="orderinput required"  disabled="disabled"
+								<input type="text" class="orderinput required"  readonly="readonly"
 									name="chargeStandard.overMileageFare" placeholder="超里程费..."> <span
 									class="add-on">元/公里</span>
 							</div>
@@ -442,7 +442,7 @@
 						<label class="control-label" for="inputName">上门送车</label>
 						<div class="controls">
 							<div class="input-append  orderinput">
-								<input type="text" class="orderinput required" disabled="disabled" 
+								<input type="text" class="orderinput required" readonly="readonly" 
 									name="chargeStandard.carSendFare" placeholder="上门送车..."> <span
 									class="add-on">元/次</span>
 							</div>
