@@ -19,7 +19,7 @@
 			<div class="control-group">
 				<label class="control-label" for="inputManage">分店店长</label>
 				<div class="controls">
-					<input type="text" class="required" id="inputManage" name="manage" value="${manage.username}" readonly="readonly">
+					<input type="text" class="required" id="inputManage" name="manageId" value="${manage.username}" readonly="readonly">
 				</div>
 			</div>
 			<div class="control-group">

@@ -36,11 +36,11 @@
 				</div>
 			</div>
 			<div class="control-group">
-				<label class="control-label" for="inputmanagerId">分店店长</label>
+				<label class="control-label" for="inputManagerId">分店店长</label>
 				<div class="controls">
-					<select id="selectCategory" name="managerId">
+					<select id="inputManagerId" name="managerId">
 						 <c:forEach items="${mgrs}" var="mgr">
-							<option value="${mgr.id}">${mgr.username} ${mgr.genderDict.dictDisplayName }</option>
+							<option value="${mgr.id}">${mgr.username} ${mgr.genderDict.dictDisplayName}</option>
 						 </c:forEach>	
 					</select>
 				</div>

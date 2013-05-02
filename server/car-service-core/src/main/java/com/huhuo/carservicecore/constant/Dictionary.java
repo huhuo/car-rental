@@ -19,7 +19,7 @@ public interface Dictionary {
 	 * @author wuyuxuan
 	 */
 	public enum DictGroup {
-		GENERAL_SYS_GENDER("GENERAL_GENDER", "性别"),							// gender for general usage
+		GENERAL_SYS_GENDER("GENERAL_SYS_GENDER", "性别"),							// gender for general usage
 		CUST_CAR_COLOR("CUST_CAR_COLOR", "车辆颜色"),						// car color
 		CUST_CAR_STATUS("CUST_CAR_STATUS", "车辆状态"),						// car status
 		CUST_CAR_TYPE_CATEGORY("CUST_CAR_TYPE_CATEGORY", "车型类别"),		// car type category
