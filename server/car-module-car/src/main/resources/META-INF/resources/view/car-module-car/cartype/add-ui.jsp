@@ -123,7 +123,7 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
-	// validation  这里不能选择"cartypeEditDivId"下的所有form validate（），不然新加的form也会被校验，你个大虎货
+	// validation  这里不能选择"editDivId"下的所有form validate（），不然新加的form也会被校验，你个大虎货
  	 $('#addForm').validate(); 
 	// image upload event
 	$('#fileUploadForm').fileUpload(function(data, status, xhr) {
@@ -137,8 +137,8 @@ $(document).ready(function() {
 	// form commit
 	$('#addForm').huhuoFormPost(function(data, status) {
 		if(data.status == 'SUCCESS') {
-			$('#cartypeEditDivId').hide();
-			$('#cartypeMgrDivId').show(500);
+			$('#editDivId').hide();
+			$('#mgrDivId').show(500);
 			$('#huhuoForm').trigger('submit');
 		} else {
 			$.huhuoGrowlUI('error occur in server --> ' + data.msg);
