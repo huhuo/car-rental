@@ -1,7 +1,6 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<c:set value="${pageContext.request.contextPath }" var="path"
-	scope="application"></c:set>
+<c:set value="${pageContext.request.contextPath }" var="path" scope="application"></c:set>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -57,7 +56,7 @@ $(document).ready(function() {
 					<li><a href="#">车辆管理</a><span class="divider">/</span></li>
 					<li><a href="#">车型管理</a><span class="divider">/</span></li>
 					<li class="active">Data</li>
-					<li style="float: right;">吴雨轩，您好</li>
+					<li style="float: right;">吴雨轩，您好    <a href="${path }/cmsystem/security/validation/logout.do">logout</a></li>
 				</ul>
 			</div>
 			

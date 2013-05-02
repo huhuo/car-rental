@@ -1,21 +1,41 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set value="${pageContext.request.contextPath }" var="path" scope="application"></c:set>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<script type="text/javascript" src="${pageContext.request.contextPath }/res/ext-integration/js/other/function.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/res/ext-integration/js/other/jquery.min-1.7.2.js"></script>
+<link href="${path }/res/js/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+<link href="${path }/res/js/huhuo/huhuo.css" rel="stylesheet" media="screen">
+<script src="${path }/res/js/jquery/jquery.js"></script>
+<script src="${path }/res/js/bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript">
-	function changeCaptcha() {  
-	    $('#captchaImage').hide().attr('src', '${pageContext.request.contextPath }/sm/enter/captcha.do?' + Math.floor(Math.random()*100) ).fadeIn();  
-	    event.cancelBubble=true;  
-	} 
+$(document).ready(function() {
+	$('#captchaImage').click(function(event) {
+		$(this).hide().attr('src', '${path }/cmsystem/security/validation/captcha.do?' 
+			+ Math.floor(Math.random()*100) ).fadeIn();
+	});
+});
 </script>
 <title>Insert title here</title>
 </head>
+
 <body>
-	<form action="${pageContext.request.contextPath}/sm/enter/login.do" method="post">
+	<h2 style="text-align: center;">汽车租赁系统</h2>
+	<form class="form-horizontal" action="${path}/cmsystem/security/validation/login.do" method="post">
+		
+		<!-- <div class="control-group">
+			<label class="control-label" for="inputUsername">用户名</label>
+			<div class="controls">
+				<input type="text" class="required" id="inputUsername" name="username" placeholder="请输入用户名...">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="inputPassword">密码</label>
+			<div class="controls">
+				<input type="password" class="required" id="inputPassword" name="password" placeholder="请输入密码...">
+			</div>
+		</div> -->
+		
 		<table align="center">
 			<tr>
 				<td colspan="3">
@@ -42,8 +62,8 @@
 					<input name="captcha" type="text" id="captcha" />
 				</td>
 				<td>
-					<img src="${pageContext.request.contextPath }/sm/enter/captcha.do" 
-						id="captchaImage" title="刷新"  onclick="javascript:changeCaptcha()" style= "CURSOR:pointer"/>
+					<img src="${path }/cmsystem/security/validation/captcha.do" 
+						id="captchaImage" title="刷新" style= "CURSOR:pointer"/>
 				</td>
 			</tr>
 			<tr>

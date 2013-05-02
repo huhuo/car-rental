@@ -11,6 +11,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
@@ -20,30 +22,38 @@ import com.huhuo.cmsystem.constant.Constant;
 import com.huhuo.integration.exception.CtrlException;
 
 @Controller("cmsystemCtrlLogin")
-@RequestMapping(value = "/cmsystem/security/login")
-public class CtrlLogin extends SystemBaseCtrl {
+@RequestMapping(value = "/cmsystem/security/validation")
+public class CtrlValidation extends SystemBaseCtrl {
 
-	protected String basePath = "system-manage/";
+	protected String basePath = "/car-module-system";
 
 	@Resource(name = "smCaptchaProducer")
 	private Producer captchaProducer;
+	@Resource(name = "cmsystemServSecurity")
+	private IServSecurity iServSecurity;
 
-	@RequestMapping(value = "/")
-	public String loginpage() {
-		return basePath + "loginpage";
-	}
-
-	@RequestMapping(value = "/login.do")
-	public void login(HttpServletRequest req, HttpServletResponse resp,
+	@RequestMapping(value = "/login-page.do")
+	public String loginpage(HttpServletRequest req, HttpServletResponse resp,
 			HttpSession session, ModelUser user) {
-		
+		return basePath + "/loginpage";
+	}
+	
+	@RequestMapping(value = "/login.do")
+	public View login(HttpSession session, String username, String password) {
+		ModelUser userDB = iServSecurity.validate(username, password);
+		if(userDB != null) {
+			session.setAttribute(Constant.SESSION_USER, userDB);
+			return new RedirectView(session.getServletContext().getContextPath());
+		} else {
+			return new RedirectView("/login-page.do", true);
+		}
 	}
 
 	@RequestMapping(value = "/logout.do")
-	public String logout(HttpSession session) {
+	public View logout(HttpSession session) {
 		session.removeAttribute(Constant.SESSION_USER);
 		session.removeAttribute(Constant.SESSION_MODULE);
-		return loginpage();
+		return new RedirectView("/login-page.do", true);
 	}
 
 	@RequestMapping(value = "/captcha.do")

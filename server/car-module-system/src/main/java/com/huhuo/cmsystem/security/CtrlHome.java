@@ -15,9 +15,7 @@ public class CtrlHome extends SystemBaseCtrl {
 	
 	@RequestMapping(value="/")
 	public String frontpage(Model model, HttpSession session){
-		
 		logger.info("access frontpage");
-		
 		return basePath + "/frontpage";
 	}
 	

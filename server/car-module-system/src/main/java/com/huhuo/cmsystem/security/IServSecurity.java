@@ -6,18 +6,18 @@ import com.huhuo.carservicecore.sys.user.ModelUser;
 public interface IServSecurity {
 	
 	/**
-	 * validate whether the username exist
+	 * validate whether the username available, which mean username is not exist in DB
 	 * @param username
-	 * @return
+	 * @return true if username is not exist in DB
 	 */
-	Boolean validate(String username);
+	Boolean isAvailable(String username);
 	/**
-	 * validate the legality with username and password
+	 * validate the legality with the username and the password
 	 * @param username
 	 * @param password
-	 * @return
+	 * @return user who fit out the username and the password
 	 */
-	Boolean validate(String username, String password);
+	ModelUser validate(String username, String password);
 	/**
 	 * login
 	 * @param user

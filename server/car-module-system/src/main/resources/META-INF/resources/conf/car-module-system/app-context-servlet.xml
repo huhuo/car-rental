@@ -7,13 +7,13 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
 	<!-- Interceptor intercept all url end with ".do" -->
-	<interceptors>
+	<!-- <interceptors>
 		<interceptor>
 			<mapping path="/**/*.do" />
 			<beans:bean id="cmsystemUrlInterceptor"
 				class="com.huhuo.cmsystem.interceptor.UrlInterceptor" />
 		</interceptor>
-	</interceptors>
+	</interceptors> -->
 	
 	
 	<!-- File upload view resolver -->
