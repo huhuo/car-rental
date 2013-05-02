@@ -17,6 +17,8 @@ import com.huhuo.carservicecore.db.GenericBaseExtenseServ;
 import com.huhuo.integration.base.IBaseExtenseDao;
 import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.db.mysql.Page;
+import com.huhuo.integration.exception.ServException;
+import com.huhuo.integration.util.BeanUtils;
 
 @Service("cmsystemServStore")
 public class ServStore extends GenericBaseExtenseServ<ModelStore> implements IServStore {
@@ -43,8 +45,7 @@ public class ServStore extends GenericBaseExtenseServ<ModelStore> implements ISe
 	
 	@Override
 	public List<Map<String,Object>> multiQuery(ModelStore t, Page<ModelStore> page) {
-		String sql="SELECT cs.*,su.username,IF(TABLE2.rentNum IS NULL,0,TABLE2.rentNum) AS rentNum ,IF((TABLE1.totalNum-TABLE2.rentNum) IS NULL,0,(TABLE1.totalNum-TABLE2.rentNum)) AS freeNum,TABLE1.totalNum FROM  cust_store cs LEFT JOIN sys_user su  ON (su.id=cs.managerId) LEFT JOIN (SELECT cc.storeId AS storeId,   COUNT(cc.id) AS totalNum FROM cust_car cc GROUP BY cc.storeId) AS table1 ON cs.id =table1.storeId  LEFT JOIN ( SELECT cc.storeId ,COUNT(cc.id) AS rentNum FROM cust_car cc WHERE cc.status=2 GROUP BY cc.storeId) AS table2 ON cs.id=table2.storeId " +
-				"WHERE cs.status=1 %s LIMIT ?, ?";
+		String sql="SELECT cs.*,su.username,IF(TABLE2.rentNum IS NULL,0,TABLE2.rentNum) AS rentNum ,IF((TABLE1.totalNum-TABLE2.rentNum) IS NULL,0,(TABLE1.totalNum-TABLE2.rentNum)) AS freeNum,TABLE1.totalNum FROM  cust_store cs LEFT JOIN sys_user su  ON (su.id=cs.managerId) LEFT JOIN (SELECT cc.storeId AS storeId,   COUNT(cc.id) AS totalNum FROM cust_car cc GROUP BY cc.storeId) AS table1 ON cs.id =table1.storeId  LEFT JOIN ( SELECT cc.storeId ,COUNT(cc.id) AS rentNum FROM cust_car cc WHERE cc.status=2 GROUP BY cc.storeId) AS table2 ON cs.id=table2.storeId WHERE cs.status=1 %s ORDER BY cs.createTime DESC, cs.updateTime DESC, cs.id DESC LIMIT ?, ?;";
 		StringBuilder sb = new StringBuilder();
 		List<Object> params = new ArrayList<Object>();
 		if(t.getName() !=null ) {
@@ -73,7 +74,7 @@ public class ServStore extends GenericBaseExtenseServ<ModelStore> implements ISe
 	}
 	@Override
 	public Long countMultiQuery(ModelStore t, Page<ModelStore> page) {
-		String sql="SELECT count(*) FROM  cust_store cs LEFT JOIN sys_user su  ON (su.id=cs.managerId) LEFT JOIN (SELECT cc.storeId AS storeId,   COUNT(cc.id) AS totallNum FROM cust_car cc GROUP BY cc.storeId) AS table1 ON cs.id =table1.storeId  LEFT JOIN ( SELECT cc.storeId ,COUNT(cc.id) AS rentNum FROM cust_car cc WHERE cc.status=2 GROUP BY cc.storeId) AS table2 ON cs.id=table2.storeId WHERE cs.status=1 %s";
+		String sql="SELECT count(*) FROM  cust_store cs LEFT JOIN sys_user su  ON (su.id=cs.managerId) LEFT JOIN (SELECT cc.storeId AS storeId,   COUNT(cc.id) AS totallNum FROM cust_car cc GROUP BY cc.storeId) AS table1 ON cs.id =table1.storeId  LEFT JOIN ( SELECT cc.storeId ,COUNT(cc.id) AS rentNum FROM cust_car cc WHERE cc.status=2 GROUP BY cc.storeId) AS table2 ON cs.id=table2.storeId WHERE cs.status=1 %s ;";
 		StringBuilder sb = new StringBuilder();
 		List<Object> params = new ArrayList<Object>();
 		if(t.getName() !=null ) {
@@ -85,7 +86,7 @@ public class ServStore extends GenericBaseExtenseServ<ModelStore> implements ISe
 			params.add("%" + t.getAddress() + "%");
 		}
 		sql = String.format(sql, sb.toString());
-		return idaoStore.queryForObject(sql, Long.class, params.toArray());
+		return idaoStore.queryForSingleColVal(sql, Long.class, params.toArray());
 	}
 	
 	
@@ -126,7 +127,7 @@ public class ServStore extends GenericBaseExtenseServ<ModelStore> implements ISe
 		return super.add(t);
 	}
 	
-	/*@Override
+	@Override
 	public Integer update(ModelStore t) {
 		try {
 			// validation
@@ -136,15 +137,11 @@ public class ServStore extends GenericBaseExtenseServ<ModelStore> implements ISe
 			// persist object in security mode
 			ModelStore storeDB = find(t.getId());
 			BeanUtils.copyProperties(storeDB, t, false);
-			// update inner object chargeStandard
-			ModelChargeStandard chargeStandard = t.getChargeStandard();
-			if (chargeStandard != null) {
-				iServChargeStandard.update(chargeStandard);
-			}
+			storeDB.setUpdateTime(new Date());
 			return super.update(storeDB);
 		} catch (Exception e) {
 			throw new ServException(e);
 		}
 	}
-*/
+
 }

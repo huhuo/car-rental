@@ -14,8 +14,8 @@ table.table-hover tbody tr.huhuo-item-selected {
 		<tr>
 			<th><input type="checkbox" class="checkbox"></th>
 				<th>id</th>
-				<th>分店地址</th>
 				<th>分店名称</th>
+				<th>分店地址</th>
 				<th>联系电话</th>
 				<th>分店经理</th>
 				<th>待租车辆</th>
@@ -28,8 +28,8 @@ table.table-hover tbody tr.huhuo-item-selected {
 		<tr>
 			<td><input type="checkbox" class="checkbox"></td>
 			<td>${record.id}</td>
-			<td>${record.address}</td>
 			<td>${record.name}</td>
+			<td>${record.address}</td>
 			<td>${record.telephone}</td>
 			<td>${record.username}</td>
 			<td>${record.freeNum}</td>

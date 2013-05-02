@@ -1,19 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<script type="text/javascript">
-	$(document).ready(function() {
-		// validation
-		$('#detailEditDivId form').validate();
-		// detail add page
-		$('#detailEditDivId form button').click(function(event) {
-			$('#detailEditDivId').hide();
-			$('#detailMgrDivId').show(500);
-			return false;
-		});
-		
-	});
-</script>
-<form class="form-horizontal well" action="${path}/cmsystem/store/add.do">
+<form class="form-horizontal well">
 	<div class="row-fluid">
 		<div class ="span6">
 			<input type="hidden" value="${store.id }">
@@ -27,6 +14,12 @@
 				<label class="control-label" for="inputAdress">分店地址</label>
 				<div class="controls">
 					<input type="text" class="required" id="inputAdress" name="adress" value="${store.address }" readonly="readonly">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="inputManage">分店店长</label>
+				<div class="controls">
+					<input type="text" class="required" id="inputManage" name="manage" value="${manage.username}" readonly="readonly">
 				</div>
 			</div>
 			<div class="control-group">
@@ -52,3 +45,14 @@
 		</div>
 	</div>
 </form>
+<script type="text/javascript">
+	$(document).ready(function() {
+		// detail add page
+		$('#storeEditDivId form button').click(function(event) {
+			$('#storeEditDivId').hide();
+			$('#storeMgrDivId').show(500);
+			return false;
+		});
+		
+	});
+</script>

@@ -22,7 +22,7 @@
 </script>
 <form id="addStoreForm" class="form-horizontal well" action="${path}/cmsystem/store/add.do" method="post">
 	<div class="row-fluid">
-		<div class="span6">
+		<div class="span12">
 			<div class="control-group">
 				<label class="control-label" for="inputname">分店名称</label>
 				<div class="controls">
@@ -40,7 +40,7 @@
 				<div class="controls">
 					<select id="selectCategory" name="managerId">
 						 <c:forEach items="${mgrs}" var="mgr">
-							<option value="${mgr.id}">${mgr.username}  ${mgr.genderDict.dictDisplayName }</option>
+							<option value="${mgr.id}">${mgr.username} ${mgr.genderDict.dictDisplayName }</option>
 						 </c:forEach>	
 					</select>
 				</div>
@@ -54,21 +54,6 @@
 			<div class="control-group">
 				<div class="controls">
 					<button type="submit" class="btn">添加</button>
-				</div>
-			</div>
-		</div>
-		<div class="span6">
-			<ul class="thumbnails">
-				<li class="span12">
-					<a href="javascript:void(0)" class="thumbnail">
-						<img class="img-rounded" src="${path }/res/images/status/bazzi.jpg" alt="">
-					</a>
-				</li>
-			</ul>
-			<div class="control-group">
-				<label class="control-label" for="inputIcon">图片上传</label>
-				<div class="controls">
-					<input type="file" id="inputIcon" name="icon" placeholder="图片上传...">
 				</div>
 			</div>
 		</div>
