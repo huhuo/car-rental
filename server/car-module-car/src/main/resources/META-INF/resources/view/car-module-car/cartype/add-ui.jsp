@@ -108,9 +108,9 @@
 				</li>
 			</ul>
 			<div  class="control-group">
-				<label class="control-label" for="inputIcon">图片上传</label>
+				<label class="control-label" for="inputPicture">图片上传</label>
 				<div class="controls">
-					<input type="file" id="inputIcon" name="cachedFile">
+					<input type="file" id="inputPicture" name="cachedFile">
 					<input type="submit" value="Upload File to Server">
 				</div>
 			</div>

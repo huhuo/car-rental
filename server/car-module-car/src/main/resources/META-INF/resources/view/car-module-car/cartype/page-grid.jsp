@@ -9,7 +9,7 @@ table.table-hover tbody tr.huhuo-item-selected {
 
 
 </style>
-<table id="cartypePageGridId" class="table table-hover table-condensed">
+<table id="pageGridId" class="table table-hover table-condensed">
 	<thead>
 		<tr>
 			<th><input type="checkbox" class="checkbox"></th>
@@ -67,38 +67,38 @@ $(document).ready(function() {
 	var t = JSON.parse('${t}');
 	$(".pagination").myPage(page, '${path }/cmcar/cartype/condition/get.do', t, $("#pagediv"), 5);
 	// add select css
-	$('#cartypePageGridId tbody tr').click(function(event) {
+	$('#pageGridId tbody tr').click(function(event) {
 		$(this).toggleClass('huhuo-item-selected');
 		$(this).find(':checkbox')[0].checked = !$(this).find(':checkbox')[0].checked;
 	});
 	// add select event
-	$('#cartypePageGridId thead tr :checkbox').click(function(event) {
-		$('#cartypePageGridId tbody :checkbox').each(function(index, element) {
-			element.checked = $('#cartypePageGridId thead tr :checkbox')[0].checked;
+	$('#pageGridId thead tr :checkbox').click(function(event) {
+		$('#pageGridId tbody :checkbox').each(function(index, element) {
+			element.checked = $('#pageGridId thead tr :checkbox')[0].checked;
 			if(element.checked) {
-				$('#cartypePageGridId tbody tr').addClass('huhuo-item-selected');
+				$('#pageGridId tbody tr').addClass('huhuo-item-selected');
 			} else {
-				$('#cartypePageGridId tbody tr').removeClass('huhuo-item-selected');
+				$('#pageGridId tbody tr').removeClass('huhuo-item-selected');
 			}
 		});
 	});
 	// add event to edit button
-	$('#cartypePageGridId tbody button[name="detail"]').click(function(event) {
+	$('#pageGridId tbody button[name="detail"]').click(function(event) {
 		var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
-		$("#cartypeEditDivId").load('${path}/cmcar/cartype/detail.do', {
+		$("#editDivId").load('${path}/cmcar/cartype/detail.do', {
 			id: selectedId
 		}, function(resp, status, xhReq) {
-			$("#cartypeMgrDivId").hide();
-			$("#cartypeEditDivId").show(500);
+			$("#mgrDivId").hide();
+			$("#editDivId").show(500);
 		});
 	});
-	$('#cartypePageGridId tbody button[name="edit"]').click(function(event) {
+	$('#pageGridId tbody button[name="edit"]').click(function(event) {
 		var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
-		$("#cartypeEditDivId").load('${path}/cmcar/cartype/edit-ui.do', {
+		$("#editDivId").load('${path}/cmcar/cartype/edit-ui.do', {
 			id: selectedId
 		}, function(resp, status, xhReq) {
-			$("#cartypeMgrDivId").hide();
-			$("#cartypeEditDivId").show(500);
+			$("#mgrDivId").hide();
+			$("#editDivId").show(500);
 		});
 	});
 });

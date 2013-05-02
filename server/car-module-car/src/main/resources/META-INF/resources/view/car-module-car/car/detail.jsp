@@ -2,12 +2,12 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div class="row-fluid">
 	<div class="span6">
-		<form id="editForm" class="form-horizontal" action="${path}/cmcar/car/update.do">
+		<form id="editForm" class="form-horizontal">
 			<input type="hidden" name="id" value="${car.id }">
 			<div class="control-group">
 				<label class="control-label" for="inputCarTypeId">所属车型</label>
 				<div class="controls">
-					<select id="inputCarTypeId" name="carTypeId">
+					<select id="inputCarTypeId" name="carTypeId" disabled="disabled">
 					<c:forEach items="${carTypeList }" var="carType">
 						<c:choose>
 						<c:when test="${car.carTypeId == carType.id }">
@@ -24,13 +24,13 @@
 			<div class="control-group">
 				<label class="control-label" for="inputLicencePlate">车牌号</label>
 				<div class="controls">
-					<input type="text" class="required" id="inputLicencePlate" name="licencePlate" value="${car.licencePlate }" placeholder="车牌号...">
+					<input type="text" class="required" id="inputLicencePlate" name="licencePlate" value="${car.licencePlate }"  disabled="disabled">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="selectStoreId">所属门店</label>
 				<div class="controls">
-					<select id="selectStoreId" name="storeId">
+					<select id="selectStoreId" name="storeId" disabled="disabled">
 					<c:forEach items="${storeList }" var="store">
 						<c:choose>
 						<c:when test="${car.storeId == store.id }">
@@ -47,19 +47,19 @@
 			<div class="control-group">
 				<label class="control-label" for="inputEngineNo">引擎编号</label>
 				<div class="controls">
-					<input type="text" class="required" id="inputEngineNo" name="engineNo" value="${car.engineNo }" placeholder="引擎编号...">
+					<input type="text" class="required" id="inputEngineNo" name="engineNo" value="${car.engineNo }" disabled="disabled">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputGpsNo">GPS设备编号</label>
 				<div class="controls">
-					<input type="text" class="required" id="inputGpsNo" name="gpsNo" value="${car.gpsNo }" placeholder="GPS设备编号...">
+					<input type="text" class="required" id="inputGpsNo" name="gpsNo" value="${car.gpsNo }" disabled="disabled">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="selectColor">车身颜色</label>
 				<div class="controls">
-					<select id="selectColor" name="color">
+					<select id="selectColor" name="color" disabled="disabled">
 					<c:forEach items="${colorList }" var="color">
 						<c:choose>
 						<c:when test="${car.color == color.dictKey }">
@@ -76,21 +76,18 @@
 			<div class="control-group">
 				<label class="control-label" for="inputDrivedKilometer">已行驶里程数</label>
 				<div class="controls">
-					<input type="number" class="required digit" id="inputDrivedKilometer" name="drivedKilometer" value="${car.drivedKilometer }" placeholder="已行驶里程数...">
+					<input type="number" class="required digit" id="inputDrivedKilometer" name="drivedKilometer" value="${car.drivedKilometer }" disabled="disabled">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="inputOilMass">油量</label>
 				<div class="controls">
-					<input type="number" class="required digit" id="inputOilMass" name="oilMass" value="${car.oilMass }" placeholder="油量（单位，升）...">
+					<input type="number" class="required digit" id="inputOilMass" name="oilMass" value="${car.oilMass }" disabled="disabled">
 				</div>
 			</div>
-			<input type="hidden" name="picture.id" value="${car.picture.id }">
-			<input type="hidden" name="picture.name" value="${car.picture.name }">
-			<input type="hidden" name="picture.md5" value="${car.picture.md5 }">
 			<div class="control-group">
 				<div class="controls">
-					<button type="submit" class="btn">修改</button>
+					<button type="submit" class="btn">返回</button>
 				</div>
 			</div>
 		</form>
@@ -105,17 +102,6 @@
 					</a>
 				</li>
 			</ul>
-			<div  class="control-group">
-				<label class="control-label" for="inputPicture">图片上传</label>
-				<div class="controls">
-					<input type="file" id="inputPicture" name="cachedFile">
-					<input type="submit" value="Upload File to Server">
-				</div>
-			</div>
-			<div class="progress progress-striped active">
-				<div class="bar"></div >
-				<div class="percent">0%</div >
-			</div>
 		</form>
 	</div>
 </div>
@@ -124,25 +110,11 @@
 		// number output format
 		$('.digits').formatNumber({format:'#', local:'cn'});
 		$('.number').formatNumber({format:'#.00', local:'cn'});
-		// validation
-		$('#editForm').validate();
-		// image upload event
-		$('#fileUploadForm').fileUpload(function(data, status, xhr) {
-			// add upload file url to submit form
-			if(data.data) {
-				$('#editForm input[name="picture.name"]').val(data.data.name);
-				$('#editForm input[name="picture.md5"]').val(data.data.md5);
-			}
-		});
 		// cartype add page
-		$('#editForm').huhuoFormPost(function(data, status) {
-			if(data.status == 'SUCCESS') {
-				$('#editDivId').hide();
-				$('#mgrDivId').show(500);
-				$('#huhuoForm').trigger('submit');
-			} else {
-				$.huhuoGrowlUI('error occur in server --> ' + data.msg);
-			}
+		$('#editDivId form button').click(function(event) {
+			$('#editDivId').hide();
+			$('#mgrDivId').show(500);
+			return false;
 		});
 	});
 </script>

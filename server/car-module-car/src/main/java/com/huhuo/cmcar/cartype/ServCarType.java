@@ -103,6 +103,7 @@ public class ServCarType extends GenericBaseExtenseServ<ModelCarType> implements
 			ModelChargeStandard chargeStandard = t.getChargeStandard();
 			if (chargeStandard != null) {
 				iServChargeStandard.update(chargeStandard);
+				carTypeDB.setChargeStandardId(chargeStandard.getId());
 			}
 			ModelFileUpload icon = t.getIcon();
 			if(icon != null) {

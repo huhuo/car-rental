@@ -63,12 +63,6 @@
 					<input type="number" class="required digit" id="inputOilMass" name="oilMass" placeholder="油量（单位，升）...">
 				</div>
 			</div>
-			<div class="control-group">
-				<label class="control-label" for="inputRent">租金</label>
-				<div class="controls">
-					<input type="number" class="required number" id="inputRent" name="chargeStandard.rent" placeholder="租金（xxx元/天）...">
-				</div>
-			</div>
 			<input type="hidden" name="picture.name" value="">
 			<input type="hidden" name="picture.md5" value="">
 			<div class="control-group">
@@ -88,9 +82,9 @@
 				</li>
 			</ul>
 			<div  class="control-group">
-				<label class="control-label" for="inputIcon">图片上传</label>
+				<label class="control-label" for="inputPicture">图片上传</label>
 				<div class="controls">
-					<input type="file" id="inputIcon" name="cachedFile">
+					<input type="file" id="inputPicture" name="cachedFile">
 					<input type="submit" value="Upload File to Server">
 				</div>
 			</div>

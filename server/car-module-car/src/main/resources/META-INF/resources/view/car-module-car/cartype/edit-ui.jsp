@@ -115,9 +115,9 @@
 				</li>
 			</ul>
 			<div  class="control-group">
-				<label class="control-label" for="inputIcon">图片上传</label>
+				<label class="control-label" for="inputPicture">图片上传</label>
 				<div class="controls">
-					<input type="file" id="inputIcon" name="cachedFile">
+					<input type="file" id="inputPicture" name="cachedFile">
 					<input type="submit" value="Upload File to Server">
 				</div>
 			</div>
@@ -146,8 +146,8 @@
 		// cartype add page
 		$('#editForm').huhuoFormPost(function(data, status) {
 			if(data.status == 'SUCCESS') {
-				$('#cartypeEditDivId').hide();
-				$('#cartypeMgrDivId').show(500);
+				$('#editDivId').hide();
+				$('#mgrDivId').show(500);
 				$('#huhuoForm').trigger('submit');
 			} else {
 				$.huhuoGrowlUI('error occur in server --> ' + data.msg);

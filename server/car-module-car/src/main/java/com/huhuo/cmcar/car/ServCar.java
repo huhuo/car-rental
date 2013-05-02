@@ -17,6 +17,8 @@ import com.huhuo.cmsystem.file.IServFileUpload;
 import com.huhuo.cmsystem.store.IServStore;
 import com.huhuo.integration.base.IBaseExtenseDao;
 import com.huhuo.integration.db.mysql.Condition;
+import com.huhuo.integration.exception.ServException;
+import com.huhuo.integration.util.BeanUtils;
 
 @Service("cmcarServCar")
 public class ServCar extends GenericBaseExtenseServ<ModelCar> implements IServCar {
@@ -75,6 +77,27 @@ public class ServCar extends GenericBaseExtenseServ<ModelCar> implements IServCa
 			t.setPictureId(picture.getId());
 		}
 		return super.add(t);
+	}
+
+	@Override
+	public Integer update(ModelCar t) {
+		try {
+			// validation
+			if(t == null) {
+				return null;
+			}
+			// persist object in security mode
+			ModelCar carDB = find(t.getId());
+			BeanUtils.copyProperties(carDB, t, false);
+			ModelFileUpload picture = t.getPicture();
+			if(picture != null) {
+				iServFileUpload.uploadFile(picture);
+				carDB.setPictureId(picture.getId());
+			}
+			return super.update(carDB);
+		} catch (Exception e) {
+			throw new ServException(e);
+		}
 	}
 	
 }

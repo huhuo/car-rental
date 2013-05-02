@@ -21,6 +21,7 @@ import com.huhuo.integration.algorithm.MD5Utils;
 import com.huhuo.integration.base.IBaseExtenseDao;
 import com.huhuo.integration.exception.ServException;
 import com.huhuo.integration.util.FileUtils;
+import com.huhuo.integration.util.StringUtils;
 import com.huhuo.integration.util.TimeUtils;
 
 @Service("cmsystemServFileUpload")
@@ -125,15 +126,17 @@ public class ServFileUpload extends GenericBaseExtenseServ<ModelFileUpload> impl
 		
 		ModelFileUpload tDB = find(t.getId());
 		if(tDB != null) {
-			String relatePath = tDB.getPath() + fileSeparator + tDB.getMd5();
-			File obsoleteFileInWebapp = new File(ctx.getRealPath(relatePath));
-			boolean status = obsoleteFileInWebapp.delete();
-			File bosoleteFileInPersist = new File(persistPath + fileSeparator + relatePath);
-			boolean status2 = bosoleteFileInPersist.delete();
-			logger.info("==> delete obsolete file in webapp {} --> {}", 
-					status ? "success!" : "failure!", obsoleteFileInWebapp);
-			logger.info("==> delete obsolete file in webapp {} --> {}", 
-					status2 ? "success!" : "failure!", bosoleteFileInPersist);
+			if(!StringUtils.equals(t.getPath()+t.getMd5(), tDB.getPath()+t.getMd5())) {
+				String relatePath = tDB.getPath() + fileSeparator + tDB.getMd5();
+				File obsoleteFileInWebapp = new File(ctx.getRealPath(relatePath));
+				boolean status = obsoleteFileInWebapp.delete();
+				File bosoleteFileInPersist = new File(persistPath + fileSeparator + relatePath);
+				boolean status2 = bosoleteFileInPersist.delete();
+				logger.info("==> delete obsolete file in webapp {} --> {}", 
+						status ? "success!" : "failure!", obsoleteFileInWebapp);
+				logger.info("==> delete obsolete file in webapp {} --> {}", 
+						status2 ? "success!" : "failure!", bosoleteFileInPersist);
+			}
 			update(t);
 		} else {
 			add(t);
