@@ -35,10 +35,11 @@ public class ModelOrderSnapshot extends BaseModel implements Serializable {
 	private Integer status;
 	
 	/** 是否上门送车 **/
-	private Boolean isCarSend;
+	private Boolean isCarSend=false;
 	/** 是否异店换车 **/
-	private Boolean isDiffShopReturn;
-	/** 出租天数 **/
+	private Boolean isDiffShopReturn=false;
+	/** 备注 **/
+	private String remark;
 	
 	/** 押金（元） **/
 	private Double deposit;
@@ -187,6 +188,12 @@ public class ModelOrderSnapshot extends BaseModel implements Serializable {
 	}
 	public void setIsDiffShopReturn(Boolean isDiffShopReturn) {
 		this.isDiffShopReturn = isDiffShopReturn;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 	
 }

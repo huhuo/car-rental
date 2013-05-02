@@ -5,10 +5,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.stereotype.Service;
 
-import com.huhuo.carservicecore.csm.consumer.IDaoConsumer;
 import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
 import com.huhuo.carservicecore.csm.order.IDaoOrder;
 import com.huhuo.carservicecore.csm.order.ModelOrder;
@@ -26,9 +24,6 @@ public class ServOrder extends GenericBaseExtenseServ<ModelOrder> implements
 
 	@Resource(name = "carservicecoreDaoOrder")
 	private IDaoOrder idaoOrder;
-
-	@Resource(name = "carservicecoreDaoConsumer")
-	private IDaoConsumer iDaoConsumer;
 
 	@Override
 	public IBaseExtenseDao<ModelOrder> getDao() {
@@ -53,7 +48,7 @@ public class ServOrder extends GenericBaseExtenseServ<ModelOrder> implements
 			list.add(phone + "%");
 		}
 		sb.append(" limit 0 , 10");
-		queryForList = iDaoConsumer.queryForList(sb.toString(),
+		queryForList = idaoOrder.queryForList(sb.toString(),
 				ModelConsumer.class, list.toArray());
 
 		return queryForList;
@@ -64,7 +59,7 @@ public class ServOrder extends GenericBaseExtenseServ<ModelOrder> implements
 			Long carTypeId) {
 		StringBuilder sb = new StringBuilder();
 		List<Object> list = new ArrayList<Object>();
-		sb.append("select * from cust_car where 1=1 ");
+		sb.append("select * from cust_car where 1=1 and status=1 ");
 		if (licencePlate != null) {
 			sb.append(" and licencePlate like ?");
 			list.add(licencePlate + "%");
@@ -74,7 +69,7 @@ public class ServOrder extends GenericBaseExtenseServ<ModelOrder> implements
 			list.add(carTypeId);
 		}
 		sb.append(" limit 0 , 10");
-		List<ModelCar> queryForList = iDaoConsumer.queryForList(sb.toString(),
+		List<ModelCar> queryForList = idaoOrder.queryForList(sb.toString(),
 				ModelCar.class, list.toArray());
 
 		return queryForList;
@@ -93,8 +88,8 @@ public class ServOrder extends GenericBaseExtenseServ<ModelOrder> implements
 			sb.append(" and id = ?");
 			list.add(carTypeId);
 		}
-		List<ModelCarType> queryForList = iDaoConsumer.queryForList(
-				sb.toString(), ModelCarType.class, list.toArray());
+		List<ModelCarType> queryForList = idaoOrder.queryForList(sb.toString(),
+				ModelCarType.class, list.toArray());
 
 		return queryForList;
 	}
@@ -108,8 +103,8 @@ public class ServOrder extends GenericBaseExtenseServ<ModelOrder> implements
 			sb.append(" and id = ?");
 			list.add(storeId);
 		}
-		List<ModelStore> queryForList = iDaoConsumer.queryForList(
-				sb.toString(), ModelStore.class, list.toArray());
+		List<ModelStore> queryForList = idaoOrder.queryForList(sb.toString(),
+				ModelStore.class, list.toArray());
 
 		return queryForList;
 	}
@@ -123,10 +118,22 @@ public class ServOrder extends GenericBaseExtenseServ<ModelOrder> implements
 			sb.append(" and id = ?");
 			list.add(chargeStandardId);
 		}
-		List<ModelChargeStandard> queryForList = iDaoConsumer.queryForList(
+		List<ModelChargeStandard> queryForList = idaoOrder.queryForList(
 				sb.toString(), ModelChargeStandard.class, list.toArray());
 
 		return queryForList;
+	}
+
+	@Override
+	public void updateCarStatus(Long id) {
+		if(id!=null){
+			StringBuilder sb = new StringBuilder();
+			List<Object> list = new ArrayList<Object>();
+			sb.append("update  cust_car set status=2 where id=? ");
+			int update = idaoOrder.update(sb.toString(), id);
+		}else{
+			throw new ServException("车辆信息不能为空");
+		}
 	}
 
 }
