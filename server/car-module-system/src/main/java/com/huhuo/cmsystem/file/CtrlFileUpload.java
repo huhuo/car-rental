@@ -37,11 +37,11 @@ public class CtrlFileUpload extends SystemBaseCtrl {
 	
 	@RequestMapping(value="/cached.do", method=RequestMethod.POST)
 	public String cached(Model model, HttpServletRequest req, 
-			@RequestParam MultipartFile uploadFile) {
-		logger.debug("==> server receive: file={}", uploadFile);
+			@RequestParam MultipartFile cachedFile) {
+		logger.debug("==> server receive: file={}", cachedFile);
 //		uploadFile.transferTo(new File(req.getServletContext().
 //				getRealPath("resources") + File.separator + uploadFile.getOriginalFilename()));
-		ModelFileUpload data = iServFileUpload.uploadCacheFile(uploadFile);
+		ModelFileUpload data = iServFileUpload.uploadCacheFile(cachedFile);
 		return render(model, new Message<ModelFileUpload>(Status.SUCCESS, "file cache success!", data));
 	}
 	

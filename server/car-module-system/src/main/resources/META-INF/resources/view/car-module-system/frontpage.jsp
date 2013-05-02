@@ -40,6 +40,7 @@ $(document).ready(function() {
 		});
 		$(this).addClass("huhuo-item-selected");
 	});
+	$('#rentalInfoMgr a.first').trigger('click');
 });
 </script>
 

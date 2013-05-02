@@ -79,7 +79,7 @@ public class ServCarType extends GenericBaseExtenseServ<ModelCarType> implements
 		// update t
 		t.setCreateTime(new Date());
 		t.setUpdateTime(new Date());
-		// update icon infomation
+		// update icon information
 		ModelFileUpload icon = t.getIcon();
 		// update DB
 		if(icon != null) {

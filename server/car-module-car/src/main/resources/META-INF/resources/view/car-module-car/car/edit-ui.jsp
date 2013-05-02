@@ -1,8 +1,69 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script type="text/javascript">
+	$(document).ready(function() {
+		// number output format
+		console.log('${carType.drivingRange }');
+		console.log($.formatNumber('${carType.drivingRange }', {format:'#,###.00', local:'cn'}));
+		console.log($.formatNumber('${carType.drivingRange }', {format:'#', local:'cn'}));
+		$('.digits').formatNumber({format:'#', local:'cn'});
+		$('.number').formatNumber({format:'#.00', local:'cn'});
+		// validation
+		$('#editCarTypeForm').validate();
+		// image upload event
+		var percent = $('#fileUploadForm .progress .percent');
+		var bar = $('#fileUploadForm .progress .bar');
+		$('#fileUploadForm').ajaxForm({
+			beforeSubmit: function(file, form, option) {
+				if(file[0].value == '') {
+					alert('请先选择要上传的图片');
+					return false;
+				}
+			},
+			beforeSend: function(s, xhr) {
+				var percentVal = '0%';
+				bar.width(percentVal);
+				percent.html(percentVal);
+			},
+			uploadProgress: function(event, position, total, percentComplete) {
+				var percentVal = percentComplete + '%';
+				bar.width(percentVal);
+				percent.html(percentVal);
+			},
+			success: function(data, status, xhr) {
+				var percentVal = '100%';
+				bar.width(percentVal);
+				percent.html(percentVal);
+				// add upload file url to submit form
+				if(data.data) {
+					$('#editCarTypeForm input[name="icon.name"]').val(data.data.name);
+					$('#editCarTypeForm input[name="icon.md5"]').val(data.data.md5);
+				}
+			},
+			complete: function(xhr) {
+				msg = JSON.parse(xhr.responseText);
+				$.huhuoGrowlUI(msg.msg);
+				if(msg.data) {
+					$('#fileUploadForm img').attr('src', '${path}/' + msg.data.path + '/' + msg.data.md5);
+				}
+			}
+		});
+		// cartype add page
+		$('#editCarTypeForm').huhuoFormPost(function(data, status) {
+			if(data.status == 'SUCCESS') {
+				$('#cartypeEditDivId').hide();
+				$('#cartypeMgrDivId').show(500);
+				$('#huhuoForm').trigger('submit');
+			} else {
+				$.huhuoGrowlUI('error occur in server --> ' + data.msg);
+			}
+		});
+	});
+</script>
+
 <div class="row-fluid">
 	<div class="span6">
-		<form id="editForm" class="form-horizontal" action="${path}/cmcar/cartype/update.do">
+		<form id="editCarTypeForm" class="form-horizontal" action="${path}/cmcar/cartype/update.do">
 			<input type="hidden" name="id" value="${carType.id }">
 			<div class="control-group">
 				<label class="control-label" for="inputName">车型名称</label>
@@ -106,7 +167,8 @@
 		</form>
 	</div>
 	<div class="span6">
-		<form id="fileUploadForm" class="form-horizontal">
+		<form id="fileUploadForm" class="form-horizontal" method="post"
+			action="${path}/cmsystem/file/fileupload/cached.do" enctype="multipart/form-data">
 			<ul class="thumbnails">
 				<li class="span12">
 					<a href="javascript:void(0)" class="thumbnail">
@@ -128,30 +190,3 @@
 		</form>
 	</div>
 </div>
-<script type="text/javascript">
-	$(document).ready(function() {
-		// number output format
-		$('.digits').formatNumber({format:'#', local:'cn'});
-		$('.number').formatNumber({format:'#.00', local:'cn'});
-		// validation
-		$('#editForm').validate();
-		// image upload event
-		$('#fileUploadForm').fileUpload(function(data, status, xhr) {
-			// add upload file url to submit form
-			if(data.data) {
-				$('#editForm input[name="icon.name"]').val(data.data.name);
-				$('#editForm input[name="icon.md5"]').val(data.data.md5);
-			}
-		});
-		// cartype add page
-		$('#editForm').huhuoFormPost(function(data, status) {
-			if(data.status == 'SUCCESS') {
-				$('#cartypeEditDivId').hide();
-				$('#cartypeMgrDivId').show(500);
-				$('#huhuoForm').trigger('submit');
-			} else {
-				$.huhuoGrowlUI('error occur in server --> ' + data.msg);
-			}
-		});
-	});
-</script>

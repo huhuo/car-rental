@@ -10,6 +10,7 @@ import com.huhuo.carservicecore.constant.Dictionary.DictGroup;
 import com.huhuo.carservicecore.cust.car.IDaoCar;
 import com.huhuo.carservicecore.cust.car.ModelCar;
 import com.huhuo.carservicecore.db.GenericBaseExtenseServ;
+import com.huhuo.carservicecore.sys.file.ModelFileUpload;
 import com.huhuo.cmcar.cartype.IServCarType;
 import com.huhuo.cmsystem.dict.IServDictionary;
 import com.huhuo.cmsystem.file.IServFileUpload;
@@ -60,4 +61,20 @@ public class ServCar extends GenericBaseExtenseServ<ModelCar> implements IServCa
 		return list;
 	}
 
+	@Override
+	public Integer add(ModelCar t) {
+		// validation
+		if (t == null) {
+			return null;
+		}
+		// update icon information
+		ModelFileUpload picture = t.getPicture();
+		// update DB
+		if (picture != null) {
+			picture = iServFileUpload.uploadFile(picture);
+			t.setPictureId(picture.getId());
+		}
+		return super.add(t);
+	}
+	
 }

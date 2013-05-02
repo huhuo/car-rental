@@ -16,10 +16,10 @@ public interface IServFileUpload extends IBaseExtenseServ<ModelFileUpload> {
 	Boolean save(ModelFileUpload t);
 	/**
 	 * upload file to cache directory, and return file relative path
-	 * @param uploadFile
+	 * @param cachedFile
 	 * @return new file entity
 	 */
-	ModelFileUpload uploadCacheFile(MultipartFile uploadFile);
+	ModelFileUpload uploadCacheFile(MultipartFile cachedFile);
 	/**
 	 * upload file to persist directory <br> field name and md5 is required
 	 * @return new file entity

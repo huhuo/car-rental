@@ -61,15 +61,15 @@ public class ServFileUpload extends GenericBaseExtenseServ<ModelFileUpload> impl
 	}
 
 	@Override
-	public ModelFileUpload uploadCacheFile(MultipartFile uploadFile) {
+	public ModelFileUpload uploadCacheFile(MultipartFile cachedFile) {
 		// TODO Auto-generated method stub
 		ModelFileUpload ret = new ModelFileUpload();
 		try {
-			byte[] bytes = uploadFile.getBytes();
+			byte[] bytes = cachedFile.getBytes();
 			// get md5 value by file's input stream
 			String fileName = MD5Utils.encodeHex(bytes) + FileUtils.DEFFAULT_MARKER + 
-					FileUtils.getSuffix(uploadFile.getOriginalFilename());
-			ret.setName(uploadFile.getOriginalFilename());
+					FileUtils.getSuffix(cachedFile.getOriginalFilename());
+			ret.setName(cachedFile.getOriginalFilename());
 			ret.setPath(cachedPath);
 			ret.setMd5(fileName);
 			StringBuilder sb = new StringBuilder();
