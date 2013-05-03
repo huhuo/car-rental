@@ -93,9 +93,9 @@ div.titlewell {
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="inputIDCardNo">身份证号</label>
+							<label class="control-label" for="inputIdentityCardId">身份证号</label>
 							<div class="controls">
-								<input type="text" class="consumerinput required digits" id="inputIDCardNo"
+								<input type="text" class="consumerinput required digits" id="inputIdentityCardId"
 									name="identityCardId" placeholder="输入身份证号">
 							</div>
 						</div>
