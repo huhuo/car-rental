@@ -13,8 +13,8 @@ table.table-hover tbody tr.huhuo-item-selected {
 	<thead>
 		<tr>
 			<th><input type="checkbox" class="checkbox"></th>
+			<th style="display: none;">序号</th>
 			<th>&nbsp;&nbsp;头像</th>
-			<th>会员编号</th>
 			<th>会员姓名</th>
 			<th>手机号码</th>
 			<th>会员状态</th>
@@ -26,11 +26,11 @@ table.table-hover tbody tr.huhuo-item-selected {
 		<c:forEach items="${records }" var="record">
 		<tr>
 			<td><input type="checkbox" class="checkbox"></td>
+			<td style="display: none;">${record.id}</td>
 			<td>${record.avatar}</td>
-			<td>${record.id}</td>
 			<td>${record.username}</td>
 			<td>${record.mobileNumber}</td>
-			<td>${record.blackList}</td>
+			<td>${record.status}</td>
 			<td>${record.integral}</td>
 			<td>
 				<div class="btn-group">
@@ -76,7 +76,7 @@ $(document).ready(function() {
 	
 	// add event to edit button
 	$('#consumerPageGridId tbody button[name="detail"]').click(function(event) {
-		var selectedId = $(this).parent().parent().parent().children().slice(2, 3).text();
+		var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
 		$("#consumerEditDivId").load('${path}/cmconsumer/consumer/detail.do', {
 			id: selectedId
 		}, function(resp, status, xhReq) {

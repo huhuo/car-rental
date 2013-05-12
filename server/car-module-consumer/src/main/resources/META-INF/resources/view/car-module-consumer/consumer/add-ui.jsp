@@ -74,7 +74,7 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputSeating">会员姓名</label>
 							<div class="controls">
-								<input type="text" class="consumerinput "
+								<input type="text" class="consumerinput required"
 									id="inputCustomerName" name="username" placeholder="输入会员姓名">
 							</div>
 						</div>
@@ -102,15 +102,15 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputBirthday">出生年月</label>
 							<div class="controls">
-								<input type="number" class="consumerinput required digits" id="inputBirthday"
-									name="brithday" placeholder="输入出生年月">
+								<input type="text" class="consumerinput required" id="inputBirthday"
+									name=birthday placeholder="输入出生年月">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="inputAge">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄</label>
 							<div class="controls">
-								<input type="number" class="consumerinput required digits" id="inputAge"
-									name="age" placeholder="输入年龄">
+								<input type="number" disabled="disabled" class="consumerinput required digits" id="inputAge"
+									name="age" placeholder="年龄">
 							</div>
 						</div>
 						<div class="control-group">
@@ -128,7 +128,7 @@ div.titlewell {
 							<label class="control-label" for="inputPermanentAddress">户籍地址</label>
 							<div class="controls">
 								<input type="text" class="consumerinput required"
-									id="inputPermanentAddress" name="address" placeholder="输入户籍地址">
+									id="inputPermanentAddress" name="permanentAddress" placeholder="输入户籍地址">
 							</div>
 						</div>
 						<div class="control-group">
@@ -146,7 +146,7 @@ div.titlewell {
 							<label class="control-label" for="inputCurrentAddress">现在住址</label>
 							<div class="controls">
 								<input type="text" class="consumerinput required"
-									id="inputCurrentAddress" name="currentaddress"
+									id="inputCurrentAddress" name="address"
 									placeholder="输入现在住址">
 							</div>
 						</div>
@@ -171,7 +171,7 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputBondsman">担保人姓名</label>
 							<div class="controls">
-								<input type="text" class="consumerinput required"
+								<input type="text" class="consumerinput"
 									id="inputBondsman" name="bondsman"
 									placeholder="输入担保人姓名">
 							</div>
@@ -180,7 +180,7 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputBondsmanIdentityCard">担保人身份证号</label>
 							<div class="controls">
-								<input type="text" class="consumerinput required digits"
+								<input type="text" class="consumerinput digits"
 									id="inputBondsmanIdentityCard" name="bondsmanIdentityCard"
 									placeholder="输入担保人身份证号">
 							</div>
@@ -188,7 +188,7 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputBondsmanTel">担保人电话</label>
 							<div class="controls">
-								<input type="text" class="consumerinput required digits"
+								<input type="text" class="consumerinput digits"
 									id="inputBondsmanTel"" name="bondsmanTel"
 									placeholder="输入担保人电话">
 							</div>
@@ -197,10 +197,10 @@ div.titlewell {
 							<label class="control-label" for="inputConsumerStatus">客户状态</label>
 							<div class="controls">
 								<label class="radio inline"> 
-									<input type="radio" id="inputConsumerStatus" name="consumerStatus" id="optionsRadios1" value="1" checked> 正常
+									<input type="radio" id="inputConsumerStatus" name="status" id="optionsRadios1" value="1" checked> 正常
 								</label> 
 								<label class="radio inline"> 
-								<input type="radio" id="inputConsumerStatus" name="consumerStatus" id="optionsRadios2" value="2">黑名单
+								<input type="radio" id="inputConsumerStatus" name="status" id="optionsRadios2" value="2">黑名单
 								</label>
 							</div>
 						</div>
@@ -221,7 +221,7 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputDrivingLicenseNo">驾驶证号</label>
 							<div class="controls">
-								<input type="text" class="consumerinput required"
+								<input type="text" class="consumerinput"
 									id="inputDrivingLicenseNo" name="licenseNum"
 									placeholder="输入驾驶证号">
 							</div>
@@ -230,7 +230,7 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputReceivingArea">领取地区</label>
 							<div class="controls">
-								<input type="text" class="consumerinput required"
+								<input type="text" class="consumerinput"
 									id="inputReceivingArea" name="receivingarea"
 									placeholder="请输入领取地区">
 							</div>
@@ -240,6 +240,7 @@ div.titlewell {
 							<label class="control-label" for="inputnDriverType">驾照类型</label>
 							<div class="controls">
 								<select id="inputDriverType" name="drivertype" style="width: 87% ">
+									<option>请选择</option>
 									<option>c1</option>
 									<option>b1</option>
 									<option>a1</option>

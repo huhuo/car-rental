@@ -24,6 +24,13 @@ div.titlewell {
 }
 </style>
 <script type="text/javascript">
+
+	$(document).ready(function() {
+		$("#returnSearch").click(function() {
+			$('#consumerEditDivId').hide();
+			$('#consumerManagerDiv').show(500);
+		});
+	});
 	$(document).ready(function() {
 		// cartype add page
 		$('#consumerEditDivId form').huhuoFormPost(function(data, status) {
@@ -55,7 +62,7 @@ div.titlewell {
 						<button style='text-align: center; font-weight: bold;' class="btn " id="scanIDCard"
 									name="scanIDCard">扫描身份证</button>
 					</div>
-					
+					<input type="hidden" value="${consumer.id }" name="id" >
 					<div class="span4 well">
 						<div class='well titlewell'>
 							<label style='text-align: center; font-weight: bold;'>客户信息</label>
@@ -63,68 +70,66 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputSeating">会员姓名</label>
 							<div class="controls">
-								<input type="number" class="consumerinput required" value="${consumer.username } 
+								<input type="text" class="consumerinput required" value="${consumer.username }" 
 									id="inputCustomerName" name="username" placeholder="输入会员姓名">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="inputCellPhone">移动电话</label>
 							<div class="controls">
-								<input type="number" class="consumerinput required digits" id="inputCellPhone" value="${consumer.mobileNumber } 
+								<input type="number" class="consumerinput required digits" id="inputCellPhone" value="${consumer.mobileNumber }" 
 									name="mobileNumber" placeholder="输入移动电话">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="inputTelephone">固定电话</label>
 							<div class="controls">
-								<input type="number" class="consumerinput required digits" id="inputTelephone" value="${consumer.telephone } 
+								<input type="number" class="consumerinput required" id="inputTelephone" value="${consumer.telephone }" 
 									name="telephone" placeholder="输入固定电话" >
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="inputIdentityCardId">身份证号</label>
 							<div class="controls">
-								<input type="number" class="consumerinput required digits" id="inputIdentityCardId" value="${consumer.identityCardId } 
+								<input type="number" class="consumerinput required " id="inputIdentityCardId" value="${consumer.identityCardId }" 
 									name="identityCardId" placeholder="输入身份证号">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="inputBirthday">出生年月</label>
 							<div class="controls">
-								<input type="number" class="consumerinput required digits" id="inputBirthday" value="${consumer.birthday } 
+								<input type="number" class="consumerinput required" id="inputBirthday" value="${consumer.birthday }" 
 									name="brithday" placeholder="输入出生年月">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="inputAge">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄</label>
 							<div class="controls">
-								<input type="number" class="consumerinput required digits" id="inputAge" value="${consumer.age } 
+								<input type="number" class="consumerinput required digits" id="inputAge" value="${consumer.age }" 
 									name="age" placeholder="输入年龄">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="inputGender">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</label>
 							<div class="controls">
-								<label class="radio inline"> <input type="radio"
-									id="inputGender" name="gender" id="optionsRadios1" value="1"  
-									checked> 男
-								</label> <label class="radio inline"> <input type="radio" 
-									id="inputGender" name="gender" id="optionsRadios2" value="2">女 
+								<label class="radio inline"> 
+								<input type="radio" id="inputGender" name="gender" id="optionsRadios1" value="1" checked> 男
+								</label> <label class="radio inline"> 
+								<input type="radio" id="inputGender" name="gender" id="optionsRadios2" value="2">女 
 								</label>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="inputCurrentAddress">现在住址</label>
 							<div class="controls">
-								<input type="text" class="consumerinput required" value="${consumer.address } 
-									id="inputCurrentAddress" name="currentaddress"
-									placeholder="输入现在住址">
+								<input type="text" class="consumerinput required" value="${consumer.address }" 
+								id="inputCurrentAddress" name="currentaddress"placeholder="输入现在住址">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="inputPermanentAddress">户籍地址</label>
 							<div class="controls">
-								<input type="number" class="consumerinput required" value="${consumer.permanentAddress } 
+								<input type="text" class="consumerinput required" value="${consumer.permanentAddress }" 
 									id="inputPermanentAddress" name="address" placeholder="输入户籍地址">
 							</div>
 						</div>
@@ -142,7 +147,7 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputEmergencyContact">紧急联系人</label>
 							<div class="controls">
-								<input type="text" class="consumerinput required" value="${consumer.emergencyContact } 
+								<input type="text" class="consumerinput required" value="${consumer.emergencyContact }" 
 									id="inputemergencyContact" name="emergencyContact"
 									placeholder="输入紧急联系人">
 							</div>
@@ -151,7 +156,7 @@ div.titlewell {
 							<label class="control-label" for="inputEmergencyTel">紧急联系人电话</label>
 							<div class="controls">
 								<input type="text" class="consumerinput required digits"
-									id="inputEmergencyTel" name="emergencyTel"  value="${consumer.emergencyTel } 
+								id="inputEmergencyTel" name="emergencyTel"  value="${consumer.emergencyTel }"
 									placeholder="输入紧急联系人电话">
 							</div>
 						</div>
@@ -160,8 +165,8 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputBondsman">担保人姓名</label>
 							<div class="controls">
-								<input type="text" class="consumerinput required digits"
-									id="inputBondsman" name="bondsman"
+								<input type="text" class="consumerinput"
+									id="inputBondsman" name="bondsman" value="${consumer.bondsman }"
 									placeholder="输入担保人姓名">
 							</div>
 						</div>
@@ -169,15 +174,15 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputBondsmanIdentityCard">担保人身份证号</label>
 							<div class="controls">
-								<input type="text" class="consumerinput required digits"
-									id="inputBondsmanIdentityCard" name="bondsmanIdentityCard"
+								<input type="text" class="consumerinput digits"
+									id="inputBondsmanIdentityCard" name="bondsmanIdentityCard" value="${consumer.bondsmanIdentityCard }"
 									placeholder="输入担保人身份证号">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="inputBondsmanTel">担保人电话</label>
 							<div class="controls">
-								<input type="text" class="consumerinput required digits"
+								<input type="text" class="consumerinput digits" value="${consumer.bondsmanTel }"
 									id="inputBondsmanTel"" name="bondsmanTel"
 									placeholder="输入担保人电话">
 							</div>
@@ -199,8 +204,8 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputDrivingLicenseNo">驾驶证号</label>
 							<div class="controls">
-								<input type="text" class="consumerinput required" 
-									id="inputDrivingLicenseNo" name="licenseNum"
+								<input type="text" class="consumerinput" 
+									id="inputDrivingLicenseNo" name="licenseNum" value="${consumer.licenseNum }"
 									placeholder="输入驾驶证号">
 							</div>
 						</div>
@@ -208,8 +213,8 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputReceivingArea">领取地区</label>
 							<div class="controls">
-								<input type="text" class="consumerinput required" 
-									id="inputReceivingArea" name="receivingarea"
+								<input type="text" class="consumerinput" 
+									id="inputReceivingArea" name="receivingarea" value="${consumer.receiveArea }"
 									placeholder="请输入领取地区">
 							</div>
 						</div>

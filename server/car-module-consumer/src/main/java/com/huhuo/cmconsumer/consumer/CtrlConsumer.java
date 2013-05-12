@@ -50,17 +50,18 @@ public class CtrlConsumer extends BaseCtrl {
 		return basePath + "/consumer/index";
 	}
 	
-	@RequestMapping(value="/get.do")
-	public void get(HttpServletResponse resp, Condition<ModelConsumer> condition){
-		logger.debug("server receive: condition={}", condition);
-//			condition.setPage(new Page(0, 30));
-//			List<ModelConsumer> list = servConsumer.findByCondition(condition);
-		List<ModelConsumer> list = iservConsumer.findModels(new Page<ModelConsumer>(0, 10));
-		write(ExtUtils.getJsonStore(list, list.size()), resp);
-	}
+//	@RequestMapping(value="/get.do")
+//	public void get(HttpServletResponse resp, Condition<ModelConsumer> condition){
+//		logger.debug("server receive: condition={}", condition);
+////			condition.setPage(new Page(0, 30));
+////			List<ModelConsumer> list = servConsumer.findByCondition(condition);
+//		List<ModelConsumer> list = iservConsumer.findModels(new Page<ModelConsumer>(0, 10));
+//		write(ExtUtils.getJsonStore(list, list.size()), resp);
+//	}
 	
 	@RequestMapping(value="/condition/get.do")
 	public String get(Model model, Condition<ModelConsumer> condition, ModelConsumer t){
+		t.setStatus(1);
 		condition.setT(t);
 		condition.setOrderList(new Order("createTime", Dir.DESC), new Order("updateTime", Dir.DESC));
 		logger.debug("---> server receive: condition={}", condition);

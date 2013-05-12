@@ -54,13 +54,8 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	private Date createTime;
 	/** 更新时间 **/
 	private Date updateTime;
-	/** 是否是黑名单*/
-	private Boolean blackList;
 	@NotSqlField
 	private Integer age;
-	/**客户状态（字典表查询，dictValue：1：正常；2：黑名单 */
-	@NotSqlField
-	private Integer consumerStatus;
 	/**担保人*/
 	private String bondsman;
 	/**担保人身份证号*/
@@ -239,15 +234,6 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	public void setEmergencyTel(String emergencyTel) {
 		this.emergencyTel = emergencyTel;
 	}
-	public Boolean getBlackList() {
-		return blackList;
-	}
-	public void setBlackList(Boolean blackList) {
-		this.blackList = blackList;
-	}
-	public String getAvatar() {
-		return avatar;
-	}
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
 	}
@@ -269,12 +255,6 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	public void setReceiveArea(String receiveArea) {
 		this.receiveArea = receiveArea;
 	}
-	public Integer getConsumerStatus() {
-		return consumerStatus;
-	}
-	public void setConsumerStatus(Integer consumerStatus) {
-		this.consumerStatus = consumerStatus;
-	}
 	public String getBondsman() {
 		return bondsman;
 	}
@@ -292,6 +272,9 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	}
 	public void setBondsmanTel(String bondsmanTel) {
 		this.bondsmanTel = bondsmanTel;
+	}
+	public String getAvatar() {
+		return avatar;
 	}
 	
 	

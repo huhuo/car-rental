@@ -38,6 +38,7 @@ public class DaoConsumerTest extends CarModuleConsumerTest {
 			c.setUsername("三皮 " + i);
 			c.setPassword("abcde" + i);
 			c.setTelephone("10086" + i);
+			c.setStatus(0);
 			c.setTelephone("1383838383" + i);
 			c.setEmail("user" + i + "@ihuhuo.com");
 			c.setAddress("北京市海淀区农大南路万树园" + i + "号楼" + i + "单元");
