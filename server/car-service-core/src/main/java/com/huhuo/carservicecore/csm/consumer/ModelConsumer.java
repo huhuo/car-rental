@@ -73,6 +73,42 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	 * @return
 	 */
 	private transient ModelDictionary genderDic;
+	@NotSqlField
+	private ModelConsumerStatus statusEnum;
+	
+	public enum ModelConsumerStatus {
+		DELETE(0, "已删除"),
+		NORMAL(1, "正常"),
+		BLACK(2, "黑名单"),
+		;
+		private Integer key;
+		private String disp;
+		ModelConsumerStatus(Integer key, String disp) {
+			this.key = key;
+			this.disp = disp;
+		}
+		public Integer getKey() {
+			return key;
+		}
+		public String getDisp() {
+			return disp;
+		}
+		public static ModelConsumerStatus getBy(Integer key) {
+			ModelConsumerStatus ret = NORMAL;
+			switch (key) {
+			case 0:
+				ret = DELETE;
+				break;
+			case 1:
+				ret = NORMAL;
+				break;
+			case 2:
+				ret = BLACK;
+				break;
+			}
+			return ret;
+		}
+	}
 	
 	public String getIdentityCardId() {
 		return identityCardId;
@@ -184,6 +220,18 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	}
 	public void setGenderDic(ModelDictionary genderDic) {
 		this.genderDic = genderDic;
+	}
+	@Override
+	public void setStatus(Integer status) {
+		// TODO Auto-generated method stub
+		setStatusEnum(ModelConsumerStatus.getBy(status));
+		super.setStatus(status);
+	}
+	public ModelConsumerStatus getStatusEnum() {
+		return statusEnum;
+	}
+	public void setStatusEnum(ModelConsumerStatus statusEnum) {
+		this.statusEnum = statusEnum;
 	}
 	public String getEmergencyTel() {
 		return emergencyTel;

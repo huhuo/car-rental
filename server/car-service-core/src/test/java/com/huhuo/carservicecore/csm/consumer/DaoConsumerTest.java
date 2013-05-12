@@ -1,6 +1,7 @@
 package com.huhuo.carservicecore.csm.consumer;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -34,6 +35,12 @@ public class DaoConsumerTest extends CarServiceCoreTest {
 		iDaoConsumer.deletePhysical(t);
 		actual = iDaoConsumer.find(t.getId());
 		Assert.assertNull("failed to delete ModelConsumer", actual);
+	}
+	
+	@Test
+	public void autoInject() {
+		List<ModelConsumer> list = iDaoConsumer.findModels(0, 10);
+		print(list);
 	}
 	
 }
