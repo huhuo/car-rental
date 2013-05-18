@@ -98,7 +98,7 @@
 			<ul class="thumbnails">
 				<li class="span12">
 					<a href="javascript:void(0)" class="thumbnail">
-						<img class="img-rounded" src="${path }/${car.picture.path}/${car.picture.md5}" alt="">
+						<img class="img-rounded" src="${car.picture.url}" alt="">
 					</a>
 				</li>
 			</ul>

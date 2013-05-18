@@ -30,7 +30,7 @@ table.table-hover tbody tr.huhuo-item-selected {
 			<td>${record.id}</td>
 			<td>
 				<a href="javascript:void(0)" class="thumbnail">
-					<img class="img-rounded" style="height: 100px; width: 150px;" src="${path }/${record.icon.path}/${record.icon.md5}">
+					<img class="img-rounded" style="height: 100px; width: 150px;" src="${record.icon.url}">
 				</a>
 			</td>
 			<td>${record.name}</td>

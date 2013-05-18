@@ -1,6 +1,7 @@
 package com.huhuo.carservicecore.sys.file;
 
 import com.huhuo.integration.base.BaseModel;
+import com.huhuo.integration.db.mysql.NotSqlField;
 
 
 public class ModelFileUpload extends BaseModel {
@@ -15,6 +16,9 @@ public class ModelFileUpload extends BaseModel {
 	private String md5;
 	/** 文件类型（代码中用枚举解析），1、jpg；2、 **/
 	private Integer type;
+	/** file server url for file upload **/
+	@NotSqlField
+	private String url;
 	
 	public String getName() {
 		return name;
@@ -40,6 +44,11 @@ public class ModelFileUpload extends BaseModel {
 	public void setType(Integer type) {
 		this.type = type;
 	}
-
+	public String getUrl() {
+		return url;
+	}
+	public void setUrl(String url) {
+		this.url = url;
+	}
 	
 }

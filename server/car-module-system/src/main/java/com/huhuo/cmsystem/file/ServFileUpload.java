@@ -35,13 +35,13 @@ public class ServFileUpload extends GenericBaseExtenseServ<ModelFileUpload> impl
 	/** servlet context **/
 	private static ServletContext ctx;
 	/** file upload cache directory */
-	private static String cachedPath = "file/upload/cached";
-	/** file upload persist directory which can be access by url */
-	private static String webResPath = "file/upload";
+	private static String cachedPath = "cached";
 	/** default upload file store directory */
 	private String persistPath = Constant.FILE_UPLOAD_PERSIST_PATH;
+	/** url mapping of file server */
+	private String fileServerUrlPref = Constant.FILE_UPLOAD_FILE_SERVER_URL;
 	/** default file separator */
-	private String fileSeparator = File.separator;
+	private String fs = "/";
 	
 	
 	public static void setSce(ServletContextEvent sce) {
@@ -60,6 +60,17 @@ public class ServFileUpload extends GenericBaseExtenseServ<ModelFileUpload> impl
 		// TODO Auto-generated method stub
 		return ModelFileUpload.class;
 	}
+	
+	@Override
+	public <V> ModelFileUpload find(V id) {
+		// TODO Auto-generated method stub
+		ModelFileUpload t = super.find(id);
+		if(t != null) {
+			t.setUrl(new StringBuilder().append(fileServerUrlPref)
+					.append(fs).append(t.getPath()).append(fs).append(t.getMd5()).toString());
+		}
+		return t;
+	}
 
 	@Override
 	public ModelFileUpload uploadCacheFile(MultipartFile cachedFile) {
@@ -73,14 +84,14 @@ public class ServFileUpload extends GenericBaseExtenseServ<ModelFileUpload> impl
 			ret.setName(cachedFile.getOriginalFilename());
 			ret.setPath(cachedPath);
 			ret.setMd5(fileName);
-			StringBuilder sb = new StringBuilder();
-			sb.append(ctx.getRealPath(cachedPath)).append(fileSeparator).append(fileName);
-			File file = new File(sb.toString());
-			if(file.exists()) {
-				throw new ServException("file exist");
+			ret.setUrl(new StringBuilder().append(fileServerUrlPref)
+					.append(fs).append(ret.getPath()).append(fs).append(ret.getMd5()).toString());
+			File file = new File(new StringBuilder().append(persistPath)
+					.append(fs).append(cachedPath).append(fs).append(fileName).toString());
+			if(!file.exists()) {
+				logger.info("upload file --> {}", file);
+				FileUtils.writeByteArrayToFile(file, bytes);
 			}
-			logger.info("upload file --> {}", file);
-			FileUtils.writeByteArrayToFile(file, bytes);
 		} catch (IOException e) {
 			logger.warn(ExceptionUtils.getStackTrace(e));
 			throw new ServException(e.getMessage() + " --> get upload file byte[] error", e);
@@ -91,22 +102,27 @@ public class ServFileUpload extends GenericBaseExtenseServ<ModelFileUpload> impl
 	@Override
 	public ModelFileUpload uploadFile(ModelFileUpload t) {
 		try {
-			File srcFile = new File(ctx.getRealPath(cachedPath + fileSeparator + t.getMd5()));
-			if(srcFile.exists() && srcFile.isFile()) {
+			File cachedFile = new File(new StringBuilder().append(persistPath)
+					.append(fs).append(cachedPath).append(fs).append(t.getMd5()).toString());
+			
+			if(cachedFile.exists() && cachedFile.isFile()) {
 				// copy file in cached directory to persist directory
 				String firstLevel = TimeUtils.format(new Date(), false);
-				File destDir = new File(ctx.getRealPath(webResPath + fileSeparator + firstLevel));
-				FileUtils.copyFileToDirectory(srcFile, destDir, true);
-				// move file in persist directory
-				destDir = new File(persistPath + fileSeparator + webResPath + fileSeparator + firstLevel);
-				FileUtils.copyFileToDirectory(srcFile, destDir, true);
-				srcFile.delete();
-				String accessPath = webResPath + fileSeparator + firstLevel;
+				File destDir = new File(new StringBuilder().append(persistPath)
+						.append(fs).append(firstLevel).toString());
+				File destFile = new File(destDir, t.getMd5());
+				if(destFile.exists() && destFile.isFile()) {
+					cachedFile.delete();
+				} else {
+					FileUtils.moveFileToDirectory(cachedFile, destDir, true);
+				}
 				// update DB
-				t.setPath(accessPath);
+				t.setPath(firstLevel);
 				String suffix = FileUtils.getSuffix(t.getMd5());
 				Suffix type = Suffix.valueOf(suffix.toUpperCase());
 				t.setType(type.getValue());
+				t.setUrl(new StringBuilder().append(fileServerUrlPref)
+						.append(fs).append(t.getPath()).append(fs).append(t.getMd5()).toString());
 				save(t);
 			}
 		} catch (IOException e) {
@@ -127,10 +143,10 @@ public class ServFileUpload extends GenericBaseExtenseServ<ModelFileUpload> impl
 		ModelFileUpload tDB = find(t.getId());
 		if(tDB != null) {
 			if(!StringUtils.equals(t.getPath()+t.getMd5(), tDB.getPath()+t.getMd5())) {
-				String relatePath = tDB.getPath() + fileSeparator + tDB.getMd5();
+				String relatePath = tDB.getPath() + fs + tDB.getMd5();
 				File obsoleteFileInWebapp = new File(ctx.getRealPath(relatePath));
 				boolean status = obsoleteFileInWebapp.delete();
-				File bosoleteFileInPersist = new File(persistPath + fileSeparator + relatePath);
+				File bosoleteFileInPersist = new File(persistPath + fs + relatePath);
 				boolean status2 = bosoleteFileInPersist.delete();
 				logger.info("==> delete obsolete file in webapp {} --> {}", 
 						status ? "success!" : "failure!", obsoleteFileInWebapp);

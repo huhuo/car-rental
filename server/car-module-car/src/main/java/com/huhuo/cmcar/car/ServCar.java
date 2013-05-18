@@ -47,6 +47,19 @@ public class ServCar extends GenericBaseExtenseServ<ModelCar> implements IServCa
 	}
 
 	@Override
+	public <V> ModelCar find(V id) {
+		// TODO Auto-generated method stub
+		ModelCar car = super.find(id);
+		car.setCarType(iServCarType.find(car.getCarTypeId()));
+		car.setColorDict(iServDictionary.getBy(DictGroup.CUST_CAR_COLOR, car.getColor()));
+		car.setStatusDict(iServDictionary.getBy(DictGroup.CUST_CAR_STATUS, car.getStatus()));
+		car.setPicture(iServFileUpload.find(car.getPictureId()));
+		car.setStore(iServStore.find(car.getStoreId()));
+		car.setWarehouse(iServStore.find(car.getWarehouseId()));
+		return car;
+	}
+
+	@Override
 	public List<ModelCar> findByCondition(Condition<ModelCar> condition,
 			boolean injected) {
 		List<ModelCar> list = findByCondition(condition);

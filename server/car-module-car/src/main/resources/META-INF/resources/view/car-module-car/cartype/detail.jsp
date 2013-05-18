@@ -103,7 +103,7 @@
 			<ul class="thumbnails">
 				<li class="span12">
 					<a href="javascript:void(0)" class="thumbnail">
-						<img class="img-rounded" src="${path }/${carType.icon.path}/${carType.icon.md5}" alt="">
+						<img class="img-rounded" src="${carType.icon.url}" alt="">
 					</a>
 				</li>
 			</ul>

@@ -20,8 +20,8 @@ public class Constant {
 	public static final String SESSION_USER = "seUser";									//用户
 	public static final String SESSION_LOGIN_ERR_MSG = "seLoginErrMsg";					//登录错误信息
 	
-	public static final String FILE_UPLOAD_CACHE_PATH = config.getString("file.upload.cache.path");
 	public static final String FILE_UPLOAD_PERSIST_PATH = config.getString("file.upload.persist.path");
+	public static final String FILE_UPLOAD_FILE_SERVER_URL = config.getString("file.upload.file.server.url");
 	
 	public enum Suffix {
 		PNG(1),

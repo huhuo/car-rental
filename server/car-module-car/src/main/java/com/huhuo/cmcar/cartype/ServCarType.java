@@ -47,6 +47,20 @@ public class ServCarType extends GenericBaseExtenseServ<ModelCarType> implements
 	}
 
 	@Override
+	public <V> ModelCarType find(V id) {
+		// TODO Auto-generated method stub
+		ModelCarType t = super.find(id);
+		ModelDictionary categoryDict = iServDictionary.getBy(
+				DictGroup.CUST_CAR_TYPE_CATEGORY, t.getCategory());
+		t.setCategoryDict(categoryDict);
+		ModelChargeStandard chargeStandard = iServChargeStandard.find(t.getChargeStandardId());
+		t.setChargeStandard(chargeStandard);
+		ModelFileUpload icon = iServFileUpload.find(t.getIconId());
+		t.setIcon(icon);
+		return t;
+	}
+
+	@Override
 	public List<ModelCarType> findByCondition(
 			Condition<ModelCarType> condition, boolean injected) {
 		List<ModelCarType> list = findByCondition(condition);

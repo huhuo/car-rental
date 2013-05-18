@@ -137,10 +137,9 @@ public class CtrlCar extends SystemBaseCtrl {
 	}
 	
 	@RequestMapping(value="/detail.do")
-	public String detail(Model model, ModelCar t) {
-		logger.debug("==> edit ModeCar with id --> {}", t.getId());
-		Condition<ModelCar> condition = new Condition<ModelCar>(t, null, null, new Page<ModelCar>(0, 1));
-		model.addAttribute("car", iservCar.findByCondition(condition, true).get(0));
+	public String detail(Model model, Long id) {
+		logger.debug("==> edit ModeCar with id --> {}", id);
+		model.addAttribute("car", iservCar.find(id));
 		// prepare store for combo box of carTypeId
 		List<ModelCarType> carTypeList = iServCarType.findByCondition(null);
 		model.addAttribute("carTypeList", carTypeList);
@@ -154,10 +153,9 @@ public class CtrlCar extends SystemBaseCtrl {
 	}
 	
 	@RequestMapping(value="/edit-ui.do")
-	public String editUI(Model model, ModelCar t) {
-		logger.debug("==> edit ModeCar with id --> {}", t.getId());
-		Condition<ModelCar> condition = new Condition<ModelCar>(t, null, null, new Page<ModelCar>(0, 1));
-		model.addAttribute("car", iservCar.findByCondition(condition, true).get(0));
+	public String editUI(Model model, Long id) {
+		logger.debug("==> edit ModeCar with id --> {}", id);
+		model.addAttribute("car", iservCar.find(id));
 		// prepare store for combo box of carTypeId
 		List<ModelCarType> carTypeList = iServCarType.findByCondition(null);
 		model.addAttribute("carTypeList", carTypeList);
