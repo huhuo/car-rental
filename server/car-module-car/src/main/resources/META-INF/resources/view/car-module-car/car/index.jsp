@@ -17,7 +17,7 @@
 								<li><a class="search-term" keyword="carTypeId" paramKey="name" url="${path }/cmcar/car/typeahead/cartype.do" href="javascript:void(0)">车型名称</a></li>
 								<li><a class="search-term" keyword="storeId" paramKey="name" url="${path }/cmcar/car/typeahead/store.do" href="javascript:void(0)">所属门店名称</a></li>
 								<li><a class="search-term" keyword="warehouseId" paramKey="name" url="${path }/cmcar/car/typeahead/store.do" href="javascript:void(0)">入库门店名称</a></li>
-								<li><a class="search-term" keyword="status" paramKey="dictDisplayName" url="${path }/cmcar/car/typeahead/dict.do" href="javascript:void(0)">车辆状态</a></li>
+								<li><a class="search-term" keyword="status" paramKey="dictDisplayName" url="${path }/cmsystem/dict/groups/CUST_CAR_STATUS.do" href="javascript:void(0)">车辆状态</a></li>
 							</ul>
 						</li>
 					</ul>

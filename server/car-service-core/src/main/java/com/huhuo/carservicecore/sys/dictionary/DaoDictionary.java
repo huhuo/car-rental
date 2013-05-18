@@ -23,7 +23,7 @@ public class DaoDictionary extends GenericBaseExtenseDao<ModelDictionary> implem
 
 	@Override
 	public List<ModelDictionary> getGroupsBy(DictGroup dictGroup) {
-		String sql = String.format("SELECT * FROM %s WHERE groupName=?", getTableName());
+		String sql = String.format("SELECT * FROM %s WHERE groupName=? ORDER BY orderNo ASC, id ASC", getTableName());
 		List<ModelDictionary> list = findList(sql, dictGroup.getGroupName());
 		return list;
 	}

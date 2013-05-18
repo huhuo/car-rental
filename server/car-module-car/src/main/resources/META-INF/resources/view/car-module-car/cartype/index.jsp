@@ -39,10 +39,11 @@ select {
 						<li class="dropdown">
 							<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">搜索条件<b class="caret"></b></a>
 							<ul class="dropdown-menu">
-								<li><a class="search-term huhuo-item-selected" id="name" href="javascript:void(0)">车型名称</a></li>
-								<li><a class="search-term" id="category" href="javascript:void(0)">类别</a></li>
-								<li><a class="search-term" id="seating" href="javascript:void(0)">座位数</a></li>
-								<li><a class="search-term" id="tankCapacity" href="javascript:void(0)">油箱容量（L）</a></li>
+								<li><a class="search-term huhuo-item-selected" keyword="name" href="javascript:void(0)">车型名称</a></li>
+								<li><a class="search-term autofill" keyword="category" paramKey="dictDisplayName" url="${path }/cmsystem/dict/groups/CUST_CAR_TYPE_CATEGORY.do" href="javascript:void(0)">类别</a></li>
+								<li><a class="search-term" keyword="seating" href="javascript:void(0)">座位数</a></li>
+								<li><a class="search-term" keyword="tankCapacity" href="javascript:void(0)">油箱容量（L）</a></li>
+								
 							</ul>
 						</li>
 					</ul>
@@ -50,7 +51,8 @@ select {
 						<input type="hidden" name="status" value="1">
 						<input type="hidden" name="page.pageNo" value="1">
 						<input type="hidden" name="page.limit" value="10">
-						<input type="text" class="span6 search-query" name="name" placeholder="车型名称">
+						<input type="text" class="span6 search-query" placeholder="车型名称">
+						<input type="hidden" id="keyword" name="name">
 						<button type="submit" class="btn">search</button>
 					</form>
 				</div>
@@ -70,10 +72,38 @@ select {
 			$('.search-term').each(function(idx, item) {
 				$(item).removeClass("huhuo-item-selected");
 			});
-			$(this).addClass("huhuo-item-selected");
+			var selectedItem = $(this);
+			selectedItem.addClass("huhuo-item-selected");
+			// remove input
+			$('#huhuoForm ul').remove();
+			$('#huhuoForm .search-query').remove();
+			// add new input
+			$('#huhuoForm input[name="page.limit"]').after('<input type="text" class="span6 search-query">');
 			var searchInput = $('#huhuoForm').children('.search-query');
-			searchInput.attr('placeholder', $(this).html());
-			searchInput.attr('name', $(this).attr('id'));
+			searchInput.val('');
+			searchInput.attr('placeholder', selectedItem.html());
+			// autofil event listener
+			var keyWordHidden = $('#keyword');
+			keyWordHidden.attr('name', selectedItem.attr('keyword'));
+			if(selectedItem.attr('keyword') == 'category') {
+				searchInput.autoFill(selectedItem.attr('url'), selectedItem.attr('paramKey'), 
+						$('#huhuoForm'), null, null, null, function(data) {
+					keyWordHidden.val(data.dictKey);
+					$('#huhuoForm').trigger('submit');
+				});
+			} else {
+				searchInput.change(function(e) {
+					keyWordHidden.val($(this).val());
+				});
+			}
+			// reset keyword value
+			keyWordHidden.val('');
+			// when the search input value is empty, then clear up the keyword param's value
+			searchInput.focusout(function(event) {
+				if(searchInput.val() == '') {
+					keyWordHidden.val('');
+				}
+			});
 		});
 		// bind click event to search button ==> query record by search term
 		$('#huhuoForm').huhuoFormPost(function(data, status) {
@@ -84,6 +114,7 @@ select {
 				$('#pagediv').append(data);
 			}
 		});
+		$('.search-term.huhuo-item-selected').trigger('click');
 		$('#huhuoForm').trigger('submit');
 		// add and delete button group event
 		var btnGroup = $('#mgrDivId div.navbar div.btn-group');

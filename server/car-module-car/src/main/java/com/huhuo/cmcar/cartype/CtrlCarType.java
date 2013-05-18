@@ -14,8 +14,8 @@ import com.alibaba.fastjson.JSON;
 import com.huhuo.carservicecore.constant.Dictionary.DictGroup;
 import com.huhuo.carservicecore.cust.car.ModelCarType;
 import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
+import com.huhuo.cmsystem.SystemBaseCtrl;
 import com.huhuo.cmsystem.dict.IServDictionary;
-import com.huhuo.integration.base.BaseCtrl;
 import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.db.mysql.Dir;
 import com.huhuo.integration.db.mysql.Order;
@@ -26,7 +26,7 @@ import com.huhuo.integration.web.Message.Status;
 
 @Controller("cmcarCtrlCarType")
 @RequestMapping(value="/cmcar/cartype")
-public class CtrlCarType extends BaseCtrl {
+public class CtrlCarType extends SystemBaseCtrl {
 	
 	protected String basePath = "/car-module-car";
 	
