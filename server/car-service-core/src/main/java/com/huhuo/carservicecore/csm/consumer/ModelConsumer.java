@@ -71,6 +71,9 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	@NotSqlField
 	private ModelConsumerStatus statusEnum;
 	
+	@NotSqlField
+	private String statusStr;
+	
 	public enum ModelConsumerStatus {
 		DELETE(0, "已删除"),
 		NORMAL(1, "正常"),
@@ -220,6 +223,7 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	public void setStatus(Integer status) {
 		// TODO Auto-generated method stub
 		setStatusEnum(ModelConsumerStatus.getBy(status));
+		setStatusStr(ModelConsumerStatus.getBy(status).getDisp());
 		super.setStatus(status);
 	}
 	public ModelConsumerStatus getStatusEnum() {
@@ -276,6 +280,13 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	public String getAvatar() {
 		return avatar;
 	}
+	public String getStatusStr() {
+		return statusStr;
+	}
+	public void setStatusStr(String statusStr) {
+		this.statusStr = statusStr;
+	}
+	
 	
 	
 }

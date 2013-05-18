@@ -45,7 +45,7 @@ public class ServOrder extends GenericBaseExtenseServ<ModelOrder> implements
 		List<ModelConsumer> queryForList = null;
 		StringBuilder sb = new StringBuilder();
 		List<Object> list = new ArrayList<Object>();
-		sb.append("select * from csm_consumer where 1=1 ");
+		sb.append("select * from csm_consumer where status!=0 ");
 		if (phone != null) {
 			sb.append(" and mobileNumber like ?");
 			list.add(phone + "%");
@@ -71,7 +71,6 @@ public class ServOrder extends GenericBaseExtenseServ<ModelOrder> implements
 			sb.append(" and carTypeId = ?");
 			list.add(carTypeId);
 		}
-		sb.append(" limit 0 , 10");
 		List<ModelCar> queryForList = idaoOrder.queryForList(sb.toString(),
 				ModelCar.class, list.toArray());
 

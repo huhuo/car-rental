@@ -69,7 +69,9 @@ $(document).ready(function() {
 	// add select css
 	$('#pageGridId tbody tr').click(function(event) {
 		$(this).toggleClass('huhuo-item-selected');
-		$(this).find(':checkbox')[0].checked = !$(this).find(':checkbox')[0].checked;
+		if ($(event.target).attr("type") != "checkbox") {
+			$(this).find(':checkbox')[0].checked = !$(this).find(':checkbox')[0].checked;
+		}
 	});
 	// add select event
 	$('#pageGridId thead tr :checkbox').click(function(event) {
