@@ -2,6 +2,7 @@ package com.huhuo.carservicecore.cust.ms;
 
 import com.huhuo.carservicecore.sys.user.ModelUser;
 import com.huhuo.integration.base.BaseModel;
+import com.huhuo.integration.db.mysql.NotSqlField;
 
 
 public class ModelSMS extends BaseModel {
@@ -18,8 +19,9 @@ public class ModelSMS extends BaseModel {
 	private Long phoneNum;
 	
 	/** 外联对象 **/
+	@NotSqlField
 	private ModelUser sender;
-	
+	@NotSqlField
 	private ModelUser reciever;
 	
 	public String getContent() {

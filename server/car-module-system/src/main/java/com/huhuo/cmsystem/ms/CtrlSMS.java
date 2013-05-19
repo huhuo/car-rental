@@ -13,14 +13,14 @@ import com.huhuo.cmsystem.SystemBaseCtrl;
 import com.huhuo.cmsystem.constant.Constant;
 import com.huhuo.integration.web.Message;
 import com.huhuo.integration.web.Message.Status;
-@Controller("cmsystemCtrlDictionary")
-@RequestMapping(value="/cmsystem/sm")
+@Controller("cmsystemCtrlSMS")
+@RequestMapping(value="/cmsystem/ms/sms")
 public class CtrlSMS extends SystemBaseCtrl {
 
-	@Resource(name = "cmsystemServDictionary")
+	@Resource(name = "cmsystemServSMS")
 	private IServSMS iServSMS;
 	
-	@RequestMapping(value = "/sms/send.do")
+	@RequestMapping(value = "/send.do")
 	public String get(Model model, HttpSession session, ModelSMS msg) {
 		logger.info("send message --> {}", msg);
 		ModelUser sender = (ModelUser) session.getAttribute(Constant.SESSION_USER);
