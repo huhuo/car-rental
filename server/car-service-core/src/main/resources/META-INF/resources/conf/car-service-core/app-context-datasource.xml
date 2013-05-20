@@ -21,6 +21,12 @@
 		<property name="minPoolSize" value="#{dataSourceProps['c3p0.pool.size.min']}" />
 		<property name="initialPoolSize" value="#{dataSourceProps['c3p0.pool.size.ini']}" />
 		<property name="acquireIncrement" value="#{dataSourceProps['c3p0.pool.size.increment']}" />
+		
+		<property name="testConnectionOnCheckin" value="#{dataSourceProps['c3p0.pool.testConnectionOnCheckin']}" />  
+    	<property name="automaticTestTable" value="#{dataSourceProps['c3p0.pool.automaticTestTable']}" />  
+   		<property name="idleConnectionTestPeriod" value="#{dataSourceProps['c3p0.pool.idleConnectionTestPeriod']}" /> 
+   		<property name="maxIdleTime" value="#{dataSourceProps['c3p0.pool.maxIdleTime']}" />  
+   		<property name="testConnectionOnCheckout" value="#{dataSourceProps['c3p0.pool.testConnectionOnCheckout']}" /> 
 	</bean>
 	<!-- children data source -->
 	<bean id="datasourceCenter" parent="parentDatasource">
