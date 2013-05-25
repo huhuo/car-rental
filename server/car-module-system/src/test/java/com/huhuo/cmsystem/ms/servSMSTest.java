@@ -17,9 +17,9 @@ public class servSMSTest extends CarModuleSystemTest {
 	
 	@Test
 	public void crud() {
-//		balance();
+		balance();
 		
-		send();
+//		send();
 		
 	}
 	private void send() {
