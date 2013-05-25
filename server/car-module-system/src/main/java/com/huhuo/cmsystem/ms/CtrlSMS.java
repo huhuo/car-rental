@@ -24,7 +24,7 @@ public class CtrlSMS extends SystemBaseCtrl {
 	public String get(Model model, HttpSession session, ModelSMS msg) {
 		logger.info("send message --> {}", msg);
 		ModelUser sender = (ModelUser) session.getAttribute(Constant.SESSION_USER);
-		iServSMS.send(sender.getId(), msg.getRecieverId(), msg.getPhoneNum(), msg.getContent());
+		iServSMS.send(sender.getId(), msg.getRecieverId(), msg.getContent(),"success");
 		return render(model, new Message<ModelSMS>(Status.SUCCESS, "send messsage successfully!", msg));
 	}
 	
