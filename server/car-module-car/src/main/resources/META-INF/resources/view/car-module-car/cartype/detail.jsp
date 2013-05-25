@@ -16,11 +16,11 @@
 					<select id="selectCategory" name="category" disabled="disabled">
 					<c:forEach items="${carTypeCategoryList }" var="category">
 					<c:choose>
-					<c:when test="${category.dictKey == carType.category }">
-						<option value="${category.dictKey }" selected="selected">${category.dictDisplayName }</option>
+					<c:when test="${category.key == carType.category }">
+						<option value="${category.key }" selected="selected">${category.disp }</option>
 					</c:when>
 					<c:otherwise>
-						<option value="${category.dictKey }">${category.dictDisplayName }</option>
+						<option value="${category.key }">${category.disp }</option>
 					</c:otherwise>
 					</c:choose>
 					</c:forEach>

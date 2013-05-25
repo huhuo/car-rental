@@ -1,9 +1,10 @@
 package com.huhuo.carservicecore.cust.car;
 
 import com.huhuo.carservicecore.cust.store.ModelStore;
-import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
 import com.huhuo.carservicecore.sys.file.ModelFileUpload;
 import com.huhuo.integration.base.BaseModel;
+import com.huhuo.integration.db.mysql.Dict;
+import com.huhuo.integration.db.mysql.DictMgr;
 import com.huhuo.integration.db.mysql.NotSqlField;
 
 
@@ -37,8 +38,8 @@ public class ModelCar extends BaseModel {
 	/** 车辆位置信息id，与表cust_car_location表关联 **/
 	private Long locationId;
 	/**
-	 * 车辆状态，字典查询，关键字cust_car_status，0、删除；1、在库待租；2、已经出租；
-	 * 3、维修保养中；4、报废 
+	 * 车辆状态，字典查询，关键字cust_car_status，0、删除；1、在库待租；2、已经预定；3、已经出租；
+	 * 4、维修保养中；5、报废
 	 */
 	private Integer status;
 	
@@ -52,11 +53,11 @@ public class ModelCar extends BaseModel {
 	@NotSqlField
 	private ModelStore store;
 	@NotSqlField
-	private ModelDictionary colorDict;
+	private Dict colorDict;
 	@NotSqlField
 	private ModelStore warehouse;
 	@NotSqlField
-	private ModelDictionary statusDict;
+	private Dict statusDict;
 	
 	public Long getCarTypeId() {
 		return carTypeId;
@@ -98,6 +99,8 @@ public class ModelCar extends BaseModel {
 		return color;
 	}
 	public void setColor(Integer color) {
+		Dict dict = DictMgr.get(GROUP_CUST_CAR_COLOR, color);
+		setColorDict(dict);
 		this.color = color;
 	}
 	public Long getDrivedKilometer() {
@@ -128,6 +131,8 @@ public class ModelCar extends BaseModel {
 		return status;
 	}
 	public void setStatus(Integer status) {
+		Dict dict = DictMgr.get(GROUP_CUST_CAR_STATUS, status);
+		setStatusDict(dict);
 		this.status = status;
 	}
 	public ModelCarType getCarType() {
@@ -148,10 +153,10 @@ public class ModelCar extends BaseModel {
 	public void setStore(ModelStore store) {
 		this.store = store;
 	}
-	public ModelDictionary getColorDict() {
+	public Dict getColorDict() {
 		return colorDict;
 	}
-	public void setColorDict(ModelDictionary colorDict) {
+	public void setColorDict(Dict colorDict) {
 		this.colorDict = colorDict;
 	}
 	public ModelStore getWarehouse() {
@@ -160,11 +165,34 @@ public class ModelCar extends BaseModel {
 	public void setWarehouse(ModelStore warehouse) {
 		this.warehouse = warehouse;
 	}
-	public ModelDictionary getStatusDict() {
+	public Dict getStatusDict() {
 		return statusDict;
 	}
-	public void setStatusDict(ModelDictionary statusDict) {
+	public void setStatusDict(Dict statusDict) {
 		this.statusDict = statusDict;
 	}
+	
+	/** color definition **/
+	public static final String GROUP_CUST_CAR_COLOR = "CUST_CAR_COLOR";
+	public static final Dict COLOR_silvery = new Dict(GROUP_CUST_CAR_COLOR, 1, "银色");
+	public static final Dict COLOR_silvery_Gray = new Dict(GROUP_CUST_CAR_COLOR, 2, "银灰色");
+	public static final Dict COLOR_gray = new Dict(GROUP_CUST_CAR_COLOR, 3, "灰色");
+	public static final Dict COLOR_red = new Dict(GROUP_CUST_CAR_COLOR, 4, "红色");
+	public static final Dict COLOR_yellow = new Dict(GROUP_CUST_CAR_COLOR, 5, "黄色");
+	public static final Dict COLOR_white = new Dict(GROUP_CUST_CAR_COLOR, 6, "白色");
+	public static final Dict COLOR_orange = new Dict(GROUP_CUST_CAR_COLOR, 7, "橙色");
+	public static final Dict COLOR_green = new Dict(GROUP_CUST_CAR_COLOR, 8, "绿色");
+	
+	/** status definition **/
+	public static final String GROUP_CUST_CAR_STATUS = "CUST_CAR_STATUS";
+	public static final Dict STATUS_DELETED = new Dict(GROUP_CUST_CAR_STATUS, 0, "已经删除");
+	public static final Dict STATUS_ON_RENT = new Dict(GROUP_CUST_CAR_STATUS, 1, "在库待租");
+	public static final Dict STATUS_BOOKED = new Dict(GROUP_CUST_CAR_STATUS, 2, "已经预定");
+	public static final Dict STATUS_RENTED = new Dict(GROUP_CUST_CAR_STATUS, 3, "已经出租");
+	public static final Dict STATUS_ON_MAINTAIN = new Dict(GROUP_CUST_CAR_STATUS, 4, "维修保养中");
+	public static final Dict STATUS_SCRAP = new Dict(GROUP_CUST_CAR_STATUS, 5, "报废");
+
+	
+	
 	
 }

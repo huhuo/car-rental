@@ -34,7 +34,7 @@ table.table-hover tbody tr.huhuo-item-selected {
 				</a>
 			</td>
 			<td>${record.name}</td>
-			<td>${record.categoryDict.dictDisplayName}</td>
+			<td>${record.categoryDict.disp}</td>
 			<td class="number">${record.seating}</td>
 			<td class="digit">${record.tankCapacity}</td>
 			<td class="digit">${record.drivingRange}</td>

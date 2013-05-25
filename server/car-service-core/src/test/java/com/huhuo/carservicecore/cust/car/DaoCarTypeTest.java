@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.huhuo.carservicecore.CarServiceCoreTest;
-import com.huhuo.carservicecore.constant.Dictionary.Dict;
 import com.huhuo.integration.util.TimeUtils;
 
 public class DaoCarTypeTest extends CarServiceCoreTest {
@@ -19,7 +18,7 @@ public class DaoCarTypeTest extends CarServiceCoreTest {
 	public void crud() {
 		// add
 		ModelCarType t = new ModelCarType();
-		t.setCategory(Dict.CUST_CAR_TYPE_CATEGORY_coach.getDicKey());
+		t.setCategory(ModelCarType.CATEGORY_COACH.getKey());
 		t.setChargeStandardId(234L);
 		t.setCreateTime(TimeUtils.offsetDate(-3, new Date()));
 		t.setDrivingRange(3214.324);
@@ -47,7 +46,7 @@ public class DaoCarTypeTest extends CarServiceCoreTest {
 	public void testPhysicalDelete() {
 		// add
 		ModelCarType t = new ModelCarType();
-		t.setCategory(Dict.CUST_CAR_TYPE_CATEGORY_coach.getDicKey());
+		t.setCategory(ModelCarType.CATEGORY_COACH.getKey());
 		t.setChargeStandardId(234L);
 		t.setCreateTime(TimeUtils.offsetDate(-3, new Date()));
 		t.setDrivingRange(3214.324);

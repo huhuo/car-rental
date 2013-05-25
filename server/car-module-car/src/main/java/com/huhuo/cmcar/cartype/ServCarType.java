@@ -7,14 +7,11 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.huhuo.carservicecore.constant.Dictionary.DictGroup;
 import com.huhuo.carservicecore.cust.car.IDaoCarType;
 import com.huhuo.carservicecore.cust.car.ModelCarType;
 import com.huhuo.carservicecore.cust.car.ModelChargeStandard;
 import com.huhuo.carservicecore.db.GenericBaseExtenseServ;
-import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
 import com.huhuo.carservicecore.sys.file.ModelFileUpload;
-import com.huhuo.cmsystem.dict.IServDictionary;
 import com.huhuo.cmsystem.file.IServFileUpload;
 import com.huhuo.integration.base.IBaseExtenseDao;
 import com.huhuo.integration.db.mysql.Condition;
@@ -29,9 +26,6 @@ public class ServCarType extends GenericBaseExtenseServ<ModelCarType> implements
 	
 	@Resource(name = "cmcarServChargeStandards")
 	private IServChargeStandard iServChargeStandard;
-	
-	@Resource(name = "cmsystemServDictionary")
-	private IServDictionary iServDictionary;
 	
 	@Resource(name = "cmsystemServFileUpload")
 	private IServFileUpload iServFileUpload;
@@ -50,9 +44,6 @@ public class ServCarType extends GenericBaseExtenseServ<ModelCarType> implements
 	public <V> ModelCarType find(V id) {
 		// TODO Auto-generated method stub
 		ModelCarType t = super.find(id);
-		ModelDictionary categoryDict = iServDictionary.getBy(
-				DictGroup.CUST_CAR_TYPE_CATEGORY, t.getCategory());
-		t.setCategoryDict(categoryDict);
 		ModelChargeStandard chargeStandard = iServChargeStandard.find(t.getChargeStandardId());
 		t.setChargeStandard(chargeStandard);
 		ModelFileUpload icon = iServFileUpload.find(t.getIconId());
@@ -66,9 +57,6 @@ public class ServCarType extends GenericBaseExtenseServ<ModelCarType> implements
 		List<ModelCarType> list = findByCondition(condition);
 		if(list!=null && injected) {
 			for(ModelCarType t : list) {
-				ModelDictionary categoryDict = iServDictionary.getBy(
-						DictGroup.CUST_CAR_TYPE_CATEGORY, t.getCategory());
-				t.setCategoryDict(categoryDict);
 				ModelChargeStandard chargeStandard = iServChargeStandard.find(t.getChargeStandardId());
 				t.setChargeStandard(chargeStandard);
 				ModelFileUpload icon = iServFileUpload.find(t.getIconId());

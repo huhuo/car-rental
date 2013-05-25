@@ -2,8 +2,8 @@ package com.huhuo.carservicecore.sys.dictionary;
 
 import java.util.List;
 
-import com.huhuo.carservicecore.constant.Dictionary.Dict;
-import com.huhuo.carservicecore.constant.Dictionary.DictGroup;
+import com.huhuo.carservicecore.constant.Dictionary.ModelDict;
+import com.huhuo.carservicecore.constant.Dictionary.ModelDictGroup;
 import com.huhuo.integration.base.IBaseExtenseDao;
 
 public interface IDaoDictionary extends IBaseExtenseDao<ModelDictionary> {
@@ -12,18 +12,18 @@ public interface IDaoDictionary extends IBaseExtenseDao<ModelDictionary> {
 	 * @param dictGroup
 	 * @return
 	 */
-	List<ModelDictionary> getGroupsBy(DictGroup dictGroup);
+	List<ModelDictionary> getGroupsBy(ModelDictGroup dictGroup);
 	/**
 	 * get a single dictionary by group name and dictKey
 	 * @param dictGroup
 	 * @param dictKey
 	 * @return null if there's not suitable one
 	 */
-	ModelDictionary getBy(DictGroup dictGroup, Integer dictKey);
+	ModelDictionary getBy(ModelDictGroup dictGroup, Integer dictKey);
 	/**
 	 * get a dictionary by enum type dict
 	 * @param dict
 	 * @return
 	 */
-	ModelDictionary getBy(Dict dict);
+	ModelDictionary getBy(ModelDict dict);
 }

@@ -10,16 +10,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.huhuo.carservicecore.constant.Dictionary.DictGroup;
 import com.huhuo.carservicecore.cust.car.ModelCar;
 import com.huhuo.carservicecore.cust.car.ModelCarType;
 import com.huhuo.carservicecore.cust.store.ModelStore;
-import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
 import com.huhuo.cmcar.cartype.IServCarType;
 import com.huhuo.cmsystem.SystemBaseCtrl;
-import com.huhuo.cmsystem.dict.IServDictionary;
 import com.huhuo.cmsystem.store.IServStore;
 import com.huhuo.integration.db.mysql.Condition;
+import com.huhuo.integration.db.mysql.Dict;
+import com.huhuo.integration.db.mysql.DictMgr;
 import com.huhuo.integration.db.mysql.Dir;
 import com.huhuo.integration.db.mysql.Order;
 import com.huhuo.integration.db.mysql.Page;
@@ -40,8 +39,6 @@ public class CtrlCar extends SystemBaseCtrl {
 	private IServCarType iServCarType;
 	@Resource(name = "cmsystemServStore")
 	private IServStore iServStore;
-	@Resource(name = "cmsystemServDictionary")
-	private IServDictionary iServDictionary;
 	
 	/*************************************************************
 	 * car management
@@ -51,6 +48,12 @@ public class CtrlCar extends SystemBaseCtrl {
 	public String index() {
 		logger.debug("---> access car management page");
 		return basePath + "/car/index";
+	}
+	
+	@RequestMapping(value="/json-test.do")
+	public String jsonTest(Model model) {
+		List<ModelCar> records = iservCar.findByCondition(null, true);
+		return render(model, new JsonStore<ModelCar>(records, records.size()));
 	}
 	
 	@RequestMapping(value="/condition/get.do")
@@ -95,13 +98,18 @@ public class CtrlCar extends SystemBaseCtrl {
 	}
 	
 	@RequestMapping(value = "/typeahead/dict.do")
-	public String dict(Model model, Condition<ModelDictionary> condition, ModelDictionary t) {
-		condition.setT(t);
-		t.setGroupName(DictGroup.CUST_CAR_STATUS.getGroupName());
-		condition.setOrderList(new Order("orderNo", Dir.DESC), new Order("id", Dir.ASC));
-		List<ModelDictionary> records = iServDictionary.findByCondition(condition);
-		return render(model, new JsonStore<ModelDictionary>(records, records.size()));
+	public String dict(Model model, String dictDisplayName) {
+		List<Dict> records = DictMgr.match(ModelCar.GROUP_CUST_CAR_STATUS, dictDisplayName);
+		return render(model, new JsonStore<Dict>(records, records.size()));
 	}
+//	@RequestMapping(value = "/typeahead/dict.do")
+//	public String dict(Model model, Condition<ModelDictionary> condition, ModelDictionary t) {
+//		condition.setT(t);
+//		t.setGroupName(DictGroup.CUST_CAR_STATUS.getGroupName());
+//		condition.setOrderList(new Order("orderNo", Dir.DESC), new Order("id", Dir.ASC));
+//		List<ModelDictionary> records = iServDictionary.findByCondition(condition);
+//		return render(model, new JsonStore<ModelDictionary>(records, records.size()));
+//	}
 	
 	@RequestMapping(value="/add-ui.do")
 	public String addUI(Model model) {
@@ -113,7 +121,7 @@ public class CtrlCar extends SystemBaseCtrl {
 		List<ModelStore> storeList = iServStore.findByCondition(null);
 		model.addAttribute("storeList", storeList);
 		// prepare dictionary for combo box of color
-		List<ModelDictionary> colorList = iServDictionary.getGroupsBy(DictGroup.CUST_CAR_COLOR);
+		List<Dict> colorList = DictMgr.get(ModelCar.GROUP_CUST_CAR_COLOR);
 		model.addAttribute("colorList", colorList);
 		return basePath + "/car/add-ui";
 	}
@@ -147,7 +155,7 @@ public class CtrlCar extends SystemBaseCtrl {
 		List<ModelStore> storeList = iServStore.findByCondition(null);
 		model.addAttribute("storeList", storeList);
 		// prepare dictionary for combo box of color
-		List<ModelDictionary> colorList = iServDictionary.getGroupsBy(DictGroup.CUST_CAR_COLOR);
+		List<Dict> colorList = DictMgr.get(ModelCar.GROUP_CUST_CAR_COLOR);
 		model.addAttribute("colorList", colorList);
 		return basePath + "/car/detail";
 	}
@@ -163,7 +171,7 @@ public class CtrlCar extends SystemBaseCtrl {
 		List<ModelStore> storeList = iServStore.findByCondition(null);
 		model.addAttribute("storeList", storeList);
 		// prepare dictionary for combo box of color
-		List<ModelDictionary> colorList = iServDictionary.getGroupsBy(DictGroup.CUST_CAR_COLOR);
+		List<Dict> colorList = DictMgr.get(ModelCar.GROUP_CUST_CAR_COLOR);
 		model.addAttribute("colorList", colorList);
 		return basePath + "/car/edit-ui";
 	}

@@ -33,10 +33,10 @@ table.table-hover tbody tr.huhuo-item-selected {
 			</td>
 			<td>${record.carType.name}</td>
 			<td>${record.licencePlate}</td>
-			<td>${record.colorDict.dictDisplayName}</td>
+			<td>${record.colorDict.disp}</td>
 			<td>${record.store.name}</td>
 			<td>${record.warehouse.name}</td>
-			<td>${record.statusDict.dictDisplayName}</td>
+			<td>${record.statusDict.disp}</td>
 			<td>
 				<div class="btn-group">
 					<button name="detail" class="btn">详情</button>

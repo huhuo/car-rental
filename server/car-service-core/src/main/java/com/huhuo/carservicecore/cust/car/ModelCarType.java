@@ -1,8 +1,9 @@
 package com.huhuo.carservicecore.cust.car;
 
-import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
 import com.huhuo.carservicecore.sys.file.ModelFileUpload;
 import com.huhuo.integration.base.BaseModel;
+import com.huhuo.integration.db.mysql.Dict;
+import com.huhuo.integration.db.mysql.DictMgr;
 import com.huhuo.integration.db.mysql.NotSqlField;
 
 
@@ -29,7 +30,7 @@ public class ModelCarType extends BaseModel {
 	 * 外联对象
 	 ***************************************/
 	@NotSqlField
-	private ModelDictionary categoryDict;
+	private Dict categoryDict;
 	@NotSqlField
 	private ModelFileUpload icon;
 	
@@ -51,6 +52,8 @@ public class ModelCarType extends BaseModel {
 		return category;
 	}
 	public void setCategory(Integer category) {
+		Dict dict = DictMgr.get(GROUP_CUST_CAR_TYPE_CATEGORY, category);
+		setCategoryDict(dict);
 		this.category = category;
 	}
 	public Integer getSeating() {
@@ -77,10 +80,10 @@ public class ModelCarType extends BaseModel {
 	public void setChargeStandardId(Long chargeStandardId) {
 		this.chargeStandardId = chargeStandardId;
 	}
-	public ModelDictionary getCategoryDict() {
+	public Dict getCategoryDict() {
 		return categoryDict;
 	}
-	public void setCategoryDict(ModelDictionary categoryDict) {
+	public void setCategoryDict(Dict categoryDict) {
 		this.categoryDict = categoryDict;
 	}
 	public ModelChargeStandard getChargeStandard() {
@@ -95,5 +98,15 @@ public class ModelCarType extends BaseModel {
 	public void setIcon(ModelFileUpload icon) {
 		this.icon = icon;
 	}
+	
+	/** category definition **/
+	public static final String GROUP_CUST_CAR_TYPE_CATEGORY = "CUST_CAR_TYPE_CATEGORY";
+	public static final Dict CATEGORY_CAR = new Dict(GROUP_CUST_CAR_TYPE_CATEGORY, 1, "轿车");
+	public static final Dict CATEGORY_SUV = new Dict(GROUP_CUST_CAR_TYPE_CATEGORY, 2, "越野车");
+	public static final Dict CATEGORY_COACH = new Dict(GROUP_CUST_CAR_TYPE_CATEGORY, 3, "客车");
+	public static final Dict CATEGORY_TRUCK = new Dict(GROUP_CUST_CAR_TYPE_CATEGORY, 4, "货车");
+	public static final Dict CATEGORY_AUTODUMPER = new Dict(GROUP_CUST_CAR_TYPE_CATEGORY, 5, "自卸汽车");
+	public static final Dict CATEGORY_TOWINGTRUCK = new Dict(GROUP_CUST_CAR_TYPE_CATEGORY, 6, "牵引汽车");
+	public static final Dict CATEGORY_SEPCIALCAR = new Dict(GROUP_CUST_CAR_TYPE_CATEGORY, 7, "专用汽车");
 
 }

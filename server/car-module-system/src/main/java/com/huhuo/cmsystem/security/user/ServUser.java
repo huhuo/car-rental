@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.huhuo.carservicecore.constant.Dictionary.DictGroup;
+import com.huhuo.carservicecore.constant.Dictionary.ModelDictGroup;
 import com.huhuo.carservicecore.db.GenericBaseExtenseServ;
 import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
 import com.huhuo.carservicecore.sys.user.IDaoUser;
@@ -43,7 +43,7 @@ public class ServUser extends GenericBaseExtenseServ<ModelUser> implements IServ
 		List<ModelUser> list = findByCondition(condition);
 		if(injected) {
 			for(ModelUser t : list) {
-				ModelDictionary genderDict = iServDictionary.getBy(DictGroup.GENERAL_SYS_GENDER, t.getGender());
+				ModelDictionary genderDict = iServDictionary.getBy(ModelDictGroup.GENERAL_SYS_GENDER, t.getGender());
 				t.setGenderDict(genderDict);
 			}
 		}

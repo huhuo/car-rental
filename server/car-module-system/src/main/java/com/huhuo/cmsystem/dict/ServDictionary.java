@@ -6,8 +6,8 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.huhuo.carservicecore.constant.Dictionary.Dict;
-import com.huhuo.carservicecore.constant.Dictionary.DictGroup;
+import com.huhuo.carservicecore.constant.Dictionary.ModelDict;
+import com.huhuo.carservicecore.constant.Dictionary.ModelDictGroup;
 import com.huhuo.carservicecore.db.GenericBaseExtenseServ;
 import com.huhuo.carservicecore.sys.dictionary.IDaoDictionary;
 import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
@@ -31,17 +31,17 @@ public class ServDictionary extends GenericBaseExtenseServ<ModelDictionary>
 	}
 
 	@Override
-	public List<ModelDictionary> getGroupsBy(DictGroup dictGroup) {
+	public List<ModelDictionary> getGroupsBy(ModelDictGroup dictGroup) {
 		return iDaoDictionary.getGroupsBy(dictGroup);
 	}
 
 	@Override
-	public ModelDictionary getBy(DictGroup dictGroup, Integer dictKey) {
+	public ModelDictionary getBy(ModelDictGroup dictGroup, Integer dictKey) {
 		return iDaoDictionary.getBy(dictGroup, dictKey);
 	}
 
 	@Override
-	public ModelDictionary getBy(Dict dict) {
+	public ModelDictionary getBy(ModelDict dict) {
 		return iDaoDictionary.getBy(dict);
 	}
 

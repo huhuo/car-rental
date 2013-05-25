@@ -8,7 +8,6 @@ import javax.annotation.Resource;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.huhuo.carservicecore.constant.Dictionary.Dict;
 import com.huhuo.carservicecore.cust.car.ModelCarType;
 import com.huhuo.carservicecore.cust.car.ModelChargeStandard;
 import com.huhuo.cmcar.CarModuleCarTest;
@@ -24,7 +23,7 @@ public class ServCarTypeTest extends CarModuleCarTest {
 	public void curd() {
 		// add
 		ModelCarType t = new ModelCarType();
-		t.setCategory(Dict.CUST_CAR_TYPE_CATEGORY_coach.getDicKey());
+		t.setCategory(ModelCarType.CATEGORY_COACH.getKey());
 		t.setChargeStandardId(234L);
 		t.setDrivingRange(3214.324);
 		t.setIconId(1L);
@@ -56,7 +55,7 @@ public class ServCarTypeTest extends CarModuleCarTest {
 	
 	private ModelCarType getInstance() {
 		ModelCarType t = new ModelCarType();
-		t.setCategory(Dict.CUST_CAR_TYPE_CATEGORY_coach.getDicKey());
+		t.setCategory(ModelCarType.CATEGORY_COACH.getKey());
 		t.setChargeStandardId(234L);
 		t.setDrivingRange(3214.324);
 		t.setIconId(1L);

@@ -46,7 +46,7 @@
 				<div class="controls">
 					<select id="selectColor" name="color">
 					<c:forEach items="${colorList }" var="color">
-						<option value="${color.dictKey }" >${color.dictDisplayName }</option>
+						<option value="${color.key }" >${color.disp }</option>
 					</c:forEach>
 					</select>
 				</div>

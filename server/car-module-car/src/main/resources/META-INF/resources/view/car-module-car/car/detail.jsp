@@ -62,11 +62,11 @@
 					<select id="selectColor" name="color" disabled="disabled">
 					<c:forEach items="${colorList }" var="color">
 						<c:choose>
-						<c:when test="${car.color == color.dictKey }">
-							<option value="${color.dictKey }" selected="selected">${color.dictDisplayName }</option>
+						<c:when test="${car.color == color.key }">
+							<option value="${color.key }" selected="selected">${color.disp }</option>
 						</c:when>
 						<c:otherwise>
-							<option value="${color.dictKey }" >${color.dictDisplayName }</option>
+							<option value="${color.key }" >${color.disp }</option>
 						</c:otherwise>
 						</c:choose>
 					</c:forEach>

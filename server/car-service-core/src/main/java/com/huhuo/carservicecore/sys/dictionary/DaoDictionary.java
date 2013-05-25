@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.huhuo.carservicecore.constant.Dictionary.Dict;
-import com.huhuo.carservicecore.constant.Dictionary.DictGroup;
+import com.huhuo.carservicecore.constant.Dictionary.ModelDict;
+import com.huhuo.carservicecore.constant.Dictionary.ModelDictGroup;
 import com.huhuo.carservicecore.db.GenericBaseExtenseDao;
 
 @Repository("carservicecoreDaoDictionary")
@@ -22,14 +22,14 @@ public class DaoDictionary extends GenericBaseExtenseDao<ModelDictionary> implem
 	}
 
 	@Override
-	public List<ModelDictionary> getGroupsBy(DictGroup dictGroup) {
+	public List<ModelDictionary> getGroupsBy(ModelDictGroup dictGroup) {
 		String sql = String.format("SELECT * FROM %s WHERE groupName=? ORDER BY orderNo ASC, id ASC", getTableName());
 		List<ModelDictionary> list = findList(sql, dictGroup.getGroupName());
 		return list;
 	}
 	
 	@Override
-	public ModelDictionary getBy(DictGroup dictGroup, Integer dictKey) {
+	public ModelDictionary getBy(ModelDictGroup dictGroup, Integer dictKey) {
 		List<ModelDictionary> list = getGroupsBy(dictGroup);
 		if(list != null) {
 			for(ModelDictionary dict : list) {
@@ -42,7 +42,7 @@ public class DaoDictionary extends GenericBaseExtenseDao<ModelDictionary> implem
 	}
 	
 	@Override
-	public ModelDictionary getBy(Dict dict) {
+	public ModelDictionary getBy(ModelDict dict) {
 		if(dict !=null) {
 			ModelDictionary ret = getBy(dict.getGroup(), dict.getDicKey());
 			return ret;

@@ -11,13 +11,12 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.huhuo.carservicecore.CarServiceCoreTest;
-import com.huhuo.carservicecore.constant.Dictionary.Dict;
-import com.huhuo.carservicecore.constant.Dictionary.DictGroup;
 import com.huhuo.carservicecore.cust.store.IDaoStore;
 import com.huhuo.carservicecore.cust.store.ModelStore;
 import com.huhuo.carservicecore.sys.dictionary.IDaoDictionary;
-import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
 import com.huhuo.integration.db.mysql.Condition;
+import com.huhuo.integration.db.mysql.Dict;
+import com.huhuo.integration.db.mysql.DictMgr;
 import com.huhuo.integration.db.mysql.Dir;
 import com.huhuo.integration.db.mysql.Order;
 import com.huhuo.integration.util.TimeUtils;
@@ -41,7 +40,7 @@ public class DaoCarTest extends CarServiceCoreTest {
 		// add
 		ModelCar t = new ModelCar();
 		t.setCarTypeId(32L);
-		t.setColor(Dict.CUST_CAR_COLOR_green.getDicKey());
+		t.setColor(ModelCar.COLOR_green.getKey());
 		t.setCreateTime(TimeUtils.offsetDate(-3, new Date()));
 		t.setDrivedKilometer(3242134L);
 		t.setEngineNo("34lsdf-3asfd3-43ds3a-fa");
@@ -49,7 +48,7 @@ public class DaoCarTest extends CarServiceCoreTest {
 		t.setLicencePlate("aslf-dsfsag-0fasd");
 		t.setLocationId(34L);
 		t.setOilMass(53454.34255234D);
-		t.setStatus(Dict.CUST_CAR_STATUS_scrap.getDicKey());
+		t.setStatus(ModelCar.STATUS_SCRAP.getKey());
 		t.setStoreId(23L);
 		t.setUpdateTime(new Date());
 		t.setWarehouseId(32L);
@@ -77,11 +76,11 @@ public class DaoCarTest extends CarServiceCoreTest {
 		Condition<ModelCarType> condition = new Condition<ModelCarType>();
 		condition.setOrderList(new Order("id", Dir.DESC));
 		List<ModelCarType> carTypeList = iDaoCarType.findByCondition(condition);
-		List<ModelDictionary> colorGroupList = iDaoDictionary.getGroupsBy(DictGroup.CUST_CAR_COLOR);
+		List<Dict> colorGroupList = DictMgr.get(ModelCar.GROUP_CUST_CAR_COLOR);
 		Condition<ModelCarLocation> carLocCon = new Condition<ModelCarLocation>();
 		carLocCon.setOrderList(new Order("id", Dir.DESC));
 		List<ModelCarLocation> carLocConList = iDaoCarLocation.findByCondition(carLocCon);
-		List<ModelDictionary> carStatusList = iDaoDictionary.getGroupsBy(DictGroup.CUST_CAR_STATUS);
+		List<Dict> carStatusList = DictMgr.get(ModelCar.GROUP_CUST_CAR_STATUS);
 		Condition<ModelStore> storeCon = new Condition<ModelStore>();
 		storeCon.setOrderList(new Order("id", Dir.DESC));
 		List<ModelStore> storeList = iDaoStore.findByCondition(storeCon);
@@ -89,14 +88,14 @@ public class DaoCarTest extends CarServiceCoreTest {
 		for(int i=0; i<12; i++) {
 			ModelCar e = new ModelCar();
 			e.setCarTypeId(carTypeList.get(r.nextInt(carTypeList.size())).getId());
-			e.setColor(colorGroupList.get(r.nextInt(colorGroupList.size())).getDictKey());
+			e.setColor(colorGroupList.get(r.nextInt(colorGroupList.size())).getKey());
 			e.setDrivedKilometer(Math.abs(r.nextLong()));
 			e.setEngineNo(UUID.randomUUID().toString());
 			e.setGpsNo(UUID.randomUUID().toString());
 			e.setLicencePlate(Long.toString(TimeUtils.offsetHour(r.nextInt(123), new Date()).getTime()));
 			e.setLocationId(carLocConList.get(r.nextInt(carLocConList.size())).getId());
 			e.setOilMass(r.nextDouble());
-			e.setStatus(carStatusList.get(r.nextInt(carStatusList.size())).getDictKey());
+			e.setStatus(carStatusList.get(r.nextInt(carStatusList.size())).getKey());
 			e.setStoreId(storeList.get(r.nextInt(storeList.size())).getId());
 			e.setWarehouseId(storeList.get(r.nextInt(storeList.size())).getId());
 			e.setCreateTime(new Date());

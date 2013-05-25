@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Repository;
 
-import com.huhuo.carservicecore.constant.Dictionary.DictGroup;
+import com.huhuo.carservicecore.constant.Dictionary.ModelDictGroup;
 import com.huhuo.carservicecore.db.GenericBaseExtenseDao;
 import com.huhuo.carservicecore.sys.dictionary.IDaoDictionary;
 import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
@@ -34,7 +34,7 @@ public class DaoConsumer extends GenericBaseExtenseDao<ModelConsumer> implements
 		// TODO Auto-generated method stub
 		List<ModelConsumer> list = super.findByCondition(condition);
 		for(ModelConsumer consumer : list) {
-			ModelDictionary genderDic = iDaoDictionary.getBy(DictGroup.GENERAL_SYS_GENDER, consumer.getGender());
+			ModelDictionary genderDic = iDaoDictionary.getBy(ModelDictGroup.GENERAL_SYS_GENDER, consumer.getGender());
 			consumer.setGenderDic(genderDic);
 		}
 		return list;
