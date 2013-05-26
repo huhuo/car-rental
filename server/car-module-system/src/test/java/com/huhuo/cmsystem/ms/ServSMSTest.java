@@ -8,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import com.huhuo.cmsystem.CarModuleSystemTest;
 
-public class servSMSTest extends CarModuleSystemTest {
+public class ServSMSTest extends CarModuleSystemTest {
 
 	protected Logger logger = LoggerFactory.getLogger(getClass());
 	
@@ -23,7 +23,7 @@ public class servSMSTest extends CarModuleSystemTest {
 		
 	}
 	private void send() {
-		String result = iServSMS.send(Long.valueOf(1), Long.valueOf(5), "测试短信，我说大虎货，我来自大越，我向往大汉，我是吴酱酱", "success");
+		String result = iServSMS.send(Long.valueOf(1), Long.valueOf(5), "测试短信，我是大虎货，我来自大越，我向往大汉，我是吴酱酱", "success");
 		logger.debug("===================================");
 		logger.debug("发送结果：" + result);
 		logger.debug("===================================");

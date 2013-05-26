@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.httpclient.NameValuePair;
 import org.springframework.stereotype.Service;
 
 import com.huhuo.carservicecore.csm.consumer.IDaoConsumer;
@@ -27,28 +28,35 @@ import com.huhuo.carservicecore.cust.ms.ModelSMS;
 import com.huhuo.carservicecore.db.GenericBaseExtenseServ;
 import com.huhuo.carservicecore.sys.user.IDaoUser;
 import com.huhuo.carservicecore.sys.user.ModelUser;
+import com.huhuo.componentweb.core.IServHcwHttpClient;
 import com.huhuo.integration.algorithm.MD5Utils;
 import com.huhuo.integration.base.IBaseExtenseDao;
+import com.huhuo.integration.exception.ServException;
 import com.huhuo.integration.util.TimeUtils;
+import com.huhuo.integration.web.Message;
 
 @Service("cmsystemServSMS")
-public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements IServSMS {
+public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements
+		IServSMS {
 
 	private static String sn = "SDK-WKS-010-00887";
 	private static String password = "518250";
 	private static String pwd = MD5Utils.encodeHex(sn + password);
 	// webservice服务器地址
 	private String serviceURL = "http://sdk2.entinfo.cn/webservice.asmx";
-	
+
 	@Resource(name = "carservicecoreDaoSMS")
 	private IDaoSMS iDaoSMS;
-	
+
 	@Resource(name = "carservicecoreDaoUser")
 	private IDaoUser iDaoUser;
-	
+
 	@Resource(name = "carservicecoreDaoConsumer")
 	private IDaoConsumer iDaoConsumer;
 	
+	@Resource(name = "componentwebCoreHttpClientServ")
+	private IServHcwHttpClient iServHcwHttpClient;
+
 	@Override
 	public IBaseExtenseDao<ModelSMS> getDao() {
 		return iDaoSMS;
@@ -60,12 +68,10 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements IServSM
 	}
 
 	@Override
-	public String send(Long senderId, Long recieverId,String msg,
-			String rrid) {
-		// TODO Auto-generated method stub
+	public String send(Long senderId, Long recieverId, String msg, String rrid) {
 		ModelUser user = iDaoUser.find(senderId);
 		ModelConsumer consumer = iDaoConsumer.find(recieverId);
-		
+
 		return sendSMS(user, consumer, msg, null, rrid);
 	}
 
@@ -83,6 +89,7 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements IServSM
 
 	private String sendSMS(ModelUser sender, ModelConsumer consumer,
 			String msg, Date date, String rrid) {
+
 		String result = "";
 		String stime = "";
 		String mobile = consumer.getMobileNumber();
@@ -91,13 +98,14 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements IServSM
 		}
 		String regex = "<mtResult>(.*)</mtResult>";
 		String sendSoapAction = "http://tempuri.org/mt";
-		
+
 		String xml = creatorSendXML(msg, rrid, "", mobile, stime);
 		try {
-			result = wirte(sendSoapAction, xml,regex);
-			//if reuslt equals rrid send successfully,save log to database,otherwise send failure
+			result = wirte(sendSoapAction, xml, regex);
+			// if reuslt equals rrid send successfully,save log to
+			// database,otherwise send failure
 			if (result.equals(rrid)) {
-				//save to db
+				// save to db
 				saveDB(sender, consumer, msg, mobile);
 			} else {
 				logger.error("send failure result:" + result);
@@ -108,39 +116,38 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements IServSM
 			return "";
 		}
 	}
-	
-	
+
 	@Override
 	public String balance() {
-		String result = "";
-		String xml = createBalanceXML();
-		String regex = "<balanceResult>(.*)</balanceResult>";
-		String balanceSoapAction = "http://tempuri.org/balance";
 		try {
-			result = wirte(balanceSoapAction,xml,regex);
+			String result = "";
+			String xml = createBalanceXML();
+			String regex = "<balanceResult>(.*)</balanceResult>";
+			String balanceSoapAction = "http://tempuri.org/balance";
+			result = wirte(balanceSoapAction, xml, regex);
 			return result;
 		} catch (Exception e) {
-			e.printStackTrace();
-			return "";
+			logger.error("error occur while sending message", e);
+			throw new ServException(e);
 		}
 	}
-	
+
 	@Override
 	public String recharge(String cardno, String cardpwd) {
 		String result = "";
-		String xml = createRechargeXML(cardno,cardpwd);
+		String xml = createRechargeXML(cardno, cardpwd);
 		String regex = "<ChargUpResult>(.*)</ChargUpResult>";
 		String recharegeSoapAction = "http://tempuri.org/ChargUp";
 		try {
-			result = wirte(recharegeSoapAction,xml,regex);
+			result = wirte(recharegeSoapAction, xml, regex);
 			return result;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "";
 		}
-		
+
 	}
-	
+
 	private void saveDB(ModelUser sender, ModelConsumer consumer, String msg,
 			String mobile) {
 		ModelSMS t = new ModelSMS();
@@ -153,7 +160,7 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements IServSM
 		add(t);
 	}
 
-	private String wirte(String soapAction, String xml,String regex)
+	private String wirte(String soapAction, String xml, String regex)
 			throws MalformedURLException, IOException, ProtocolException {
 		String result = "";
 		URL url = new URL(serviceURL);
@@ -164,12 +171,12 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements IServSM
 		bout.write(xml.getBytes());
 		byte[] b = bout.toByteArray();
 		httpconn.setRequestProperty("Content-Length", String.valueOf(b.length));
-		httpconn.setRequestProperty("Content-Type","text/xml; charset=gb2312");
+		httpconn.setRequestProperty("Content-Type", "text/xml; charset=gb2312");
 		httpconn.setRequestProperty("SOAPAction", soapAction);
 		httpconn.setRequestMethod("POST");
 		httpconn.setDoInput(true);
 		httpconn.setDoOutput(true);
-
+		
 		OutputStream out = httpconn.getOutputStream();
 		out.write(b);
 		out.close();
@@ -204,7 +211,6 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements IServSM
 		return xml;
 	}
 
-
 	private String creatorSendXML(String msg, String rrid, String ext,
 			String mobile, String stime) {
 		String xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
@@ -236,7 +242,7 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements IServSM
 		xml += "</soap:Envelope>";
 		return xml;
 	}
-	
+
 	public static String getMD5(String sourceStr) {
 		String resultStr = "";
 		try {
@@ -246,7 +252,8 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements IServSM
 			// resultStr = new String(md5.digest());
 			byte[] b = md5.digest();
 			for (int i = 0; i < b.length; i++) {
-				char[] digit = { '0', '1', '2', '3', '4', '5', '6', '7', '8','9', 'A', 'B', 'C', 'D', 'E', 'F' };
+				char[] digit = { '0', '1', '2', '3', '4', '5', '6', '7', '8',
+						'9', 'A', 'B', 'C', 'D', 'E', 'F' };
 				char[] ob = new char[2];
 				ob[0] = digit[(b[i] >>> 4) & 0X0F];
 				ob[1] = digit[b[i] & 0X0F];
@@ -258,5 +265,5 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements IServSM
 			return null;
 		}
 	}
-	
+
 }

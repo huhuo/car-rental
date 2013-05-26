@@ -18,7 +18,8 @@ public interface IServSMS extends IBaseExtenseServ<ModelSMS> {
 	 * @param recieverId reviever's id relative to user defined in {@link ModelUser}
 	 * @param phoneNum destination phone number
 	 * @param msg message content
-	 * @return 0 if send successfully
+	 * @param rrid the only sign
+	 * @return rrid if send successfully,otherwise send failure
 	 */
 	String send(Long senderId, Long recieverId,String msg,String rrid);
 	/**
