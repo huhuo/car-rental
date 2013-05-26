@@ -91,7 +91,7 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements
 		String regex = "<mtResult>(.*)</mtResult>";
 		String sendSoapAction = "http://tempuri.org/mt";
 
-		String xml = creatorSendXML(msg, rrid, "", mobile, stime);
+		String xml = createSendXML(msg, rrid, "", mobile, stime);
 		try {
 			result = wirte(sendSoapAction, xml, regex);
 			// if reuslt equals rrid send successfully,save log to database,otherwise send failure
@@ -192,7 +192,7 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements
 		return xml;
 	}
 
-	private String creatorSendXML(String msg, String rrid, String ext,
+	private String createSendXML(String msg, String rrid, String ext,
 			String mobile, String stime) {
 		String xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
 		xml += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">";
