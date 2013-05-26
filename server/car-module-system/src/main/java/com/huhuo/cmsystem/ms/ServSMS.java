@@ -1,24 +1,16 @@
 package com.huhuo.cmsystem.ms;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.Header;
 import org.springframework.stereotype.Service;
 
 import com.huhuo.carservicecore.csm.consumer.IDaoConsumer;
@@ -102,8 +94,7 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements
 		String xml = creatorSendXML(msg, rrid, "", mobile, stime);
 		try {
 			result = wirte(sendSoapAction, xml, regex);
-			// if reuslt equals rrid send successfully,save log to
-			// database,otherwise send failure
+			// if reuslt equals rrid send successfully,save log to database,otherwise send failure
 			if (result.equals(rrid)) {
 				// save to db
 				saveDB(sender, consumer, msg, mobile);
@@ -112,8 +103,8 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements
 			}
 			return result;
 		} catch (Exception e) {
-			e.printStackTrace();
-			return "";
+			logger.error("error occur while sending message", e);
+			throw new ServException(e);
 		}
 	}
 
@@ -142,8 +133,8 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements
 			result = wirte(recharegeSoapAction, xml, regex);
 			return result;
 		} catch (Exception e) {
-			e.printStackTrace();
-			return "";
+			logger.error("error occur while sending message", e);
+			throw new ServException(e);
 		}
 
 	}
@@ -162,37 +153,27 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements
 
 	private String wirte(String soapAction, String xml, String regex)
 			throws MalformedURLException, IOException, ProtocolException {
-		String result = "";
-		URL url = new URL(serviceURL);
-
-		URLConnection connection = url.openConnection();
-		HttpURLConnection httpconn = (HttpURLConnection) connection;
+		
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
 		bout.write(xml.getBytes());
 		byte[] b = bout.toByteArray();
-		httpconn.setRequestProperty("Content-Length", String.valueOf(b.length));
-		httpconn.setRequestProperty("Content-Type", "text/xml; charset=gb2312");
-		httpconn.setRequestProperty("SOAPAction", soapAction);
-		httpconn.setRequestMethod("POST");
-		httpconn.setDoInput(true);
-		httpconn.setDoOutput(true);
 		
-		OutputStream out = httpconn.getOutputStream();
-		out.write(b);
-		out.close();
-
-		InputStreamReader isr = new InputStreamReader(httpconn.getInputStream());
-		BufferedReader in = new BufferedReader(isr);
-		String inputLine;
-		while (null != (inputLine = in.readLine())) {
-			Pattern pattern = Pattern.compile(regex);
-			Matcher matcher = pattern.matcher(inputLine);
-			while (matcher.find()) {
-				result = matcher.group(1);
-			}
+		Message<String> stream = iServHcwHttpClient.postAsStream(
+				serviceURL, 
+				xml.getBytes(),
+				false, 
+				"gb2312",
+				new Header("Content-Length", String.valueOf(b.length)),
+				new Header("Content-Type", "text/xml; charset=gb2312"),
+				new Header("SOAPAction", soapAction));
+		
+		String data = stream.getData();
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcher = pattern.matcher(data);
+		String result = "";
+		while (matcher.find()) {
+			result = matcher.group(1);
 		}
-		isr.close();
-		in.close();
 		return result;
 	}
 
@@ -242,28 +223,5 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements
 		xml += "</soap:Envelope>";
 		return xml;
 	}
-
-	public static String getMD5(String sourceStr) {
-		String resultStr = "";
-		try {
-			byte[] temp = sourceStr.getBytes();
-			MessageDigest md5 = MessageDigest.getInstance("MD5");
-			md5.update(temp);
-			// resultStr = new String(md5.digest());
-			byte[] b = md5.digest();
-			for (int i = 0; i < b.length; i++) {
-				char[] digit = { '0', '1', '2', '3', '4', '5', '6', '7', '8',
-						'9', 'A', 'B', 'C', 'D', 'E', 'F' };
-				char[] ob = new char[2];
-				ob[0] = digit[(b[i] >>> 4) & 0X0F];
-				ob[1] = digit[b[i] & 0X0F];
-				resultStr += new String(ob);
-			}
-			return resultStr;
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-			return null;
-		}
-	}
-
+	
 }
