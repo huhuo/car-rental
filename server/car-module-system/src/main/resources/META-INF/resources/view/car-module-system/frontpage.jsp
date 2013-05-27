@@ -108,7 +108,7 @@ $(document).ready(function() {
 							<li data-toggle="collapse" data-target="#systemMgr"><a
 								class="menu" href="javascript:void(0)"><i class="icon-wrench"></i>&nbsp;系统管理</a></li>
 							<li id="systemMgr" class="collapse leftdivchange"><a
-								class="huhuoItem frist" href="${path }/cmsystem/user/index.do">系统用户管理</a>
+								class="huhuoItem frist" href="${path }/cmsystem/security/user/index.do">系统用户管理</a>
 								<a class="huhuoItem" href="${path }/cmsystem/store/index.do">门店管理</a>
 								<a class="huhuoItem end" href="${path }/cmsystem/user/person.do">个人信息管理</a>
 							</li>
