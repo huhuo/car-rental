@@ -1,5 +1,8 @@
 package com.huhuo.cmsystem.ms;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.annotation.Resource;
 
 import org.junit.Test;
@@ -17,15 +20,16 @@ public class ServSMSTest extends CarModuleSystemTest {
 	
 	@Test
 	public void crud() {
-		balance();
+//		balance();
 		
-//		send();
+		send();
 		
 	}
 	private void send() {
-		String result = iServSMS.send(Long.valueOf(1), Long.valueOf(5), "测试短信，我是大虎货，我来自大越，我向往大汉，我是吴酱酱", "success");
+		SimpleDateFormat sdf  =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String result = iServSMS.send(Long.valueOf(1), Long.valueOf(5), "测试短信，驰通驰通，路路畅通,hello,world,122333,发送时间："+ sdf.format(new Date()) +"utf-8", "success");
 		logger.debug("===================================");
-		logger.debug("发送结果：" + result);
+		logger.debug("预期结果：" + "success" + "发送结果：" + result);
 		logger.debug("===================================");
 	}
 	private void balance() {

@@ -2,6 +2,7 @@ package com.huhuo.cmsystem.ms;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.util.Date;
@@ -35,8 +36,8 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements
 	private static String password = "518250";
 	private static String pwd = MD5Utils.encodeHex(sn + password);
 	// webservice服务器地址
-	private String serviceURL = "http://sdk2.entinfo.cn/webservice.asmx";
-
+//	private String serviceURL = "http://sdk2.entinfo.cn/webservice.asmx";
+	private String serviceURL = "http://sdk2.zucp.net:8060/webservice.asmx";
 	@Resource(name = "carservicecoreDaoSMS")
 	private IDaoSMS iDaoSMS;
 
@@ -63,7 +64,10 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements
 	public String send(Long senderId, Long recieverId, String msg, String rrid) {
 		ModelUser user = iDaoUser.find(senderId);
 		ModelConsumer consumer = iDaoConsumer.find(recieverId);
-
+		if (senderId == null || recieverId == null) {
+			throw new ServException("senderId is null or recieverId is null");
+		}
+		
 		return sendSMS(user, consumer, msg, null, rrid);
 	}
 
@@ -81,30 +85,37 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements
 
 	private String sendSMS(ModelUser sender, ModelConsumer consumer,
 			String msg, Date date, String rrid) {
-
-		String result = "";
-		String stime = "";
-		String mobile = consumer.getMobileNumber();
-		if (date != null) {
-			stime = TimeUtils.format(date);
-		}
-		String regex = "<mtResult>(.*)</mtResult>";
-		String sendSoapAction = "http://tempuri.org/mt";
-
-		String xml = createSendXML(msg, rrid, "", mobile, stime);
-		try {
-			result = wirte(sendSoapAction, xml, regex);
-			// if reuslt equals rrid send successfully,save log to database,otherwise send failure
-			if (result.equals(rrid)) {
-				// save to db
-				saveDB(sender, consumer, msg, mobile);
-			} else {
-				logger.error("send failure result:" + result);
+		
+		if (sender != null && consumer != null) {
+			
+			String stime = "";
+			String mobile = consumer.getMobileNumber();
+			if (date != null) {
+				stime = TimeUtils.format(date);
 			}
-			return result;
-		} catch (Exception e) {
-			logger.error("error occur while sending message", e);
-			throw new ServException(e);
+//			String regex = "<mtResult>(.*)</mtResult>";
+			String regex2 = "<mdSmsSend_uResult>(.*)</mdSmsSend_uResult>";
+//			String sendSoapAction = "http://tempuri.org/mt";
+			String sendSoapAction2 = "http://tempuri.org/mdSmsSend_u";
+			
+			String result = "";
+			try {
+				String xml2 = createSendXML2(msg, rrid, "", mobile, stime);
+				result = wirte(sendSoapAction2, xml2, regex2);
+				// if result equals rrid send successfully,save log to database,otherwise send failure
+				if (result.equals(rrid)) {
+					// save to db
+					saveDB(sender, consumer, msg);
+				} else {
+					logger.error("send failure result:" + result);
+				}
+				return result;
+			} catch (Exception e) {
+				logger.error("error occur while sending message", e);
+				throw new ServException(e);
+			}
+		} else {
+			throw new ServException("ModelUser is null or ModelConsumer is null");
 		}
 	}
 
@@ -139,14 +150,14 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements
 
 	}
 
-	private void saveDB(ModelUser sender, ModelConsumer consumer, String msg,
-			String mobile) {
+	private void saveDB(ModelUser sender, ModelConsumer consumer, String msg) {
 		ModelSMS t = new ModelSMS();
 		t.setSenderId(sender.getId());
 		t.setRecieverId(consumer.getId());
-		t.setPhoneNum(Long.valueOf(mobile));
+		t.setPhoneNum(Long.valueOf(consumer.getMobileNumber()));
 		t.setContent(msg);
 		t.setCreateTime(new Date());
+		t.setUpdateTime(null);
 		t.setStatus(0);
 		add(t);
 	}
@@ -155,12 +166,12 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements
 			throws MalformedURLException, IOException, ProtocolException {
 		
 		ByteArrayOutputStream bout = new ByteArrayOutputStream();
-		bout.write(xml.getBytes());
+		bout.write(xml.getBytes("GBK"));
 		byte[] b = bout.toByteArray();
 		
 		Message<String> stream = iServHcwHttpClient.postAsStream(
 				serviceURL, 
-				xml.getBytes(),
+				b,
 				false, 
 				"gb2312",
 				new Header("Content-Length", String.valueOf(b.length)),
@@ -192,8 +203,29 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements
 		return xml;
 	}
 
+	private String createSendXML2(String msg, String rrid, String ext,
+			String mobile, String stime) throws UnsupportedEncodingException {
+		String xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
+		xml += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">";
+		xml += "<soap:Body>";
+		xml += "<mdSmsSend_u xmlns=\"http://tempuri.org/\">";
+		xml += "<sn>" + sn + "</sn>";
+		xml += "<pwd>" + pwd.toUpperCase() + "</pwd>";
+		xml += "<mobile>" + mobile + "</mobile>";
+		xml += "<content>" + msg + "</content>";
+		xml += "<ext>" + ext + "</ext>";
+		xml += "<stime>" + stime + "</stime>";
+		xml += "<rrid>" + rrid + "</rrid>";
+		xml += "</mdSmsSend_u>";
+		xml += "</soap:Body>";
+		xml += "</soap:Envelope>";
+		return xml;
+	}
+	@SuppressWarnings("unused")
+	@Deprecated
 	private String createSendXML(String msg, String rrid, String ext,
-			String mobile, String stime) {
+			String mobile, String stime) throws UnsupportedEncodingException {
+//		String content = URLEncoder.encode(msg, "UTF-8");
 		String xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
 		xml += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\" xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">";
 		xml += "<soap:Body>";
