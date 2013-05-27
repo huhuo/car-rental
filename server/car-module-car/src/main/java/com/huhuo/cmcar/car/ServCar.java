@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.huhuo.carservicecore.cust.car.IDaoCar;
 import com.huhuo.carservicecore.cust.car.ModelCar;
@@ -19,8 +20,10 @@ import com.huhuo.integration.base.IBaseExtenseDao;
 import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.exception.ServException;
 import com.huhuo.integration.util.BeanUtils;
+import com.huhuo.integration.util.TimeUtils;
 
 @Service("cmcarServCar")
+@Transactional
 public class ServCar extends GenericBaseExtenseServ<ModelCar> implements IServCar {
 
 	@Resource(name = "carservicecoreDaoCar")
@@ -110,29 +113,35 @@ public class ServCar extends GenericBaseExtenseServ<ModelCar> implements IServCa
 	}
 
 	@Override
-	public void book(ModelCar car, Date expireTime) {
-		// TODO Auto-generated method stub
-		final Long id = car.getId();
-		
+	public synchronized void book(ModelCar car, Date expireTime) {
+		// set the status for car
+		Long id = car.getId();
+		if(id == null) {
+			throw new ServException("car id can't be null!");
+		}
+		final ModelCar carDB = find(id);
+		if(carDB == null) {
+			throw new ServException("booked car is not exist!");
+		}
+		final Integer status = carDB.getStatus();
+		carDB.setStatus(ModelCar.STATUS_BOOKED.getKey());
+		update(carDB);
 		iServSchedule.schedule(new Runnable() {
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
-				if(id != null) {
-					ModelCar carDB = find(id);
-					if(carDB != null) {
-						carDB.setStatus(ModelCar.STATUS_BOOKED.getKey());
-						update(carDB);
-					}
-				}
+				carDB.setStatus(status);
+				update(carDB);
 			}
 		}, expireTime);
 	}
 
 	@Override
 	public void book(ModelCar car, Integer delayTime) {
-		// TODO Auto-generated method stub
-		
+		if(delayTime < 0) {
+			throw new ServException("delayTime can't be negative");
+		}
+		Date expireTime = TimeUtils.offsetHour(delayTime, new Date());
+		book(car, expireTime);
 	}
 	
 }

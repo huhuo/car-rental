@@ -7,11 +7,13 @@
 <title>汽车租赁管理系统</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
-<link href="${path }/res/js/bootstrap/css/bootstrap.css"
-	rel="stylesheet" media="screen">
+<link href="${path }/res/js/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+<link href="${path }/res/js/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 <link href="${path }/res/js/huhuo/huhuo.css" rel="stylesheet" type="text/css">
 <script src="${path }/res/js/jquery/jquery.js"></script>
 <script src="${path }/res/js/bootstrap/js/bootstrap.js"></script>
+<script src="${path }/res/js/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+<script src="${path }/res/js/bootstrap/js/bootstrap-datetimepicker.pt-zh.js"></script>
 <script src="${path }/res/js/jquery/jquery.blockUI.js"></script>
 <script src="${path }/res/js/jquery/jquery.validate.js"></script>
 <script src="${path }/res/js/jquery/jquery.validate.message.js"></script>
