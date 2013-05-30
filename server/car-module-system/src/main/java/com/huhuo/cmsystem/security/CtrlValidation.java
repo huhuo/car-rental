@@ -20,6 +20,7 @@ import com.huhuo.carservicecore.sys.user.ModelUser;
 import com.huhuo.cmsystem.SystemBaseCtrl;
 import com.huhuo.cmsystem.constant.Constant;
 import com.huhuo.integration.exception.CtrlException;
+import com.huhuo.integration.util.StringUtils;
 
 @Controller("cmsystemCtrlLogin")
 @RequestMapping(value = "/cmsystem/security/validation")
@@ -43,7 +44,11 @@ public class CtrlValidation extends SystemBaseCtrl {
 		ModelUser userDB = iServSecurity.validate(username, password);
 		if(userDB != null) {
 			session.setAttribute(Constant.SESSION_USER, userDB);
-			return new RedirectView(session.getServletContext().getContextPath());
+			String path = session.getServletContext().getContextPath();
+			if(StringUtils.isEmpty(path)) {
+				path = "/";
+			}
+			return new RedirectView(path);
 		} else {
 			return new RedirectView("/login-page.do", true);
 		}

@@ -124,6 +124,9 @@ public class ServCar extends GenericBaseExtenseServ<ModelCar> implements IServCa
 			throw new ServException("booked car is not exist!");
 		}
 		final Integer status = carDB.getStatus();
+		if(ModelCar.STATUS_BOOKED.getKey() == status) {
+			throw new ServException("this car is already booked!");
+		}
 		carDB.setStatus(ModelCar.STATUS_BOOKED.getKey());
 		update(carDB);
 		iServSchedule.schedule(new Runnable() {
