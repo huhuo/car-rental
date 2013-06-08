@@ -44,9 +44,9 @@ public class ServCar extends GenericBaseExtenseServ<ModelCar> implements IServCa
 	}
 
 	@Override
-	public Class<ModelCar> getModelClazz() {
+	public void inject(ModelCar t) {
 		// TODO Auto-generated method stub
-		return ModelCar.class;
+		
 	}
 
 	@Override
@@ -146,5 +146,5 @@ public class ServCar extends GenericBaseExtenseServ<ModelCar> implements IServCa
 		Date expireTime = TimeUtils.offsetHour(delayTime, new Date());
 		book(car, expireTime);
 	}
-	
+
 }

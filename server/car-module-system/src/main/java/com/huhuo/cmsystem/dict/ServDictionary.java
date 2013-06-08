@@ -21,14 +21,16 @@ public class ServDictionary extends GenericBaseExtenseServ<ModelDictionary>
 	private IDaoDictionary iDaoDictionary;
 	
 	@Override
+	public void inject(ModelDictionary t) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
 	public IBaseExtenseDao<ModelDictionary> getDao() {
 		return iDaoDictionary;
 	}
-
-	@Override
-	public Class<ModelDictionary> getModelClazz() {
-		return ModelDictionary.class;
-	}
+	
 
 	@Override
 	public List<ModelDictionary> getGroupsBy(ModelDictGroup dictGroup) {
@@ -44,5 +46,6 @@ public class ServDictionary extends GenericBaseExtenseServ<ModelDictionary>
 	public ModelDictionary getBy(ModelDict dict) {
 		return iDaoDictionary.getBy(dict);
 	}
+
 
 }

@@ -54,10 +54,11 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements
 	public IBaseExtenseDao<ModelSMS> getDao() {
 		return iDaoSMS;
 	}
-
+	
 	@Override
-	public Class<ModelSMS> getModelClazz() {
-		return ModelSMS.class;
+	public void inject(ModelSMS t) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
@@ -255,5 +256,5 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements
 		xml += "</soap:Envelope>";
 		return xml;
 	}
-	
+
 }

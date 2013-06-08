@@ -54,13 +54,13 @@ public class ServFileUpload extends GenericBaseExtenseServ<ModelFileUpload> impl
 		// TODO Auto-generated method stub
 		return iDaoFileUpload;
 	}
-
-	@Override
-	public Class<ModelFileUpload> getModelClazz() {
-		// TODO Auto-generated method stub
-		return ModelFileUpload.class;
-	}
 	
+	@Override
+	public void inject(ModelFileUpload t) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	@Override
 	public <V> ModelFileUpload find(V id) {
 		// TODO Auto-generated method stub
@@ -159,5 +159,5 @@ public class ServFileUpload extends GenericBaseExtenseServ<ModelFileUpload> impl
 		}
 		return true;
 	}
-	
+
 }

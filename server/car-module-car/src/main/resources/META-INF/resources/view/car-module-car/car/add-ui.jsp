@@ -36,6 +36,21 @@
 				</div>
 			</div>
 			<div class="control-group">
+				<label class="control-label" for="inputEngineNo">生日</label>
+				<div class="controls">
+					<!-- <div class="datetimepicker">
+						<input data-format="yyyy-MM-dd hh:mm:ss" class="required" type="text" placeholder="截止日期..."></input>
+						<span class="add-on">
+							<i data-time-icon="icon-time" data-date-icon="icon-calendar"> </i>
+						</span>
+					</div> -->
+					<div class="datetimepicker">
+						<input data-format="yyyy-MM-dd hh:mm:ss" type="text">
+						<span class="add-on"><i class="icon-th"></i></span>
+					</div>
+				</div>
+			</div>
+			<div class="control-group">
 				<label class="control-label" for="inputGpsNo">GPS设备编号</label>
 				<div class="controls">
 					<input type="text" class="required" id="inputGpsNo" name="gpsNo" placeholder="GPS设备编号...">
@@ -98,7 +113,14 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	// validation
-	$('#addForm').validate();
+	$('#addForm').validate({
+		rules: {
+			engineNo: {
+				email: true,
+				maxlength: 6
+			}
+		}
+	});
 	// image upload event
 	$('#fileUploadForm').fileUpload(function(data, status, xhr) {
 		// add upload file url to submit form
@@ -117,6 +139,11 @@ $(document).ready(function() {
 			$.huhuoGrowlUI('error occur in server --> ' + data.msg);
 		}
 	}, '${path}/cmcar/car/add.do');
+	
+	// date time picker initialization
+	$('#addForm .datetimepicker').datetimepicker({
+		language: 'zh'
+	});
 	
 });
 </script>

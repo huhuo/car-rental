@@ -22,10 +22,9 @@ public class ServProvince extends GenericBaseExtenseServ<ModelProvince> implemen
 	}
 
 	@Override
-	public Class<ModelProvince> getModelClazz() {
+	public void inject(ModelProvince t) {
 		// TODO Auto-generated method stub
-		return ModelProvince.class;
+		
 	}
-	
 
 }
