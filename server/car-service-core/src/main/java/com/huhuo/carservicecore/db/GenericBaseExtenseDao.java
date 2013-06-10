@@ -3,6 +3,7 @@ package com.huhuo.carservicecore.db;
 
 import javax.sql.DataSource;
 
+import com.huhuo.carservicecore.sys.user.ModelUser;
 import com.huhuo.integration.base.IBaseModel;
 import com.huhuo.integration.db.spring.JdbcTplBaseExtenseDao;
 
@@ -19,6 +20,11 @@ public abstract class GenericBaseExtenseDao<T extends IBaseModel<Long>> extends 
 			dataSource = AppContextFactory.getContext().getBean("routingDataSource", DataSource.class);
 		}
 		return dataSource;
+	}
+
+	public ModelUser findByNmae(String loginName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

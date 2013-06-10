@@ -19,6 +19,8 @@ public interface IServStore extends IBaseExtenseServ<ModelStore> {
 	Map<String,Object> detailQuery(ModelStore t);
 	
 	List<ModelCar> getCarByCondition(Condition<ModelCar> condition);
+
+	ModelStore detailFind(Long id);
 	
 }
 

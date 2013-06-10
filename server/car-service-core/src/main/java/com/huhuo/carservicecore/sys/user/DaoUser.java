@@ -1,3 +1,4 @@
+
 package com.huhuo.carservicecore.sys.user;
 
 import org.springframework.stereotype.Repository;
@@ -23,11 +24,25 @@ public class DaoUser extends GenericBaseExtenseDao<ModelUser> implements IDaoUse
 		Long count = queryForSingleColVal(sql, Long.class, username);
 		return count;
 	}
-
+	
 	@Override
 	public ModelUser findBy(String username, String password) {
 		String sql = String.format("SELECT * FROM %s WHERE username=? AND password=?", getTableName());
 		ModelUser user = findObject(sql, username, password);
+		return user;
+	}
+
+	@Override
+	public ModelUser findByName(String username) {
+		String sql = String.format("SELECT * FROM %s WHERE username=?", getTableName());
+		ModelUser user = findObject(sql, username);
+		return user;
+	}
+
+	@Override
+	public ModelUser findByLoginName(String loginName) {
+		String sql = String.format("SELECT * FROM %s WHERE loginName=?", getTableName());
+		ModelUser user = findObject(sql, loginName);
 		return user;
 	}
 

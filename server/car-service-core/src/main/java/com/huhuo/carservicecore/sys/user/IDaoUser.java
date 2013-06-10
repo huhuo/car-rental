@@ -18,4 +18,7 @@ public interface IDaoUser extends IBaseExtenseDao<ModelUser> {
 	 */
 	ModelUser findBy(String username, String password);
 	
+	ModelUser findByLoginName(String username);
+	ModelUser findByName(String username);
+	
 }
