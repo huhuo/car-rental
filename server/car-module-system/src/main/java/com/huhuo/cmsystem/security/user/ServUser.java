@@ -43,11 +43,11 @@ public class ServUser extends GenericBaseExtenseServ<ModelUser> implements IServ
 		// TODO Auto-generated method stub
 		return iDaoUser;
 	}
-
+	
 	@Override
-	public Class<ModelUser> getModelClazz() {
+	public void inject(ModelUser t) {
 		// TODO Auto-generated method stub
-		return ModelUser.class;
+		
 	}
 
 	@Override

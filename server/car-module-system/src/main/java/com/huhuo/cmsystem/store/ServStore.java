@@ -43,12 +43,13 @@ public class ServStore extends GenericBaseExtenseServ<ModelStore> implements ISe
 	public IBaseExtenseDao<ModelStore> getDao() {
 		return idaoStore;
 	}
-
-	@Override
-	public Class<ModelStore> getModelClazz() {
-		return ModelStore.class;
-	}
 	
+	@Override
+	public void inject(ModelStore t) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	@Override
 	public List<Map<String,Object>> multiQuery(ModelStore t, Page<ModelStore> page) {
 		String sql="SELECT cs.*,su.username,IF(TABLE2.rentNum IS NULL,0,TABLE2.rentNum) AS rentNum ,IF((TABLE1.totalNum-TABLE2.rentNum) IS NULL,0,(TABLE1.totalNum-TABLE2.rentNum)) AS freeNum,TABLE1.totalNum FROM  cust_store cs LEFT JOIN sys_user su ON su.id=cs.managerId and su.status=1  LEFT JOIN (SELECT cc.storeId AS storeId,   COUNT(cc.id) AS totalNum FROM cust_car cc GROUP BY cc.storeId) AS TABLE1 ON cs.id =TABLE1.storeId  LEFT JOIN ( SELECT cc.storeId ,COUNT(cc.id) AS rentNum FROM cust_car cc WHERE cc.status=2 GROUP BY cc.storeId) AS TABLE2 ON cs.id=TABLE2.storeId WHERE cs.status=1 %s ORDER BY cs.createTime DESC, cs.updateTime DESC, cs.id DESC LIMIT ?, ?;";

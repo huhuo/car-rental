@@ -44,9 +44,9 @@ public class ServCar extends GenericBaseExtenseServ<ModelCar> implements IServCa
 	}
 
 	@Override
-	public Class<ModelCar> getModelClazz() {
+	public void inject(ModelCar t) {
 		// TODO Auto-generated method stub
-		return ModelCar.class;
+		
 	}
 
 	@Override
@@ -124,6 +124,9 @@ public class ServCar extends GenericBaseExtenseServ<ModelCar> implements IServCa
 			throw new ServException("booked car is not exist!");
 		}
 		final Integer status = carDB.getStatus();
+		if(ModelCar.STATUS_BOOKED.getKey() == status) {
+			throw new ServException("this car is already booked!");
+		}
 		carDB.setStatus(ModelCar.STATUS_BOOKED.getKey());
 		update(carDB);
 		iServSchedule.schedule(new Runnable() {
@@ -143,5 +146,5 @@ public class ServCar extends GenericBaseExtenseServ<ModelCar> implements IServCa
 		Date expireTime = TimeUtils.offsetHour(delayTime, new Date());
 		book(car, expireTime);
 	}
-	
+
 }

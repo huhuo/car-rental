@@ -22,10 +22,9 @@ public class ServCity extends GenericBaseExtenseServ<ModelCity> implements IServ
 	}
 
 	@Override
-	public Class<ModelCity> getModelClazz() {
+	public void inject(ModelCity t) {
 		// TODO Auto-generated method stub
-		return ModelCity.class;
+		
 	}
-	
 
 }

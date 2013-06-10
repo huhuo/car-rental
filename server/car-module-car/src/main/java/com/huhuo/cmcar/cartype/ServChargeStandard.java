@@ -25,11 +25,11 @@ public class ServChargeStandard extends GenericBaseExtenseServ<ModelChargeStanda
 		// TODO Auto-generated method stub
 		return iDaoChargeStandard;
 	}
-
+	
 	@Override
-	public Class<ModelChargeStandard> getModelClazz() {
+	public void inject(ModelChargeStandard t) {
 		// TODO Auto-generated method stub
-		return ModelChargeStandard.class;
+		
 	}
 
 	@Override
@@ -69,6 +69,5 @@ public class ServChargeStandard extends GenericBaseExtenseServ<ModelChargeStanda
 		// TODO Auto-generated method stub
 		return super.addBatch(list);
 	}
-	
 
 }

@@ -22,11 +22,9 @@ public class ServConsumer extends GenericBaseExtenseServ<ModelConsumer> implemen
 	}
 
 	@Override
-	public Class<ModelConsumer> getModelClazz() {
+	public void inject(ModelConsumer t) {
 		// TODO Auto-generated method stub
-		return ModelConsumer.class;
+		
 	}
-
-	
 
 }
