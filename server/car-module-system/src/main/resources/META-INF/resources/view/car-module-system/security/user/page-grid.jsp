@@ -53,8 +53,16 @@ table.table-hover tbody tr.huhuo-item-selected {
 			<td class="disp">${list.statusDict.disp}</td>
 			<td>
 				<div class="btn-group">
-					<button  name="activate" class="btn">激活</button>
-					<button  name="lock" class="btn">锁定</button>
+					<c:choose>
+						<c:when test="${list.status eq 1 }">
+							<button name="activate" class="btn" disabled="disabled">激活</button>
+							<button name="lock" class="btn">锁定</button>
+						</c:when>
+						<c:otherwise>
+							<button name="activate" class="btn">激活</button>
+							<button name="lock" class="btn" disabled="disabled">锁定</button>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</td>
 		</tr>
@@ -69,13 +77,12 @@ table.table-hover tbody tr.huhuo-item-selected {
 		</tr>
 	</tfoot>
 </table>
-
+</body>
 <script type="text/javascript">
 $(document).ready(function() {
 	// 绑定标签元素。设置当前页，页面数据条数，总数，要访问的url，对应的参数，点击标签时刷新的div，标签数
 	var page = JSON.parse('${page}');
 	var t = JSON.parse('${t}');
-	console.info(page);                    
 	$(".pagination").myPage(page, '${path }/cmsystem/security/user/condition/get.do', t, $("#pagediv"), 5);
 	// add select css
 	$('#userPageGridId tbody tr').click(function(event) {
@@ -83,7 +90,6 @@ $(document).ready(function() {
 		if ($(event.target).attr("type") != "checkbox") {
 			$(this).find(':checkbox')[0].checked = !$(this).find(':checkbox')[0].checked;
 		}
-		console.log("++++++++++>>>>");
 	});
 	// add select event
 	$('#userPageGridId thead tr :checkbox').click(function(event) {
@@ -104,67 +110,35 @@ $(document).ready(function() {
 			$("#userEditDivId").load('${path}/cmsystem/security/user/activate.do', {
 				id: selectedId
 			}, function(resp, status, xhReq) {
+				console.log(resp);
 				if(status=="success") {
 					alert("已经为您激活！");
-					$.huhuoGrowlUI(data.msg);
-					$(event.target).next().removeAttr("disabled");
-					$(event.target).next().addClass("red");
-					$(event.target).attr('disabled',"disabled");
+					$.huhuoGrowlUI(JSON.parse(resp).msg);
 					$('#userEditDivId').hide();
 					$("#userMgrDivId").show();
 					// load element to cartypeEditDivId
 					$('#huhuoForm').trigger('submit');
-					
 				}
 			});
 	   }
 	});
 	
 	$('#userPageGridId tbody button[name="lock"]').click(function(event) {
-		
-		console.log($(".btn-group "));
 		var flag = window.confirm("确定要锁定吗？");
 		if(flag){
 			var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
-			console.log(selectedId);
-			$("#userEditDivId").load('${path}/cmsystem/security/user/lock.do', {
+			// update status to DB
+			$.get('${path}/cmsystem/security/user/lock.do', {
 				id: selectedId
-			}, function(resp, status, xhReq) {
-				if(status=="success") {
-					console.log(status);
-					alert("已经为您锁定！");
-					$(event.target).prev().removeAttr("disabled");
-					$(event.target).prev().addClass("greed");
-					$(event.target).attr('disabled',"disabled");
-					$('#userEditDivId').hide();
-					$("#userMgrDivId").show();
-					// load element to cartypeEditDivId
-					$('#huhuoForm').trigger('submit');
+			}, function(data, status, xhReq) {
+				console.log(data);
+				if(status=="success"){
 					$.huhuoGrowlUI(data.msg);
+					$('#huhuoForm').trigger('submit');
 				}
 			});
 		}
 	});
 });
-</script>
-</body>
-<script type="text/javascript">
-$(document).ready(function(){
-	$('#userPageGridId tbody tr .disp').each(function(index, td) {
-		console.log($(td).text());
-		console.info(index);
-		//console.log($(td).parent().parent().parent().children().children().slice(9,10).children().children().first());
-			if($(td).text()=="已激活"){
-				console.info("------------->>>1");
-				console.info($(td).parent().children().last().children().children().first().text());
-				$(td).parent().children().last().children().children().first().attr('disabled',"disabled");
-			}else{
-				console.info("------------->>>2");
-				console.info($(td).parent().children().last().children().children().last().text());
-				$(td).parent().children().last().children().children().last().attr('disabled',"disabled");
-			}
-	});
-});
-
 </script>
 </html>

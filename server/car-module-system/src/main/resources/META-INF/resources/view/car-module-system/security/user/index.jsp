@@ -69,6 +69,8 @@ select {
 				}
 			});
 		});
+		// trigger the first item when page initial
+		$('.search-term.huhuo-item-selected').trigger('click');
 		// bind click event to search button ==> query record by search term
 		$('#huhuoForm').huhuoFormPost(function(data, status) {
 			if($.isJsonObj(data)) {

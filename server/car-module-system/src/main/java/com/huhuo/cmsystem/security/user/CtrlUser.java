@@ -26,6 +26,7 @@ import com.huhuo.integration.db.mysql.Order;
 import com.huhuo.integration.db.mysql.Page;
 import com.huhuo.integration.db.mysql.Where;
 import com.huhuo.integration.util.ExtUtils;
+import com.huhuo.integration.util.TimeUtils;
 import com.huhuo.integration.web.JsonStore;
 import com.huhuo.integration.web.Message;
 import com.huhuo.integration.web.Message.Status;
@@ -177,18 +178,10 @@ public class CtrlUser extends SystemBaseCtrl {
 	}
 	
 	@RequestMapping(value="/update.do")
-	public void update(HttpServletResponse resp, ModelUser t,String birthday1) throws Exception {
+	public void update(HttpServletResponse resp, ModelUser t, Long birth, String birthday1) throws Exception {
 		// retrieve model form DB
-		if(birthday1==null||birthday1=="") {
-			ModelUser user = iDaoUser.find(t.getId());
-			Date birthday = user.getBirthday();
-			birthday1=birthday.toString().substring(0, 9)+" 00:00:00";
-		}else {
-			birthday1 = birthday1+" 00:00:00";
-		}
-		SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");  
-		Date date = format2.parse(birthday1);
-		t.setBirthday(date);
+		Date birthday = TimeUtils.getDateBeginFor(new Date(birth));
+		t.setBirthday(birthday);
 		t.setUpdateTime(new Date());
 		iServUser.update(t);
 		Message<ModelUser> msg = new Message<ModelUser>(Status.SUCCESS, "修改成功", t);

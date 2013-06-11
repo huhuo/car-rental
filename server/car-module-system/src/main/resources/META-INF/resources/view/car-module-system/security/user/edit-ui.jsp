@@ -14,12 +14,13 @@
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label" for="inputBirthday">出生日期</label> <input
-							type="hidden" name="birthday1">
+						<input type="hidden" name="birthday1">
+						<input type="hidden" name="birth">
+						<label class="control-label" for="inputBirthday">生日</label>
 						<div class="controls">
 							<div class="datetimepicker">
 								<input data-format="yyyy-MM-dd" class="required" type="text"
-									id="inputBirthday" placeholder="请选择出生日期..." value="${user.birthday }"></input> <span
+									id="inputBirthday" placeholder="请选择出生日期..."></input> <span
 									class="add-on"> <i data-time-icon="icon-time"
 									data-date-icon="icon-calendar"> </i>
 								</span>
@@ -143,13 +144,14 @@
 			}
 		});
 		
-		$('#editUserForm .datetimepicker').datetimepicker({
+		var birthdayPicker = $('#editUserForm .datetimepicker').datetimepicker({
 			language: 'zh'
-		}).on('changeDate', function(ev) {
-			console.log(ev);
-			var birthday = $('#inputBirthday').val();
-			console.log(birthday);
-			$('input[name="birthday1"]').val(birthday);
 		});
+		birthdayPicker.on('changeDate', function(ev) {
+			$('input[name="birth"]').val(ev.date.valueOf());
+		});
+		console.log('${user.birthday}'.substring(0, 10));
+		$('#inputBirthday').val('${user.birthday}'.substring(0, 10));
+		console.log(birthdayPicker);
 	});
 </script>

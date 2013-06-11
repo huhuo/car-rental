@@ -2,7 +2,6 @@ package com.huhuo.carservicecore.sys.user;
 
 import java.util.Date;
 
-import com.huhuo.carservicecore.constant.Dictionary;
 import com.huhuo.carservicecore.cust.store.ModelStore;
 import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
 import com.huhuo.carservicecore.sys.file.ModelFileUpload;
@@ -41,7 +40,8 @@ public class ModelUser extends BaseModel {
 	private String address;
 	/** 管理员所属分店id，与cust_store表关联 **/
 	private Long storeId;
-	
+	/** 用户当前登录的sessionId（用于实现单用户登录） **/
+	private String sessionId;
 
 	@NotSqlField
 	private ModelDictionary genderDict;
@@ -126,6 +126,12 @@ public class ModelUser extends BaseModel {
 	}
 	public ModelDictionary getGenderDict() {
 		return genderDict;
+	}
+	public String getSessionId() {
+		return sessionId;
+	}
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
 	}
 	public void setGenderDict(ModelDictionary genderDict) {
 		
