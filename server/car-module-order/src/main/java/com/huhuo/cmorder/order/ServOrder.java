@@ -127,11 +127,11 @@ public class ServOrder extends GenericBaseExtenseServ<ModelOrder> implements
 	}
 
 	@Override
-	public void updateCarStatus(Long id) {
+	public void updateCarStatus(Long id,int status) {
 		if(id!=null){
 			StringBuilder sb = new StringBuilder();
-			sb.append("update  cust_car set status=2 where id=? ");
-			int update = idaoOrder.update(sb.toString(), id);
+			sb.append("update  cust_car set status=? where id=? ");
+			int update = idaoOrder.update(sb.toString(),status, id);
 		}else{
 			throw new ServException("车辆信息不能为空");
 		}
