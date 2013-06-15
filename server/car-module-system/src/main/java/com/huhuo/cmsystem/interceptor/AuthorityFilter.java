@@ -16,7 +16,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.util.UrlPathHelper;
 
-import com.huhuo.cmsystem.constant.Constant;
+import com.huhuo.carservicecore.constant.MemcachedRegion.RegionSys;
+import com.huhuo.carservicecore.db.AppContextFactory;
+import com.huhuo.cmsystem.memcached.IServCmsysMemcached;
+import com.huhuo.cmsystem.security.Session;
+import com.huhuo.cmsystem.security.Session.SessionKey;
 /**
  * authority validation
  * @author root
@@ -28,21 +32,27 @@ public class AuthorityFilter implements Filter {
 	
 	private String loginUrlPrefix = "/cmsystem/security/validation";
 	
+	private UrlPathHelper urlPathHelper = new UrlPathHelper();
+	
+	private IServCmsysMemcached iServCmsysMemcached;
+	
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		// TODO Auto-generated method stub
-		
+		iServCmsysMemcached = AppContextFactory.getContext().getBean(IServCmsysMemcached.class);
 	}
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
+		// object casting
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
-		logger.info("request is intercepted ---> {}", new UrlPathHelper().getServletPath(req));
+		logger.info("request is intercepted ---> {}", urlPathHelper.getServletPath(req));
+		// get session from memcached
+		Session session = iServCmsysMemcached.get(RegionSys.SECURITY_SESSION, req.getSession().getId());
 		if (req.getServletPath().startsWith(loginUrlPrefix)
-				|| req.getSession().getAttribute(Constant.SESSION_USER) != null
+				|| (session != null && session.get(SessionKey.USER) != null)
 				|| isResourceFile(req.getServletPath())) { // 登录相关的url放行，和已登录放行
 			chain.doFilter(req, resp);
 		} else {

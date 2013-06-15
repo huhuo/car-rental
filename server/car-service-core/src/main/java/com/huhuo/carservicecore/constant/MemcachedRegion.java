@@ -1,35 +1,37 @@
 package com.huhuo.carservicecore.constant;
 
+import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
+import com.huhuo.integration.util.StringUtils;
+
 /**
- * memcached的分区及区内键名
- * 
- * @author shifengxuan
- *
+ * 统一管理所有模块的memcached的分区及区内键名，防止出现memcached分区键名的冲突，
+ * 同时也满足了不同模块之间跨区查询和操作数据的需求
+ * @author root
  */
-public class MemcachedRegion {
+public interface MemcachedRegion {
     
-	// 第三方应用信息区
-    public enum AppRegion{
-    	/**key for ModelAppDataDevCw list*/
-    	APP_LIST;
-    	/**
-    	 * 获取分区
-    	 * @return
-    	 */
-    	public static String getRegion(){
-    		return AppRegion.class.getSimpleName();
-    	}
+	String getRegion();
+	
+	/**
+	 * memcached region for module system
+	 * @author root
+	 */
+	public enum RegionSys implements MemcachedRegion {
+		/** security session region which taking SECURITY_SESSION_ID_sessionId as key and  **/
+		SECURITY_SESSION,
+		
+		/** dictionary group region which taking DICT_GROUP_groupName as key and List of {@link ModelDictionary} as value **/
+		DICT_GROUP,
+		
+		;
 
-    }
-    // 系统监控
-    public enum MonitorRegion{
-    	/**key for test connection*/
-    	TEST;
-    	public static String getRegion(){
-    		return MonitorRegion.class.getSimpleName();
-    	}
-    }
-
+		@Override
+		public String getRegion() {
+			return StringUtils.join("_", getClass().getSimpleName(), this.toString());
+		}
+		
+	}
+	
 }
 
 

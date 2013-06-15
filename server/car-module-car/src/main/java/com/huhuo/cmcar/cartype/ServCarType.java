@@ -34,10 +34,11 @@ public class ServCarType extends GenericBaseExtenseServ<ModelCarType> implements
 	public IBaseExtenseDao<ModelCarType> getDao() {
 		return idaoCarType;
 	}
-
+	
 	@Override
-	public Class<ModelCarType> getModelClazz() {
-		return ModelCarType.class;
+	public void inject(ModelCarType t) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override

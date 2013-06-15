@@ -35,9 +35,9 @@ public class ServOrder extends GenericBaseExtenseServ<ModelOrder> implements
 	}
 
 	@Override
-	public Class<ModelOrder> getModelClazz() {
+	public void inject(ModelOrder t) {
 		// TODO Auto-generated method stub
-		return ModelOrder.class;
+		
 	}
 
 	@Override

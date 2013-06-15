@@ -1,5 +1,6 @@
 package com.huhuo.cmcar.car;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -22,6 +23,7 @@ import com.huhuo.integration.db.mysql.DictMgr;
 import com.huhuo.integration.db.mysql.Dir;
 import com.huhuo.integration.db.mysql.Order;
 import com.huhuo.integration.db.mysql.Page;
+import com.huhuo.integration.db.mysql.Where;
 import com.huhuo.integration.web.JsonStore;
 import com.huhuo.integration.web.Message;
 import com.huhuo.integration.web.Message.Status;
@@ -59,7 +61,7 @@ public class CtrlCar extends SystemBaseCtrl {
 	@RequestMapping(value="/condition/get.do")
 	public String get(Model model, Condition<ModelCar> condition, ModelCar t){
 		if(t.getStatus() == null) {
-			t.setStatus(1);
+			condition.setWhereList(new Where("status > ?", 0));
 		}
 		condition.setT(t);
 		condition.setOrderList(new Order("createTime", Dir.DESC), new Order("updateTime", Dir.DESC));
@@ -102,14 +104,6 @@ public class CtrlCar extends SystemBaseCtrl {
 		List<Dict> records = DictMgr.match(ModelCar.GROUP_CUST_CAR_STATUS, dictDisplayName);
 		return render(model, new JsonStore<Dict>(records, records.size()));
 	}
-//	@RequestMapping(value = "/typeahead/dict.do")
-//	public String dict(Model model, Condition<ModelDictionary> condition, ModelDictionary t) {
-//		condition.setT(t);
-//		t.setGroupName(DictGroup.CUST_CAR_STATUS.getGroupName());
-//		condition.setOrderList(new Order("orderNo", Dir.DESC), new Order("id", Dir.ASC));
-//		List<ModelDictionary> records = iServDictionary.findByCondition(condition);
-//		return render(model, new JsonStore<ModelDictionary>(records, records.size()));
-//	}
 	
 	@RequestMapping(value="/add-ui.do")
 	public String addUI(Model model) {
@@ -176,13 +170,19 @@ public class CtrlCar extends SystemBaseCtrl {
 		return basePath + "/car/edit-ui";
 	}
 	
-
 	@RequestMapping(value="/update.do")
-	public void update(HttpServletResponse resp, ModelCar t) throws Exception {
+	public void update(HttpServletResponse resp, ModelCar t) {
 		// retrieve model form DB
 		iservCar.update(t);
 		Message<ModelCar> msg = new Message<ModelCar>(Status.SUCCESS, "修改成功", t);
 		write(msg, resp);
+	}
+	
+	@RequestMapping(value="/book.do")
+	public void book(HttpServletResponse resp, ModelCar t, Date expireTime) {
+		// book a car and setting expire time
+		iservCar.book(t, expireTime);
+		write(new Message<String>(Status.SUCCESS, "订阅成功"), resp);
 	}
 	
 	/*************************************************************

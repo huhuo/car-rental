@@ -2,7 +2,9 @@ package com.huhuo.carservicecore.cust.car;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
@@ -14,6 +16,7 @@ import com.huhuo.carservicecore.CarServiceCoreTest;
 import com.huhuo.carservicecore.cust.store.IDaoStore;
 import com.huhuo.carservicecore.cust.store.ModelStore;
 import com.huhuo.carservicecore.sys.dictionary.IDaoDictionary;
+import com.huhuo.carservicecore.sys.user.ModelUser;
 import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.db.mysql.Dict;
 import com.huhuo.integration.db.mysql.DictMgr;
@@ -105,6 +108,39 @@ public class DaoCarTest extends CarServiceCoreTest {
 		iDaoCar.addBatch(list);
 		// initial other field
 		iDaoDictionary.update("UPDATE cust_car SET status=?, createTime=?, updateTime=?", 1, new Date(), new Date());
+	}
+	
+	@Test
+	public void namedParamJdbcOp() {
+		String sql = "SELECT * FROM cust_car WHERE storeId IN (?)";
+		List<ModelUser> list = iDaoCar.queryForList(sql, ModelUser.class, 1);
+		print(list);
+		sql = "SELECT * FROM cust_car WHERE storeId IN (:ids)";
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Object> value = new ArrayList<Object>();
+		value.add(1);
+		value.add(8);
+		map.put("ids", value);
+		list = iDaoCar.queryForList(sql, ModelUser.class, map);
+		print(list);
+	}
+	
+	@Test
+	public void test() {
+		String sql = "select *, 32 as num2 from cust_car";
+		List<Map<String,Object>> list = iDaoCar.queryForMapList(sql);
+//		print(list);
+		
+		List<Map<String, Object>> retList = new ArrayList<Map<String,Object>>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		for(Map<String,Object> el : list) {
+			map.put("aa", el.get("color"));
+			map.put("num", el.get("num2"));
+			retList.add(map);
+		}
+		
+		print(retList);
+		
 	}
 	
 }

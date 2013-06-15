@@ -2,7 +2,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <style type="text/css">
 table.table-hover tbody tr.huhuo-item-selected {
-    background-color: #5D89F8;
+	background-color: #5D89F8;
 	color: #FFF;
 }
 </style>
@@ -41,6 +41,7 @@ table.table-hover tbody tr.huhuo-item-selected {
 				<div class="btn-group">
 					<button name="detail" class="btn">详情</button>
 					<button name="edit" class="btn">修改</button>
+					<button name="book" class="btn">预定</button>
 				</div>
 			</td>
 		</tr>
@@ -55,6 +56,31 @@ table.table-hover tbody tr.huhuo-item-selected {
 		</tr>
 	</tfoot>
 </table>
+
+<div id="askDialog" class="modal hide fade">
+	<div class="modal-header">
+		<a href="script:void(0)" class="close" data-dismiss="modal">&times;</a>
+		<h3 id="askDialogPrompt">请填写预定截止日期</h3>
+	</div>
+	<div class="modal-body">
+		<div class="divDialogElements">
+			<div class="well">
+				<div class="datetimepicker">
+					<input data-format="yyyy-MM-dd hh:mm:ss" class="required" type="text" placeholder="截止日期..."></input>
+					<span class="add-on">
+						<i data-time-icon="icon-time" data-date-icon="icon-calendar"> </i>
+					</span>
+				</div>
+				<div>
+					<input type="hidden" name="id">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<a href="javascript:void(0)" class="btn cancel">取消</a> <a href="javascript:void(0)" class="btn btn-primary">确定</a>
+	</div>
+</div>
 
 <script type="text/javascript">
 $(document).ready(function() {
@@ -83,7 +109,7 @@ $(document).ready(function() {
 			}
 		});
 	});
-	// add event to edit button
+	// add event to row base button
 	$('#pageGridId tbody button[name="detail"]').click(function(event) {
 		var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
 		$("#editDivId").load('${path}/cmcar/car/detail.do', {
@@ -100,6 +126,38 @@ $(document).ready(function() {
 		}, function(resp, status, xhReq) {
 			$("#mgrDivId").hide();
 			$("#editDivId").show(500);
+		});
+	});
+	var dialog = $("#askDialog");
+	$('#pageGridId tbody button[name="book"]').click(function(event) {
+		var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
+		dialog.find('input[name="id"]').val(selectedId);
+		dialog.modal("show");
+	});
+	// date time picker
+	$('.datetimepicker').datetimepicker({
+		language: 'zh'
+	});
+	dialog.find('.modal-footer .btn.cancel').click(function() {
+		dialog.modal("hide");
+	});
+	dialog.find('.modal-footer .btn.btn-primary').click(function() {
+		var id = dialog.find('input[name="id"]').val();
+		var expireTime = $('.datetimepicker input').val();
+		if(expireTime==null || expireTime=='') {
+			alert('请指定截止日期');
+			return;
+		}
+		$.post('${path}/cmcar/car/book.do', {
+			id: id,
+			expireTime: expireTime
+		}, function(data) {
+			console.log(data);
+			if(data.status != 'SUCCESS') {
+				$.huhuoGrowlUI(data.msg);
+			}
+			dialog.modal("hide");
+			$('#huhuoForm').trigger('submit');
 		});
 	});
 });

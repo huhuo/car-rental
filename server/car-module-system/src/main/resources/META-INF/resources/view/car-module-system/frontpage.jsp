@@ -7,11 +7,13 @@
 <title>汽车租赁管理系统</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- Bootstrap -->
-<link href="${path }/res/js/bootstrap/css/bootstrap.css"
-	rel="stylesheet" media="screen">
+<link href="${path }/res/js/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+<link href="${path }/res/js/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 <link href="${path }/res/js/huhuo/huhuo.css" rel="stylesheet" type="text/css">
 <script src="${path }/res/js/jquery/jquery.js"></script>
 <script src="${path }/res/js/bootstrap/js/bootstrap.js"></script>
+<script src="${path }/res/js/bootstrap/js/bootstrap-datetimepicker.min.js"></script>
+<script src="${path }/res/js/bootstrap/js/bootstrap-datetimepicker.pt-zh.js"></script>
 <script src="${path }/res/js/jquery/jquery.blockUI.js"></script>
 <script src="${path }/res/js/jquery/jquery.validate.js"></script>
 <script src="${path }/res/js/jquery/jquery.validate.message.js"></script>
@@ -108,7 +110,7 @@ $(document).ready(function() {
 							<li data-toggle="collapse" data-target="#systemMgr"><a
 								class="menu" href="javascript:void(0)"><i class="icon-wrench"></i>&nbsp;系统管理</a></li>
 							<li id="systemMgr" class="collapse leftdivchange"><a
-								class="huhuoItem frist" href="${path }/cmsystem/user/index.do">系统用户管理</a>
+								class="huhuoItem frist" href="${path }/cmsystem/security/user/index.do">系统用户管理</a>
 								<a class="huhuoItem" href="${path }/cmsystem/store/index.do">门店管理</a>
 								<a class="huhuoItem end" href="${path }/cmsystem/user/person.do">个人信息管理</a>
 							</li>

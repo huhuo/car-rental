@@ -56,5 +56,11 @@
 		</property>
 		<property name="defaultTargetDataSource" ref="datasourceCustomerChitong" />
 	</bean>  
+	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="routingDataSource"></property>
+	</bean>
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>

@@ -16,6 +16,8 @@ import com.huhuo.integration.db.mysql.Dir;
 import com.huhuo.integration.db.mysql.Group;
 import com.huhuo.integration.db.mysql.Order;
 import com.huhuo.integration.db.mysql.Page;
+import com.huhuo.integration.db.mysql.Where;
+import com.huhuo.integration.db.mysql.Where.Join;
 
 public class DaoDictionaryTest extends CarServiceCoreTest {
 
@@ -43,10 +45,10 @@ public class DaoDictionaryTest extends CarServiceCoreTest {
 	@Test
 	public void findByCondition() {
 		ModelDictionary t = new ModelDictionary();
-		t.setGroupDisplayName("性别");
-		t.setGroupDisplayName("");
-		t.setDictKey(1);
-		t.setGroupName("GENERAL_GENDER");
+//		t.setGroupDisplayName("性别");
+//		t.setGroupDisplayName("");
+//		t.setDictKey(1);
+//		t.setGroupName("GENERAL_GENDER");
 		List<Group> groupList = new ArrayList<Group>();
 //		groupList.add(new Group("groupName", Dir.ASC));
 //		groupList.add(new Group("dictKey", Dir.DESC));
@@ -54,6 +56,8 @@ public class DaoDictionaryTest extends CarServiceCoreTest {
 //		orderList.add(new Order("dictDisplayName", Dir.DESC));
 //		orderList.add(new Order("orderNo", Dir.ASC));
 		Condition<ModelDictionary> condition = new Condition<ModelDictionary>(t, groupList, orderList, new Page<ModelDictionary>());
+		condition.setWhereList(new Where("orderNo IN(?,?,?)", Join.OR, 9, 5, 11));
+//		condition.setWhereList(new Where("comment LIKE ? AND dictValue IN (?,?)", "%ha%", 3, 2), new Where("orderNo IN(?,?,?)", Join.OR, 9, 5, 11));
 		print(iDaoDictionary.findByCondition(condition));
 	}
 	@Test

@@ -11,7 +11,7 @@ public class CtrlSecurity extends SystemBaseCtrl {
 	private String basePath = "system-manage/security/";
 	
 	@RequestMapping(value="/index.do")
-	public String index(){
+	public String index() {
 		return basePath + "index";
 	}
 }

@@ -14,6 +14,7 @@ table.table-hover tbody tr.huhuo-item-selected {
 		<tr>
 			<th><input type="checkbox" class="checkbox"></th>
 				<th>id</th>
+				<th>图          片</th>
 				<th>分店名称</th>
 				<th>分店地址</th>
 				<th>联系电话</th>
@@ -28,10 +29,15 @@ table.table-hover tbody tr.huhuo-item-selected {
 		<tr>
 			<td><input type="checkbox" class="checkbox"></td>
 			<td>${record.id}</td>
+			<td>
+				<a href="javascript:void(0)" class="thumbnail"> 
+					<img class="img-rounded" style="height: 100px; width: 150px;" src="${record.picture.url}">
+				</a>
+			</td>
 			<td>${record.name}</td>
 			<td>${record.address}</td>
 			<td>${record.telephone}</td>
-			<td>${record.username}</td>
+			<td>${record.user.username}</td>
 			<td>${record.freeNum}</td>
 			<td>${record.rentNum}</td>
 			<td>
@@ -63,7 +69,9 @@ $(document).ready(function() {
 	// add select css
 	$('#storePageGridId tbody tr').click(function(event) {
 		$(this).toggleClass('huhuo-item-selected');
-		$(this).find(':checkbox')[0].checked = !$(this).find(':checkbox')[0].checked;
+		if ($(event.target).attr("type") != "checkbox") {
+			$(this).find(':checkbox')[0].checked = !$(this).find(':checkbox')[0].checked;
+		}
 		console.log("++++++++++>>>>");
 	});
 	// add select event
@@ -82,6 +90,7 @@ $(document).ready(function() {
 		var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
 		$("#storeEditDivId").load('${path}/cmsystem/store/detail.do', {
 			id: selectedId
+			
 		}, function(resp, status, xhReq) {
 			$("#storeMgrDivId").hide();
 			$("#storeEditDivId").show(500);

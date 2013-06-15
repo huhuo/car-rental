@@ -62,7 +62,7 @@ $(document).ready(function(){
 				$('#huhuoForm'), null, null, null, function(data) {
 			$('#keyword').attr('name', selectedItem.attr('keyword'));
 			if(selectedItem.attr('keyword') == 'status') {
-				$('#keyword').val(data.dictKey);
+				$('#keyword').val(data.key);
 			} else {
 				$('#keyword').val(data.id);
 			}
