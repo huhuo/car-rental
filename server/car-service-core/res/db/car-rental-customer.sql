@@ -70,6 +70,7 @@ CREATE TABLE `csm_order` (
   `mileageEnd` bigint(20) DEFAULT NULL COMMENT '车辆结束里程数（以车辆归还时为标准）',
   `totalFee` double DEFAULT NULL COMMENT '总计（前面各项费用经过一定的算法之后得到的实际费用总额）',
   `status` int(11) DEFAULT NULL COMMENT '状态，字典表字段，组名：csm_order_status，0：删除；1：待结帐；2：已结帐',
+  `rentalType` int(11) DEFAULT NULL COMMENT '租金方式，1：现金。2：刷卡',
   `createTime` datetime DEFAULT NULL COMMENT '创建时间',
   `updateTime` datetime DEFAULT NULL COMMENT '更新时间',
   `deposit` double DEFAULT NULL COMMENT '押金',
