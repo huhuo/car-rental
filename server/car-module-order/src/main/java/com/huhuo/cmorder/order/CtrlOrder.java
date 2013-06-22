@@ -11,11 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.huhuo.carservicecore.csm.consumer.IDaoConsumer;
 import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
 import com.huhuo.carservicecore.csm.order.ModelOrder;
+import com.huhuo.carservicecore.cust.car.IDaoCar;
+import com.huhuo.carservicecore.cust.car.IDaoCarType;
 import com.huhuo.carservicecore.cust.car.ModelCar;
 import com.huhuo.carservicecore.cust.car.ModelCarType;
 import com.huhuo.carservicecore.cust.car.ModelChargeStandard;
+import com.huhuo.carservicecore.cust.store.IDaoStore;
 import com.huhuo.carservicecore.cust.store.ModelStore;
 import com.huhuo.cmorder.order.model.OrderFormModel;
 import com.huhuo.integration.db.mysql.Condition;
@@ -35,6 +39,20 @@ public class CtrlOrder extends HuhuoWebBaseBaseCtrl {
 	@Resource(name = "cmorderServOrder")
 	private IServOrder iservOrder;
 	
+	
+	@Resource(name = "carservicecoreDaoConsumer")
+	private IDaoConsumer iDaoConsumer;
+	
+	
+	@Resource(name = "carservicecoreDaoCar")
+	private IDaoCar iDaoCar;
+	
+	@Resource(name = "carservicecoreDaoCarType")
+	private IDaoCarType iDaoCarType;
+	
+	@Resource(name = "carservicecoreDaoStore")
+	private IDaoStore iDaoStore;
+	
 
 	/*************************************************************
 	 * order info management
@@ -44,6 +62,40 @@ public class CtrlOrder extends HuhuoWebBaseBaseCtrl {
 	public String index() { // order manage page
 		logger.debug("access order management page");
 		return basePath + "/index";
+	}
+	
+	@RequestMapping(value = "/beforeCheckout.do")
+	public String beforeCheckout(Long id,Model model) { // order manage page
+		logger.debug("access order management page");
+		ModelOrder order=iservOrder.find(id);
+		
+		
+		Long consumerId = order.getConsumerId();
+		
+		ModelConsumer consumer = iDaoConsumer.find(consumerId);
+		
+		
+		
+		Long carId = order.getCarId();
+		
+		
+		ModelCar car = iDaoCar.find(carId);
+		
+		ModelCarType carType = iDaoCarType.find(car.getCarType());
+		
+		
+		ModelStore store = iDaoStore.find(car.getStoreId());
+		
+		car.setStore(store);
+		
+		model.addAttribute("order", order);
+		model.addAttribute("consumer", consumer);
+		model.addAttribute("car", car);
+		model.addAttribute("carType", carType);
+		
+		
+		
+		return basePath + "/checkOutui";
 	}
 	
 	@RequestMapping(value = "/addUI.do")
@@ -101,7 +153,7 @@ public class CtrlOrder extends HuhuoWebBaseBaseCtrl {
 			iservOrder.add(order);
 			
 			
-			iservOrder.updateCarStatus(car.getId());
+			iservOrder.updateCarStatus(car.getId(),2);
 			
 			
 					
@@ -172,6 +224,20 @@ public class CtrlOrder extends HuhuoWebBaseBaseCtrl {
 //			List<ModelConsumer> list = servConsumer.findByCondition(condition);
 		List<ModelChargeStandard> list = iservOrder.getchargeStandardById(chargeStandardId);
 		write(ExtUtils.getJsonStore(list, list.size()), resp);
+	}
+	
+	
+	@RequestMapping(value="/delete.do")
+	public void delete(HttpServletResponse resp,Long id){
+		logger.debug("server receive: id={}", id);
+//			condition.setPage(new Page(0, 30));
+//			List<ModelConsumer> list = servConsumer.findByCondition(condition);
+		ModelOrder modelOrder = new ModelOrder();
+		modelOrder.setId(id);
+		iservOrder.delete(modelOrder);
+		iservOrder.updateCarStatus(modelOrder.getCarId(),1);
+		
+		write(new Message<Long>(Status.SUCCESS, "删除成功", id), resp);
 	}
 
 }

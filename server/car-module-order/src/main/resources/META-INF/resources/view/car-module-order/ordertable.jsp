@@ -41,7 +41,7 @@ a.car-detail {
 	overflow: hidden;
 }
 </style>
-<table class="table table-hover table-condensed">
+<table id='orderPageGrid' class="table table-hover table-condensed">
 	<thead>
 		<tr>
 			<th>订单号</th>
@@ -75,8 +75,8 @@ a.car-detail {
 				<td>${record.carRentTime}</td>
 				<td>${record.carPlanRetTime}</td>
 				<td><div class="btn-group">
-						<button class="btn">结账</button>
-						<button class="btn">修改</button>
+						<button name="checkOut" class="btn">结账</button>
+						<button name ="del" class="btn">废弃</button>
 					</div></td>
 			</tr>
 			</c:forEach>
@@ -90,6 +90,38 @@ a.car-detail {
 
 <script type="text/javascript">
 	//绑定标签元素。设置当前页，页面数据条数，总数，要访问的url，对应的参数，点击标签时刷新的div，标签数
+	// add event to edit button
+ 	$('#orderPageGrid tbody button[name="checkOut"]').click(function(event) {
+		var selectedId = $(this).parent().parent().parent().children().slice(0, 1).text();
+		$("#addOrderDiv").load('${path}/cmorder/order/beforeCheckout.do', {
+			id: selectedId
+		}, function(resp, status, xhReq) {
+			$("#orderSearch").hide();
+			$("#addOrderDiv").show(500);
+		});
+	}); 
+	$('#orderPageGrid tbody button[name="del"]').click(function(event) {
+		var confirm = window.confirm('确定删除？');
+		
+		if(confirm) {
+		
+		var selectedId = $(this).parent().parent().parent().children().slice(0, 1).text();
+			// set request to server to delete the record selected
+			$.post('${path}/cmorder/order/delete.do',{
+				id: selectedId
+			}, function(data, status, xhReq) {
+				if (status == 'success') {
+					$.huhuoGrowlUI(data.msg);
+					if(data.status=='SUCCESS'){
+						$('#huhuoForm').trigger('submit');
+					}
+					
+				}
+			});
+		}
+	});
+	
+	
 	var condition = JSON.parse('${condition}');
 	var orderPage = JSON.parse('${orderPage}');
 	$("#bb").myPage(orderPage, "${path }/cmorder/order/get.do", condition.opt, $("#orderTableloadDiv"), 5);

@@ -60,14 +60,14 @@ div.titlewell {
 	});
 </script>
 
-<div style="overflow: hidden; position: relative;">
+<div style="overflow: hidden">
 
-	<div id="addOrderDiv" style="position: relative">
+	<div id="addOrderDiv">
 	</div>
 
 
 	<div id="orderSearch" class="well"
-		style="padding: 0px; position: relative">
+		style="padding: 0px">
 		<div class="navbar">
 			<div class="navbar-inner">
 				<div class="container">

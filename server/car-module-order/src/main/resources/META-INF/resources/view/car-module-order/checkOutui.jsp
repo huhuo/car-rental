@@ -2,177 +2,9 @@
 	pageEncoding="UTF-8"%>
 <script type="text/javascript">
 	$(document).ready(function() {
-		//生成车型下拉框
-		$.post("${path }/cmorder/order/carType.do",null,function(data,status){
-			if (status == 'success') {
-				var records=data.records;
-				ordercartypemap={};
-				var carTypeDom=$("#addOrderCarType");
-			  	$.each(records, function (i, carType) {
-			  		ordercartypemap[carType.id]=carType;
-			  		carTypeDom.append("<option value='"+carType.id+"'>"+carType.name+"</option>");
-			    });
-				
-				
-			} else {
-				$.huhuoGrowlUI("查询车型数据错误");
-			}
-		});
-		$("#addOrderCarType").change(function(){
-			createCarOpt();
-		});
+	
+		$("#addOrderform").find("[name='order.rentalType']").first().find("[value='${order.rentalType }']")[0].selected=true;
 		
-		createCarOpt();
-		//生成车辆下拉框
-		function createCarOpt(){
-			$.post("${path }/cmorder/order/car.do",{'carTypeId':$("#addOrderCarType").val()},function(data,status){
-				if (status == 'success') {
-					var records=data.records;
-					ordercarmap = {};
-					var carDom=$("#addOrderCar");
-					carDom.empty();
-					carDom.append("<option value=''></option>");
-				  	$.each(records, function (i, car) {
-				  		ordercarmap[car.id]=car;
-				  		carDom.append("<option value='"+car.id+"'>"+ordercartypemap[''+car.carTypeId].name+"  "+car.licencePlate+"</option>");
-				    });
-					
-					
-				} else {
-					$.huhuoGrowlUI("查询车型数据错误");
-				}
-			});
-		};
-		
-		
-		$("#addOrderCar").change(function(){
-			var val=$(this).val();
-			var car=ordercarmap[''+val];
-			if(val!=null&&val!=''){
-				 $.setFormValue(car,$("#addOrderform"),"car");
-				$("#addOrderform").find("[name='carType.id']").first().find('[value='+car.carTypeId+']')[0].selected=true;
-				$("#addOrderform").find("[name='car.colorDict.disp']").first().attr('value',car.colorDict.disp);
-				var carType=ordercartypemap[''+car.carTypeId];
-				//查询车辆附属付费信息
-				$.post("${path }/cmorder/order/chargeStandard.do",{chargeStandardId:carType.chargeStandardId},function(data,status){
-					if (status == 'success') {
-						var records=data.records;
-						if(records!=null&&records.length>0){
-							var record =records[0];
-							 $.setFormValue(record,$("#addOrderform"),"chargeStandard");
-						}
-					} else {
-						$.huhuoGrowlUI("查询车辆附属付费信息失败");
-					}
-				});
-				
-
-				//查询车辆所属门店
-				$.post("${path }/cmorder/order/store.do",{storeId:car.storeId},function(data,status){
-					if (status == 'success') {
-						var records=data.records;
-						if(records!=null&&records.length>0){
-							var record =records[0];
-							$("#addOrderform").find("[name='car.storeName']").first().attr('value',record.name);
-						}
-					} else {
-						$.huhuoGrowlUI("查询车辆所属门店失败");
-					}
-				});
-			
-			}
-		});
-		
-		changeTime();
-		
-		$("#addOrderDays").keyup(function(){
-			changeTime();
-		});
-		
-		function changeTime(){
-			  var days=$("#addOrderDays").val();
-			  days=Number(days);
-			  if(days!=NaN){
-				  
-				  var myDate=new Date();
-				  
-				  var times=myDate.getTime();
-				  
-				  times=times+days*1000*60*60*24;
-				  
-				  var tarDate=new Date(times);
-				  
-				  var timeStr=tarDate.format('yyyy-MM-dd hh:mm:ss');
-				  
-				  $("#addOrderRetTime").val(timeStr);
-				  
-			  }
-			  $("#addOrderRetTime").css("background-color","#FFFFCC");
-		}
-		
-		//根据对应的手机号，查询对应的用户信息并且填充
-		$("#phonePromptOrderAdd").autoFill("${path }/cmorder/order/conumer.do","mobileNumber",$("#addOrderform"),null,"consumer");
-		
-		
-		
-		
-		
-		/*
-		var carparams=function(params){
-			params['carTypeId']=$("#addOrderCarType").val();
-			return params;
-		};
-		
-		//添加输入车牌号自动填充对应内容
-		$("#licencePlatePromptOrderAdd").autoFill("${path }/cmorder/order/car.do","licencePlate",$("#addOrderform"),carparams,"car",null,function(item){
-			//查询车型
-			$.post("${path }/cmorder/order/carType.do",{carTypeId:item.carTypeId},function(data,status){
-				if (status == 'success') {
-					var records=data.records;
-					console.info(records);
-					if(records!=null&&records.length>0){
-						var record =records[0];
-						$("#addOrderform").find("[name='carType.id']").first().find('[value='+record.id+']')[0].selected=true;
-						
-						
-						//查询车辆附属付费信息
-						$.post("${path }/cmorder/order/chargeStandard.do",{chargeStandardId:record.chargeStandardId},function(data,status){
-							if (status == 'success') {
-								var records=data.records;
-								console.info(records);
-								if(records!=null&&records.length>0){
-									var record =records[0];
-									 $.setFormValue(record,$("#addOrderform"),"chargeStandard");
-								}
-							} else {
-								$.huhuoGrowlUI("查询车辆附属付费信息失败");
-							}
-						});
-						
-					}
-				} else {
-					$.huhuoGrowlUI("查询车型数据错误");
-				}
-			});
-			
-			
-			//查询车辆所属门店
-			$.post("${path }/cmorder/order/store.do",{storeId:item.storeId},function(data,status){
-				if (status == 'success') {
-					var records=data.records;
-					console.info(records);
-					if(records!=null&&records.length>0){
-						var record =records[0];
-						$("#addOrderform").find("[name='car.storeName']").first().attr('value',record.name);
-					}
-				} else {
-					$.huhuoGrowlUI("查询车辆所属门店失败");
-				}
-			});
-			
-			
-		});
-		*/
 		$("#returnSearch").click(function() {
 			var addOrderDiv = $("#addOrderDiv");
 			addOrderDiv.hide(200, function() {
@@ -192,11 +24,6 @@
 				$("#orderTableloadDiv").divBlickLoad("${path }/cmorder/order/get.do");
 			}
 			
-		});
-
-		$("#countButton").click(function(){
-			
-			getTotalPrice();
 		});
 		
 		
@@ -237,7 +64,7 @@
 			  
 			
 			
-			$("#addOrderform").find("[name='order.totalFee']").first().val(totalPrice);  
+			$("#addOrderform").find("[name='order.totalPrice']").first().val(totalPrice);  
 		};
 
 	});
@@ -262,16 +89,16 @@
 						<label class="control-label" for="inputName">客户状态</label>
 						<div class="controls">
 							<input type="text" class="orderinput required" readonly="readonly"
-								name="consumer.statusStr" placeholder="客户状态...">
+								name="consumer.statusStr" placeholder="客户状态..." value="${consumer.statusStr }">
 							<input type="hidden"
-								name="consumer.status">
+								name="consumer.status" value="${consumer.status }">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputName">担保人</label>
 						<div class="controls">
 							<input type="text" class="orderinput" readonly="readonly" 
-								name="consumer.bondsmanIdentityCard" placeholder="担保人...">
+								name="consumer.bondsmanIdentityCard" placeholder="担保人..." value="${consumer.bondsmanIdentityCard }">
 						</div>
 					</div>
 				</div>
@@ -283,16 +110,16 @@
 						<label class="control-label" for="inputName">移动电话</label>
 						<div class="controls">
 							<input type="text" autocomplete='off' class="orderinput required" id='phonePromptOrderAdd'
-								name="consumer.mobileNumber" placeholder="移动电话...">
+								name="consumer.mobileNumber" placeholder="移动电话..."  value="${consumer.mobileNumber }">
 								<input type="hidden"
-								name="consumer.id">
+								name="consumer.id" value="${consumer.id }">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputName">客户姓名</label>
 						<div class="controls">
 							<input type="text" class="orderinput required" readonly="readonly" 
-								name="consumer.username" placeholder="客户姓名...">
+								name="consumer.username" placeholder="客户姓名..." value="${consumer.username }">
 						</div>
 					</div>
 
@@ -300,21 +127,21 @@
 						<label class="control-label" for="inputName">固定电话</label>
 						<div class="controls">
 							<input type="text" class="orderinput required" readonly="readonly"
-								name="consumer.telephone" placeholder="固定电话...">
+								name="consumer.telephone" placeholder="固定电话..." value="${consumer.telephone }">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputName">身份证号</label>
 						<div class="controls">
 							<input type="text" class="orderinput" readonly="readonly"
-								name="consumer.identityCardId" placeholder="身份证号...">
+								name="consumer.identityCardId" placeholder="身份证号..."  value="${consumer.identityCardId }">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputName">年龄</label>
 						<div class="controls">
 							<input type="text" class="orderinput" readonly="readonly"
-								name="consumer.age" placeholder="年龄...">
+								name="consumer.age" placeholder="年龄..." value="${consumer.age }">
 						</div>
 					</div>
 					<div class="control-group">
@@ -323,12 +150,12 @@
 							<div class="row-fluid">
 								<div class="span4">
 									<label class="radio" style="padding-top: 5px;"> <input
-										type="radio" name="consumer.gender" readonly="readonly" value="1" checked="true">男
+										type="radio" name="consumer.gender" readonly="readonly" value="1" ${consumer.gender==1?"checked='true'":"" } >男
 									</label>
 								</div>
 								<div class="span3">
 									<label class="radio" style="padding-top: 5px;"> <input
-										type="radio" name="consumer.gender" readonly="readonly" value="2">女
+										type="radio" name="consumer.gender" readonly="readonly" value="2" ${consumer.gender==2?"checked='true'":"" }>女
 									</label>
 								</div>
 							</div>
@@ -338,14 +165,14 @@
 						<label class="control-label" for="inputName">驾驶证号</label>
 						<div class="controls">
 							<input type="text" class="orderinput" readonly="readonly"
-								name="consumer.licenseNum" placeholder="驾驶证号...">
+								name="consumer.licenseNum" placeholder="驾驶证号..."  value="${consumer.licenseNum }">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputName">住址</label>
 						<div class="controls">
 							<input type="text" class="orderinput" readonly="readonly"
-								name="consumer.address" placeholder="住址...">
+								name="consumer.address" placeholder="住址..." value="${consumer.address }">
 						</div>
 					</div>
 
@@ -357,18 +184,18 @@
 					<div class="control-group">
 						<label class="control-label" for="inputName">车辆</label>
 						<div class="controls">
-							<select  id='addOrderCar'  style='width: 87%;'>
-								
+							<select  id='addOrderCar'  style='width: 87%;' disabled="disabled">
+								<option value='${car.id }'>${carType.name }  ${car.licencePlate }</option>
 							</select>
 								<input type="hidden"
-								name="car.id">
+								name="car.id" value="${car.id }">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputName">车型</label>
 						<div class="controls">
-							<select  id='addOrderCarType' name='carType.id' style='width: 87%;'>
-								<option value="">全部</option>
+							<select  id='addOrderCarType' name='carType.id' style='width: 87%;' disabled="disabled">
+								<option value="${carType.id }">${carType.name }</option>
 							</select>
 						</div>
 					</div>
@@ -376,35 +203,35 @@
 						<label class="control-label" for="inputName">门店</label>
 						<div class="controls">
 							<input type="text" class="orderinput required" readonly="readonly" 
-								name="car.storeName" placeholder="门店...">
+								name="car.storeName" placeholder="门店..."  value="${car.store.name }">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputName">颜色</label>
 						<div class="controls">
 							<input type="text" class="orderinput required" readonly="readonly" 
-								name="car.colorDict.disp" placeholder="颜色...">
+								name="car.color" placeholder="颜色..."  value="${car.colorDict.disp }">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputName">发动机号</label>
 						<div class="controls">
 							<input type="text" class="orderinput required" readonly="readonly" 
-								name="car.engineNo" placeholder="发动机号...">
+								name="car.engineNo" placeholder="发动机号..."  value="${car.engineNo }">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputName">当前油量</label>
 						<div class="controls">
 							<input type="text" class="orderinput required"  readonly="readonly" 
-								name="car.oilMass" placeholder="当前油量...">
+								name="car.oilMass" placeholder="当前油量..."  value="${car.oilMass }">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputName">当前里程</label>
 						<div class="controls">
 							<input type="text" class="orderinput required" readonly="readonly" 
-								name="car.drivedKilometer" placeholder="当前里程...">
+								name="car.drivedKilometer" placeholder="当前里程..."  value="${car.drivedKilometer }">
 						</div>
 					</div>
 				</div>
@@ -432,7 +259,7 @@
 						<label class="control-label" for="inputName">还车时间</label>
 						<div class="controls">
 							<input type="text" class="orderinput required" id='addOrderRetTime' readonly="readonly" 
-								name="order.carPlanRetTime" placeholder="还车时间...">
+								name="order.carPlanRetTime" placeholder="还车时间..."  value='${order.carPlanRetTime }' >
 						</div>
 					</div>
 					<div class="control-group">
@@ -440,7 +267,7 @@
 						<div class="controls">
 							<div class="input-append  orderinput">
 								<input type="text" class="required"  name="chargeStandard.rent"
-									placeholder="租金标准..." value='0'> <span class="add-on">元/天</span>
+									placeholder="租金标准..." value='0'  value='${order.rent }'> <span class="add-on">元/天</span>
 							</div>
 						</div>
 					</div>
@@ -449,10 +276,10 @@
 						<div class="controls">
 							<div class="input-append  orderinput">
 								<input type="text" class="orderinput required" 
-									name="chargeStandard.diffShopReturnFare" placeholder="异店还车..."> <span
+									name="chargeStandard.diffShopReturnFare" placeholder="异店还车..." value="${order.diffShopReturnFare }"> <span
 									class="add-on">元/次</span>
 							</div>
-							<input type="checkbox" name="order.isDiffShopReturn" value="true">
+							<input type="checkbox" name="order.isDiffShopReturn" value="true" ${order.isDiffShopReturn?"checked":"" }>
 						</div>
 					</div>
 				</div>
@@ -470,7 +297,7 @@
 						<label class="control-label" for="inputName">押金金额</label>
 						<div class="controls">
 							<input type="text" class="orderinput required" 
-								name="chargeStandard.deposit" placeholder="押金金额...">
+								name="chargeStandard.deposit" placeholder="押金金额..." value='${order.deposit }'>
 						</div>
 					</div>
 					<div class="control-group">
@@ -478,7 +305,7 @@
 						<div class="controls">
 							<div class="input-append  orderinput">
 								<input type="text" class="orderinput required"
-									name="chargeStandard.overTimeFare" placeholder="超时标准..."> <span
+									name="chargeStandard.overTimeFare" placeholder="超时标准..." value='${order.overTimeFare }'> <span
 									class="add-on">元/小时</span>
 							</div>
 						</div>
@@ -488,7 +315,7 @@
 						<div class="controls">
 							<div class="input-append  orderinput">
 								<input type="text" class="orderinput required" readonly="readonly"
-									name="order.totalFee" placeholder="共计金额..."><span
+									name="order.totalFee" placeholder="共计金额..." value='${order.totalFee }'><span
 									class="add-on">元</span>
 									<button id='countButton' class="btn btn-success" type="button">计算</button>
 							</div>
@@ -501,7 +328,7 @@
 						<div class="controls">
 							<div class="input-append  orderinput">
 								<input type="text" class="orderinput required"
-									name="chargeStandard.mileageLimits" placeholder="里程限制..."> <span
+									name="chargeStandard.mileageLimits" placeholder="里程限制..."  value='${order.mileageLimits }'> <span
 									class="add-on">公里/日</span>
 							</div>
 						</div>
@@ -511,7 +338,7 @@
 						<div class="controls">
 							<div class="input-append  orderinput">
 								<input type="text" class="orderinput required"
-									name="chargeStandard.overMileageFare" placeholder="超里程费..."> <span
+									name="chargeStandard.overMileageFare" placeholder="超里程费..."   value='${order.overMileageFare }'> <span
 									class="add-on">元/公里</span>
 							</div>
 						</div>
@@ -521,10 +348,10 @@
 						<div class="controls">
 							<div class="input-append  orderinput">
 								<input type="text" class="orderinput required"
-									name="chargeStandard.carSendFare" placeholder="上门送车..."> <span
+									name="chargeStandard.carSendFare" placeholder="上门送车..."  value='${order.carSendFare }'> <span
 									class="add-on">元/次</span>
 							</div>
-							<input type="checkbox" name="order.isCarSend" value="true">
+							<input type="checkbox" name="order.isCarSend" value="true" ${order.isCarSend?"checked":"" }>
 						</div>
 					</div>
 				</div>
@@ -534,10 +361,128 @@
 				<label class="control-label" for="inputName" style="width: 8%;">备注</label>
 				<div class="controls" style="margin-left: 8.7%;">
 					<textarea class="orderinput required" name="order.remark"
-						style="height: 51px; width: 95%;" placeholder="备注..."></textarea>
+						style="height: 51px; width: 95%;" placeholder="备注..."   value='${order.remark }'></textarea>
 				</div>
 			</div>
-			<button class='span4 offset4' type="submit" class="btn">提交</button>
+			
+			
+			<div class='well titlewell'>
+				<label style='text-align: center; font-weight: bold;'>结算信息</label>
+			</div>
+			<div class="row-fluid">
+				<div class="span4">
+					<div class="control-group">
+						<label class="control-label" for="inputName">开始时间</label>
+						<div class="controls">
+							<div class="input-append orderinput">
+								<input type="text" class="required"  name="order.orderdays" id='addOrderDays'
+									placeholder="出租天数..." value='1' > <span class="add-on">天</span>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputName">订单时间</label>
+						<div class="controls">
+							<input type="text" class="orderinput required" id='addOrderRetTime' readonly="readonly" 
+								name="order.carPlanRetTime" placeholder="还车时间..."  value='${order.carPlanRetTime }' >
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputName">实际时间</label>
+						<div class="controls">
+							<div class="input-append  orderinput">
+								<input type="text" class="required"  name="chargeStandard.rent"
+									placeholder="租金标准..." value='0'  value='${order.rent }'> <span class="add-on">元/天</span>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputName">超出天数</label>
+						<div class="controls">
+							<div class="input-append  orderinput">
+								<input type="text" class="orderinput required" 
+									name="chargeStandard.diffShopReturnFare" placeholder="异店还车..." value="${order.diffShopReturnFare }"> <span
+									class="add-on">元/次</span>
+							</div>
+							<input type="checkbox" name="order.isDiffShopReturn" value="true" ${order.isDiffShopReturn?"checked":"" }>
+						</div>
+					</div>
+				</div>
+				<div class="span4">
+					<div class="control-group">
+						<label class="control-label" for="inputName">初始里程</label>
+						<div class="controls">
+							<select name='order.rentalType' >
+								<option value="1">现金</option>
+								<option value="2">刷卡</option>
+							</select>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputName">结束里程</label>
+						<div class="controls">
+							<input type="text" class="orderinput required" 
+								name="chargeStandard.deposit" placeholder="押金金额..." value='${order.deposit }'>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputName">最大里程</label>
+						<div class="controls">
+							<div class="input-append  orderinput">
+								<input type="text" class="orderinput required"
+									name="chargeStandard.overTimeFare" placeholder="超时标准..." value='${order.overTimeFare }'> <span
+									class="add-on">元/小时</span>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputName">超出里程</label>
+						<div class="controls">
+							<div class="input-append  orderinput">
+								<input type="text" class="orderinput required" readonly="readonly"
+									name="order.totalFee" placeholder="共计金额..." value='${order.totalFee }'><span
+									class="add-on">元</span>
+									<button id='countButton' class="btn btn-success" type="button">计算</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="span4">
+					<div class="control-group">
+						<label class="control-label" for="inputName">上门送车</label>
+						<div class="controls">
+							<div class="input-append  orderinput">
+								<input type="text" class="orderinput required"
+									name="chargeStandard.mileageLimits" placeholder="里程限制..."  value='${order.mileageLimits }'> <span
+									class="add-on">公里/日</span>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputName">异店换车</label>
+						<div class="controls">
+							<div class="input-append  orderinput">
+								<input type="text" class="orderinput required"
+									name="chargeStandard.overMileageFare" placeholder="超里程费..."   value='${order.overMileageFare }'> <span
+									class="add-on">元/公里</span>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="inputName">上门送车</label>
+						<div class="controls">
+							<div class="input-append  orderinput">
+								<input type="text" class="orderinput required"
+									name="chargeStandard.carSendFare" placeholder="上门送车..."  value='${order.carSendFare }'> <span
+									class="add-on">元/次</span>
+							</div>
+							<input type="checkbox" name="order.isCarSend" value="true" ${order.isCarSend?"checked":"" }>
+						</div>
+					</div>
+				</div>
+
+			</div>
+			<button class='span4 offset4' type="submit" class="btn">结账</button>
 		</div>
 	</div>
 

@@ -21,7 +21,7 @@ public interface IServOrder extends IBaseExtenseServ<ModelOrder> {
 	public List<ModelCarType> getCarTypeList(String carTypeName, Long carTypeId);
 	public List<ModelStore> getStoreById(Long storeId);
 	public List<ModelChargeStandard> getchargeStandardById(Long chargeStandardId);
-	public void updateCarStatus(Long id);
+	public void updateCarStatus(Long id,int status);
 	
 	public Page<Map<String, Object>> findOrderPage(
 			Condition<Map<String, Object>> condition);
