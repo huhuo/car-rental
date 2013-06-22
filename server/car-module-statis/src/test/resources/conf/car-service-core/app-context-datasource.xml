@@ -3,11 +3,11 @@
 	xmlns:util="http://www.springframework.org/schema/util" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:aop="http://www.springframework.org/schema/aop"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
-	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd 
-	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd 
-	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd 
-	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd 
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd 
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
 	">
 
 	<util:properties id="dataSourceProps" location="conf/car-service-core/jdbc.properties" />
@@ -21,12 +21,6 @@
 		<property name="minPoolSize" value="#{dataSourceProps['c3p0.pool.size.min']}" />
 		<property name="initialPoolSize" value="#{dataSourceProps['c3p0.pool.size.ini']}" />
 		<property name="acquireIncrement" value="#{dataSourceProps['c3p0.pool.size.increment']}" />
-		
-		<property name="testConnectionOnCheckin" value="#{dataSourceProps['c3p0.pool.testConnectionOnCheckin']}" />  
-    	<property name="automaticTestTable" value="#{dataSourceProps['c3p0.pool.automaticTestTable']}" />  
-   		<property name="idleConnectionTestPeriod" value="#{dataSourceProps['c3p0.pool.idleConnectionTestPeriod']}" /> 
-   		<property name="maxIdleTime" value="#{dataSourceProps['c3p0.pool.maxIdleTime']}" />  
-   		<property name="testConnectionOnCheckout" value="#{dataSourceProps['c3p0.pool.testConnectionOnCheckout']}" /> 
 	</bean>
 	<!-- children data source -->
 	<bean id="datasourceCenter" parent="parentDatasource">
@@ -56,11 +50,5 @@
 		</property>
 		<property name="defaultTargetDataSource" ref="datasourceCustomerChitong" />
 	</bean>  
-	
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="routingDataSource"></property>
-	</bean>
-	
-	<tx:annotation-driven transaction-manager="transactionManager"/>
 
 </beans>
