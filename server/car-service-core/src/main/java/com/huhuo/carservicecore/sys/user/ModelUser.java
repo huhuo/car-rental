@@ -2,7 +2,6 @@ package com.huhuo.carservicecore.sys.user;
 
 import java.util.Date;
 
-import com.huhuo.carservicecore.constant.Dictionary;
 import com.huhuo.carservicecore.cust.store.ModelStore;
 import com.huhuo.carservicecore.sys.dictionary.ModelDictionary;
 import com.huhuo.carservicecore.sys.file.ModelFileUpload;
