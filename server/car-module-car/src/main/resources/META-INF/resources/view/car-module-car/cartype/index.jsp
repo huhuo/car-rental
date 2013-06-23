@@ -40,7 +40,7 @@ select {
 							<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">搜索条件<b class="caret"></b></a>
 							<ul class="dropdown-menu">
 								<li><a class="search-term huhuo-item-selected" keyword="name" href="javascript:void(0)">车型名称</a></li>
-								<li><a class="search-term autofill" keyword="category" paramKey="dictDisplayName" url="${path }/cmsystem/dict/groups/CUST_CAR_TYPE_CATEGORY.do" href="javascript:void(0)">类别</a></li>
+								<li><a class="search-term autofill" keyword="category" paramKey="disp" url="${path }/cmsystem/dict/groups/simple/CUST_CAR_TYPE_CATEGORY.do" href="javascript:void(0)">类别</a></li>
 								<li><a class="search-term" keyword="seating" href="javascript:void(0)">座位数</a></li>
 								<li><a class="search-term" keyword="tankCapacity" href="javascript:void(0)">油箱容量（L）</a></li>
 								
@@ -88,7 +88,7 @@ select {
 			if(selectedItem.attr('keyword') == 'category') {
 				searchInput.autoFill(selectedItem.attr('url'), selectedItem.attr('paramKey'), 
 						$('#huhuoForm'), null, null, null, function(data) {
-					keyWordHidden.val(data.dictKey);
+					keyWordHidden.val(data.key);
 					$('#huhuoForm').trigger('submit');
 				});
 			} else {

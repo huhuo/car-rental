@@ -51,7 +51,7 @@
 			if(val!=null&&val!=''){
 				 $.setFormValue(car,$("#addOrderform"),"car");
 				$("#addOrderform").find("[name='carType.id']").first().find('[value='+car.carTypeId+']')[0].selected=true;
-				
+				$("#addOrderform").find("[name='car.colorDict.disp']").first().attr('value',car.colorDict.disp);
 				var carType=ordercartypemap[''+car.carTypeId];
 				//查询车辆附属付费信息
 				$.post("${path }/cmorder/order/chargeStandard.do",{chargeStandardId:carType.chargeStandardId},function(data,status){
@@ -237,7 +237,7 @@
 			  
 			
 			
-			$("#addOrderform").find("[name='order.totalPrice']").first().val(totalPrice);  
+			$("#addOrderform").find("[name='order.totalFee']").first().val(totalPrice);  
 		};
 
 	});
@@ -383,7 +383,7 @@
 						<label class="control-label" for="inputName">颜色</label>
 						<div class="controls">
 							<input type="text" class="orderinput required" readonly="readonly" 
-								name="car.color" placeholder="颜色...">
+								name="car.colorDict.disp" placeholder="颜色...">
 						</div>
 					</div>
 					<div class="control-group">
@@ -488,7 +488,7 @@
 						<div class="controls">
 							<div class="input-append  orderinput">
 								<input type="text" class="orderinput required" readonly="readonly"
-									name="order.totalPrice" placeholder="共计金额..."><span
+									name="order.totalFee" placeholder="共计金额..."><span
 									class="add-on">元</span>
 									<button id='countButton' class="btn btn-success" type="button">计算</button>
 							</div>

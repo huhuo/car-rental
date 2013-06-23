@@ -33,6 +33,9 @@ public class ModelOrder extends BaseModel implements Serializable {
 	/** 状态，字典表字段，组名：csm_order_status，0：删除；1：待结帐；2：已结帐 **/
 	private Integer status;
 	
+	/** 租金方式  1.现金 2 刷卡**/
+	private Integer rentalType;
+	
 	/** 是否上门送车 **/
 	private Boolean isCarSend=false;
 	/** 是否异店换车 **/
@@ -192,6 +195,12 @@ public class ModelOrder extends BaseModel implements Serializable {
 	}
 	public void setRemark(String remark) {
 		this.remark = remark;
+	}
+	public Integer getRentalType() {
+		return rentalType;
+	}
+	public void setRentalType(Integer rentalType) {
+		this.rentalType = rentalType;
 	}
 	
 }

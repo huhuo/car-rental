@@ -18,7 +18,6 @@ import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import com.huhuo.carservicecore.sys.user.ModelUser;
 import com.huhuo.cmsystem.SystemBaseCtrl;
-import com.huhuo.cmsystem.constant.Constant;
 import com.huhuo.integration.exception.CtrlException;
 import com.huhuo.integration.util.StringUtils;
 
@@ -40,10 +39,10 @@ public class CtrlValidation extends SystemBaseCtrl {
 	}
 	
 	@RequestMapping(value = "/login.do")
-	public View login(HttpSession session, String username, String password) {
+	public View login(HttpServletRequest req, HttpSession session, String username, String password) {
 		ModelUser userDB = iServSecurity.validate(username, password);
 		if(userDB != null) {
-			session.setAttribute(Constant.SESSION_USER, userDB);
+			setSession(req, userDB);
 			String path = session.getServletContext().getContextPath();
 			if(StringUtils.isEmpty(path)) {
 				path = "/";
@@ -55,9 +54,8 @@ public class CtrlValidation extends SystemBaseCtrl {
 	}
 
 	@RequestMapping(value = "/logout.do")
-	public View logout(HttpSession session) {
-		session.removeAttribute(Constant.SESSION_USER);
-		session.removeAttribute(Constant.SESSION_MODULE);
+	public View logout(HttpServletRequest req, HttpSession session) {
+		deleteSession(req);
 		return new RedirectView("/login-page.do", true);
 	}
 

@@ -53,6 +53,7 @@ table.table-hover tbody tr.huhuo-item-selected {
 			<td class="disp">${record.statusDict.disp}</td>
 			<td>
 				<div class="btn-group">
+<<<<<<< HEAD
 							<c:choose>
 								<c:when test="${record.status eq 1}">
 									<button name="activate" class="btn" disabled="disabled">激活</button>
@@ -65,6 +66,20 @@ table.table-hover tbody tr.huhuo-item-selected {
 							</c:choose>
 						</div>
 					</td>
+=======
+					<c:choose>
+						<c:when test="${list.status eq 1 }">
+							<button name="activate" class="btn" disabled="disabled">激活</button>
+							<button name="lock" class="btn">锁定</button>
+						</c:when>
+						<c:otherwise>
+							<button name="activate" class="btn">激活</button>
+							<button name="lock" class="btn" disabled="disabled">锁定</button>
+						</c:otherwise>
+					</c:choose>
+				</div>
+			</td>
+>>>>>>> branch 'master' of https://github.com/huhuo/car-rental.git
 		</tr>
 		</c:forEach>
 	</tbody>
@@ -77,13 +92,12 @@ table.table-hover tbody tr.huhuo-item-selected {
 		</tr>
 	</tfoot>
 </table>
-
+</body>
 <script type="text/javascript">
 $(document).ready(function() {
 	// 绑定标签元素。设置当前页，页面数据条数，总数，要访问的url，对应的参数，点击标签时刷新的div，标签数
 	var page = JSON.parse('${page}');
 	var t = JSON.parse('${t}');
-	console.info(page);                    
 	$(".pagination").myPage(page, '${path }/cmsystem/security/user/condition/get.do', t, $("#pagediv"), 5);
 	// add select css
 	$('#userPageGridId tbody tr').click(function(event) {
@@ -91,7 +105,6 @@ $(document).ready(function() {
 		if ($(event.target).attr("type") != "checkbox") {
 			$(this).find(':checkbox')[0].checked = !$(this).find(':checkbox')[0].checked;
 		}
-		console.log("++++++++++>>>>");
 	});
 	// add select event
 	$('#userPageGridId thead tr :checkbox').click(function(event) {
@@ -112,29 +125,31 @@ $(document).ready(function() {
 			$.get('${path}/cmsystem/security/user/activate.do', {
 				id: selectedId
 			}, function(resp, status, xhReq) {
+				console.log(resp);
 				if(status=="success") {
-					$.huhuoGrowlUI(resp.msg);
+					alert("已经为您激活！");
+					$.huhuoGrowlUI(JSON.parse(resp).msg);
+					$('#userEditDivId').hide();
+					$("#userMgrDivId").show();
 					// load element to cartypeEditDivId
 					$('#huhuoForm').trigger('submit');
-					
 				}
 			});
 	   }
 	});
 	
 	$('#userPageGridId tbody button[name="lock"]').click(function(event) {
-		
-		console.log($(".btn-group "));
 		var flag = window.confirm("确定要锁定吗？");
 		if(flag){
 			var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
-			console.log(selectedId);
+
+
 			$.get('${path}/cmsystem/security/user/lock.do', {
 				id: selectedId
-			}, function(resp, status, xhReq) {
-				if(status=="success") {
-					console.log(status);
-					$.huhuoGrowlUI(resp.msg);
+			}, function(data, status, xhReq) {
+				console.log(data);
+				if(status=="success"){
+					$.huhuoGrowlUI(data.msg);
 					$('#huhuoForm').trigger('submit');
 				}
 			});
@@ -142,6 +157,7 @@ $(document).ready(function() {
 	});
 });
 </script>
+<<<<<<< HEAD
 </body>
 <!-- <script type="text/javascript">
 $(document).ready(function(){

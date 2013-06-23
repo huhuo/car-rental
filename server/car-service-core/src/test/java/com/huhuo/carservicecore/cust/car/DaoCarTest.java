@@ -125,4 +125,22 @@ public class DaoCarTest extends CarServiceCoreTest {
 		print(list);
 	}
 	
+	@Test
+	public void test() {
+		String sql = "select *, 32 as num2 from cust_car";
+		List<Map<String,Object>> list = iDaoCar.queryForMapList(sql);
+//		print(list);
+		
+		List<Map<String, Object>> retList = new ArrayList<Map<String,Object>>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		for(Map<String,Object> el : list) {
+			map.put("aa", el.get("color"));
+			map.put("num", el.get("num2"));
+			retList.add(map);
+		}
+		
+		print(retList);
+		
+	}
+	
 }

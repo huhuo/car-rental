@@ -3,8 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="${path }/res/js/jquery/jquery.js"></script>
-<script src="${path }/res/js/jquery/jquery.blockUI.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('#blockButton').click(function() {

@@ -20,6 +20,8 @@
 <script src="${path }/res/js/jquery/jquery.form.js"></script>
 <script src="${path }/res/js/jquery/jshashtable-2.1.js"></script>
 <script src="${path }/res/js/jquery/jquery.numberformatter-1.2.3.js"></script>
+<script type="text/javascript" src="${path }/res/js/high-charts/highcharts.js"></script>
+<script type="text/javascript" src="${path }/res/js/high-charts/exporting.js"></script>
 <%-- <script src="${path }/res/js/kissy/kissy.js"></script> --%>
 <script src="${path }/res/js/huhuo/huhuo.js"></script>
 <style type="text/css">
@@ -103,8 +105,9 @@ $(document).ready(function() {
 							<li data-toggle="collapse" data-target="#analyMgr"><a
 								class="menu" href="javascript:void(0)"><i class="icon-align-right"></i>&nbsp;运营分析统计（*）</a></li>
 							<li id="analyMgr" class="collapse leftdivchange"><a
-								class="huhuoItem first" href="${path }/cmconsumer/consumer/stat_index.do">营业额统计</a>
-								<a class="huhuoItem end" href="${path }/cmconsumer/consumer/cusomer_stat_index.do">客户量统计</a>
+								class="huhuoItem first" href="${path }/cmstatis/turnover/index.do">营业额统计</a>
+								<a class="huhuoItem end" href="${path }/cmstatis/consumer/amount/index.do">客户量统计</a>
+								<a class="huhuoItem end" href="${path }/cmstatis/car/car/index.do">汽车统计</a>
 							</li>
 
 							<li data-toggle="collapse" data-target="#systemMgr"><a
@@ -118,124 +121,8 @@ $(document).ready(function() {
 						</ul>
 					</div>
 
-					<div class="span10 well loaddiv" style="min-height: 500px">
-						<div class="row-fluid">
-
-							<form class="well  form-search">
-								<div class="row-fluid">
-									<div class="span4">
-										<label>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:</label> <input
-											type="text" class="span6" placeholder="请输入文字...">
-									</div>
-									<div class="span4">
-										<label>手机号码:</label> <input type="text" class="span6"
-											placeholder="请输入文字...">
-									</div>
-									<div class="span4">
-										<label>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:</label> <input
-											type="text" class="span6" placeholder="请输入文字...">
-									</div>
-								</div>
-								<div class="row-fluid">
-									<div class="span4">
-										<div class="row-fluid">
-											<div class="span3">
-												<label>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:</label>
-											</div>
-											<div class="span2">
-
-												<label class="radio"> <input type="radio"
-													name="optionsRadios" id="optionsRadios1" value="option1"
-													checked>男
-												</label>
-											</div>
-											<div class="span4">
-												<label class="radio"> <input type="radio"
-													name="optionsRadios" id="optionsRadios2" value="option2">
-													女
-												</label>
-											</div>
-										</div>
-									</div>
-									<div class="span4">
-										<div class="span3">
-											<label>个人爱好:</label>
-										</div>
-										<label class="checkbox"> <input type="checkbox"
-											value="">篮球
-										</label> <label class="checkbox"> <input type="checkbox"
-											value="">足球
-										</label> <label class="checkbox"> <input type="checkbox"
-											value="">羽毛球
-										</label>
-									</div>
-								</div>
-								<div class="row-fluid">
-									<div class="span4">
-										<label>查询编号:</label> <input type="text" class="span6"
-											placeholder="请输入文字...">
-										<button type="submit" class="btn">Search</button>
-									</div>
-								</div>
-							</form>
-
-						</div>
-						<table class="table table-hover table-condensed">
-							<thead>
-								<tr>
-									<th>#</th>
-									<th>电视剧</th>
-									<th>类型</th>
-									<th>年代</th>
-									<th>电视剧</th>
-									<th>类型</th>
-									<th>年代</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>1</td>
-									<td>爱情公寓</td>
-									<td>都市爱情喜剧</td>
-									<td>2010</td>
-									<td>爱情公寓</td>
-									<td>都市爱情喜剧</td>
-									<td>2010</td>
-								</tr>
-								<tr>
-									<td>2</td>
-									<td>邪恶力量</td>
-									<td>悬疑魔幻</td>
-									<td>2005</td>
-									<td>爱情公寓</td>
-									<td>都市爱情喜剧</td>
-									<td>2010</td>
-								</tr>
-								<tr>
-									<td>3</td>
-									<td>神探伽俐略</td>
-									<td>推理探案</td>
-									<td>2008</td>
-									<td>爱情公寓</td>
-									<td>都市爱情喜剧</td>
-									<td>2010</td>
-								</tr>
-
-							</tbody>
-
-						</table>
-						<!-- style="position:fixed;top:150px;left:1100px" -->
-						<div class="pagination pagination-centered">
-							<ul>
-								<li><a href="#">?</a></li>
-								<li><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li><a href="#">?</a></li>
-							</ul>
-						</div>
+					<div id="cmsystem_main_panel" class="span10 well loaddiv" style="min-height: 500px">
+						
 					</div>
 				</div>
 			</div>
