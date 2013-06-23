@@ -13,5 +13,6 @@
 	<!-- import file -->
 	<import resource="app-context-other.xml"/>
 	<import resource="app-context-servlet.xml"/>
+	<import resource="app-context-quartz.xml"/>
 	
 </beans>
