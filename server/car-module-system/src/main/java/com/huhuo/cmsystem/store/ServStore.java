@@ -179,11 +179,13 @@ public class ServStore extends GenericBaseExtenseServ<ModelStore> implements ISe
 						t.setRentNum(j);
 						t.setDisableNum(l);
 						t.setRepairNum(k);
+						t.setTotalNum(i+j+l+k);
 					}else {
 						t.setFreeNum(i);
 						t.setRentNum(j);
 						t.setDisableNum(l);
 						t.setRepairNum(k);
+						t.setTotalNum(i+j+l+k);
 					}
 				}
 			i=0;

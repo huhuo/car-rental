@@ -53,6 +53,12 @@
 				</div>
 			</div>
 			<div class="control-group">
+				<label class="control-label" for="inputTotalNum">车辆总数</label>
+				<div class="controls">
+					<input type="text" id="inputTotalNum" readonly="readonly" value="${store.totalNum } （辆）">
+				</div>
+			</div>
+			<div class="control-group">
 				<label class="control-label" for="inputCreateTime">入网时间</label>
 				<div class="controls">
 					<input type="text" id="inputCreateTime" readonly="readonly" value="${store.createTime }">
@@ -89,6 +95,7 @@
 			$('#storeMgrDivId').show(500);
 			return false;
 		});
-		
+		$("#inputCreateTime").val('${store.createTime }'.substring(0, 19));
+		$("#inputUpdateTime").val('${store.updateTime }'.substring(0, 19));
 	});
 </script>

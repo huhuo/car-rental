@@ -116,8 +116,7 @@ label.right {
 						<label class="control-label" for="inputStoreId">所属门店</label>
 						<div class="controls">
 							<select id="inputStoreId" name="storeId" class="required">
-								<option value="">
-									请选择...</ option>
+								<option value="">请选择... </ option>
 									<c:forEach items="${mgrs }" var="mgr">
 										<option value="${mgr.id}">${mgr.name }</option>
 									</c:forEach>

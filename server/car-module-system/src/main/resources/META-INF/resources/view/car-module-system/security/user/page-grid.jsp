@@ -36,27 +36,35 @@ table.table-hover tbody tr.huhuo-item-selected {
 		</tr>
 	</thead>
 	<tbody>
-		<c:forEach items="${lists}" var="list">
+		<c:forEach items="${list}" var="record">
 		<tr>
 			<td><input type="checkbox" class="checkbox"></td>
-			<td>${list.id}</td>
+			<td>${record.id}</td>
 			<td>
 				<a href="javascript:void(0)" class="thumbnail">
-					<img class="img-rounded" style="height: 100px; width: 150px;" src="${list.picture.url}">
+					<img class="img-rounded" style="height: 100px; width: 150px;" src="${record.picture.url}">
 				</a>
 			</td>
-			<td>${list.username}</td>
-			<td>${list.genderDict.dictDisplayName}</td>
-			<td>${list.identityCardId}</td>
-			<td>${list.mobileNumber}</td>
-			<td>${list.store.name}</td>
-			<td class="disp">${list.statusDict.disp}</td>
+			<td>${record.username}</td>
+			<td>${record.genderDict.dictDisplayName}</td>
+			<td>${record.identityCardId}</td>
+			<td>${record.mobileNumber}</td>
+			<td>${record.store.name}</td>
+			<td class="disp">${record.statusDict.disp}</td>
 			<td>
 				<div class="btn-group">
-					<button  name="activate" class="btn">激活</button>
-					<button  name="lock" class="btn">锁定</button>
-				</div>
-			</td>
+							<c:choose>
+								<c:when test="${record.status eq 1}">
+									<button name="activate" class="btn" disabled="disabled">激活</button>
+									<button name="lock" class="btn">锁定</button>
+								</c:when>
+								<c:otherwise>
+									<button name="activate" class="btn">激活</button>
+									<button name="lock" class="btn" disabled="disabled">锁定</button>
+								</c:otherwise>
+							</c:choose>
+						</div>
+					</td>
 		</tr>
 		</c:forEach>
 	</tbody>
@@ -101,17 +109,11 @@ $(document).ready(function() {
 		var flag = window.confirm("确定要激活吗？");
 		if (flag){
 			var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
-			$("#userEditDivId").load('${path}/cmsystem/security/user/activate.do', {
+			$.get('${path}/cmsystem/security/user/activate.do', {
 				id: selectedId
 			}, function(resp, status, xhReq) {
 				if(status=="success") {
-					alert("已经为您激活！");
-					$.huhuoGrowlUI(data.msg);
-					$(event.target).next().removeAttr("disabled");
-					$(event.target).next().addClass("red");
-					$(event.target).attr('disabled',"disabled");
-					$('#userEditDivId').hide();
-					$("#userMgrDivId").show();
+					$.huhuoGrowlUI(resp.msg);
 					// load element to cartypeEditDivId
 					$('#huhuoForm').trigger('submit');
 					
@@ -127,20 +129,13 @@ $(document).ready(function() {
 		if(flag){
 			var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
 			console.log(selectedId);
-			$("#userEditDivId").load('${path}/cmsystem/security/user/lock.do', {
+			$.get('${path}/cmsystem/security/user/lock.do', {
 				id: selectedId
 			}, function(resp, status, xhReq) {
 				if(status=="success") {
 					console.log(status);
-					alert("已经为您锁定！");
-					$(event.target).prev().removeAttr("disabled");
-					$(event.target).prev().addClass("greed");
-					$(event.target).attr('disabled',"disabled");
-					$('#userEditDivId').hide();
-					$("#userMgrDivId").show();
-					// load element to cartypeEditDivId
+					$.huhuoGrowlUI(resp.msg);
 					$('#huhuoForm').trigger('submit');
-					$.huhuoGrowlUI(data.msg);
 				}
 			});
 		}
@@ -148,23 +143,23 @@ $(document).ready(function() {
 });
 </script>
 </body>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(document).ready(function(){
 	$('#userPageGridId tbody tr .disp').each(function(index, td) {
 		console.log($(td).text());
 		console.info(index);
 		//console.log($(td).parent().parent().parent().children().children().slice(9,10).children().children().first());
 			if($(td).text()=="已激活"){
-				console.info("------------->>>1");
+				console.info("-------------1");
 				console.info($(td).parent().children().last().children().children().first().text());
 				$(td).parent().children().last().children().children().first().attr('disabled',"disabled");
 			}else{
-				console.info("------------->>>2");
+				console.info("-------------2");
 				console.info($(td).parent().children().last().children().children().last().text());
 				$(td).parent().children().last().children().children().last().attr('disabled',"disabled");
 			}
 	});
 });
 
-</script>
+</script> -->
 </html>

@@ -142,7 +142,7 @@
 				$('#editUserForm input[name="picture.md5"]').val(data.data.md5);
 			}
 		});
-		
+		$("#inputBirthday").val('${user.birthday }'.substring(0, 10));
 		$('#editUserForm .datetimepicker').datetimepicker({
 			language: 'zh'
 		}).on('changeDate', function(ev) {

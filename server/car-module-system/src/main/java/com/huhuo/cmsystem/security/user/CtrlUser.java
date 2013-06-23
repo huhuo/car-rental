@@ -92,8 +92,8 @@ public class CtrlUser extends SystemBaseCtrl {
 			page = new Page<ModelUser>();
 		}
 		
-		List<ModelUser> lists = iServUser.findByCondition(condition, true);
-		model.addAttribute("lists", JSON.parseArray(lists.toString()));
+		List<ModelUser> list = iServUser.findByCondition(condition, true);
+		model.addAttribute("list", JSON.parseArray(list.toString()));
 		page.setTotal(iServUser.countByCondition(condition));
 		model.addAttribute("page", page);
 		model.addAttribute("t", t);

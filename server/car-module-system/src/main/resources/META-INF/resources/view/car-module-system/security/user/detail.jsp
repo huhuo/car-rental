@@ -133,7 +133,9 @@
 			console.log(birthday);
 			$('input[name="birthday1"]').val(birthday);
 		});
-		
+		$("#inputBirthday").val('${user.birthday }'.substring(0, 10));
+		$("#inputCreateTime").val('${user.createTime }'.substring(0, 19));
+		$("#inputUpdateTime").val('${user.updateTime }'.substring(0, 19));
 		$('#userEditDivId form button').click(function(event) {
 			$('#userEditDivId').hide();
 			$('#userMgrDivId').show(500);
