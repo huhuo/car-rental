@@ -1,5 +1,8 @@
 package com.huhuo.cmconsumer.consumer;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -27,6 +30,7 @@ import com.huhuo.integration.web.Message.Status;
 public class CtrlConsumer extends BaseCtrl {
 	
 	protected String basePath = "/car-module-consumer";
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	
 	@Resource(name = "cmconsumerServConsumer")
 	private IServConsumer iservConsumer;
@@ -79,9 +83,18 @@ public class CtrlConsumer extends BaseCtrl {
 	}
 	
 	@RequestMapping(value="/add.do")
-	public void add(HttpServletResponse resp, ModelConsumer consumer) {
+	public void add(HttpServletResponse resp, ModelConsumer consumer,String xbirthday) {
 		logger.debug("---> server receive: carType={}, chargeStandard={}", consumer);
 		// add car type
+		Date date = null;
+		if (xbirthday != null && !"".equals(xbirthday)) {
+			try {
+				date = sdf.parse(xbirthday);
+			} catch (ParseException e) {
+				logger.error(e.getStackTrace().toString());
+			}
+		}
+		consumer.setBirthday(date);
 		iservConsumer.add(consumer);
 		Message<ModelConsumer> msg = new Message<ModelConsumer>(Status.SUCCESS, "add new consumer success!", consumer);
 		write(msg, resp);
@@ -97,7 +110,13 @@ public class CtrlConsumer extends BaseCtrl {
 	public String detail(Model model, ModelConsumer t) {
 		logger.debug("==> edit ModelConsumer with id --> {}", t.getId());
 		Condition<ModelConsumer> condition = new Condition<ModelConsumer>(t, null, null, null);
-		model.addAttribute("consumer", iservConsumer.findByCondition(condition, true).get(0));
+		ModelConsumer consumer =  iservConsumer.findByCondition(condition, true).get(0);
+		model.addAttribute("consumer", consumer);
+		Date date = consumer.getBirthday();
+		logger.debug("birthday date:" + date);
+		String birthday = sdf.format(date);
+		logger.debug("SimpleDateFormat:" + sdf);
+		model.addAttribute("xbirthday", birthday);
 		return basePath + "/consumer/detail";
 	}
 	

@@ -100,7 +100,7 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputBirthday">出生年月</label>
 							<div class="controls">
-								<input type="number" class="consumerinput" id="inputBirthday"  disabled="disabled"  value="${consumer.birthday }"
+								<input type="text" class="consumerinput" id="inputBirthday"  disabled="disabled"  value="${xbirthday }"
 									name="brithday" placeholder="输入出生年月">
 							</div>
 						</div>

@@ -17,17 +17,27 @@ public class ServSMSTest extends CarModuleSystemTest {
 	
 	@Resource(name= "cmsystemServSMS")
 	private IServSMS iServSMS;
+	@Resource(name= "cmsystemServSMS2")
+	private IServSMS iServSMS2;
 	
 	@Test
 	public void crud() {
-//		balance();
 		
+//		balance();
 		send();
 		
 	}
+	private void send2() {
+		SimpleDateFormat sdf  =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		String result = iServSMS2.send(Long.valueOf(1), Long.valueOf(5), "测试，驰通驰通，路路畅通,hello,world,122333,发送时间："+ sdf.format(new Date()) , "success");
+		String result = iServSMS2.send(Long.valueOf(1), Long.valueOf(5), "测试，驰通驰通，路路畅通,订单支付成功，订单OK" , "success");
+		logger.debug("===================================");
+		logger.debug("预期结果：" + "success" + "发送结果：" + result);
+		logger.debug("===================================");
+	}
 	private void send() {
 		SimpleDateFormat sdf  =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String result = iServSMS.send(Long.valueOf(1), Long.valueOf(5), "测试短信，驰通驰通，路路畅通,hello,world,122333,发送时间："+ sdf.format(new Date()) +"utf-8", "success");
+		String result = iServSMS.send(Long.valueOf(1), Long.valueOf(6), "测试，驰通驰通，路路畅通,订单支付成功，订单OK。【弛通科技】", "success");
 		logger.debug("===================================");
 		logger.debug("预期结果：" + "success" + "发送结果：" + result);
 		logger.debug("===================================");

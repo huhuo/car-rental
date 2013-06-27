@@ -20,7 +20,7 @@ $(document).ready(function() {
 </head>
 
 <body>
-	<h2 style="text-align: center;">汽车租赁系统</h2>
+	<h2 style="text-align: center;">弛通汽车租赁系统</h2>
 	<form class="form-horizontal" action="${path}/cmsystem/security/validation/login.do" method="post">
 		
 		<!-- <div class="control-group">
