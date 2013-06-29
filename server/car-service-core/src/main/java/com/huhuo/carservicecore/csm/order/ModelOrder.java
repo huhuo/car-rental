@@ -61,9 +61,16 @@ public class ModelOrder extends BaseModel implements Serializable {
 	/** 异店结算（还车）附加费（元） **/
 	private Double diffShopReturnFare;
 	
+	/** 油钱 元/升 **/
+	private Double oilPrice;
 	
 	
-	
+	public Double getOilPrice() {
+		return oilPrice;
+	}
+	public void setOilPrice(Double oilPrice) {
+		this.oilPrice = oilPrice;
+	}
 	public Double getDeposit() {
 		return deposit;
 	}
