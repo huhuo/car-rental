@@ -1,5 +1,6 @@
 package com.huhuo.cmorder.order;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +28,7 @@ import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.db.mysql.Page;
 import com.huhuo.integration.util.BeanUtils;
 import com.huhuo.integration.util.ExtUtils;
+import com.huhuo.integration.util.TimeUtils;
 import com.huhuo.integration.web.Message;
 import com.huhuo.integration.web.Message.Status;
 import com.huhuo.webbase.general.HuhuoWebBaseBaseCtrl;
@@ -88,12 +91,58 @@ public class CtrlOrder extends HuhuoWebBaseBaseCtrl {
 		
 		car.setStore(store);
 		
+		Date carRentTime = order.getCarRentTime();
+		Date carPlanRetTime = order.getCarPlanRetTime();
+		
+		Calendar calendar=Calendar.getInstance();
+		calendar.setTime(carRentTime);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		
+		//租车天数
+		Integer days=Long.valueOf((carPlanRetTime.getTime()-calendar.getTimeInMillis())/(24*3600*1000)).intValue();
+		
+		if(days<1){
+			days=1;
+		}
+		
+		
+		Date date = new Date();
+		long overmill=date.getTime()-carPlanRetTime.getTime();
+		Integer hours=0;
+		if(overmill>0)
+		//超时小时
+			hours	=Long.valueOf(overmill/(3600*1000)).intValue();
+		
+		
+		Double overPrice=hours*order.getOverTimeFare();
+		
+		
+		Double rent = order.getRent();
+		
+		Double normalPrice=days*rent;
+		
+		
+		Long mileageLimits = order.getMileageLimits();
+		
+		Long limitMile=mileageLimits*days+order.getMileageBegin();
+		
+		model.addAttribute("retTime", TimeUtils.format(date, true));
+		model.addAttribute("carRentTime", TimeUtils.format(carRentTime, true));
+		model.addAttribute("carPlanRetTime", TimeUtils.format(carPlanRetTime, true));
+		model.addAttribute("hours", hours);
+		model.addAttribute("overTimePrice", overPrice);
+		model.addAttribute("days", days);
+		model.addAttribute("normalPrice", normalPrice);
+		model.addAttribute("limitMile", limitMile);
+		
+		
 		model.addAttribute("order", order);
 		model.addAttribute("consumer", consumer);
 		model.addAttribute("car", car);
 		model.addAttribute("carType", carType);
-		
-		
 		
 		return basePath + "/checkOutui";
 	}
