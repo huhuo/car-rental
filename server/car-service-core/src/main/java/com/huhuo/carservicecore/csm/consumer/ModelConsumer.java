@@ -223,7 +223,7 @@ public class ModelConsumer extends BaseModel implements Serializable {
 	public void setStatus(Integer status) {
 		// TODO Auto-generated method stub
 		setStatusEnum(ModelConsumerStatus.getBy(status));
-		setStatusStr(ModelConsumerStatus.getBy(status).getDisp());
+//		setStatusStr(ModelConsumerStatus.getBy(status).getDisp());
 		super.setStatus(status);
 	}
 	public ModelConsumerStatus getStatusEnum() {

@@ -1,122 +1,129 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<div id="mgrDivId" class="well" style="padding: 0px;">
-	<div class="navbar">
-		<div class="navbar-inner">
-			<div class="container">
-				<div class="btn-group">
-					<button name="add" class="btn">添加</button>
-					<button name="delete" class="btn">删除</button>
-				</div>
-				<!-- search box -->
-				<div class="pull-right">
-					<ul class="nav">
-						<li class="dropdown">
-							<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">搜索条件<b class="caret"></b></a>
-							<ul class="dropdown-menu">
-								<li><a class="search-term huhuo-item-selected" keyword="id" paramKey="licencePlate" url="${path }/cmcar/car/typeahead/car.do" href="javascript:void(0)">车牌号</a></li>
-								<li><a class="search-term" keyword="carTypeId" paramKey="name" url="${path }/cmcar/car/typeahead/cartype.do" href="javascript:void(0)">车型名称</a></li>
-								<li><a class="search-term" keyword="storeId" paramKey="name" url="${path }/cmcar/car/typeahead/store.do" href="javascript:void(0)">所属门店名称</a></li>
-								<li><a class="search-term" keyword="warehouseId" paramKey="name" url="${path }/cmcar/car/typeahead/store.do" href="javascript:void(0)">入库门店名称</a></li>
-								<li><a class="search-term" keyword="status" paramKey="disp" url="${path }/cmsystem/dict/groups/simple/CUST_CAR_STATUS.do" href="javascript:void(0)">车辆状态</a></li>
-							</ul>
-						</li>
-					</ul>
-					<form id="huhuoForm" class="navbar-form" style="width: 400px;" 
-						action="${path }/cmcar/car/condition/get.do">
-						<input type="hidden" name="page.pageNo" value="1">
-						<input type="hidden" name="page.limit" value="10">
-						<input type="text" class="span6 search-query" placeholder="车牌号">
-						<input type="hidden" id="keyword" name="licencePlate">
-						<button type="submit" class="btn">搜索</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+<style type="text/css">
+div.huhuo-label {
+	padding-bottom: 6px;
+	padding-top: 6px;
+	padding-right: 10px;
+	text-align: right;
+}
+.huhuoyes {
+	background-image: url("res/images/status/btn_check_buttonless_on.png");
+	background-repeat: no-repeat;
+	background-position: 80% center;
+
+}
+
+.form-horizontal .control-label {
+	width: 100px;
+}
+.form-horizontal .controls {
+	margin-left: 120px;
+}
+input, textarea, .uneditable-input {
+	width: 266px;
+}
+
+select {
+	width: 280px;
+}
+
+.nav-tabs > li > a{
+	border: 0px solid;
+}
+</style>
+<script type="text/javascript">
+/* $(function() {
+	var list = JSON.parse('${list}');
+	console.log(list);
+	var categories = [];
+	var data = [];
+	$.each(list,function(index,record){
+		console.log(record.day);
+		categories[index]=record.day;
+		data[index] =record.totalNum;
+	});
+	//	var list = ${list};
+	$('#pagediv').highcharts({
+        chart: {
+            type: 'spline'
+        },
+        title: {
+            text: '客户量统计'
+        },
+        subtitle: {
+        	text: '来源: www.zuchechina.com'
+        },
+        xAxis: {
+            categories:categories
+        },
+        yAxis: {
+            title: {
+                text: '人数'
+            },
+            labels: {
+                formatter: function() {
+                    return this.value +'（人）';
+                }
+            }
+        },
+        tooltip: {
+            crosshairs: false,
+            shared: true
+        },
+        plotOptions: {
+            spline: {
+                marker: {
+                    radius: 4,
+                    lineColor: '#666666',
+                    lineWidth: 1
+                }
+            }
+        },
+        series: [{
+            name: '本周租车人次统计',
+            marker: {
+                symbol: 'square'
+            },
+            data: data
+
+        }]
+    });
+}); */
+$(function () {
+	$("#pagediv").load('${path}/cmstatis/car/cartype/carType-Proportion.do',function(){
+	});
+});
+
+function carTypeProportion() {
+	$("#pagediv").load('${path}/cmstatis/car/cartype/carType-Proportion.do',function(){
+	});
+}
+function carTypePopularity() {
+	$("#pagediv").load('${path}/cmstatis/car/cartype/carType-Popularity.do',function(){
+	});
+}
+function ststisQuarter() {
+	$("#pagediv").load('${path}/cmstatis/car/cartype/last-quarter.do',function(){
+	});
+}
+function ststisYear() {
+	$("#pagediv").load('${path}/cmstatis/car/cartype/last-year.do',function(){
+	});
+}
+	
+</script>
+
+<div id="storeMgrDivId" class="" style="padding: 0px;">
+		<ul class="nav nav-tabs">
+			<li class="active" ><a href="#" data-toggle="tab" onclick="carTypeProportion()">各类车型所占比例</a></li>
+			<li ><a href="#" data-toggle="tab" onclick="carTypePopularity()">各类车型受欢迎度比例</a></li>
+			<li ><a href="#" data-toggle="tab" onclick="ststisQuarter()">前12周统计</a></li>
+			<li ><a href="#" data-toggle="tab" onclick="ststisYear()">前12个月统计</a></li>
+		</ul>
 	<div id="pagediv">
 	</div>
 </div>
-${haha.disp}
-<div id="editDivId">
-</div>
 
-<script type="text/javascript">
-$(document).ready(function(){
-	// bind click event to drop down component ==> reset search term
-	$('.search-term').click(function(event) {
-		$('.search-term').each(function(idx, item) {
-			$(item).removeClass("huhuo-item-selected");
-		});
-		var selectedItem = $(this);
-		selectedItem.addClass("huhuo-item-selected");
-		// remove input
-		$('#huhuoForm ul').remove();
-		$('#huhuoForm .search-query').remove();
-		// add new input
-		$('#huhuoForm input[name="page.limit"]').after('<input type="text" class="span6 search-query">');
-		var searchInput = $('#huhuoForm').children('.search-query');
-		searchInput.val('');
-		searchInput.attr('placeholder', selectedItem.html());
-		// autofil event listener
-		searchInput.autoFill(selectedItem.attr('url'), selectedItem.attr('paramKey'), 
-				$('#huhuoForm'), null, null, null, function(data) {
-			$('#keyword').attr('name', selectedItem.attr('keyword'));
-			if(selectedItem.attr('keyword') == 'status') {
-				$('#keyword').val(data.key);
-			} else {
-				$('#keyword').val(data.id);
-			}
-			$('#huhuoForm').trigger('submit');
-		});
-		$('#keyword').val('');	// reset keyword value
-		// when the search input value is empty, then clear up the keyword param's value
-		searchInput.focusout(function(event) {
-			if(searchInput.val() == '') {
-				$('#keyword').val('');
-			}
-		});
-	});
-	// bind click event to search button ==> query record by search term
-	$('#huhuoForm').huhuoFormPost(function(data, status) {
-		if($.isJsonObj(data)) {
-			$.huhuoGrowlUI('error occur in server --> ' + data.msg);
-		} else {
-			$('#pagediv').empty();
-			$('#pagediv').append(data);
-		}
-	});
-	$('.search-term.huhuo-item-selected').trigger('click');
-	$('#huhuoForm').trigger('submit');
-	// add and delete button group event
-	var btnGroup = $('#mgrDivId div.navbar div.btn-group');
-	btnGroup.children('button[name="add"]').click(function(event) {
-		$("#mgrDivId").hide();
-		// load element to editDivId
-		$("#editDivId").load('${path}/cmcar/car/add-ui.do', {
-			aa: 323
-		}, function(resp, status, xhReq) {
-			$("#editDivId").show(500);
-		});
-		
-	});
-	btnGroup.children('button[name="delete"]').click(function(event) {
-		var confirm = window.confirm('确定删除？');
-		if(confirm) {
-			// get item selected
-			var ids = new Array();
-			$('#pageGridId tbody input').each(function(index, input) {
-				if(input.checked) {
-					ids.push($(input).parent().next().text());
-				}
-			});
-			// set request to server to delete the record selected
-			$.post('${path}/cmcar/car/delete.do', {
-				ids: ids
-			} , function(data, status, xhReq) {
-				$('#huhuoForm').trigger('submit');
-			});
-		}
-	});
-	
-});
-</script>
+<div id="storeEditDivId">
+
+</div>

@@ -53,7 +53,6 @@ table.table-hover tbody tr.huhuo-item-selected {
 			<td class="disp">${record.statusDict.disp}</td>
 			<td>
 				<div class="btn-group">
-<<<<<<< HEAD
 							<c:choose>
 								<c:when test="${record.status eq 1}">
 									<button name="activate" class="btn" disabled="disabled">激活</button>
@@ -66,21 +65,7 @@ table.table-hover tbody tr.huhuo-item-selected {
 							</c:choose>
 						</div>
 					</td>
-=======
-					<c:choose>
-						<c:when test="${list.status eq 1 }">
-							<button name="activate" class="btn" disabled="disabled">激活</button>
-							<button name="lock" class="btn">锁定</button>
-						</c:when>
-						<c:otherwise>
-							<button name="activate" class="btn">激活</button>
-							<button name="lock" class="btn" disabled="disabled">锁定</button>
-						</c:otherwise>
-					</c:choose>
-				</div>
-			</td>
->>>>>>> branch 'master' of https://github.com/huhuo/car-rental.git
-		</tr>
+				</tr>
 		</c:forEach>
 	</tbody>
 	<tfoot>
@@ -127,8 +112,7 @@ $(document).ready(function() {
 			}, function(resp, status, xhReq) {
 				console.log(resp);
 				if(status=="success") {
-					alert("已经为您激活！");
-					$.huhuoGrowlUI(JSON.parse(resp).msg);
+					$.huhuoGrowlUI(resp.msg);
 					$('#userEditDivId').hide();
 					$("#userMgrDivId").show();
 					// load element to cartypeEditDivId
@@ -142,14 +126,14 @@ $(document).ready(function() {
 		var flag = window.confirm("确定要锁定吗？");
 		if(flag){
 			var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
-
-
 			$.get('${path}/cmsystem/security/user/lock.do', {
 				id: selectedId
-			}, function(data, status, xhReq) {
-				console.log(data);
+			}, function(resp, status, xhReq) {
+				console.log(resp);
 				if(status=="success"){
-					$.huhuoGrowlUI(data.msg);
+					$.huhuoGrowlUI(resp.msg);
+					$('#userEditDivId').hide();
+					$("#userMgrDivId").show();
 					$('#huhuoForm').trigger('submit');
 				}
 			});
@@ -157,7 +141,6 @@ $(document).ready(function() {
 	});
 });
 </script>
-<<<<<<< HEAD
 </body>
 <!-- <script type="text/javascript">
 $(document).ready(function(){
