@@ -7,4 +7,6 @@ import com.huhuo.integration.base.IBaseExtenseServ;
 public interface IServCar extends IBaseExtenseServ<ModelCar> {
 	
 	
+	
+	
 }

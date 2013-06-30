@@ -107,7 +107,7 @@ $(document).ready(function() {
 							<li id="analyMgr" class="collapse leftdivchange"><a
 								class="huhuoItem first" href="${path }/cmstatis/turnover/index.do">营业额统计</a>
 								<a class="huhuoItem end" href="${path }/cmstatis/consumer/amount/index.do">客户量统计</a>
-								<a class="huhuoItem end" href="${path }/cmstatis/car/cartype/index.do">汽车统计</a>
+								<a class="huhuoItem end" href="${path }/cmstatis/car/index.do">汽车统计</a>
 							</li>
 
 							<li data-toggle="collapse" data-target="#systemMgr"><a

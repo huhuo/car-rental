@@ -125,6 +125,11 @@ btnGroup.children('button[name="month"]').click(function(event) {
 	});
 	
 }); */
+
+$('#storeMgrDivId ul a').click(function() {
+	console.log(this);
+});
+
 </script>
 
 <div id="storeMgrDivId" class="" style="padding: 0px;">
