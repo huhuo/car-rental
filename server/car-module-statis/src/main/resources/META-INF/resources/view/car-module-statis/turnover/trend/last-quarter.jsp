@@ -44,7 +44,7 @@ $(function() {
         },
         yAxis: {
             title: {
-                text: '万元'
+                text: '营业额（万元）'
             },
             labels: {
                 formatter: function() {

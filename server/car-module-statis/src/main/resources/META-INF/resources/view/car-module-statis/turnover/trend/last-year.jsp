@@ -41,7 +41,12 @@ $(function() {
         yAxis: {
             min: 0,
             title: {
-                text: 'Total fruit consumption'
+                text: '营业额（万元）'
+            },
+            labels: {
+	            formatter: function() {
+	            	return $.formatNumber(this.value/10000, {format: '#,###'});
+	            }
             },
             stackLabels: {
                 enabled: false,
@@ -55,10 +60,10 @@ $(function() {
             formatter: function() {
             	var serie = '<font style="color: #color;">#serieName: #y (#percentage%)</font><br>';
             	serie = serie.replace('#color', this.series.color).replace('#serieName', this.series.name);
-            	serie = serie.replace('#y', this.y).replace('#percentage', this.percentage.toFixed(2));
+            	serie = serie.replace('#y', $.formatNumber(this.y, {format: '#,###'})).replace('#percentage', $.formatNumber(this.percentage));
                 return '<b>'+ this.x + '</b><br/>' +
                 	serie +
-                    '合计: '+ this.point.stackTotal;
+                    '合计: '+ $.formatNumber(this.point.stackTotal, {format: '#,###'});
             }
         },
         plotOptions: {

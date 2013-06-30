@@ -27,7 +27,7 @@ $(function() {
 	// chart drawing
 	$('#analy_general_store').highcharts({
 		chart: {
-            type: 'column'
+            type: 'bar'
         },
         title: {
             text: '前6个月各分店车辆数量统计'
@@ -41,7 +41,7 @@ $(function() {
         yAxis: {
             min: 0,
             title: {
-                text: 'Total fruit consumption'
+                text: '车辆数量（辆）'
             }
         },
     	tooltip: {

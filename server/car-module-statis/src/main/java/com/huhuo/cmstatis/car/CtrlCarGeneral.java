@@ -30,7 +30,7 @@ public class CtrlCarGeneral extends SystemBaseCtrl {
 	@RequestMapping(value="/cartype.do")
 	public String cartype(Model model) {
 		logger.debug("==> cartype distribution analysis");
-		Date begin = TimeUtils.offsetMonth(-12, new Date());
+		Date begin = TimeUtils.offsetMonth(-6, new Date());
 		List<Map<String, Object>> list = iservCar.getCountTrendMonthCartype(
 				TimeUtils.getMonthBegin(begin), TimeUtils.getMonthEnd(new Date()));
 		model.addAttribute("list", JSON.toJSONString(list));
@@ -43,7 +43,7 @@ public class CtrlCarGeneral extends SystemBaseCtrl {
 	@RequestMapping(value="/store.do")
 	public String store(Model model) {
 		logger.debug("==> store distribution analysis");
-		Date begin = TimeUtils.offsetMonth(-12, new Date());
+		Date begin = TimeUtils.offsetMonth(-6, new Date());
 		List<Map<String, Object>> list = iservCar.getCountTrendMonthStore(
 				TimeUtils.getMonthBegin(begin), TimeUtils.getMonthEnd(new Date()));
 		model.addAttribute("list", JSON.toJSONString(list));

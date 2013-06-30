@@ -41,7 +41,7 @@ $(function() {
         yAxis: {
             min: 0,
             title: {
-                text: 'Total fruit consumption'
+                text: '车辆数量（辆）'
             },
             stackLabels: {
                 enabled: false,
