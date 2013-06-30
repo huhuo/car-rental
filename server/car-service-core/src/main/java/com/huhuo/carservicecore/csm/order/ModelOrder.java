@@ -3,8 +3,8 @@ package com.huhuo.carservicecore.csm.order;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.huhuo.carservicecore.cust.store.ModelStore;
 import com.huhuo.integration.base.BaseModel;
-import com.huhuo.integration.db.mysql.NotSqlField;
 
 public class ModelOrder extends BaseModel implements Serializable {
 
@@ -64,6 +64,12 @@ public class ModelOrder extends BaseModel implements Serializable {
 	/** 油钱 元/升 **/
 	private Double oilPrice;
 	
+	/** 该订单所属的门店id **/
+	private Long storeId;
+	
+	
+	/** external object **/
+	private ModelStore store;
 	
 	public Double getOilPrice() {
 		return oilPrice;
@@ -208,6 +214,18 @@ public class ModelOrder extends BaseModel implements Serializable {
 	}
 	public void setRentalType(Integer rentalType) {
 		this.rentalType = rentalType;
+	}
+	public Long getStoreId() {
+		return storeId;
+	}
+	public void setStoreId(Long storeId) {
+		this.storeId = storeId;
+	}
+	public ModelStore getStore() {
+		return store;
+	}
+	public void setStore(ModelStore store) {
+		this.store = store;
 	}
 	
 }
