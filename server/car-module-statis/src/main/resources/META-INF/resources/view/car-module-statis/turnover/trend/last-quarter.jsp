@@ -10,14 +10,14 @@ $(function() {
 		// construct categories
 		categories[idx] = item.sumTime;
 		// construct series
-		var data = parseFloat(item.totalFee.toFixed(2));
-		if(map[item.store.name] == null) {
+		var data = parseFloat(item.totalFee.toFixed(0));
+		if(map[item.storeId] == null) {
 			var serie = {};
 			serie.name = item.store.name;
 			serie.data = [data];
-			map[item.store.name] = serie;
+			map[item.storeId] = serie;
 		} else {
-			map[item.store.name].data.push(data);
+			map[item.storeId].data.push(data);
 		}
 	});
 	for(propName in map) {
