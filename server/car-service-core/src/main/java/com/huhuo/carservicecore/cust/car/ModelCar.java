@@ -192,7 +192,4 @@ public class ModelCar extends BaseModel {
 	public static final Dict STATUS_ON_MAINTAIN = new Dict(GROUP_CUST_CAR_STATUS, 4, "维修保养中");
 	public static final Dict STATUS_SCRAP = new Dict(GROUP_CUST_CAR_STATUS, 5, "报废");
 
-	
-	
-	
 }
