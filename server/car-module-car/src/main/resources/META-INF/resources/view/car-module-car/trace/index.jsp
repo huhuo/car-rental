@@ -5,24 +5,21 @@
 <script type="text/javascript">
 $(function() {
 	//注意：吴总注意，以下代码应当在第一次进入页面和当屏幕宽高发生变化时调用。
-	console.log('===');
 	var setWdithHeight = function(){
-		alert(111);
 		var width = $('div.loaddiv').css('width');
 		var height = $('div.loaddiv').css('height');
 		width = Number(width.replace('px', '')) * .97;
 		height = Number(height.replace('px', '')) * .9;
 		$('iframe').css('width', width + 'px');
 		$('iframe').css('height', height + 'px'); 
-	}
+	};
 	
-	windwo.onload = setWdithHeight();
+	window.onload = setWdithHeight();
 
 	window.onresize = function(){
-		alert(111);
 		setWdithHeight();
 	};
-	console.log('====');
+	
   	$.ajax({
   		url: 'http://222.76.126.217:88/loginServlet',
 		data: {
