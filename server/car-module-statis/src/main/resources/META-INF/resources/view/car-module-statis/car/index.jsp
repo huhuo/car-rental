@@ -14,7 +14,17 @@ border: 0px solid;
 <script type="text/javascript">
 $(function() {
 	// general analy
-	$('#analy_general_store').load('${path }/cmstatis/car/general/store.do');
-	$('#analy_general_cartype').load('${path }/cmstatis/car/general/cartype.do');
+	$('#analy_general_store').divBlockLoad('${path }/cmstatis/car/general/store.do', null,
+			function(data, status, event, loadDiv) {
+		if(status != 'success') {
+			loadDiv.append('无数据');
+		}
+	});
+	$('#analy_general_cartype').divBlockLoad('${path }/cmstatis/car/general/cartype.do', null,
+			function(data, status, event, loadDiv) {
+		if(status != 'success') {
+			loadDiv.append('无数据');
+		}
+	});
 });
 </script>
