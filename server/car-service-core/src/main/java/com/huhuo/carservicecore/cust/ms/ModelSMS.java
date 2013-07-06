@@ -17,6 +17,10 @@ public class ModelSMS extends BaseModel {
 	private Long recieverId;
 	/** 接收者手机号码 **/
 	private Long phoneNum;
+	/** 是否全部联系人*/
+	private boolean allContacts;
+	/**定时发送时间*/
+	private String timing;
 	
 	/** 外联对象 **/
 	@NotSqlField
@@ -59,6 +63,18 @@ public class ModelSMS extends BaseModel {
 	}
 	public void setReciever(ModelUser reciever) {
 		this.reciever = reciever;
+	}
+	public boolean isAllContacts() {
+		return allContacts;
+	}
+	public void setAllContacts(boolean allContacts) {
+		this.allContacts = allContacts;
+	}
+	public String getTiming() {
+		return timing;
+	}
+	public void setTiming(String timing) {
+		this.timing = timing;
 	}
 	
 }

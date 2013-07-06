@@ -20,7 +20,6 @@ import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.db.mysql.Dir;
 import com.huhuo.integration.db.mysql.Order;
 import com.huhuo.integration.db.mysql.Page;
-import com.huhuo.integration.util.ExtUtils;
 import com.huhuo.integration.web.Message;
 import com.huhuo.integration.web.Message.Status;
 
