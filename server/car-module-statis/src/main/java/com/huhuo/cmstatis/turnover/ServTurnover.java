@@ -10,7 +10,6 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -73,6 +72,10 @@ public class ServTurnover extends GenericBaseExtenseServ<ModelOrder> implements 
 			for(Map<String,Object> map : list) {
 				ids.add((Long) map.get("storeId"));
 			}
+			if(ids.isEmpty()) {
+				logger.info("storeIds is empty --> {}", ids);
+				return;
+			}
 			List<ModelStore> stores = iServStore.findByIds(new ArrayList<Long>(ids));
 			for(Map<String,Object> map : list) {
 				for(ModelStore store : stores) {
@@ -84,12 +87,8 @@ public class ServTurnover extends GenericBaseExtenseServ<ModelOrder> implements 
 				}
 			}
 		} catch (IllegalAccessException e) {
-			String msg = ExceptionUtils.getFullStackTrace(e);
-			logger.error(msg);
 			throw new ServException(e);
 		} catch (InvocationTargetException e) {
-			String msg = ExceptionUtils.getFullStackTrace(e);
-			logger.error(msg);
 			throw new ServException(e);
 		}
 	}
