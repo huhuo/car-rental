@@ -1,5 +1,6 @@
 package com.huhuo.cmconsumer.consumer;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,10 +23,19 @@ public class DaoConsumerTest extends CarModuleConsumerTest {
 	@Test
 	public void crud() {
 		ModelConsumer t = new ModelConsumer();
+		for(int i=1;i<=30;i++){
+		t.setAddress("北京海淀");
+		t.setAge(23);
+		t.setAvatar("eret");
+		t.setBirthday(new Date(1989, 1, 3));
+		t.setCreateTime(new Date());
+		t.setEmergencyContact("中国共产党");
+		t.setEmergencyTel("010543643");
+		t.setGender(1);
 		t.setUsername("收到了快递费");
 		t.setEmail("wuyuxuan2014@gmail.com");
 		Integer row = idaoConsumer.add(t);
-		print(row);
+		}
 	}
 	
 	
@@ -61,6 +71,7 @@ public class DaoConsumerTest extends CarModuleConsumerTest {
 	public void findModels() {
 		List<ModelConsumer> list = idaoConsumer.findModels(ModelConsumer.class, null, null);
 		print(list);
+		
 	}
 	
 	@Test
@@ -70,4 +81,9 @@ public class DaoConsumerTest extends CarModuleConsumerTest {
 		print(list);
 	}
 	
+	public static void main(String[] args) throws UnsupportedEncodingException {
+		System.out.println("2415315".charAt(1));
+		String string = new String("我".getBytes(),"utf-8");
+		System.out.println(string);
+	}
 }

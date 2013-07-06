@@ -18,6 +18,12 @@ public interface IServConsumer extends IBaseExtenseServ<ModelConsumer> {
 	 * @return
 	 */
 	List<Map<String, Object>> getAmountByDate(Date begin, Date end);
+
+	List<Map<String, Object>> getAmountByWeek(Date begin, Date end);
+
+	List<Map<String, Object>> getAmountByMonth(Date begin, Date end);
+
+	List<Map<String, Object>> getAmountByDay(Date begin, Date end);
 	
 	
 }

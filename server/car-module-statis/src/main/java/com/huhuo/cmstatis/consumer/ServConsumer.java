@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.httpclient.util.DateUtil;
+import org.apache.commons.lang.time.DateUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +15,7 @@ import com.huhuo.carservicecore.csm.consumer.IDaoConsumer;
 import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
 import com.huhuo.carservicecore.db.GenericBaseExtenseServ;
 import com.huhuo.integration.base.IBaseExtenseDao;
+import com.huhuo.integration.util.TimeUtils;
 
 @Service("cmstatisServConsumer")
 @Transactional
@@ -34,9 +37,32 @@ public class ServConsumer extends GenericBaseExtenseServ<ModelConsumer> implemen
 	}
 
 	@Override
+	public List<Map<String, Object>> getAmountByDay(Date begin, Date end) {
+		String sql = "SELECT COUNT(id) AS totalNum,DATE_FORMAT(createTime,'本周第%w天') AS day FROM csm_consumer WHERE createTime BETWEEN ? AND ? GROUP BY day;";
+		List<Map<String,Object>> list = iDaoConsumer.queryForMapList(sql, begin, end);
+		System.out.println(list);
+		return list;
+	}
+	@Override
 	public List<Map<String, Object>> getAmountByDate(Date begin, Date end) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "SELECT COUNT(id) AS totalNum,DATE_FORMAT(createTime,'%c.%d') AS DATE FROM csm_consumer WHERE createTime BETWEEN ? AND ? GROUP BY DATE;";
+		List<Map<String,Object>> list = iDaoConsumer.queryForMapList(sql, begin, end);
+		System.out.println(list);
+		return list;
+	}
+	@Override
+	public List<Map<String, Object>> getAmountByWeek(Date begin, Date end) {
+		String sql = "SELECT COUNT(id) AS totalNum,DATE_FORMAT(createTime,'%y年第%u周') AS week FROM csm_consumer WHERE createTime BETWEEN ? AND ? GROUP BY week;";
+		List<Map<String,Object>> list = iDaoConsumer.queryForMapList(sql, begin, end);
+		System.out.println(list);
+		return list;
+	}
+	@Override
+	public List<Map<String, Object>> getAmountByMonth(Date begin, Date end) {
+		String sql = "SELECT COUNT(id) AS totalNum,DATE_FORMAT(createTime,'%y年%m月份') AS month FROM csm_consumer WHERE createTime BETWEEN ? AND ? GROUP BY month;";
+		List<Map<String,Object>> list = iDaoConsumer.queryForMapList(sql, begin, end);
+		System.out.println(list);
+		return list;
 	}
 
 }

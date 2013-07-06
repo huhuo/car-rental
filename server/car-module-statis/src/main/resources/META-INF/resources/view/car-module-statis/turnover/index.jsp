@@ -30,8 +30,8 @@ border: 0px solid;
 <script type="text/javascript">
 $(function() {
 	// general analy
-	$('#analy_general_store').load('${path }/cmstatis/turnover/general/store.do');
-	$('#analy_general_cartype').load('${path }/cmstatis/turnover/general/cartype.do');
+//	$('#analy_general_store').load('${path }/cmstatis/turnover/general/store.do');
+//	$('#analy_general_cartype').load('${path }/cmstatis/turnover/general/cartype.do');
 	
 	// trend analy
 	$('#analy_trend ul[class="nav nav-tabs"] a').click(function(e) {
