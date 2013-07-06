@@ -27,7 +27,8 @@ $(function() {
 	// chart drawing
 	$('#analy_general_store').highcharts({
 		chart: {
-            type: 'bar'
+            type: 'bar',
+            height: 600,
         },
         title: {
             text: '前6个月各分店车辆数量统计'
