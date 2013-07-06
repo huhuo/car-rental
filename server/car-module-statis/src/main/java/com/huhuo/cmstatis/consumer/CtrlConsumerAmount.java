@@ -1,6 +1,5 @@
 package com.huhuo.cmstatis.consumer;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,12 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
 import com.huhuo.cmsystem.SystemBaseCtrl;
 import com.huhuo.integration.util.TimeUtils;
-import com.huhuo.integration.web.Message;
-import com.huhuo.integration.web.Message.Status;
 
 
 @Controller("cmstatisCtrlConsumerAmount")
@@ -84,37 +79,12 @@ public class CtrlConsumerAmount extends SystemBaseCtrl {
 	 * last quarter analysis
 	 *************************************************************/
 	@RequestMapping(value="/last-quarter.do")
-	public String lastQuarter(Model model,ModelConsumer t,HttpServletResponse resp) {
-		Calendar calendar = Calendar.getInstance();
-		System.out.println(calendar.get(calendar.WEEK_OF_YEAR));
-		calendar.add(Calendar.WEEK_OF_YEAR, -1);
-		calendar.setFirstDayOfWeek(Calendar.MONDAY);
-		System.out.println(calendar.getFirstDayOfWeek());
-		calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek()+6);
-		System.out.println(calendar.DAY_OF_WEEK);
-		System.out.println(calendar.getTime());
-		calendar.set(Calendar.HOUR_OF_DAY, 23);
-		calendar.set(Calendar.MINUTE, 59);
-		calendar.set(Calendar.SECOND, 59);
-		calendar.set(Calendar.MILLISECOND, 99);
-		Date end1 = calendar.getTime();
-		
-		
-		calendar.add(Calendar.WEEK_OF_YEAR, -11);
-		calendar.setFirstDayOfWeek(Calendar.MONDAY);
-		System.out.println(calendar.getFirstDayOfWeek());
-		calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
-		System.out.println(calendar.DAY_OF_WEEK);
-		System.out.println(calendar.getTime());
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
-		System.out.println(calendar.get(calendar.WEEK_OF_YEAR));
-		System.out.println(calendar.getTime());
-		calendar.setFirstDayOfWeek(Calendar.MONDAY);
-		Date start1 = calendar.getTime();
-		List<Map<String,Object>> list = iServConsumer.getAmountByWeek(start1, end1);
+	public String lastQuarter(Model model) {
+		Date date1 = TimeUtils.offsetDate(-12*7, new Date());
+		Date weekBegin = TimeUtils.getWeekBegin(date1);
+		Date date2 = TimeUtils.offsetDate(-7, new Date());
+		Date weekEnd = TimeUtils.getWeekEnd(date2);
+		List<Map<String,Object>> list = iServConsumer.getAmountByWeek(weekBegin, weekEnd);
 		String jsonString = JSON.toJSONString(list);
 		model.addAttribute("list", jsonString);
 		logger.debug("==> access car trace page");

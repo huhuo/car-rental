@@ -6,8 +6,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.httpclient.util.DateUtil;
-import org.apache.commons.lang.time.DateUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +13,6 @@ import com.huhuo.carservicecore.csm.consumer.IDaoConsumer;
 import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
 import com.huhuo.carservicecore.db.GenericBaseExtenseServ;
 import com.huhuo.integration.base.IBaseExtenseDao;
-import com.huhuo.integration.util.TimeUtils;
 
 @Service("cmstatisServConsumer")
 @Transactional
