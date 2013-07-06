@@ -30,7 +30,7 @@ $(function() {
             type: 'column'
         },
         title: {
-            text: '${title}'
+            text: '前12个月营业额统计'
         },
         subtitle: {
             text: 'Source: http://www.zuchechina.com/'

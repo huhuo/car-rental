@@ -34,7 +34,6 @@ public class CtrlTurnOverTrend extends SystemBaseCtrl {
 		List<Map<String, Object>> list = iServTurnover.
 				getSumTotalFeeByDate(TimeUtils.offsetDate(-15, now), now);
 		model.addAttribute("list", JSON.toJSONString(list));
-		model.addAttribute("title", "前15天营业额统计");
 		return basePath + "/last-month";
 	}
 	
@@ -49,7 +48,6 @@ public class CtrlTurnOverTrend extends SystemBaseCtrl {
 		List<Map<String, Object>> list = iServTurnover.getSumTotalFeeByWeek(
 				TimeUtils.getWeekBegin(dateBefore84), TimeUtils.getWeekEnd(now));
 		model.addAttribute("list", JSON.toJSONString(list));
-		model.addAttribute("title", "前12周营业额统计");
 		return basePath + "/last-quarter";
 	}
 	
@@ -64,7 +62,6 @@ public class CtrlTurnOverTrend extends SystemBaseCtrl {
 		List<Map<String, Object>> list = iServTurnover.getSumTotalFeeByMonth(
 				TimeUtils.getMonthBegin(lastYear), TimeUtils.getMonthEnd(now));
 		model.addAttribute("list", JSON.toJSONString(list));
-		model.addAttribute("title", "前12个月营业额统计");
 		return basePath + "/last-year";
 	}
 	

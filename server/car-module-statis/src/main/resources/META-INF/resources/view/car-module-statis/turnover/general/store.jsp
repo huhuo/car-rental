@@ -36,7 +36,7 @@ $(function() {
         yAxis: {
             min: 0,
             title: {
-                text: '万元',
+                text: '营业额（万元）',
                 align: 'middle'
             },
             labels: {
