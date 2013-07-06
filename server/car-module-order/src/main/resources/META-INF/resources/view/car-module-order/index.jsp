@@ -32,7 +32,7 @@ div.titlewell {
 			console.info(orderSearch.css("width"));
 			orderSearch.hide(200, function() {
 				$("#addOrderDiv").show(200);
-				$("#addOrderDiv").divBlickLoad("${path }/cmorder/order/addUI.do");
+				$("#addOrderDiv").divBlockLoad("${path }/cmorder/order/addUI.do");
 			});
 
 		});
@@ -51,7 +51,7 @@ div.titlewell {
 			searchInput.attr('name', $(this).attr('valuename'));
 		});
 		//指定div去刷新对应的table页面
-		$("#orderTableloadDiv").divBlickLoad("${path }/cmorder/order/get.do");
+		$("#orderTableloadDiv").divBlockLoad("${path }/cmorder/order/get.do");
 		
 		
 		

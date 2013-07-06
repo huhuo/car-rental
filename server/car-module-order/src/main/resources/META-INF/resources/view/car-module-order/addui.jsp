@@ -189,7 +189,7 @@
 				addOrderDiv.hide(200, function() {
 					$("#orderSearch").show(200);
 				});
-				$("#orderTableloadDiv").divBlickLoad("${path }/cmorder/order/get.do");
+				$("#orderTableloadDiv").divBlockLoad("${path }/cmorder/order/get.do");
 			}
 			
 		});

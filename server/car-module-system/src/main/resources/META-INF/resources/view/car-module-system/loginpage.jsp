@@ -16,7 +16,7 @@ $(document).ready(function() {
 	});
 });
 </script>
-<title>Insert title here</title>
+<title>弛通汽车租赁系统</title>
 </head>
 
 <body>

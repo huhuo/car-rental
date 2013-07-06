@@ -30,8 +30,18 @@ border: 0px solid;
 <script type="text/javascript">
 $(function() {
 	// general analy
-//	$('#analy_general_store').load('${path }/cmstatis/turnover/general/store.do');
-//	$('#analy_general_cartype').load('${path }/cmstatis/turnover/general/cartype.do');
+	$('#analy_general_store').divBlockLoad('${path }/cmstatis/turnover/general/store.do', null,
+			function(data, status, event, loadDiv) {
+		if(status != 'success') {
+			loadDiv.append('无数据');
+		}
+	});
+	$('#analy_general_cartype').divBlockLoad('${path }/cmstatis/turnover/general/cartype.do', null,
+			function(data, status, event, loadDiv) {
+		if(status != 'success') {
+			loadDiv.append('无数据');
+		}
+	});
 	
 	// trend analy
 	$('#analy_trend ul[class="nav nav-tabs"] a').click(function(e) {
@@ -41,7 +51,12 @@ $(function() {
 		a.parent().addClass('active');
 		// load tab's page
 		var url = a.attr('href');
-		$('#analy_trend .tab-content').load(url);
+		$('#analy_trend .tab-content').divBlockLoad(url, null,
+				function(data, status, event, loadDiv) {
+			if(status != 'success') {
+				loadDiv.append('无数据');
+			}
+		});
 		return false;
 	});
 	// trigger active tab click event
