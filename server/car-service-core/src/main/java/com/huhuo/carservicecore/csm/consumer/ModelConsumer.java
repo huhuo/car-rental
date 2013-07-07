@@ -136,7 +136,11 @@ public class ModelConsumer extends BaseModel implements Serializable {
 		return mobileNumber;
 	}
 	public void setMobileNumber(String mobileNumber) {
-		this.mobileNumber = mobileNumber;
+		if (mobileNumber.equals("")) {
+			this.mobileNumber = null;
+		} else {
+			this.mobileNumber = mobileNumber;
+		}
 	}
 	public String getEmail() {
 		return email;
