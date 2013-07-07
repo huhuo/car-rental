@@ -109,8 +109,8 @@ $(document).ready(function() {
 	$('#fileUploadForm').fileUpload(function(data, status, xhr) {
 		// add upload file url to submit form
 		if(data.data) {
-			$('#editUserForm input[name="picture.name"]').val(data.data.name);
-			$('#editUserForm input[name="picture.md5"]').val(data.data.md5);
+			$('#editPersonForm input[name="picture.name"]').val(data.data.name);
+			$('#editPersonForm input[name="picture.md5"]').val(data.data.md5);
 		}
 	});
 });
