@@ -42,7 +42,7 @@ public class CtrlConsumer extends BaseCtrl {
 		logger.debug("access consumer management page");
 		Condition<ModelConsumer> condition = new Condition<ModelConsumer>();
 		condition.setOrderList(new Order("createTime", Dir.DESC), new Order("updateTime", Dir.DESC));
-		condition.setPage(new Page<ModelConsumer>(0L, 20L));
+		condition.setPage(new Page<ModelConsumer>(0L, 10L));
 		List<ModelConsumer> list = iservConsumer.findByCondition(condition, true);
 		model.addAttribute("list", list);
 		return basePath + "/consumer/index";
@@ -58,6 +58,8 @@ public class CtrlConsumer extends BaseCtrl {
 		if(page == null) {
 			page = new Page<ModelConsumer>();
 		}
+		condition.setOrderList(new Order("createTime", Dir.DESC), new Order("updateTime", Dir.DESC));
+		condition.setPage(new Page<ModelConsumer>(0L, 10L));
 		List<ModelConsumer> records = iservConsumer.findByCondition(condition);
 		model.addAttribute("records", records);
 		page.setTotal(iservConsumer.countByCondition(condition));
