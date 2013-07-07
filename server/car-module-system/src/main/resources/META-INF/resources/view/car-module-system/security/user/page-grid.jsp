@@ -24,7 +24,7 @@ table.table-hover tbody tr.huhuo-item-selected {
 	<thead>
 		<tr>
 			<th><input type="checkbox" class="checkbox"></th>
-				<th>id</th>
+				<th>序          号</th>
 				<th>相          片</th>
 				<th>用户姓名</th>
 				<th>性          别</th>

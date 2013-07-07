@@ -1,32 +1,4 @@
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<style type="text/css">
-div.huhuo-label {
-	padding-bottom: 6px;
-	padding-top: 6px;
-	padding-right: 10px;
-	text-align: right;
-}
-.huhuoyes {
-	background-image: url("res/images/status/btn_check_buttonless_on.png");
-	background-repeat: no-repeat;
-	background-position: 80% center;
-
-}
-
-.form-horizontal .control-label {
-	width: 100px;
-}
-.form-horizontal .controls {
-	margin-left: 120px;
-}
-input, textarea, .uneditable-input {
-	width: 266px;
-}
-
-select {
-	width: 280px;
-}
-</style>
 <script type="text/javascript">
  $(function(){
 	 console.log("--------->>");
@@ -54,6 +26,7 @@ select {
 	        xAxis: {
 	            categories:categories,
 	            labels: {
+	            	rotation: -45,
                     align: 'right',
                     style: {
                         fontSize: '13px',
@@ -63,17 +36,20 @@ select {
 	        },
 	        yAxis: {
 	            title: {
-	                text: '人数'
+	                text: '人数（人）'
 	            },
 	            labels: {
 	                formatter: function() {
-	                    return this.value +'（人）';
+	                    return this.value;
 	                }
 	            }
 	        },
 	        tooltip: {
-	            crosshairs: false,
-	            shared: true
+	        	formatter: function() {
+                    return '<b>'+ this.x +'共租车：</b>'+
+                        Highcharts.numberFormat(this.y, 0) +
+                        '人次';
+                }
 	        },
 	        plotOptions: {
 	            spline: {
