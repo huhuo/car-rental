@@ -36,7 +36,6 @@
 	<div id="pagediv">
 	</div>
 </div>
-${haha.disp}
 <div id="editDivId">
 </div>
 

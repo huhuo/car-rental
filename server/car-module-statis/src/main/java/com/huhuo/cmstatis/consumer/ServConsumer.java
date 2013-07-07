@@ -42,21 +42,21 @@ public class ServConsumer extends GenericBaseExtenseServ<ModelConsumer> implemen
 	}
 	@Override
 	public List<Map<String, Object>> getAmountByDate(Date begin, Date end) {
-		String sql = "SELECT COUNT(id) AS totalNum,DATE_FORMAT(createTime,'%c.%d') AS DATE FROM csm_consumer WHERE createTime BETWEEN ? AND ? GROUP BY DATE;";
+		String sql = "SELECT COUNT(id) AS totalNum,DATE_FORMAT(createTime,'%c/%d') AS DATE FROM csm_consumer WHERE createTime BETWEEN ? AND ? GROUP BY DATE;";
 		List<Map<String,Object>> list = iDaoConsumer.queryForMapList(sql, begin, end);
 		System.out.println(list);
 		return list;
 	}
 	@Override
 	public List<Map<String, Object>> getAmountByWeek(Date begin, Date end) {
-		String sql = "SELECT COUNT(id) AS totalNum,DATE_FORMAT(createTime,'%y年第%u周') AS week FROM csm_consumer WHERE createTime BETWEEN ? AND ? GROUP BY week;";
+		String sql = "SELECT COUNT(id) AS totalNum,DATE_FORMAT(createTime,'%y年%u周') AS week FROM csm_consumer WHERE createTime BETWEEN ? AND ? GROUP BY week;";
 		List<Map<String,Object>> list = iDaoConsumer.queryForMapList(sql, begin, end);
 		System.out.println(list);
 		return list;
 	}
 	@Override
 	public List<Map<String, Object>> getAmountByMonth(Date begin, Date end) {
-		String sql = "SELECT COUNT(id) AS totalNum,DATE_FORMAT(createTime,'%y年%m月份') AS month FROM csm_consumer WHERE createTime BETWEEN ? AND ? GROUP BY month;";
+		String sql = "SELECT COUNT(id) AS totalNum,DATE_FORMAT(createTime,'%y年%m月') AS month FROM csm_consumer WHERE createTime BETWEEN ? AND ? GROUP BY month;";
 		List<Map<String,Object>> list = iDaoConsumer.queryForMapList(sql, begin, end);
 		System.out.println(list);
 		return list;
