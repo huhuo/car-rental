@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.huhuo.carservicecore.csm.consumer.IDaoConsumer;
 import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
 import com.huhuo.integration.base.BaseCtrl;
 import com.huhuo.integration.db.mysql.Condition;
@@ -34,10 +33,6 @@ public class CtrlConsumer extends BaseCtrl {
 	@Resource(name = "cmconsumerServConsumer")
 	private IServConsumer iservConsumer;
 	
-	
-	@Resource(name="carservicecoreDaoConsumer")
-	private IDaoConsumer idaoConsumer;
-	
 	/*************************************************************
 	 * consumer management
 	 *************************************************************/
@@ -47,20 +42,11 @@ public class CtrlConsumer extends BaseCtrl {
 		logger.debug("access consumer management page");
 		Condition<ModelConsumer> condition = new Condition<ModelConsumer>();
 		condition.setOrderList(new Order("createTime", Dir.DESC), new Order("updateTime", Dir.DESC));
-		condition.setPage(new Page<ModelConsumer>(0, 20));
+		condition.setPage(new Page<ModelConsumer>(0L, 20L));
 		List<ModelConsumer> list = iservConsumer.findByCondition(condition, true);
 		model.addAttribute("list", list);
 		return basePath + "/consumer/index";
 	}
-	
-//	@RequestMapping(value="/get.do")
-//	public void get(HttpServletResponse resp, Condition<ModelConsumer> condition){
-//		logger.debug("server receive: condition={}", condition);
-////			condition.setPage(new Page(0, 30));
-////			List<ModelConsumer> list = servConsumer.findByCondition(condition);
-//		List<ModelConsumer> list = iservConsumer.findModels(new Page<ModelConsumer>(0, 10));
-//		write(ExtUtils.getJsonStore(list, list.size()), resp);
-//	}
 	
 	@RequestMapping(value="/condition/get.do")
 	public String get(Model model, Condition<ModelConsumer> condition, ModelConsumer t){
