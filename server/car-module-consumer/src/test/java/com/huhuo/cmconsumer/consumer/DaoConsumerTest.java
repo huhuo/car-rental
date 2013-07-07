@@ -14,6 +14,8 @@ import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
 import com.huhuo.cmconsumer.CarModuleConsumerTest;
 import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.db.mysql.Page;
+import com.huhuo.integration.util.TimeUtils;
+import com.huhuo.integration.util.TimeUtils.HPattern;
 
 public class DaoConsumerTest extends CarModuleConsumerTest {
 
@@ -23,18 +25,18 @@ public class DaoConsumerTest extends CarModuleConsumerTest {
 	@Test
 	public void crud() {
 		ModelConsumer t = new ModelConsumer();
-		for(int i=1;i<=30;i++){
-		t.setAddress("北京海淀");
-		t.setAge(23);
-		t.setAvatar("eret");
-		t.setBirthday(new Date(1989, 1, 3));
-		t.setCreateTime(new Date());
-		t.setEmergencyContact("中国共产党");
-		t.setEmergencyTel("010543643");
-		t.setGender(1);
-		t.setUsername("收到了快递费");
-		t.setEmail("wuyuxuan2014@gmail.com");
-		Integer row = idaoConsumer.add(t);
+		for (int i = 1; i <= 30; i++) {
+			t.setAddress("北京海淀");
+			t.setAge(23);
+			t.setAvatar("eret");
+			t.setBirthday(TimeUtils.parse("1989-01-03", HPattern.SHORT));
+			t.setCreateTime(new Date());
+			t.setEmergencyContact("中国共产党");
+			t.setEmergencyTel("010543643");
+			t.setGender(1);
+			t.setUsername("收到了快递费");
+			t.setEmail("wuyuxuan2014@gmail.com");
+			idaoConsumer.add(t);
 		}
 	}
 	
@@ -76,7 +78,7 @@ public class DaoConsumerTest extends CarModuleConsumerTest {
 	
 	@Test
 	public void findByCondition() {
-		Condition<ModelConsumer> condition = new Condition<ModelConsumer>(null, null, null, new Page(0, 10));
+		Condition<ModelConsumer> condition = new Condition<ModelConsumer>(null, null, null, new Page<ModelConsumer>(0L, 10L));
 		List<ModelConsumer> list = idaoConsumer.findByCondition(condition);
 		print(list);
 	}

@@ -100,7 +100,7 @@ public class ServCarTypeTest extends CarModuleCarTest {
 	
 	@Test
 	public void findModels() {
-		List<ModelCarType> list = iServCarType.findModels(new Page<ModelCarType>(0, 15));
+		List<ModelCarType> list = iServCarType.findModels(new Page<ModelCarType>(0L, 15L));
 		print(list);
 	}
 

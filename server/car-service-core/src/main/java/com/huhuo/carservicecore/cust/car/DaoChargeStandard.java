@@ -22,7 +22,7 @@ public class DaoChargeStandard extends GenericBaseExtenseDao<ModelChargeStandard
 	}
 	
 	@Override
-	public List<ModelChargeStandard> findModels(Integer start, Integer limit)
+	public List<ModelChargeStandard> findModels(Long start, Long limit)
 			throws DaoException {
 		/**
 		 * this is an example to show how to override the method of GenericBaseExtenseDao

@@ -43,7 +43,7 @@ public class CtrlCarType extends SystemBaseCtrl {
 		logger.debug("---> access car type management page");
 		Condition<ModelCarType> condition = new Condition<ModelCarType>();
 		condition.setOrderList(new Order("createTime", Dir.DESC), new Order("updateTime", Dir.DESC));
-		condition.setPage(new Page<ModelCarType>(0, 20));
+		condition.setPage(new Page<ModelCarType>(0L, 20L));
 		List<ModelCarType> list = iservCarType.findByCondition(condition, true);
 		model.addAttribute("list", list);
 		return basePath + "/cartype/index";

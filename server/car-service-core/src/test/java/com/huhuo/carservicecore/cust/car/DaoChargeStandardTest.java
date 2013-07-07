@@ -72,7 +72,7 @@ public class DaoChargeStandardTest extends CarServiceCoreTest {
 	
 	@Test
 	public void findModels() {
-		List<ModelChargeStandard> list = iDaoChargeStandard.findModels(0, 20);
+		List<ModelChargeStandard> list = iDaoChargeStandard.findModels(0L, 20L);
 		print(list);
 	}
 	
@@ -80,10 +80,10 @@ public class DaoChargeStandardTest extends CarServiceCoreTest {
 	public void routingDSTest() {
 		// test multiple data source
 		DataSourceContextHolder.setDataSourceType(DataSourceType.CUSTOMER_CHITONG);
-		print(iDaoChargeStandard.findModels(0, 10));
+		print(iDaoChargeStandard.findModels(0L, 10L));
 		// another data source
 		DataSourceContextHolder.setDataSourceType(DataSourceType.CUSTOMER_2);
-		print(iDaoChargeStandard.findModels(0, 10));
+		print(iDaoChargeStandard.findModels(0L, 10L));
 	}
 	
 }

@@ -98,7 +98,7 @@ public class CtrlConsumerAmount extends SystemBaseCtrl {
 	public String lastYear(Model model) {
 		logger.debug("==> access car trace page");
 		Date date = new Date();
-		Date month = TimeUtils.offsetMonth(-13, date);
+		Date month = TimeUtils.offsetMonth(-12, date);
 		Date beginMonth = TimeUtils.getMonthBegin(month);
 		Date month2 = TimeUtils.offsetMonth(-1, date);
 		Date endMonth = TimeUtils.getMonthEnd(month2);
@@ -109,7 +109,6 @@ public class CtrlConsumerAmount extends SystemBaseCtrl {
 	}
 	
 	public static void main(String[] args) {
-		
 		
 	}
 }

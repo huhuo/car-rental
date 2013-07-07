@@ -31,7 +31,7 @@ public class CtrlFileUpload extends SystemBaseCtrl {
 	@RequestMapping(value="/get.do")
 	public String get(Model model, Condition<ModelFileUpload> condition){
 		logger.debug("==> server receive: condition={}", condition);
-		List<ModelFileUpload> records = iServFileUpload.findModels(new Page<ModelFileUpload>(0, 10));
+		List<ModelFileUpload> records = iServFileUpload.findModels(new Page<ModelFileUpload>(0L, 10L));
 		return render(model, new JsonStore<ModelFileUpload>(records, records.size()));
 	}
 	

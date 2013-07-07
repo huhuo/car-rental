@@ -66,7 +66,7 @@ public class DaoFileUploadTest extends CarServiceCoreTest {
 	@Test
 	public void queryForList() {
 		Condition<ModelFileUpload> condition = new Condition<ModelFileUpload>();
-		condition.setPage(new Page<ModelFileUpload>(0, 10));
+		condition.setPage(new Page<ModelFileUpload>(0L, 10L));
 		List<ModelFileUpload> list = iDaoFileUpload.findByCondition(condition);
 		print(list);
 	}

@@ -41,7 +41,7 @@ public class ServCarTest extends CarModuleStatisTest {
 	
 	@Test
 	public void findModels() {
-		List<ModelCar> list = iServCar.findModels(new Page<ModelCar>(0, 15));
+		List<ModelCar> list = iServCar.findModels(new Page<ModelCar>(0L, 15L));
 		print(list);
 	}
 	

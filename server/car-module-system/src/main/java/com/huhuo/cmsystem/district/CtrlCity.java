@@ -30,7 +30,7 @@ public class CtrlCity extends SystemBaseCtrl {
 	public void get(Condition<ModelCity> condition, HttpServletResponse resp){
 		try {
 			logger.debug("server receive: condition={}", condition);
-			List<ModelCity> list = iServCity.findModels(new Page<ModelCity>(0, 10));
+			List<ModelCity> list = iServCity.findModels(new Page<ModelCity>(0L, 10L));
 			write(ExtUtils.getJsonStore(list, list.size()), resp);
 		} catch (HuhuoException e) {
 			logger.warn(e.getMessage());

@@ -16,7 +16,7 @@ public class ModelSMS extends BaseModel {
 	/** 接收者id（与sys_user关联） **/
 	private Long recieverId;
 	/** 接收者手机号码 **/
-	private Long phoneNum;
+	private String phoneNum;
 	/** 是否全部联系人*/
 	private boolean allContacts;
 	/**定时发送时间*/
@@ -46,10 +46,10 @@ public class ModelSMS extends BaseModel {
 	public void setRecieverId(Long recieverId) {
 		this.recieverId = recieverId;
 	}
-	public Long getPhoneNum() {
+	public String getPhoneNum() {
 		return phoneNum;
 	}
-	public void setPhoneNum(Long phoneNum) {
+	public void setPhoneNum(String phoneNum) {
 		this.phoneNum = phoneNum;
 	}
 	public ModelUser getSender() {

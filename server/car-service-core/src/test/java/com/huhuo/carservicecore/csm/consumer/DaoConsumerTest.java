@@ -39,7 +39,7 @@ public class DaoConsumerTest extends CarServiceCoreTest {
 	
 	@Test
 	public void autoInject() {
-		List<ModelConsumer> list = iDaoConsumer.findModels(0, 10);
+		List<ModelConsumer> list = iDaoConsumer.findModels(0L, 10L);
 		print(list);
 	}
 	

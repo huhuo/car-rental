@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -155,7 +157,7 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements
 		ModelSMS t = new ModelSMS();
 		t.setSenderId(sender.getId());
 		t.setRecieverId(consumer.getId());
-		t.setPhoneNum(Long.valueOf(consumer.getMobileNumber()));
+		t.setPhoneNum(consumer.getMobileNumber());
 		t.setContent(msg);
 		t.setCreateTime(new Date());
 		t.setUpdateTime(null);
@@ -255,6 +257,22 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements
 		xml += "</soap:Body>";
 		xml += "</soap:Envelope>";
 		return xml;
+	}
+
+	@Override
+	public List<String> send(ModelUser sender, List<ModelConsumer> consumers,
+			String msg, String rrid) {
+		List<String> rets = new ArrayList<String>();
+		for(ModelConsumer consumer : consumers) {
+			String ret = send(sender, consumer, msg, rrid);
+			rets.add(ret);
+		}
+		return rets;
+	}
+
+	@Override
+	public String send(ModelSMS msg, String rrid) {
+		return send(msg.getSenderId(), msg.getRecieverId(), msg.getContent(), rrid);
 	}
 
 }

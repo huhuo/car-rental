@@ -27,7 +27,7 @@ public class CtrlSMS extends SystemBaseCtrl {
 	@Resource(name="carservicecoreDaoConsumer")
 	private IDaoConsumer idaoConsumer;
 	
-	@RequestMapping(value = "/send.do")
+	@RequestMapping(value = "/get.do")
 	public String get(Model model, HttpServletRequest req, ModelSMS msg) {
 		logger.info("send message --> {}", msg);
 		ModelUser sender = getSession(req).get(SessionKey.USER);
@@ -35,45 +35,25 @@ public class CtrlSMS extends SystemBaseCtrl {
 		return render(model, new Message<ModelSMS>(Status.SUCCESS, "send messsage successfully!", msg));
 	}
 	
-	@RequestMapping(value = "/sendSMS.do")
+	@RequestMapping(value = "/send.do")
 	public String send(Model model, HttpServletRequest req, ModelSMS msg) {
 		ModelUser sender = getSession(req).get(SessionKey.USER);
 		logger.info("send message --> {}", msg);
-		
 		boolean allContacts = msg.isAllContacts();
 		if (allContacts) {
-			Long count = idaoConsumer.count();
-			
-			//计算分页 真麻烦
-			int myCount = Integer.parseInt(count + "");
-			int pageSize = 10;
-			int pageCount = 0;
-			int result = myCount % pageSize;
-			if (result != 0) {
-				pageCount = (myCount / pageSize) + 1;
-			} else {
-				pageCount = (myCount / pageSize);
-			}
-			logger.info("consumer count:" + myCount + " pageCount:" + pageCount + " pageSize:" + pageSize);
-			int start = 0;
-			int end = 0;
-			for (int i = 0; i < pageCount; i ++) {
-				//该页起始数据为当前页数 * pageSize
-				start = i * pageSize ;
-				//如果开始也小于0，置为0
-				if (start < 0) {
-					start = 0;
-				}
-				List<ModelConsumer> models = idaoConsumer.findModels(ModelConsumer.class, start, pageSize);
-				for (ModelConsumer consumer : models) {
-					iServSMS.send(sender.getId(), consumer.getId(), msg.getContent(),"success");
-				}
+			Long start = 0L;
+			Long limit = 10L;
+			List<ModelConsumer> consumers = idaoConsumer.findModels(start, limit);
+			while (consumers!=null && !consumers.isEmpty()) {
+				List<String> statusList = iServSMS.send(sender, consumers, msg.getContent(), "success");
+				logger.info("==> batch send result --> {}", statusList);
+				start += limit;
+				consumers = idaoConsumer.findModels(start, limit);
 			}
 		} else {
-			String send = iServSMS.send(sender.getId(), msg.getRecieverId(), msg.getContent(),"success");
+			iServSMS.send(sender.getId(), msg.getRecieverId(), msg.getContent(),"success");
 		}
-		
-		return null;
+		return render(model, new Message<String>(Status.SUCCESS, "发送成功！"));
 	}
 	
 }

@@ -23,7 +23,7 @@ public class ServOrderTest extends CarModuleOrderTest {
 	
 	@Test
 	public void findModels() {
-		List<ModelOrder> list = iServOrder.findModels(new Page<ModelOrder>(0, 15));
+		List<ModelOrder> list = iServOrder.findModels(new Page<ModelOrder>(0L, 15L));
 		print(list);
 	}
 	

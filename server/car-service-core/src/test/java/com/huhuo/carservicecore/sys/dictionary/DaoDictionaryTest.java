@@ -26,7 +26,7 @@ public class DaoDictionaryTest extends CarServiceCoreTest {
 	
 	@Test
 	public void crud() {
-		print(iDaoDictionary.findModels(0, 20));
+		print(iDaoDictionary.findModels(0L, 20L));
 	}
 	@Test
 	public void getGroupsBy() {

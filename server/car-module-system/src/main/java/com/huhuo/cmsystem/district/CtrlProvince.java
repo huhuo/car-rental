@@ -31,7 +31,7 @@ public class CtrlProvince extends BaseCtrl {
 	public void get(Condition<ModelCity> condition, HttpServletResponse resp){
 		try {
 			logger.debug("server receive: condition={}", condition);
-			List<ModelProvince> list = iServProvince.findModels(new Page<ModelProvince>(0, 10));
+			List<ModelProvince> list = iServProvince.findModels(new Page<ModelProvince>(0L, 10L));
 			write(ExtUtils.getJsonStore(list, list.size()), resp);
 		} catch (HuhuoException e) {
 			logger.warn(e.getMessage());

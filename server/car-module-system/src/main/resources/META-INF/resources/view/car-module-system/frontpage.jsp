@@ -98,7 +98,7 @@ $(document).ready(function() {
 							<!-- 
 							<a class="huhuoItem first" href="${path }/cmorder/order/index.do">车辆运营服务</a>
 							 -->
-								<a class="huhuoItem" href="${path }/cmconsumer/consumer/sms_index.do">短信发布服务</a>
+								<a class="huhuoItem" href="${path }/cmconsumer/sms/index.do">短信发布服务</a>
 								<a class="huhuoItem end" href="${path }/cmconsumer/consumer/mobile_index.do">移动终端服务</a>
 							</li>
 

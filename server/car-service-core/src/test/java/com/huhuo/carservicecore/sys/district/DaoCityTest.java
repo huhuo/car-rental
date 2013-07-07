@@ -61,7 +61,7 @@ public class DaoCityTest extends CarServiceCoreTest {
 	
 	@Test
 	public void findBeans() throws Exception{
-		List<ModelCity> list = daoCity.findModels(ModelCity.class, 0, 2);
+		List<ModelCity> list = daoCity.findModels(ModelCity.class, 0L, 2L);
 		print(list);
 	}
 	

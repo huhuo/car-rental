@@ -123,7 +123,7 @@ public class ServStoreTest extends CarModuleSystemTest {
 	
 	@Test
 	public void findModels() {
-		List<ModelStore> list = iServStore.findModels(new Page<ModelStore>(0, 15));
+		List<ModelStore> list = iServStore.findModels(new Page<ModelStore>(0L, 15L));
 		print(list);
 	}
 
