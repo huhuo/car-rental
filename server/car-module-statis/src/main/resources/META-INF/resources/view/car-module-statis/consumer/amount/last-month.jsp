@@ -27,7 +27,7 @@
 	            categories:categories,
 	            labels: {
 	            	rotation: -45,
-                    align: 'right',
+                    align: 'center',
                     style: {
                         fontSize: '13px',
                         fontFamily: 'Verdana, sans-serif'
@@ -46,9 +46,9 @@
 	        },
 	        tooltip: {
 	        	formatter: function() {
-                    return '<b>'+ this.x +'共租车：</b>'+
-                        Highcharts.numberFormat(this.y, 0) +
-                        '人次';
+                    return  this.x +'：'+
+                    '<b>'+ Highcharts.numberFormat(this.y, 0) +
+                        '人次'+'</b>';
                 }
 	        },
 	        plotOptions: {

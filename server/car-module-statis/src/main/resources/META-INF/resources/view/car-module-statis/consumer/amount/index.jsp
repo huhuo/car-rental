@@ -15,7 +15,7 @@ $(function () {
 });
 
 function ststisWeek() {
-	$("#pagediv").load('${path}/cmstatis/consumer/amount/this-week.do',null,
+	$("#pagediv").divBlockLoad('${path}/cmstatis/consumer/amount/this-week.do',null,
 			function(data, status, event, loadDiv){
 		if('success'!=status){
 			loadDiv.append('无数据');
@@ -23,7 +23,7 @@ function ststisWeek() {
 	});
 }
 function ststisMonth() {
-	$("#pagediv").load('${path}/cmstatis/consumer/amount/last-month.do',null,
+	$("#pagediv").divBlockLoad('${path}/cmstatis/consumer/amount/last-month.do',null,
 			function(data, status, event, loadDiv){
 		if('success'!=status){
 			loadDiv.append('无数据');
@@ -31,7 +31,7 @@ function ststisMonth() {
 	});
 }
 function ststisQuarter() {
-	$("#pagediv").load('${path}/cmstatis/consumer/amount/last-quarter.do',null,
+	$("#pagediv").divBlockLoad('${path}/cmstatis/consumer/amount/last-quarter.do',null,
 			function(data, status, event, loadDiv){
 		if('success'!=status){
 			loadDiv.append('无数据');
@@ -39,7 +39,7 @@ function ststisQuarter() {
 	});
 }
 function ststisYear() {
-	$("#pagediv").load('${path}/cmstatis/consumer/amount/last-year.do',null,
+	$("#pagediv").divBlockLoad('${path}/cmstatis/consumer/amount/last-year.do',null,
 			function(data, status, event, loadDiv){
 		if('success'!=status){
 			loadDiv.append('无数据');

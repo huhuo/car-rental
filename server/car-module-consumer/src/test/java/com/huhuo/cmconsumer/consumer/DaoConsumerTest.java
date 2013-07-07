@@ -4,10 +4,13 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.beanutils.MethodUtils;
 import org.junit.Test;
+import org.springframework.asm.commons.Method;
 
 import com.huhuo.carservicecore.csm.consumer.IDaoConsumer;
 import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
@@ -15,7 +18,6 @@ import com.huhuo.cmconsumer.CarModuleConsumerTest;
 import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.db.mysql.Page;
 import com.huhuo.integration.util.TimeUtils;
-import com.huhuo.integration.util.TimeUtils.HPattern;
 
 public class DaoConsumerTest extends CarModuleConsumerTest {
 
@@ -24,20 +26,29 @@ public class DaoConsumerTest extends CarModuleConsumerTest {
 	
 	@Test
 	public void crud() {
-		ModelConsumer t = new ModelConsumer();
-		for (int i = 1; i <= 30; i++) {
-			t.setAddress("北京海淀");
-			t.setAge(23);
-			t.setAvatar("eret");
-			t.setBirthday(TimeUtils.parse("1989-01-03", HPattern.SHORT));
-			t.setCreateTime(new Date());
-			t.setEmergencyContact("中国共产党");
-			t.setEmergencyTel("010543643");
-			t.setGender(1);
-			t.setUsername("收到了快递费");
-			t.setEmail("wuyuxuan2014@gmail.com");
-			idaoConsumer.add(t);
+	
+		
+		
+		List<ModelConsumer> list = new ArrayList<ModelConsumer>();
+		for(int i=1;i<=365;i++){
+			Random random = new Random();
+			int nextInt = random.nextInt(31);
+			for(int j=0;j<=nextInt; j++){
+				ModelConsumer t = new ModelConsumer();
+				t.setAddress("北京海淀");
+				t.setAge(23);
+				t.setAvatar("eret");
+				t.setCreateTime(TimeUtils.offsetDate(-(new Random().nextInt(365)), new Date()));
+				t.setEmergencyContact("中国共产党");
+				t.setEmergencyTel("010543643");
+				t.setGender(1);
+				t.setUsername("收到了快递费");
+				t.setEmail("wuyuxuan2014@gmail.com");
+				list.add(t);
+			}
+		
 		}
+		idaoConsumer.addBatch(list);
 	}
 	
 	
@@ -78,14 +89,14 @@ public class DaoConsumerTest extends CarModuleConsumerTest {
 	
 	@Test
 	public void findByCondition() {
-		Condition<ModelConsumer> condition = new Condition<ModelConsumer>(null, null, null, new Page<ModelConsumer>(0L, 10L));
+		Condition<ModelConsumer> condition = new Condition<ModelConsumer>(null, null, null, new Page(0L, 10L));
 		List<ModelConsumer> list = idaoConsumer.findByCondition(condition);
 		print(list);
 	}
 	
 	public static void main(String[] args) throws UnsupportedEncodingException {
-		System.out.println("2415315".charAt(1));
-		String string = new String("我".getBytes(),"utf-8");
-		System.out.println(string);
+		for(int i=0; i<=365; i++){
+		System.out.println(-(new Random().nextInt(365)));
+		}
 	}
 }

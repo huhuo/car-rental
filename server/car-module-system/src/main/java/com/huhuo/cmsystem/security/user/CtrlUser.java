@@ -7,8 +7,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import com.huhuo.carservicecore.cust.store.ModelStore;
 import com.huhuo.carservicecore.sys.user.IDaoUser;
 import com.huhuo.carservicecore.sys.user.ModelUser;
 import com.huhuo.cmsystem.SystemBaseCtrl;
+import com.huhuo.cmsystem.security.Session.SessionKey;
 import com.huhuo.cmsystem.store.IServStore;
 import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.db.mysql.Dir;
@@ -233,9 +236,18 @@ public class CtrlUser extends SystemBaseCtrl {
 	 *************************************************************/
 	
 	@RequestMapping(value="/person.do")
-	public String person() {
+	public String person(HttpServletRequest req, Model model) {
+		ModelUser user = getSession(req).get(SessionKey.USER);
+		model.addAttribute("user", user);
 		logger.debug("---> access person management page");
 		return basePath + "/user/person";
+	}
+	@RequestMapping(value="/editPerson.do")
+	public void editPerson(HttpServletResponse resp, ModelUser t) {
+		iServUser.update(t);
+		logger.debug("---> access person management page");
+		Message<ModelUser> msg = new Message<ModelUser>(Status.SUCCESS, "修改成功", t);
+		write(msg, resp);
 	}
 	
 }

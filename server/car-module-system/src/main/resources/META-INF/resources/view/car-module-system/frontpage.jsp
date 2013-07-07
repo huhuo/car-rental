@@ -98,7 +98,7 @@ $(document).ready(function() {
 							<!-- 
 							<a class="huhuoItem first" href="${path }/cmorder/order/index.do">车辆运营服务</a>
 							 -->
-								<a class="huhuoItem" href="${path }/cmconsumer/sms/index.do">短信发布服务</a>
+								<a class="huhuoItem" href="${path }/cmconsumer/consumer/sms_index.do">短信发布服务</a>
 								<a class="huhuoItem end" href="${path }/cmconsumer/consumer/mobile_index.do">移动终端服务</a>
 							</li>
 
@@ -115,7 +115,7 @@ $(document).ready(function() {
 							<li id="systemMgr" class="collapse leftdivchange"><a
 								class="huhuoItem frist" href="${path }/cmsystem/security/user/index.do">系统用户管理</a>
 								<a class="huhuoItem" href="${path }/cmsystem/store/index.do">门店管理</a>
-								<a class="huhuoItem end" href="${path }/cmsystem/user/person.do">个人信息管理</a>
+								<a class="huhuoItem end" href="${path }/cmsystem/security/user/person.do">个人信息管理</a>
 							</li>
 
 						</ul>
