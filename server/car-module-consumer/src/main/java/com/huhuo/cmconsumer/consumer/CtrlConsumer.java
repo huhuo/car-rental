@@ -45,11 +45,7 @@ public class CtrlConsumer extends BaseCtrl {
 	@RequestMapping(value="/index.do")
 	public String consumerIndex(Model model) {
 		logger.debug("access consumer management page");
-		Condition<ModelConsumer> condition = new Condition<ModelConsumer>();
-		condition.setOrderList(new Order("createTime", Dir.DESC), new Order("updateTime", Dir.DESC));
-		condition.setPage(new Page<ModelConsumer>(0, 20));
-		List<ModelConsumer> list = iservConsumer.findByCondition(condition, true);
-		model.addAttribute("list", list);
+		
 		return basePath + "/consumer/index";
 	}
 	
