@@ -60,7 +60,7 @@ $(document).ready(function() {
 					<li><a href="#">车辆管理</a><span class="divider">/</span></li>
 					<li><a href="#">车型管理</a><span class="divider">/</span></li>
 					<li class="active">Data</li>
-					<li style="float: right;">吴雨轩，您好    <a href="${path }/cmsystem/security/validation/logout.do">logout</a></li>
+					<li style="float: right;">吴雨轩，您好    <a href="${path }/cmsystem/security/validation/logout.do">退出</a></li>
 				</ul>
 			</div>
 			
