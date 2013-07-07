@@ -60,7 +60,7 @@ $(document).ready(function() {
 					<li><a href="#">车辆管理</a><span class="divider">/</span></li>
 					<li><a href="#">车型管理</a><span class="divider">/</span></li>
 					<li class="active">Data</li>
-					<li style="float: right;">吴雨轩，您好    <a href="${path }/cmsystem/security/validation/logout.do">logout</a></li>
+					<li style="float: right;">${user.username }，您好    <a href="${path }/cmsystem/security/validation/logout.do">logout</a></li>
 				</ul>
 			</div>
 			
@@ -98,8 +98,8 @@ $(document).ready(function() {
 							<!-- 
 							<a class="huhuoItem first" href="${path }/cmorder/order/index.do">车辆运营服务</a>
 							 -->
-								<a class="huhuoItem" href="${path }/cmconsumer/sms/index.do">短信发布服务</a>
-								<a class="huhuoItem end" href="${path }/cmconsumer/consumer/mobile_index.do">移动终端服务</a>
+								<a class="huhuoItem" href="${path }/cmbiz/ms/index.do">短信发布服务</a>
+								<a class="huhuoItem end" href="${path }/cmbiz/ms/mobile_index.do">移动终端服务</a>
 							</li>
 
 							<li data-toggle="collapse" data-target="#analyMgr"><a
