@@ -33,10 +33,10 @@ public class DaoConsumer extends GenericBaseExtenseDao<ModelConsumer> implements
 			Condition<ModelConsumer> condition) {
 		// TODO Auto-generated method stub
 		List<ModelConsumer> list = super.findByCondition(condition);
-		for(ModelConsumer consumer : list) {
-			ModelDictionary genderDic = iDaoDictionary.getBy(ModelDictGroup.GENERAL_SYS_GENDER, consumer.getGender());
-			consumer.setGenderDic(genderDic);
-		}
+//		for(ModelConsumer consumer : list) {
+//			ModelDictionary genderDic = iDaoDictionary.getBy(ModelDictGroup.GENERAL_SYS_GENDER, consumer.getGender());
+//			consumer.setGenderDic(genderDic);
+//		}
 		return list;
 	}
 	

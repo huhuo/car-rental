@@ -6,6 +6,7 @@
 <head>
 <link href="${path }/res/js/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
 <link href="${path }/res/js/huhuo/huhuo.css" rel="stylesheet" media="screen">
+<link href="${path }/res/js/huhuo/stylebt.css" rel="stylesheet" type="text/css">
 <script src="${path }/res/js/jquery/jquery.js"></script>
 <script src="${path }/res/js/bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript">
@@ -19,62 +20,37 @@ $(document).ready(function() {
 <title>弛通汽车租赁系统</title>
 </head>
 
-<body>
-	<h2 style="text-align: center;">弛通汽车租赁系统</h2>
-	<form class="form-horizontal" action="${path}/cmsystem/security/validation/login.do" method="post">
-		
-		<!-- <div class="control-group">
-			<label class="control-label" for="inputUsername">用户名</label>
-			<div class="controls">
-				<input type="text" class="required" id="inputUsername" name="username" placeholder="请输入用户名...">
-			</div>
-		</div>
-		<div class="control-group">
-			<label class="control-label" for="inputPassword">密码</label>
-			<div class="controls">
-				<input type="password" class="required" id="inputPassword" name="password" placeholder="请输入密码...">
-			</div>
-		</div> -->
-		
-		<table align="center">
-			<tr>
-				<td colspan="3">
-					<c:if test="${not empty seLoginErrMsg}">
-						${seLoginErrMsg}
-					</c:if>
-				</td>
-			</tr>
-			<tr> 
-				<td><label>用户名：</label></td>
-				<td><input type="text" name="username" /></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td><label>密码：</label></td>
-				<td><input type="password" name="password"/></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>
-					<label>验证码：</label>
-				</td>
-				<td>
-					<input name="captcha" type="text" id="captcha" />
-				</td>
-				<td>
-					<img src="${path }/cmsystem/security/validation/captcha.do" 
-						id="captchaImage" title="刷新" style= "CURSOR:pointer"/>
-				</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><input type="submit" value="登录" /></td>
-				<td></td>
-			</tr>
-		</table>
-		
-
-	</form>
+<body style="margin-top: 100px">
+	<div class="container">
+  
+  <div class="well huhuo-signin">
+    <h2 class="form-signin-heading" style="text-align:center;padding:10px 0 20px">北京弛通科技有限公司</h2>
+  <form class="huhuo-form" action="${path}/cmsystem/security/validation/login.do" method="post">
+    <div class="control-group">
+    <div class="input-prepend">
+      <span class="add-on" style="width:60px;text-align:right">用户名：</span>
+      <input class="span3" name="username" id="username" type="text" placeholder="姓名">
+    </div>
+    </div>
+    <div class="control-group">
+    <div class="input-prepend">
+      <span class="add-on" style="width:60px;text-align:right">密码：</span>
+      <input class="span3" name="password" id="password" type="password" placeholder="密码">
+    </div>
+    </div>
+    <p style="text-align:center"><button class="btn btn-large btn-primary" type="submit">登录</button></p>
+  </form>
+  </div>
+  
+  <hr>
+  <div class="huhuo-footer">
+    <p color="gray">Copyright©2012-2013 Beijing Chitong Technology Co., Ltd. All Rights Reserved 弛通科技 版权所有</p>
+    <p color="gray">京ICP备13024190号-1</p>
+    <!-- 
+    <a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备13024190号-1</a>
+     -->
+  </div>
+</div>
 
 
 </body>
