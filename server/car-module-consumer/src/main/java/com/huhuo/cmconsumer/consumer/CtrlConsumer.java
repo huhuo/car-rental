@@ -100,7 +100,10 @@ public class CtrlConsumer extends BaseCtrl {
 		model.addAttribute("consumer", consumer);
 		Date date = consumer.getBirthday();
 		logger.debug("birthday date:" + date);
-		String birthday = sdf.format(date);
+		String birthday = null;
+		if (date != null) {
+			birthday = sdf.format(date);
+		}
 		logger.debug("SimpleDateFormat:" + sdf);
 		model.addAttribute("xbirthday", birthday);
 		return basePath + "/consumer/detail";
