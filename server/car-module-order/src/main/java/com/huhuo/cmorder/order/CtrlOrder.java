@@ -147,6 +147,76 @@ public class CtrlOrder extends HuhuoWebBaseBaseCtrl {
 		return basePath + "/checkOutui";
 	}
 	
+	
+	@RequestMapping(value = "/checkout.do")
+	public void checkout(HttpServletResponse resp,Long orderId,Double oil,Long mile) { // order manage page
+		logger.debug("access order management page");
+		ModelOrder order=iservOrder.find(orderId);
+		
+		Date carRentTime = order.getCarRentTime();
+		Date carPlanRetTime = order.getCarPlanRetTime();
+		
+		Calendar calendar=Calendar.getInstance();
+		calendar.setTime(carRentTime);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		
+		//租车天数
+		Integer days=Long.valueOf((carPlanRetTime.getTime()-calendar.getTimeInMillis())/(24*3600*1000)).intValue();
+		
+		if(days<1){
+			days=1;
+		}
+		
+		
+		Date date = new Date();
+		long overmill=date.getTime()-carPlanRetTime.getTime();
+		Integer hours=0;
+		if(overmill>0)//超时小时
+			hours	=Long.valueOf(overmill/(3600*1000)).intValue();
+		
+		
+		Double overPrice=hours*order.getOverTimeFare();
+		
+		
+		Double rent = order.getRent();
+		
+		Double normalPrice=days*rent;
+		
+		
+		Long mileageLimits = order.getMileageLimits();
+		
+		Long limitMile=mileageLimits*days+order.getMileageBegin();
+		Double oilmassBegin = order.getOilmassBegin();
+		Double oilPrice = order.getOilPrice();
+		Double overMileageFare = order.getOverMileageFare();
+		double oilSpend=0;
+		double mileEnd=0;
+		if(oil<oilmassBegin){
+			oilSpend=(oilmassBegin-oil)*oilPrice;
+		}
+		if(mile>limitMile){
+			mileEnd=(mile-limitMile)*overMileageFare;
+		}
+		
+		Double totalPrice=normalPrice+overPrice+oilSpend+mileEnd;
+		
+		
+		order.setCarRetTime(date);
+		order.setOilmassEnd(oil);
+		order.setMileageEnd(mile);
+		order.setStatus(2);
+		order.setTotalFee(totalPrice);
+		
+		Integer update = iservOrder.update(order);
+
+		Message<ModelOrder> msg = new Message<ModelOrder>(Status.SUCCESS, "checkout order success!", order);
+		logger.debug("orderlist is [{}]", msg);
+		write(msg, resp);
+	}
+	
 	@RequestMapping(value = "/addUI.do")
 	public String addUI() { // order manage page
 		logger.debug("access addUI management page");
@@ -171,6 +241,26 @@ public class CtrlOrder extends HuhuoWebBaseBaseCtrl {
 		model.addAttribute("orderPage", page);
 		logger.debug("page is [{}]", page);
 		return basePath + "/ordertable";
+	}
+	@RequestMapping(value = "/historyordertable.do")
+	public String historyordertable(Condition<Map<String,Object>> condition, Model model) {
+		logger.debug("server receive: condition={}", condition);
+		Map<String, Object> opt = condition.getOpt();
+		//结账状态
+		opt.put("status", 2);
+		
+		Page<Map<String,Object>> page = condition.getPage();
+		
+		if (page == null) {
+			page = new Page<Map<String,Object>>();
+			condition.setPage(page);
+		}
+		// condition.setPage(new Page(0, 30));
+		// List<ModelConsumer> list = servConsumer.findByCondition(condition);
+		page= iservOrder.findOrderPage(condition);
+		model.addAttribute("orderPage", page);
+		logger.debug("page is [{}]", page);
+		return basePath + "/historyordertable";
 	}
 
 	@RequestMapping(value = "/addorder.do")

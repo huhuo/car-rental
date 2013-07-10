@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.huhuo.carservicecore.cust.store.ModelStore;
 import com.huhuo.integration.base.BaseModel;
+import com.huhuo.integration.db.mysql.NotSqlField;
 
 public class ModelOrder extends BaseModel implements Serializable {
 
@@ -69,6 +70,7 @@ public class ModelOrder extends BaseModel implements Serializable {
 	
 	
 	/** external object **/
+	@NotSqlField
 	private ModelStore store;
 	
 	public Double getOilPrice() {
