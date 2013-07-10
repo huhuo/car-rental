@@ -51,8 +51,15 @@ public interface IServSMS extends IBaseExtenseServ<ModelSMS> {
 	List<String> send(ModelUser sender, List<ModelConsumer> consumers, String msg,
 			String rrid);
 	/**
+	 * @see #send(ModelUser, List, String, String)
+	 */
+	List<String> send(Long senderId, List<Long> receiverIds, String msg, String rrid);
+	/**
+	 * schedule task for send message
+	 */
+	void send(final Long senderId, final List<Long> receiverIds, final String msg, final String rrid, Date startTime);
+	/**
 	 * regularly send SMS
-	 * 
 	 * @param sender
 	 * @param consumer
 	 * @param msg message content
@@ -62,6 +69,18 @@ public interface IServSMS extends IBaseExtenseServ<ModelSMS> {
 	 */
 	String send(ModelUser sender, ModelConsumer consumer, String msg,
 			Date stime, String rrid);
+	/**
+	 * send msg to all consumer
+	 * @param senderId
+	 * @param msg
+	 * @param rrid
+	 * @return
+	 */
+	List<String> sendAll(Long senderId, String msg, String rrid);
+	/**
+	 * schedule task for send message
+	 */
+	void sendAll(final Long senderId, final String msg, final String rrid, Date startTime);
 	/**
 	 * 
 	 * @return remaining SMS count

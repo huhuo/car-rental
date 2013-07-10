@@ -23,6 +23,7 @@ import com.huhuo.carservicecore.cust.ms.ModelSMS;
 import com.huhuo.carservicecore.db.GenericBaseExtenseServ;
 import com.huhuo.carservicecore.sys.user.IDaoUser;
 import com.huhuo.carservicecore.sys.user.ModelUser;
+import com.huhuo.cmsystem.quartz.IServSchedule;
 import com.huhuo.componentweb.core.IServHcwHttpClient;
 import com.huhuo.integration.algorithm.MD5Utils;
 import com.huhuo.integration.base.IBaseExtenseDao;
@@ -31,8 +32,7 @@ import com.huhuo.integration.util.TimeUtils;
 import com.huhuo.integration.web.Message;
 
 @Service("cmsystemServSMS")
-public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements
-		IServSMS {
+public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements IServSMS {
 
 	private static String sn = "SDK-WKS-010-00887";
 	private static String password = "518250";
@@ -42,15 +42,14 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements
 	private String serviceURL = "http://sdk2.zucp.net:8060/webservice.asmx";
 	@Resource(name = "carservicecoreDaoSMS")
 	private IDaoSMS iDaoSMS;
-
 	@Resource(name = "carservicecoreDaoUser")
 	private IDaoUser iDaoUser;
-
 	@Resource(name = "carservicecoreDaoConsumer")
 	private IDaoConsumer iDaoConsumer;
-	
 	@Resource(name = "componentwebCoreHttpClientServ")
 	private IServHcwHttpClient iServHcwHttpClient;
+	@Resource(name = "cmsystemServSchedule")
+	private IServSchedule<ModelSMS> iServSchedule;
 
 	@Override
 	public IBaseExtenseDao<ModelSMS> getDao() {
@@ -269,10 +268,66 @@ public class ServSMS extends GenericBaseExtenseServ<ModelSMS> implements
 		}
 		return rets;
 	}
+	
+	@Override
+	public List<String> send(Long senderId, List<Long> receiverIds,
+			String msg, String rrid) {
+		List<String> rets = new ArrayList<String>();
+		for(Long receiverId : receiverIds) {
+			String ret = send(senderId, receiverId, msg, rrid);
+			rets.add(ret);
+		}
+		return rets;
+	}
+	
+	@Override
+	public void send(final Long senderId, final List<Long> receiverIds, final String msg, 
+			final String rrid, Date startTime) {
+		if(startTime == null) {	// if start time is null, send immediately
+			startTime = new Date();
+		}
+		iServSchedule.schedule(new Runnable() {
+			@Override
+			public void run() {
+				send(senderId, receiverIds, msg, rrid);
+			}
+		}, startTime);
+	}
 
 	@Override
 	public String send(ModelSMS msg, String rrid) {
 		return send(msg.getSenderId(), msg.getRecieverId(), msg.getContent(), rrid);
 	}
+
+	@Override
+	public List<String> sendAll(Long senderId, String msg, String rrid) {
+		List<String> ret = new ArrayList<String>();
+		Long start = 0L;
+		Long limit = 10L;
+		List<ModelConsumer> consumers = iDaoConsumer.findModels(start, limit);
+		while (consumers!=null && !consumers.isEmpty()) {
+			ModelUser sender = new ModelUser();
+			List<String> statusList = send(sender, consumers, msg, "success");
+			ret.addAll(statusList);
+			logger.info("==> batch send result --> {}", statusList);
+			start += limit;
+			consumers = iDaoConsumer.findModels(start, limit);
+		}
+		return ret;
+	}
+	
+	@Override
+	public void sendAll(final Long senderId, final String msg, final String rrid, Date startTime) {
+		if(startTime == null) {
+			startTime = new Date();
+		}
+		iServSchedule.schedule(new Runnable() {
+			@Override
+			public void run() {
+				sendAll(senderId, msg, rrid);
+			}
+		}, startTime);
+	}
+
 
 }
