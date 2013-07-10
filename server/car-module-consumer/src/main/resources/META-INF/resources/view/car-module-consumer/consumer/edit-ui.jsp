@@ -30,6 +30,37 @@ div.titlewell {
 			$('#consumerEditDivId').hide();
 			$('#consumerManagerDiv').show(500);
 		});
+		
+console.log($('.datetimepicker'));
+		
+		var datetimePicker = $('.datetimepicker').datetimepicker({
+			language: 'zh'
+		});
+		
+		datetimePicker.on('changeDate', function(ev){
+			var myBirthday = $("#inputBirthday").val();  
+			var dd = [];
+			dd = myBirthday.split("-");
+			var length = dd.length;
+			var len = parseInt(length);
+			if (len > 1) {
+				var year = dd[0];
+				var date = new Date();
+				var fYear = date.getFullYear();
+				console.log("fYear:" + fYear);
+				var curYear = parseInt(fYear);
+				console.log("curYear:" + curYear);
+				var birYear = parseInt(year);
+				var age = curYear - birYear;
+				console.log("age:" + age);
+				$("#inputAge").val(age);
+			} else {
+				// TODO
+			}
+		});
+		
+		
+		
 	});
 	$(document).ready(function() {
 		// cartype add page
@@ -98,14 +129,21 @@ div.titlewell {
 						<div class="control-group">
 							<label class="control-label" for="inputBirthday">出生年月</label>
 							<div class="controls">
+								<!-- 
 								<input type="text" class="consumerinput required" id="inputBirthday" value="${consumer.birthday }" 
 									name="birthday" placeholder="输入出生年月">
+								 -->
+								<div class="datetimepicker">
+									<input type="text" data-format="yyyy-MM-dd"  
+										class="consumerinput required" id="inputBirthday" name=birthday placeholder="输入出生年月">
+									<span class="add-on"><i class="icon-th"></i></span>
+								</div>	
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="inputAge">年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄</label>
 							<div class="controls">
-								<input type="number" class="consumerinput required digits" id="inputAge" value="${consumer.age }" 
+								<input type="number" disabled="disabled"  class="consumerinput required digits" id="inputAge" value="${consumer.age }" 
 									name="age" placeholder="输入年龄">
 							</div>
 						</div>

@@ -115,7 +115,7 @@
 
 <div id="orderViewInfoDiv">
 	<form id='addOrderform' class="form-horizontal"
-		action="${path}/cmorder/order/addorder.do" method="post">
+		action="${path}/cmorder/order/checkout.do" method="post">
 		<div class="row-fluid">
 				
 			<div class="span12">
@@ -124,20 +124,23 @@
 					<div class="controls">
 						<input type="text" class="orderinput" readonly="readonly" 
 							name="order.carRentTime" placeholder="租车开始..." value="${order.carRentTime }">
+						<!-- 订单Id -->
+						<input type="hidden" class="orderinput" readonly="readonly" 
+							name="orderId"  value="${order.id }">
 					</div>
 				</div>
 				<div class="control-group" style="margin-top: 60px;">
 					<label class="control-label" for="inputName" >预计还车</label>
 					<div class="controls">
 						<input type="text" class="orderinput" readonly="readonly" 
-							name="order.carRentTime" placeholder="租车开始..." value="${order.carPlanRetTime }">
+							name="order.carPlanRetTime" placeholder="租车开始..." value="${order.carPlanRetTime }">
 					</div>
 				</div>
 				<div class="control-group" style="margin-top: 60px;">
 					<label class="control-label" for="inputName" >实际还车</label>
 					<div class="controls">
 						<input type="text" class="orderinput" readonly="readonly" 
-							name="order.carRentTime" placeholder="租车开始..." value="${retTime }">
+							name="order.retTime" placeholder="租车开始..." value="${retTime }">
 					</div>
 				</div>
 				
@@ -145,28 +148,28 @@
 					<label class="control-label" for="inputName">租金</label>
 					<div class="controls">
 						<input type="text" class="orderinput" readonly="readonly" 
-							name="consumer.bondsmanIdentityCard" placeholder="共计天数..." value=${order.rent }>
+							name="order.rent" placeholder="共计天数..." value=${order.rent }>
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="inputName">超时费用</label>
 					<div class="controls">
 						<input type="text" class="orderinput" readonly="readonly" 
-							name="consumer.bondsmanIdentityCard" placeholder="共计天数..." id="orderDays" value=${order.overTimeFare }>
+							name="order.overTimeFare" placeholder="共计天数..." id="orderDays" value=${order.overTimeFare }>
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="inputName">超时</label>
 					<div class="controls">
 						<input type="text" class="orderinput" readonly="readonly" 
-							name="order.carRetTime" placeholder="租车结束..."  value=${hours } >
+							name="order.hours" placeholder="租车结束..."  value=${hours } >
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="inputName">标准费用</label>
 					<div class="controls">
 						<input type="text" class="orderinput" readonly="readonly" 
-							name="consumer.bondsmanIdentityCard" placeholder="共计天数..." value=${normalPrice }>
+							name="order.normalPrice" placeholder="共计天数..." value=${normalPrice }>
 					</div>
 				</div>
 				
@@ -174,63 +177,63 @@
 					<label class="control-label" for="inputName">超时费用</label>
 					<div class="controls">
 						<input type="text" class="orderinput" readonly="readonly" 
-							name="order.carRetTime" placeholder="租车结束..." value=${overTimePrice } >
+							name="order.overTimePrice" placeholder="租车结束..." value=${overTimePrice } >
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="inputName">初始油量</label>
 					<div class="controls">
 						<input type="text" class="orderinput" readonly="readonly" 
-							name="consumer.bondsmanIdentityCard" placeholder="共计天数..." value=${order.oilmassBegin }>
+							name="consumer.oilmassBegin" placeholder="共计天数..." value=${order.oilmassBegin }>
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="inputName">现在油量</label>
 					<div class="controls">
 						<input type="text" class="orderinput" readonly="readonly" id="orderCurrenterOil" 
-							name="consumer.bondsmanIdentityCard" placeholder="共计天数...">
+							name="oil" placeholder="共计天数...">
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="inputName">油耗费用</label>
 					<div class="controls">
 						<input type="text" class="orderinput" readonly="readonly" id="overOilPrice" 
-							name="consumer.bondsmanIdentityCard" placeholder="共计天数...">
+							name="order.overOilPrice" placeholder="共计天数...">
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="inputName">初始里程</label>
 					<div class="controls">
 						<input type="text" class="orderinput" readonly="readonly" 
-							name="consumer.bondsmanIdentityCard" placeholder="共计天数..."  value=${order.mileageBegin }>
+							name="consumer.mileageBegin" placeholder="共计天数..."  value=${order.mileageBegin }>
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="inputName">实际里程</label>
 					<div class="controls">
 						<input type="text" class="orderinput" readonly="readonly" id="orderCurrenterMile" 
-							name="consumer.bondsmanIdentityCard" placeholder="共计天数...">
+							name="mile" placeholder="共计天数...">
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="inputName">里程上限</label>
 					<div class="controls">
 						<input type="text" class="orderinput" readonly="readonly" 
-							name="consumer.bondsmanIdentityCard" placeholder="共计天数..."  value=${limitMile }>
+							name="order.limitMile" placeholder="共计天数..."  value=${limitMile }>
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="inputName">超里程费</label>
 					<div class="controls">
 						<input type="text" class="orderinput" readonly="readonly" id="overMilePrice"
-							name="consumer.bondsmanIdentityCard" placeholder="共计天数...">
+							name="overMilePrice" placeholder="共计天数...">
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="inputName">共计</label>
 					<div class="controls">
 						<input type="text" class="orderinput" readonly="readonly" id="orderTotalPrice"
-							name="consumer.bondsmanIdentityCard" placeholder="共计天数...">
+							name="order.totalPrice" placeholder="共计天数...">
 					</div>
 				</div>
 				<div class="row-fluid">

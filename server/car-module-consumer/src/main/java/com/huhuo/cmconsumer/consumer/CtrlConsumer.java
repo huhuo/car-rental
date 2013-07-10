@@ -40,11 +40,11 @@ public class CtrlConsumer extends BaseCtrl {
 	@RequestMapping(value="/index.do")
 	public String consumerIndex(Model model) {
 		logger.debug("access consumer management page");
-		Condition<ModelConsumer> condition = new Condition<ModelConsumer>();
-		condition.setOrderList(new Order("createTime", Dir.DESC), new Order("updateTime", Dir.DESC));
-		condition.setPage(new Page<ModelConsumer>(0L, 10L));
-		List<ModelConsumer> list = iservConsumer.findByCondition(condition, true);
-		model.addAttribute("list", list);
+//		Condition<ModelConsumer> condition = new Condition<ModelConsumer>();
+//		condition.setOrderList(new Order("createTime", Dir.DESC), new Order("updateTime", Dir.DESC));
+//		condition.setPage(new Page<ModelConsumer>(0L, 10L));
+//		List<ModelConsumer> list = iservConsumer.findByCondition(condition, true);
+//		model.addAttribute("list", list);
 		return basePath + "/consumer/index";
 	}
 	
@@ -52,17 +52,16 @@ public class CtrlConsumer extends BaseCtrl {
 	public String get(Model model, Condition<ModelConsumer> condition, ModelConsumer t){
 		t.setStatus(1);
 		condition.setT(t);
-		condition.setOrderList(new Order("createTime", Dir.DESC), new Order("updateTime", Dir.DESC));
 		logger.debug("---> server receive: condition={}", condition);
 		Page<ModelConsumer> page = condition.getPage();
 		if(page == null) {
 			page = new Page<ModelConsumer>();
 		}
 		condition.setOrderList(new Order("createTime", Dir.DESC), new Order("updateTime", Dir.DESC));
-		condition.setPage(new Page<ModelConsumer>(0L, 10L));
-		List<ModelConsumer> records = iservConsumer.findByCondition(condition);
+		List<ModelConsumer> records = iservConsumer.findByCondition(condition,true);
 		model.addAttribute("records", records);
 		page.setTotal(iservConsumer.countByCondition(condition));
+//		page.setTotal(iservConsumer.countByCondition(condition));
 		model.addAttribute("page", page);
 		model.addAttribute("t", t);
 		
@@ -101,7 +100,10 @@ public class CtrlConsumer extends BaseCtrl {
 		model.addAttribute("consumer", consumer);
 		Date date = consumer.getBirthday();
 		logger.debug("birthday date:" + date);
-		String birthday = sdf.format(date);
+		String birthday = null;
+		if (date != null) {
+			birthday = sdf.format(date);
+		}
 		logger.debug("SimpleDateFormat:" + sdf);
 		model.addAttribute("xbirthday", birthday);
 		return basePath + "/consumer/detail";

@@ -9,7 +9,7 @@ table.table-hover tbody tr.huhuo-item-selected {
 
 
 </style>
-<table id="consumerPageGridId" class="table table-hover table-condensed">
+<table id="pageGridId" class="table table-hover table-condensed">
 	<thead>
 		<tr>
 			<th><input type="checkbox" class="checkbox"></th>
@@ -59,23 +59,23 @@ $(document).ready(function() {
 	var t = JSON.parse('${t}');
 	$(".pagination").myPage(page, '${path }/cmconsumer/consumer/condition/get.do', t, $("#pagediv"), 5);
 	// add select css
-	$('#consumerPageGridId tbody tr').click(function(event) {
+	$('#pageGridId tbody tr').click(function(event) {
 		$(this).toggleClass('huhuo-item-selected');
 		$(this).find(':checkbox')[0].checked = !$(this).find(':checkbox')[0].checked;
 	});
-	$('#consumerPageGridId thead tr :checkbox').click(function(event) {
-		$('#consumerPageGridId tbody :checkbox').each(function(index, element) {
-			element.checked = $('#consumerPageGridId thead tr :checkbox')[0].checked;
+	$('#pageGridId thead tr :checkbox').click(function(event) {
+		$('#pageGridId tbody :checkbox').each(function(index, element) {
+			element.checked = $('#pageGridId thead tr :checkbox')[0].checked;
 			if(element.checked) {
-				$('#consumerPageGridId tbody tr').addClass('huhuo-item-selected');
+				$('#pageGridId tbody tr').addClass('huhuo-item-selected');
 			} else {
-				$('#consumerPageGridId tbody tr').removeClass('huhuo-item-selected');
+				$('#pageGridId tbody tr').removeClass('huhuo-item-selected');
 			}
 		});
 	});
 	
 	// add event to edit button
-	$('#consumerPageGridId tbody button[name="detail"]').click(function(event) {
+	$('#pageGridId tbody button[name="detail"]').click(function(event) {
 		var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
 		$("#consumerEditDivId").load('${path}/cmconsumer/consumer/detail.do', {
 			id: selectedId
@@ -84,7 +84,7 @@ $(document).ready(function() {
 			$("#consumerEditDivId").show(500);
 		});
 	});
-	$('#consumerPageGridId tbody button[name="edit"]').click(function(event) {
+	$('#pageGridId tbody button[name="edit"]').click(function(event) {
 		var selectedId = $(this).parent().parent().parent().children().slice(1, 2).text();
 		$("#consumerEditDivId").load('${path}/cmconsumer/consumer/edit-ui.do', {
 			id: selectedId

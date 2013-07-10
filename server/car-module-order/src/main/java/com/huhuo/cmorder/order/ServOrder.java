@@ -167,6 +167,13 @@ public class ServOrder extends GenericBaseExtenseServ<ModelOrder> implements
 				sqlsb.append(" and o.status = ?");
 				list.add(status);
 			}
+			
+			Object excludeStatus = opt.get("excludeStatus");
+			
+			if(excludeStatus!=null){
+				sqlsb.append(" and o.status ! = ?");
+				list.add(excludeStatus);
+			}
 			Object phone = opt.get("phone");
 			if(phone!=null){
 				sqlsb.append(" and con.mobileNumber = ?");

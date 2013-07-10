@@ -64,17 +64,18 @@ select {
 									href="javascript:void(0)">住址</a></li>
 							</ul></li>
 					</ul>
-					<form id="huhuoForm" class="navbar-form" style="width: 400px;"
-						action="${path }/cmconsumer/consumer/condition/get.do">
-						<input type="text" class="search-query span6" name="mobileNumber"
-							placeholder="手机号">
+					<form id="huhuoForm" class="navbar-form" style="width: 400px;" action="${path }/cmconsumer/consumer/condition/get.do">
+						<input type="text" class="search-query span6" name="mobileNumber" placeholder="手机号">
+						<input type="hidden" name="status" value="1">
+						<input type="hidden" name="page.pageNo" value="1">
+						<input type="hidden" name="page.limit" value="10">
 						<button type="submit" class="btn">search</button>
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div id="consumerPageGridId">
+	<div id="pagediv">
 	</div>
 </div>
 <div id="consumerEditDivId">
@@ -97,8 +98,8 @@ $(document).ready(function(){
 		if($.isJsonObj(data)) {
 			$.huhuoGrowlUI('error occur in server --> ' + data.msg);
 		} else {
-			$('#consumerPageGridId').empty();
-			$('#consumerPageGridId').append(data);
+			$('#pagediv').empty();
+			$('#pagediv').append(data);
 		}
 	});
 	$('#huhuoForm').trigger('submit');
@@ -129,7 +130,7 @@ $(document).ready(function(){
 		if(confirm) {
 			// get item selected
 			var ids = new Array();
-			$('#consumerPageGridId tbody input').each(function(index, input) {
+			$('#pagediv tbody input').each(function(index, input) {
 				if(input.checked) {
 					console.log($(input).parent().next().text());
 					ids.push($(input).parent().next().text());
