@@ -29,7 +29,7 @@ $(document).ready(function() {
     <div class="control-group">
     <div class="input-prepend">
       <span class="add-on" style="width:60px;text-align:right">用户名：</span>
-      <input class="span3" name="username" id="username" type="text" placeholder="姓名">
+      <input class="span3" name="username" id="username" type="text" placeholder="姓名" x-webkit-speech lang="en-US">
     </div>
     </div>
     <div class="control-group">

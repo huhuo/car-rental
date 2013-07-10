@@ -20,6 +20,7 @@
 <script src="${path }/res/js/jquery/jquery.form.js"></script>
 <script src="${path }/res/js/jquery/jshashtable-2.1.js"></script>
 <script src="${path }/res/js/jquery/jquery.numberformatter-1.2.3.js"></script>
+<script src="${path }/res/js/jquery/jquery.pin.js"></script>
 <script type="text/javascript" src="${path }/res/js/high-charts/highcharts.js"></script>
 <script type="text/javascript" src="${path }/res/js/high-charts/exporting.js"></script>
 <%-- <script src="${path }/res/js/kissy/kissy.js"></script> --%>
