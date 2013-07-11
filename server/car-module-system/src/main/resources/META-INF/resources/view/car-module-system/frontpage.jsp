@@ -54,7 +54,7 @@ $(document).ready(function() {
 
 		<div class="row-fluid show-grid">
 			<div class="top" style="padding-top:10px">
-				<h3 align="center" style="margin-top:5px; color: white;">弛通汽车租赁管理系统 3.0 beta</h3>
+				<h3 align="center" style="margin-top:5px; color: white;">驰通汽车租赁管理系统 3.0 beta</h3>
 				
 				<ul class="breadcrumb" style="border-radius: 4px 4px 0px 0px;">
 					<li><a href="#">首页</a><span class="divider">/</span></li>

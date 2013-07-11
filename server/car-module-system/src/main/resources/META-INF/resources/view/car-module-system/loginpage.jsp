@@ -17,14 +17,14 @@ $(document).ready(function() {
 	});
 });
 </script>
-<title>弛通汽车租赁系统</title>
+<title>驰通汽车租赁系统</title>
 </head>
 
 <body style="margin-top: 100px">
 	<div class="container">
   
   <div class="well huhuo-signin">
-    <h2 class="form-signin-heading" style="text-align:center;padding:10px 0 20px">北京弛通科技有限公司</h2>
+    <h2 class="form-signin-heading" style="text-align:center;padding:10px 0 20px">北京驰通科技有限公司</h2>
   <form class="huhuo-form" action="${path}/cmsystem/security/validation/login.do" method="post">
     <div class="control-group">
     <div class="input-prepend">
