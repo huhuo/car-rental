@@ -238,10 +238,9 @@ public class CtrlUser extends SystemBaseCtrl {
 	@RequestMapping(value="/person.do")
 	public String person(HttpServletRequest req, Model model) {
 		ModelUser user = getSession(req).get(SessionKey.USER);
-		Condition<ModelUser> condition = new Condition<ModelUser>(user, null, null, null);
-		ModelUser DBuser = iServUser.findByCondition(condition, true).get(0);
-		logger.debug("=========>>>"+DBuser.getPicture());
-		model.addAttribute("user", DBuser);
+		user = iServUser.find(user.getId());
+		logger.debug("=========>>>"+user.getPicture());
+		model.addAttribute("user", user);
 		logger.debug("---> access person management page");
 		return basePath + "/user/person";
 	}
