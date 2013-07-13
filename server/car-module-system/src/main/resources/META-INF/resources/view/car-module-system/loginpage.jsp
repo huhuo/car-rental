@@ -29,7 +29,7 @@ $(document).ready(function() {
     <div class="control-group">
     <div class="input-prepend">
       <span class="add-on" style="width:60px;text-align:right">用户名：</span>
-      <input class="span3" name="username" id="username" type="text" placeholder="姓名" x-webkit-speech lang="en-US">
+      <input class="span3" name="username" id="username" type="text" placeholder="姓名" x-webkit-speech lang="zh-CN">
     </div>
     </div>
     <div class="control-group">
@@ -44,7 +44,7 @@ $(document).ready(function() {
   
   <hr>
   <div class="huhuo-footer">
-    <p color="gray">Copyright©2012-2013 Beijing Chitong Technology Co., Ltd. All Rights Reserved 弛通科技 版权所有</p>
+    <p color="gray">Copyright©2012-2013 Beijing Chitong Technology Co., Ltd. All Rights Reserved 驰通科技 版权所有</p>
     <p color="gray">京ICP备13024190号-1</p>
     <!-- 
     <a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备13024190号-1</a>
