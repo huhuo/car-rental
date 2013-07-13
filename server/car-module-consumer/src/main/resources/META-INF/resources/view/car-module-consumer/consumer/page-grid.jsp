@@ -36,7 +36,9 @@ table.table-hover tbody tr.huhuo-item-selected {
 				<div class="btn-group">
 					<button name="detail" class="btn">查看详情</button>
 					<button name="edit" class="btn">修改</button>
+					<!-- 
 					<button class="btn">短信</button>
+					 -->
 				</div>
 			</td>
 		</tr>

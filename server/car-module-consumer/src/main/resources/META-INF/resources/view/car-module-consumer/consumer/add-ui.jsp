@@ -136,7 +136,7 @@ div.titlewell {
 								 -->
 								<div class="datetimepicker">
 									<input type="text" data-format="yyyy-MM-dd"  
-										class="consumerinput required" id="inputBirthday" name=xbirthday placeholder="输入出生年月">
+										class="consumerinput required" id="inputBirthday" name="xbirthday" placeholder="输入出生年月">
 									<span class="add-on"><i class="icon-th"></i></span>
 								</div>
 							</div>
