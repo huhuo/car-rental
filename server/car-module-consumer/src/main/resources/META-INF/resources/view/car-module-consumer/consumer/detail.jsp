@@ -115,10 +115,10 @@ div.titlewell {
 							<label class="control-label" for="inputGender">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</label>
 							<div class="controls">
 								<label class="radio inline"> 
-									<input type="radio" disabled="disabled" id="inputGender" name="gender" id="optionsRadios1" value="1"  readonly="readonly" checked> 男
+									<input type="radio" disabled="disabled" id="inputGender" name="gender" id="optionsRadios1" value="1"  readonly="readonly" <c:if test="${consumer.gender=='1'}"> checked="checked"</c:if> /> 男
 								</label> 
 								<label class="radio inline"> 
-									<input type="radio" disabled="disabled" id="inputGender" name="gender" id="optionsRadios2" value="2">女 
+									<input type="radio" disabled="disabled" id="inputGender" name="gender" id="optionsRadios2" value="2"<c:if test="${consumer.gender=='2'}"> checked="checked"</c:if> />女 
 								</label>
 							</div>
 						</div>
