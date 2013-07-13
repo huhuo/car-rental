@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.alibaba.fastjson.JSON;
 import com.huhuo.carservicecore.csm.consumer.ModelConsumer;
 import com.huhuo.carservicecore.cust.store.ModelStore;
+import com.huhuo.carservicecore.sys.file.ModelFileUpload;
 import com.huhuo.carservicecore.sys.user.IDaoUser;
 import com.huhuo.carservicecore.sys.user.ModelUser;
 import com.huhuo.cmsystem.SystemBaseCtrl;
+import com.huhuo.cmsystem.file.IServFileUpload;
 import com.huhuo.cmsystem.security.Session.SessionKey;
 import com.huhuo.cmsystem.store.IServStore;
 import com.huhuo.integration.db.mysql.Condition;
@@ -55,6 +57,9 @@ public class CtrlUser extends SystemBaseCtrl {
 	
 	@Resource(name = "carservicecoreDaoUser")
 	private IDaoUser iDaoUser;
+	
+	@Resource(name = "cmsystemServFileUpload")
+	private IServFileUpload iServFileUpload;
 	
 	@RequestMapping(value="/index.do")
 	public String index() {
@@ -239,6 +244,8 @@ public class CtrlUser extends SystemBaseCtrl {
 	public String person(HttpServletRequest req, Model model) {
 		ModelUser user = getSession(req).get(SessionKey.USER);
 		user = iServUser.find(user.getId());
+		ModelFileUpload picture = iServFileUpload.find(user.getPictureId());
+		user.setPicture(picture);
 		logger.debug("=========>>>"+user.getPicture());
 		model.addAttribute("user", user);
 		logger.debug("---> access person management page");
