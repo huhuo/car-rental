@@ -26,6 +26,7 @@ import com.huhuo.carservicecore.cust.store.ModelStore;
 import com.huhuo.cmorder.order.model.OrderFormModel;
 import com.huhuo.integration.db.mysql.Condition;
 import com.huhuo.integration.db.mysql.Page;
+import com.huhuo.integration.exception.HuhuoException;
 import com.huhuo.integration.util.BeanUtils;
 import com.huhuo.integration.util.ExtUtils;
 import com.huhuo.integration.util.TimeUtils;
@@ -371,10 +372,14 @@ public class CtrlOrder extends HuhuoWebBaseBaseCtrl {
 		logger.debug("server receive: id={}", id);
 //			condition.setPage(new Page(0, 30));
 //			List<ModelConsumer> list = servConsumer.findByCondition(condition);
-		ModelOrder modelOrder = new ModelOrder();
-		modelOrder.setId(id);
-		iservOrder.delete(modelOrder);
-		iservOrder.updateCarStatus(modelOrder.getCarId(),1);
+		ModelOrder modelOrder = iservOrder.find(id);
+		if(modelOrder!=null){
+			
+			iservOrder.delete(modelOrder);
+			iservOrder.updateCarStatus(modelOrder.getCarId(),1);
+		}else{
+			throw new HuhuoException("订单不存在。");
+		}
 		
 		write(new Message<Long>(Status.SUCCESS, "删除成功", id), resp);
 	}
