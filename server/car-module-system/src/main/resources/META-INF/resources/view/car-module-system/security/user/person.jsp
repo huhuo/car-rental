@@ -1,15 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<div class="row-fluid">
+<div id="myMsgModal" class="modal hide fade" tabindex="-1" role="dialog" 
+aria-labelledby="myModalLabel" aria-hidden="true" style="width: 840px; text-align:center;">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">用户个人信息管理</h3>
+  </div>
+  <div class="modal-body">
+  <div class="row-fluid" >
 	<div class="span6">
-		<form id="editPersonForm" class="form-horizontal"
+		<form class="form-horizontal" id="editPersonForm"
 			action="${path}/cmsystem/security/user/editPerson.do" method="post">
 			<div class="row-fluid">
 				<div class="span12">
 					<div class="control-group">
 						<label>尊敬的<b style="color: #007AB2">${user.loginName }</b>用户，您可以在此修改个人信息</label>
 					</div>
-					
 					<div class="control-group">
 						<label class="control-label" for="inputOldPassword">旧密码</label>
 						<div class="controls">
@@ -81,7 +87,7 @@
 				<label class="control-label" for="inputPicture">图片上传</label>
 				<div class="controls">
 					<input type="file" id="inputPicture" name="cachedFile">
-					<input type="submit" value="Upload File to Server">
+					<input type="submit" value="上传图片">
 				</div>
 			</div>
 			<div class="progress progress-striped active">
@@ -91,21 +97,38 @@
 		</form>
 	</div>
 </div>
-<script type="text/javascript">
+  </div>
+  <div class="modal-footer">
+  </div>
+</div>
+
+<script type="text/javascript" lang="javascript">
 $(document).ready(function() {
-	$('#editPersonForm').submit(function(){
-		var fir = $(this);
+	$('#userMgrDivId').hide();
+	$('#myMsgModal').modal('show');
+	$('#editPersonForm').huhuoFormPost(function(data, status){
+		var fir = $('#editPersonForm');
 		if(fir.valid()){
-			$.post("${path}/cmsystem/security/user/editPerson.do",fir.serialize(),function(data,status,xhrq){
 				if(data.status == 'SUCCESS') {
+					console.log(data);
+					console.log(status);
 					$.huhuoGrowlUI("您的个人信息修改成功,请牢记您的新密码");
+					$('#myMsgModal').modal('hide');
+					//$('#userMsgModal').modal('toggle');
+					/* $('#userEditDivId').hide();
+					$('#userMgrDivId').show(500);
+					$('#huhuoForm').trigger('submit'); */
 				}else{
 					$.huhuoGrowlUI("系统内部发生错误：  "+data.msg);
-				}
-			});
+				};
 		}
 		return false;
 	});
+	$('#myMsgModal').on('hidden', function () {
+		$('#userEditDivId').hide();
+		$('#userMgrDivId').show(500);
+		$('#huhuoForm').trigger('submit');
+		});
 	$('#fileUploadForm').fileUpload(function(data, status, xhr) {
 		// add upload file url to submit form
 		if(data.data) {
@@ -113,8 +136,9 @@ $(document).ready(function() {
 			$('#editPersonForm input[name="picture.md5"]').val(data.data.md5);
 		}
 	});
+	
+	
 });
-
 $("#editPersonForm").validate({
 	rules :{
 		password: {
@@ -135,5 +159,8 @@ $("#editPersonForm").validate({
 		
 		oldPassword:"与原密码不一致"
 	}
+	
 });
+
+
 </script>
