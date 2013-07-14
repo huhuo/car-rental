@@ -25,7 +25,7 @@ $(function() {
             text: '本月各分店营业额（总额：<b>' + $.formatNumber(total, {format: '#,###'}) + '</b>元）'
         },
         subtitle: {
-            text: 'Source: http://www.zuchechina.com/'
+            text: '来源: http://www.zuchechina.com/'
         },
         xAxis: {
             categories: categories,
