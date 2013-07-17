@@ -34,7 +34,7 @@ $(function() {
             text: '前6个月各分店车辆数量统计'
         },
         subtitle: {
-            text: 'Source: http://www.zuchechina.com/'
+            text: '来源: http://www.zuchechina.com/'
         },
         xAxis: {
             categories: categories

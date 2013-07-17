@@ -115,10 +115,10 @@ div.titlewell {
 							<label class="control-label" for="inputGender">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</label>
 							<div class="controls">
 								<label class="radio inline"> 
-									<input type="radio" disabled="disabled" id="inputGender" name="gender" id="optionsRadios1" value="1"  readonly="readonly" checked> 男
+									<input type="radio" disabled="disabled" id="inputGender" name="gender" id="optionsRadios1" value="1"  readonly="readonly" <c:if test="${consumer.gender=='1'}"> checked="checked"</c:if> /> 男
 								</label> 
 								<label class="radio inline"> 
-									<input type="radio" disabled="disabled" id="inputGender" name="gender" id="optionsRadios2" value="2">女 
+									<input type="radio" disabled="disabled" id="inputGender" name="gender" id="optionsRadios2" value="2"<c:if test="${consumer.gender=='2'}"> checked="checked"</c:if> />女 
 								</label>
 							</div>
 						</div>
@@ -126,7 +126,7 @@ div.titlewell {
 							<label class="control-label" for="inputCurrentAddress">现在住址</label>
 							<div class="controls">
 								<input type="text" class="consumerinput required" value="${consumer.address }"
-									id="inputCurrentAddress"   disabled="disabled" name="currentaddress"
+									id="inputCurrentAddress"   disabled="disabled" name="address"
 									placeholder="输入现在住址">
 							</div>
 						</div>
@@ -134,7 +134,7 @@ div.titlewell {
 							<label class="control-label" for="inputPermanentAddress">户籍地址</label>
 							<div class="controls">
 								<input type="number" class="consumerinput required"  disabled="disabled"  value="${consumer.permanentAddress }"
-									id="inputPermanentAddress" name="address" placeholder="输入户籍地址">
+									id="inputPermanentAddress" name="permanentAddress" placeholder="输入户籍地址">
 							</div>
 						</div>
 						<div class="control-group">

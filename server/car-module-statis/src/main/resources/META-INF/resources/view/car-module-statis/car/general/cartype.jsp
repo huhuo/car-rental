@@ -33,7 +33,7 @@ $(function() {
             text: '前6个月各车型车辆数量分布统计'
         },
         subtitle: {
-            text: 'Source: http://www.zuchechina.com/'
+            text: '来源: http://www.zuchechina.com/'
         },
         xAxis: {
             categories: categories

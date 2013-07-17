@@ -33,7 +33,7 @@ $(function() {
             text: '前12个月营业额统计'
         },
         subtitle: {
-            text: 'Source: http://www.zuchechina.com/'
+            text: '来源: http://www.zuchechina.com/'
         },
         xAxis: {
             categories: categories

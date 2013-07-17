@@ -113,13 +113,30 @@ public class CtrlConsumer extends BaseCtrl {
 	public String editUI(Model model, ModelConsumer t) {
 		logger.debug("==> edit ModelConsumer with id --> {}", t.getId());
 		Condition<ModelConsumer> condition = new Condition<ModelConsumer>(t, null, null, null);
+		ModelConsumer consumer =  iservConsumer.findByCondition(condition, true).get(0);
+		Date date = consumer.getBirthday();
+		logger.debug("birthday date:" + date);
+		String birthday = null;
+		if (date != null) {
+			birthday = sdf.format(date);
+		}
+		model.addAttribute("xbirthday", birthday);
 		model.addAttribute("consumer", iservConsumer.findByCondition(condition, true).get(0));
 		return basePath + "/consumer/edit-ui";
 	}
 	
 	@RequestMapping(value="/update.do")
-	public void update(HttpServletResponse resp, ModelConsumer t) throws Exception {
+	public void update(HttpServletResponse resp, ModelConsumer t,String xbirthday) throws Exception {
 		// retrieve model form DB
+		Date date = null;
+		if (xbirthday != null && !"".equals(xbirthday)) {
+			try {
+				date = sdf.parse(xbirthday);
+			} catch (ParseException e) {
+				logger.error(e.getStackTrace().toString());
+			}
+		}
+		t.setBirthday(date);
 		iservConsumer.update(t);
 		Message<ModelConsumer> msg = new Message<ModelConsumer>(Status.SUCCESS, "修改成功", t);
 		write(msg, resp);

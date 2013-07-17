@@ -135,7 +135,7 @@ console.log($('.datetimepicker'));
 								 -->
 								<div class="datetimepicker">
 									<input type="text" data-format="yyyy-MM-dd"  
-										class="consumerinput required" id="inputBirthday" name=birthday placeholder="输入出生年月">
+										class="consumerinput required" id="inputBirthday" name="xbirthday"  value="${xbirthday }" placeholder="输入出生年月">
 									<span class="add-on"><i class="icon-th"></i></span>
 								</div>	
 							</div>
@@ -161,14 +161,14 @@ console.log($('.datetimepicker'));
 							<label class="control-label" for="inputCurrentAddress">现在住址</label>
 							<div class="controls">
 								<input type="text" class="consumerinput required" value="${consumer.address }" 
-								id="inputCurrentAddress" name="currentaddress"placeholder="输入现在住址">
+								id="inputCurrentAddress" name="address"placeholder="输入现在住址">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="inputPermanentAddress">户籍地址</label>
 							<div class="controls">
 								<input type="text" class="consumerinput required" value="${consumer.permanentAddress }" 
-									id="inputPermanentAddress" name="address" placeholder="输入户籍地址">
+									id="inputPermanentAddress" name="permanentAddress" placeholder="输入户籍地址">
 							</div>
 						</div>
 						<div class="control-group">
@@ -228,8 +228,7 @@ console.log($('.datetimepicker'));
 						
 						<div class="control-group">
 							<div class="controls">
-								<button type="submit" class="btn btn-primary" id="inputSubmit"
-									name="submit">修改</button>
+								<button type="submit" class="btn btn-primary" id="inputSubmit" >修改</button>
 							</div>
 						</div>
 					</div>

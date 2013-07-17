@@ -65,11 +65,11 @@ select {
 							</ul></li>
 					</ul>
 					<form id="huhuoForm" class="navbar-form" style="width: 400px;" action="${path }/cmconsumer/consumer/condition/get.do">
-						<input type="text" class="search-query span6" name="mobileNumber" placeholder="手机号">
+						<input type="text" class="search-query span6" name="mobileNumber" placeholder="手机号" x-webkit-speech lang="zh-CN">
 						<input type="hidden" name="status" value="1">
 						<input type="hidden" name="page.pageNo" value="1">
 						<input type="hidden" name="page.limit" value="10">
-						<button type="submit" class="btn">search</button>
+						<button type="submit" class="btn">搜索</button>
 					</form>
 				</div>
 			</div>

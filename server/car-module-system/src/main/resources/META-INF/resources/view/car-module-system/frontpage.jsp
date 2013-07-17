@@ -69,7 +69,7 @@ $(document).ready(function() {
 					<li><a href="${path}">首页</a><span class="divider">/</span></li>
 					<li>车辆管理<span class="divider">/</span></li>
 					<li><a href="#" class="active">车型管理</a><span class="divider">/</span></li>
-					<li style="float: right;">${user.username }，您好    <a href="${path }/cmsystem/security/validation/logout.do">logout</a></li>
+					<li style="float: right;">${user.username }，您好    <a href="${path }/cmsystem/security/validation/logout.do">退出</a></li>
 				</ul>
 			</div>
 			
