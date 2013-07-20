@@ -42,16 +42,18 @@ $(document).ready(function() {
   </form>
   </div>
   
-  <hr>
+  <hr> 
   <div class="huhuo-footer">
     <p color="gray">Copyright©2012-2013 Beijing Chitong Technology Co., Ltd. All Rights Reserved 驰通科技 版权所有</p>
-    <p color="gray">京ICP备13024190号-1</p>
+    <p color="gray">京ICP备13024190号-1</p><script type="text/javascript">
+		var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+		document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3F6cb456aa69030df11b0802cad3042e7d' type='text/javascript'%3E%3C/script%3E"));
+	</script>
     <!-- 
     <a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备13024190号-1</a>
      -->
   </div>
 </div>
-
 
 </body>
 </html>
