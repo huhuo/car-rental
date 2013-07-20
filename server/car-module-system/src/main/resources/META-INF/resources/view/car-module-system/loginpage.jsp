@@ -15,17 +15,49 @@ $(document).ready(function() {
 		$(this).hide().attr('src', '${path }/cmsystem/security/validation/captcha.do?' 
 			+ Math.floor(Math.random()*100) ).fadeIn();
 	});
+	$('#loginForm').submit(function(Event){
+		$.post('${path}/cmsystem/security/validation/login.do',{
+			username : $('#username').val(),
+			password : $('#password').val(),
+		}, function(data, stutas, xreq){
+			console.log('====');
+			console.log(data);
+			if(data.status=="ERROR"){
+				$('#userLoginModal .modal-body').empty();
+				$('#userLoginModal .modal-body').append("<P>用户名或密码不正确</p>");
+				$('#userLoginModal').modal('show');
+			}else if (data.status=="FAILURE") {
+				$('#userLoginModal .modal-body').empty();
+				$('#userLoginModal .modal-body').append("<P>该用户已被锁定或已被删除,请与系统管理员联系</p>");
+				$('#userLoginModal').modal('show');
+			} else {
+				console.log('-0---');
+				window.location.href = '${path}';
+			}
+		});
+		return false;
+	});
 });
 </script>
 <title>驰通汽车租赁系统</title>
 </head>
-
+ <div id="userLoginModal" class="modal hide fade" tabindex="-1" role="dialog" 
+aria-labelledby="myModalLabel" aria-hidden="true" style="width: 480px; text-align:center; margin-left:-242px">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">提示</h3>
+  </div>
+  <div class="modal-body">
+  </div>
+  <div class="modal-footer">
+  </div>
+  </div>
 <body style="margin-top: 100px">
 	<div class="container">
   
   <div class="well huhuo-signin">
     <h2 class="form-signin-heading" style="text-align:center;padding:10px 0 20px">北京驰通科技有限公司</h2>
-  <form class="huhuo-form" action="${path}/cmsystem/security/validation/login.do" method="post">
+  <form class="huhuo-form" id="loginForm" action="${path}/cmsystem/security/validation/login.do" method="post">
     <div class="control-group">
     <div class="input-prepend">
       <span class="add-on" style="width:60px;text-align:right">用户名：</span>

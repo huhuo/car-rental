@@ -20,6 +20,8 @@ import com.huhuo.carservicecore.sys.user.ModelUser;
 import com.huhuo.cmsystem.SystemBaseCtrl;
 import com.huhuo.integration.exception.CtrlException;
 import com.huhuo.integration.util.StringUtils;
+import com.huhuo.integration.web.Message;
+import com.huhuo.integration.web.Message.Status;
 
 @Controller("cmsystemCtrlLogin")
 @RequestMapping(value = "/cmsystem/security/validation")
@@ -39,7 +41,23 @@ public class CtrlValidation extends SystemBaseCtrl {
 	}
 	
 	@RequestMapping(value = "/login.do")
-	public View login(HttpServletRequest req, HttpSession session, String username, String password) {
+	public void login(HttpServletRequest req, HttpServletResponse resp, HttpSession session, String username, String password,ModelUser t) {
+		ModelUser userDB = iServSecurity.validate(username, password);
+		if (userDB == null) {
+			Message<ModelUser> msg = new Message<ModelUser>(Status.ERROR, "用户名或密码不正确", t);
+			write(msg, resp);
+		} else if (2 == userDB.getStatus()||0==userDB.getStatus()) {
+			Message<ModelUser> msg = new Message<ModelUser>(Status.FAILURE, "该用户已被锁定", t);
+			write(msg, resp);
+		} else {
+			setSession(req, userDB);
+			Message<ModelUser> msg = new Message<ModelUser>(Status.SUCCESS, "登陆成功", t);
+			write(msg, resp);
+		}
+	}
+	
+	@RequestMapping(value = "/login2.do")
+	public View login2(HttpServletRequest req, HttpSession session, String username, String password) {
 		ModelUser userDB = iServSecurity.validate(username, password);
 		if(userDB != null) {
 			setSession(req, userDB);
