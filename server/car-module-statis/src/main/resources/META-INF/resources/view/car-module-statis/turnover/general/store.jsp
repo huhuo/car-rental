@@ -78,5 +78,12 @@ $(function() {
         },
         series: series
     });
+	// exception and message handle
+	var chart = $('#analy_general_store').highcharts();
+	if($.isEmptyObject(list)) {
+		chart.setTitle({
+			text: '本月各分店营业额（<b>无数据</b>）'
+		});
+	}
 });
 </script>

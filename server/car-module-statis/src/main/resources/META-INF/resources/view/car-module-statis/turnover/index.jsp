@@ -30,18 +30,8 @@ border: 0px solid;
 <script type="text/javascript">
 $(function() {
 	// general analy
-	$('#analy_general_store').divBlockLoad('${path }/cmstatis/turnover/general/store.do', null,
-			function(data, status, event, loadDiv) {
-		if(status != 'success') {
-			loadDiv.append('无数据');
-		}
-	});
-	$('#analy_general_cartype').divBlockLoad('${path }/cmstatis/turnover/general/cartype.do', null,
-			function(data, status, event, loadDiv) {
-		if(status != 'success') {
-			loadDiv.append('无数据');
-		}
-	});
+	$('#analy_general_store').divBlockLoad('${path }/cmstatis/turnover/general/store.do');
+	$('#analy_general_cartype').divBlockLoad('${path }/cmstatis/turnover/general/cartype.do');
 	
 	// trend analy
 	$('#analy_trend ul[class="nav nav-tabs"] a').click(function(e) {

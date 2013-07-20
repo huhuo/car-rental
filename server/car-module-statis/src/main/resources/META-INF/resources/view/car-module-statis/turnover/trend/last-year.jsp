@@ -80,5 +80,12 @@ $(function() {
         },
         series: series
     });
+	// exception and message handle
+	var chart = $('#analy_trend div.tab-content').highcharts();
+	if($.isEmptyObject(list)) {
+		chart.setTitle({
+			text: '前12个月营业额统计（<b>无数据</b>）'
+		});
+	}
 });
 </script>
