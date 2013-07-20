@@ -4,6 +4,10 @@
 <head>
 <script type="text/javascript">
 $(function() {
+	
+	// load div's configuration
+	$('div.loaddiv').css('height', '700px');
+	
 	//注意：吴总注意，以下代码应当在第一次进入页面和当屏幕宽高发生变化时调用。
 	var setWdithHeight = function(){
 		var width = $('div.loaddiv').css('width');

@@ -38,11 +38,21 @@
 // define a global variables
 var ctxPath = '${path}';
 $(document).ready(function() {
-	$('.huhuoItem').click(function(event) {
+	$('a.huhuoItem').click(function(event) {
+		// div loading setting
+		$('#cmsystem_main_panel').divBlockLoad($(this).attr("href"));
+		// set selected css
 		$('.huhuoItem').each(function(idx, item) {
 			$(item).removeClass("huhuo-item-selected");
 		});
 		$(this).addClass("huhuo-item-selected");
+		// change the bread crumb content
+		var menu = $(this).parent().prev().children('a').text().trim();
+		var breadcrumb = $('ul.breadcrumb li a');
+		breadcrumb.eq(1).text(menu);
+		breadcrumb.eq(2).text($(this).text());
+		
+		return false;
 	});
 	$('#rentalInfoMgr a.first').trigger('click');
 });
@@ -57,10 +67,9 @@ $(document).ready(function() {
 				<h3 align="center" style="margin-top:5px; color: white;">驰通汽车租赁管理系统 3.0 beta</h3>
 				
 				<ul class="breadcrumb" style="border-radius: 4px 4px 0px 0px;">
-					<li><a href="#">首页</a><span class="divider">/</span></li>
-					<li><a href="#">车辆管理</a><span class="divider">/</span></li>
-					<li><a href="#">车型管理</a><span class="divider">/</span></li>
-					<li class="active">Data</li>
+					<li><a href="${path}">首页</a><span class="divider">/</span></li>
+					<li><a href="javascript:void(0)">车辆管理</a><span class="divider">/</span></li>
+					<li><a href="javascript:void(0)">车型管理</a><span class="divider">/</span></li>
 					<li style="float: right;">${user.username }，您好    <a href="${path }/cmsystem/security/validation/logout.do">退出</a></li>
 				</ul>
 			</div>

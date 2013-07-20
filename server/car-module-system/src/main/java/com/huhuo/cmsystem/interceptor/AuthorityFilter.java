@@ -57,8 +57,9 @@ public class AuthorityFilter implements Filter {
 			chain.doFilter(req, resp);
 		} else {
 			// 未登录，重定向到登录页面
-			String contextPath = req.getServletContext().getContextPath();
-			resp.sendRedirect(contextPath + "/cmsystem/security/validation/login-page.do");
+//			String contextPath = req.getServletContext().getContextPath();
+//			resp.sendRedirect(contextPath + "/cmsystem/security/validation/login-page.do");
+			req.getRequestDispatcher("view/car-module-system/loginpage.jsp").forward(req, resp);
 		}
 	}
 	

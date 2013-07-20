@@ -31,6 +31,7 @@ public class SystemBaseCtrl extends HuhuoWebBaseBaseCtrl  {
 		iServCmsysMemcached.delete(RegionSys.SECURITY_SESSION, user.getSessionId());
 		logger.info("==> delete session from memcached --> sessionId={}", user.getSessionId());
 		// add new session to memcached
+		req.getSession().invalidate();
 		String sessionId = req.getSession().getId();
 		user.setSessionId(sessionId);
 		Session session = new Session(SessionKey.USER, user);
@@ -50,6 +51,7 @@ public class SystemBaseCtrl extends HuhuoWebBaseBaseCtrl  {
 	
 	protected Boolean deleteSession(HttpServletRequest req) {
 		// make old session invalid
+		req.getSession().invalidate();
 		String sessionId = req.getSession().getId();
 		logger.info("==> delete session from memcached --> sessionId={}", sessionId);
 		return iServCmsysMemcached.delete(RegionSys.SECURITY_SESSION, sessionId);
