@@ -47,9 +47,10 @@ $(document).ready(function() {
 		});
 		$(this).addClass("huhuo-item-selected");
 		// change the bread crumb content
-//		console.log($(this).parent().prev());
-		console.log($(this).parent().prev().children('a'));
-		console.log($('ul.breadcrumb li'));
+		var menu = $(this).parent().prev().children('a').text().trim();
+		var breadcrumb = $('ul.breadcrumb li a');
+		breadcrumb.eq(1).text(menu);
+		breadcrumb.eq(2).text($(this).text());
 		
 		return false;
 	});
@@ -67,8 +68,8 @@ $(document).ready(function() {
 				
 				<ul class="breadcrumb" style="border-radius: 4px 4px 0px 0px;">
 					<li><a href="${path}">首页</a><span class="divider">/</span></li>
-					<li>车辆管理<span class="divider">/</span></li>
-					<li><a href="#" class="active">车型管理</a><span class="divider">/</span></li>
+					<li><a href="javascript:void(0)">车辆管理</a><span class="divider">/</span></li>
+					<li><a href="javascript:void(0)">车型管理</a><span class="divider">/</span></li>
 					<li style="float: right;">${user.username }，您好    <a href="${path }/cmsystem/security/validation/logout.do">退出</a></li>
 				</ul>
 			</div>
