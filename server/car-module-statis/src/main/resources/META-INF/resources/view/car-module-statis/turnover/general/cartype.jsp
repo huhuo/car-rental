@@ -19,7 +19,6 @@ $(function() {
 	});
 	
 	// chart drawing
-//	$('#analy_general div.tab-content').highcharts({
 	$('#analy_general_cartype').highcharts({
 	    chart: {
 	        plotBackgroundColor: null,
@@ -54,5 +53,12 @@ $(function() {
 	    },
 	    series: series
 	});
+	// exception and message handle
+	var chart = $('#analy_general_cartype').highcharts();
+	if($.isEmptyObject(list)) {
+		chart.setTitle({
+			text: '本月各车型营业额（<b>无数据</b>）'
+		});
+	}
 });
 </script>
