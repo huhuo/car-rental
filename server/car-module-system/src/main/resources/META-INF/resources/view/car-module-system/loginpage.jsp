@@ -30,8 +30,7 @@ $(document).ready(function() {
 				$('#userLoginModal .modal-body').empty();
 				$('#userLoginModal .modal-body').append("<P>该用户已被锁定或已被删除,请与系统管理员联系</p>");
 				$('#userLoginModal').modal('show');
-			} else {
-				console.log('-0---');
+			} else{
 				window.location.href = '${path}';
 			}
 		});
