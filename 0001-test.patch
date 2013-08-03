@@ -1,0 +1,17 @@
+From e1aa7f920e6db92eb0dc50610afcb2baeb241ff8 Mon Sep 17 00:00:00 2001
+From: wujiamail <wujiamail@126.com>
+Date: Sat, 3 Aug 2013 12:36:59 +0800
+Subject: [PATCH] test
+
+Signed-off-by: wujiamail <wujiamail@126.com>
+---
+ car-document/wujia-test.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 car-document/wujia-test.txt
+
+diff --git a/car-document/wujia-test.txt b/car-document/wujia-test.txt
+new file mode 100644
+index 0000000..e69de29
+-- 
+1.8.3.msysgit.0
+
